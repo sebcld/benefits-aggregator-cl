@@ -2,11 +2,11 @@
 
 Buscador de beneficios de bancos, tarjetas y billeteras de Chile. Consulta en vivo las fuentes públicas de 7 emisores, normaliza cada beneficio a un `Entry` común y filtra por palabra clave. Se usa por CLI y por API HTTP. La API está pensada para una app móvil Android/iOS.
 
-- Node 18 o superior, CommonJS y **cero dependencias de runtime** (solo módulos nativos).
+- Node 26 o superior, CommonJS y **cero dependencias de runtime** (solo módulos nativos).
 - Contrato HTTP: [`openapi.yaml`](openapi.yaml). Agregar un emisor: [`AGREGAR_EMISOR.md`](AGREGAR_EMISOR.md).
 - Qué cambió respecto de la 1.x: [`CHANGELOG_REFACTOR.md`](CHANGELOG_REFACTOR.md). Riesgos y deuda: [`RIESGOS.md`](RIESGOS.md).
 - **Diagramas** (contexto, capas, secuencias, dominio, errores, arquitectura objetivo): [`arquitectura/`](arquitectura/README.md).
-- **Decisiones registradas** (13 aceptadas y 8 propuestas): [`adr/`](adr/README.md).
+- **Decisiones registradas** (14 aceptadas y 7 propuestas): [`adr/`](adr/README.md).
 
 ## Capas
 
@@ -48,6 +48,7 @@ Resumen de una línea por decisión. El contexto, las alternativas y las consecu
 | **`CacheStore` asíncrono**, con implementación en memoria | Latencia de milisegundos, y reemplazable por Redis. | [0007](adr/0007-cache-en-memoria-detras-de-cachestore.md) |
 | **El CLI y la fachada sin caché ni timeouts** | Conservan exactamente la semántica 1.x. | [0008](adr/0008-cli-y-fachada-sin-cache-ni-timeouts.md) |
 | **CommonJS y sin dependencias** | Lo pide el proyecto; la fachada debe seguir siendo `require`-able. | [0002](adr/0002-node-nativo-sin-dependencias-y-commonjs.md) |
+| **Node 26 LTS y CI** | Runtime con soporte hasta 2029-04-30, y ningún PR entra con tests rotos. | [0020](adr/0020-actualizacion-a-node-26-y-ci.md) |
 
 ## Preparación para la app móvil
 
@@ -99,6 +100,6 @@ Estrategia (fixtures reales, golden, preload y smoke en vivo) y tabla de tipos d
 
 `npm run check` corre el lint y los tests. Ver [ADR 0013](adr/0013-reglas-de-arquitectura-con-lint-propio.md).
 
-**Propuestas pendientes de aprobación:**
-- ESLint y Prettier como devDependencies: [ADR 0019](adr/0019-eslint-y-prettier.md).
-- Actualización a Node 26 (LTS) e integración continua: [ADR 0020](adr/0020-actualizacion-a-node-26-y-ci.md).
+El CI de GitHub Actions corre `npm run check` en Node 26 en cada PR y el smoke en vivo una vez al día ([ADR 0020](adr/0020-actualizacion-a-node-26-y-ci.md)).
+
+**Propuesta pendiente de aprobación:** ESLint y Prettier como devDependencies ([ADR 0019](adr/0019-eslint-y-prettier.md)).

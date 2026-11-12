@@ -17,7 +17,7 @@ Buscador de beneficios y descuentos de bancos, tarjetas y billeteras de **Chile*
 
 | Aspecto | Detalle |
 |---|---|
-| Runtime | Node ≥ 18 (probado en 24), **CommonJS**, **cero dependencias de runtime** |
+| Runtime | Node ≥ 26 (`.nvmrc`, CI en GitHub Actions), **CommonJS**, **cero dependencias de runtime** |
 | Repo | git, `github.com/sebcld/benefits-aggregator-cl`; trabajo del refactor en la rama `refactor/arquitectura-capas` |
 | Estilo | 2 espacios, comillas simples, punto y coma, trailing commas, unas 100 columnas. Comentarios en español y sin tildes |
 | Secretos | Solo en `.env` (ignorado por git), leídos con `src/config`. Plantilla en `.env.example` |

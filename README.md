@@ -18,7 +18,7 @@ CLI y API HTTP en Node que consultan en vivo las fuentes públicas de emisores c
 
 ## Requisitos e instalación
 
-- Node 18 o superior. No hay dependencias externas.
+- Node 26 o superior (versión fijada en `.nvmrc`; en Windows: `winget install OpenJS.NodeJS.LTS`). No hay dependencias externas.
 - `npm install`
 - Copia `.env.example` como `.env` y completa `BCI_SUBSCRIPTION_KEY`. `.env` está en `.gitignore` y no se sube al repositorio.
 
@@ -100,6 +100,8 @@ npm run smoke            # casos de aceptación EN VIVO contra las fuentes reale
 npm run fixtures:record -- <emisor>   # regraba respuestas reales de un emisor
 npm run fixtures:golden               # regenera las salidas de referencia (revisar el diff)
 ```
+
+**CI** ([`.github/workflows/check.yml`](.github/workflows/check.yml)): `npm run check` en Node 26 en cada PR y en cada push a `main`. Una vez al día corre `npm run smoke` en vivo y, si falla, abre o comenta el issue "Smoke en vivo fallando". El smoke necesita el secreto del repositorio `BCI_SUBSCRIPTION_KEY` (y `JINA_API_KEY`, opcional).
 
 **Casos de aceptación por emisor** (en `npm test` con fixtures y en `npm run smoke` en vivo):
 

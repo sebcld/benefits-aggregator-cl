@@ -1,6 +1,6 @@
 # 0002. Node nativo, sin dependencias de runtime y en CommonJS
 
-- **Estado:** Aceptado
+- **Estado:** Aceptado. La versión mínima de Node (`>= 18`) quedó **reemplazada por [0020](0020-actualizacion-a-node-26-y-ci.md)** (`>= 26`); el resto sigue vigente.
 - **Fecha:** 2026-11-12
 - **Relación:** condiciona [0013](0013-reglas-de-arquitectura-con-lint-propio.md); [0016](0016-cachestore-compartido-en-redis.md) y [0019](0019-eslint-y-prettier.md) proponen excepciones
 
@@ -33,7 +33,7 @@ El proyecto nació sin dependencias (`package.json` sin `dependencies`). El brie
   - El código de infraestructura es propio y hay que mantenerlo: el router no tiene parámetros de ruta y el parser de `.env` no admite valores multilínea.
   - El estilo de código se mantiene a mano ([0019](0019-eslint-y-prettier.md) propone resolverlo).
   - Usar Redis en el futuro probablemente requiera una dependencia ([0016](0016-cachestore-compartido-en-redis.md)).
-  - El código no se probó en Node 18, aunque evita APIs posteriores como `AbortSignal.any` y `process.loadEnvFile`. Sí se probó en Node 24 y en Node 26; [0020](0020-actualizacion-a-node-26-y-ci.md) propone actualizar a Node 26.
+  - El código no se probó en Node 18, aunque evita APIs posteriores como `AbortSignal.any` y `process.loadEnvFile`. Sí se probó en Node 24 y en Node 26. [0020](0020-actualizacion-a-node-26-y-ci.md) subió la versión mínima a Node 26 y agregó CI.
 
 ## Evidencia
 
