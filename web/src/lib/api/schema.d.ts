@@ -252,7 +252,7 @@ export interface components {
             url?: string | null;
             /**
              * Format: uri
-             * @description Logo o imagen del beneficio. Tenpo no la entrega.
+             * @description Logo o imagen del beneficio. En Tenpo es el logo del comercio, cuando la tarjeta lo tiene.
              */
             logo?: string | null;
         };

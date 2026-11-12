@@ -363,7 +363,7 @@ components:
           type: string
           format: uri
           nullable: true
-          description: Logo o imagen del beneficio. Tenpo no la entrega.
+          description: Logo o imagen del beneficio. En Tenpo es el logo del comercio, cuando la tarjeta lo tiene.
     Pagination:
       type: object
       required: [page, pageSize, total, totalPages, hasMore]
