@@ -50,6 +50,15 @@ npm start                            # http://localhost:3000
 - **Resultado parcial:** si un emisor falla, la respuesta incluye `errors` y `meta.partial: true`.
 - **Caché:** los catálogos se guardan en memoria 30 min (`CACHE_TTL_SECONDS`). La primera búsqueda puede tardar 10-20 s; las siguientes, milisegundos. Con `CACHE_WARMUP=true` el servidor los precarga al iniciar.
 
+### Web
+
+La web está en [`web/`](web/README.md): Next.js, TypeScript y Tailwind, siguiendo el diseño de [`design/beneficios_CL.figcraft`](design/beneficios_CL.figcraft). Consume esta API a través de sus Route Handlers `/api/*` (BFF), así que la URL y la API key nunca llegan al navegador ([ADR 0022](docs/adr/0022-web-nextjs-con-bff.md)).
+
+```bash
+npm start                                   # API en :3000
+cd web && npm install && npm run dev        # web en :3001 (lee BENEFITS_API_URL de web/.env.local)
+```
+
 ### Como librería (compatibilidad 1.x)
 
 ```js
@@ -101,7 +110,7 @@ npm run fixtures:record -- <emisor>   # regraba respuestas reales de un emisor
 npm run fixtures:golden               # regenera las salidas de referencia (revisar el diff)
 ```
 
-**CI** ([`.github/workflows/check.yml`](.github/workflows/check.yml)): `npm run check` en Node 26 en cada PR y en cada push a `main`. Una vez al día corre `npm run smoke` en vivo y, si falla, abre o comenta el issue "Smoke en vivo fallando". El smoke necesita el secreto del repositorio `BCI_SUBSCRIPTION_KEY` (y `JINA_API_KEY`, opcional).
+**CI** ([`.github/workflows/check.yml`](.github/workflows/check.yml)): `npm run check` en Node 26 en cada PR y en cada push a `main`, más el job `web` (lint, tipos, tests, build y e2e de la web). Una vez al día corre `npm run smoke` en vivo y, si falla, abre o comenta el issue "Smoke en vivo fallando". El smoke necesita el secreto del repositorio `BCI_SUBSCRIPTION_KEY` (y `JINA_API_KEY`, opcional).
 
 **Casos de aceptación por emisor** (en `npm test` con fixtures y en `npm run smoke` en vivo):
 

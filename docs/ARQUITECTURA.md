@@ -6,7 +6,8 @@ Buscador de beneficios de bancos, tarjetas y billeteras de Chile. Consulta en vi
 - Contrato HTTP: [`openapi.yaml`](openapi.yaml). Agregar un emisor: [`AGREGAR_EMISOR.md`](AGREGAR_EMISOR.md).
 - Qué cambió respecto de la 1.x: [`CHANGELOG_REFACTOR.md`](CHANGELOG_REFACTOR.md). Riesgos y deuda: [`RIESGOS.md`](RIESGOS.md).
 - **Diagramas** (contexto, capas, secuencias, dominio, errores, arquitectura objetivo): [`arquitectura/`](arquitectura/README.md).
-- **Decisiones registradas** (14 aceptadas y 7 propuestas): [`adr/`](adr/README.md).
+- **Decisiones registradas** (15 aceptadas y 7 propuestas): [`adr/`](adr/README.md).
+- **Web** (Next.js, consume `/v1` a través de su propio BFF `/api/*`): [`web/README.md`](../web/README.md) y [ADR 0022](adr/0022-web-nextjs-con-bff.md).
 
 ## Capas
 
@@ -49,6 +50,7 @@ Resumen de una línea por decisión. El contexto, las alternativas y las consecu
 | **El CLI y la fachada sin caché ni timeouts** | Conservan exactamente la semántica 1.x. | [0008](adr/0008-cli-y-fachada-sin-cache-ni-timeouts.md) |
 | **CommonJS y sin dependencias** | Lo pide el proyecto; la fachada debe seguir siendo `require`-able. | [0002](adr/0002-node-nativo-sin-dependencias-y-commonjs.md) |
 | **Node 26 LTS y CI** | Runtime con soporte hasta 2029-04-30, y ningún PR entra con tests rotos. | [0020](adr/0020-actualizacion-a-node-26-y-ci.md) |
+| **Web en Next.js con BFF** (`web/`) | La API key y la URL de la API quedan en el servidor; la futura app en Expo usa el mismo puente. | [0022](adr/0022-web-nextjs-con-bff.md) |
 
 ## Preparación para la app móvil
 
