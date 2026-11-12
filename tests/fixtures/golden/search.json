@@ -1,0 +1,459 @@
+{
+ "Rappi": {
+  "matches": [
+   {
+    "bank": "Copec Pay",
+    "title": "Rappi",
+    "subtitle": "Hasta $6.000 de descuento los viernes en todo Rappi para nuevos usuarios.",
+    "description": "Hasta $6.000 de descuento en Rappi todos los viernes para tu primera compra y $3.000 permanentes.",
+    "url": "https://copecpay.cl/beneficios/delivery/rappi/",
+    "slug": "rappi",
+    "commerceName": "Rappi",
+    "category": "Delivery",
+    "validFrom": "2026-08-01",
+    "validUntil": "2026-11-30",
+    "keywords": "Delivery Online",
+    "tagsText": "Viernes"
+   },
+   {
+    "bank": "Copec Pay",
+    "title": "Rappi Regiones",
+    "subtitle": "$3.000 los días miercoles y jueves en restaurantes seleccionados.",
+    "description": "$3.000 los días miercoles y jueves en restaurantes seleccionados de Antofagasta, La Serena, Viña del Mar, Concepción y Puerto Montt",
+    "url": "https://copecpay.cl/beneficios/delivery/rappi-regiones/",
+    "slug": "rappi-regiones",
+    "commerceName": "Rappi",
+    "category": "Delivery",
+    "validFrom": "2026-08-01",
+    "validUntil": "2026-11-30",
+    "keywords": "Delivery Online",
+    "tagsText": "Miércoles Jueves"
+   },
+   {
+    "bank": "Banco de Chile",
+    "title": "Rappi McDonald´s",
+    "subtitle": "30% dto. adicional - en McDonald´s los viernes",
+    "description": "30% dto. adicional en McDonald´s los viernes pagando con Banco del Chile. Ingresando el código: 06 de noviembre: BCH0611 13 de noviembre: BCH1311 20 de noviembre: BCH2011 27 de noviembre: BCH2711 ¿Cómo obtener estos descuentos? Ingresa a la APP RAPPI, luego haz tu pedido y agrégalo al carrito Al momento del pago ingresa tu código en la sección CUPONES y paga con tu Tarjeta de Crédito o Débito del Chile. ¡Recibe tu pedido y disfruta!. Importante: Válido para 1 uso por usuario para cada cupón. Compra mínima: $7.000 Tope de descuento: $9.000 El descuento se verá reflejado al momento de la compra. Promoción es acumulable con otros descuentos. No acumulable con Rappi Créditos.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/rappi-dto-mcdonalds",
+    "slug": "rappi-dto-mcdonalds",
+    "commerceName": "Rappi McDonald´s",
+    "category": "Delivery",
+    "validUntil": "2026-11-30",
+    "keywords": "delivery pedidos rappi mcdonalds comida rápida hamburguesas papas fritas pedidos online comida a domicilio combos bebidas restaurante fast food app delivery adultos adolescentes",
+    "tagsText": "viernes todo-chile big5 tarjeta-fan"
+   },
+   {
+    "bank": "Banco de Chile",
+    "title": "Rappi",
+    "subtitle": "Hasta 25% dto adicional. - todos los días",
+    "description": "Hasta 25% dto. adicional todos los días pagando con tus Tarjetas del Chile. 20% dto. adicional en la categoría de restaurantes Ingresando el código BCHRAPPINOV26R 25% dto. adicional en todas las categorías (excepto restaurantes) Ingresando el código BCHRAPPINOV26 ¿Cómo obtener estos descuentos? 1- Ingresa a la APP RAPPI, elige tu favorito y agrégalo al carrito. 2- Al momento del pago ingresa tu código en la sección Cupones y paga con tu Tarjeta de crédito o Débito del Chile. 3- ¡Recibe tu pedido y disfruta! Válido para 1 uso por usuario para cada cupón. Compra mínima: $7.000. Tope de descuento: $5.000. El descuento se verá reflejado al momento de la compra No es acumulable con Rappi Créditos. Descuento no acumulable en el costo de envío El beneficio es acumulable con otros descuentos de la aplicación.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/rappi-dto",
+    "slug": "rappi-dto",
+    "commerceName": "Rappi",
+    "category": "Delivery",
+    "validUntil": "2026-11-30",
+    "keywords": "chocolates regalos delivery pedidos rappi app delivery comida a domicilio pedidos online restaurantes supermercados farmacia reparto envíos última milla comercio digital marketplace adultos jóvenes",
+    "tagsText": "viernes domingo sabado todo-chile tarjeta-fan lunes martes jueves miercoles fiestaspatrias2026"
+   }
+  ],
+  "errors": [
+   {
+    "bank": "Mercado Pago",
+    "message": "Mercado Pago respondio 403: {\"message\":\"forbidden\",\"error\":\"forbidden\",\"status\":403,\"cause\":[]}"
+   }
+  ]
+ },
+ "El Café Rosa": {
+  "matches": [
+   {
+    "bank": "BCI",
+    "title": "En todas sus sucursales",
+    "subtitle": "Exclusivo con tus tarjetas de Crédito o Débito Bci.",
+    "description": "20% de descuento con tope de $20.000 por cliente al día. Para hacer efectivo el descuento Bci, debes solicitarlo en el restaurante antes de realizar la compra. Descuento no aplica sobre el costo de propina. No acumulable con otras promociones y/o descuentos. Se excluyen de este beneficio Tarjetas de Crédito Corporate, tarjetas emitidas por filiales y sociedades de apoyo al giro de Bci, como Tarjeta Líder Bci.",
+    "url": "https://www.bci.cl/beneficios/beneficios-bci#en-todas-sus-sucursales-02bwzhl",
+    "slug": "en-todas-sus-sucursales-02bwzhl",
+    "commerceName": "El Café Rosa",
+    "keywords": "",
+    "tagsText": "Presencial Descuentos"
+   },
+   {
+    "bank": "Copec Pay",
+    "title": "El Café Rosa",
+    "subtitle": "20% de descuento pagando con tu Copec Pay de manera presencial.",
+    "description": "20% de descuento pagando con tu Copec Pay de manera presencial todos los dias de la semana.",
+    "url": "https://copecpay.cl/beneficios/restaurante/el-cafe-rosa/",
+    "slug": "el-cafe-rosa",
+    "commerceName": "El Café Rosa",
+    "category": "Restaurante, Ruta Sabores",
+    "validFrom": "2026-11-01",
+    "validUntil": "2026-12-31",
+    "keywords": "Restaurante Ruta Sabores presencial",
+    "tagsText": "20% Martes Sábado Domingo Jueves Miércoles Lunes Viernes"
+   }
+  ],
+  "errors": [
+   {
+    "bank": "Mercado Pago",
+    "message": "Mercado Pago respondio 403: {\"message\":\"forbidden\",\"error\":\"forbidden\",\"status\":403,\"cause\":[]}"
+   }
+  ]
+ },
+ "burger king": {
+  "matches": [
+   {
+    "bank": "Santander",
+    "title": "Burger King",
+    "subtitle": "40% dcto. todos los jueves.",
+    "description": "¡Disfruta las mejores burger a la parrilla, desde 1954! Recuerda que: Exclusivo con tus Tarjetas de Crédito Santander y Débito Santander. Válido en Autoking y locales, exclusivamente en mesones, no aplica a tótem de autoservicio. Descuento no aplica para productos en promociones o con descuentos. Por compras mínimas de $3.000 y tope descuento de $15.000. Para hacer efectivo el descuento debe ser solicitado mostrando y pagando con tus Tarjetas Santander.",
+    "commerceName": "Burger King",
+    "slug": "burger-king-3",
+    "tagsText": "home-disfrutadores cat-sabores jueves cuarenta regiones maslucas santander-teens todas-las-tarjetas ml-joven-papas metropolitana destacado_home",
+    "url": "https://banco.santander.cl/beneficios/promociones/burger-king-3"
+   }
+  ],
+  "errors": [
+   {
+    "bank": "Mercado Pago",
+    "message": "Mercado Pago respondio 403: {\"message\":\"forbidden\",\"error\":\"forbidden\",\"status\":403,\"cause\":[]}"
+   }
+  ]
+ },
+ "kfc": {
+  "matches": [
+   {
+    "bank": "BCI",
+    "title": "Combo Chicken Share Mixto",
+    "subtitle": "Exclusivo con tus tarjetas de Crédito o Débito Bci.",
+    "description": "Promoción valida todos los lunes en todas las tiendas KFC Chile hasta el 31 de diciembre 2026. Incluye 30% dcto en el producto Combo Chicken Share Mixto (4 Strips, 4 Alitas, 2 Papas y 2 Bebidas Regulares), pagando con tarjetas de Débito o Crédito Banco BCI. Para hacer valido el beneficio se debe solicitar el descuento antes de pagar. Imágenes referenciales igual a la especificación del contenido. El valor de este producto puede variar por tienda y/o región. No acumulable con otras promociones y/o descuentos.",
+    "url": "https://www.bci.cl/beneficios/beneficios-bci#todos-los-lunes-en-combo-chicken-share-alitas-us5tjzf",
+    "slug": "todos-los-lunes-en-combo-chicken-share-alitas-us5tjzf",
+    "commerceName": "KFC",
+    "keywords": "",
+    "tagsText": "Presencial Lunes Descuentos Restaurantes"
+   },
+   {
+    "bank": "Banco de Chile",
+    "title": "KFC",
+    "subtitle": "30% dto. - jueves presencial",
+    "description": "Jueves KFC 30% dto. en compras presenciales. Solicita tu dto. al momento de pagar con tus Tarjetas del Chile y presenta tu código descargado. No acumulable con otras promociones. Promoción no válida para autoservicio.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/kfc",
+    "slug": "kfc",
+    "commerceName": "KFC",
+    "category": "comida-rapida",
+    "validUntil": "2026-12-31",
+    "keywords": "kfc kentucky fried chicken comida rápida pollo frito restaurante fast food buckets combos alitas hamburguesas pollo papas fritas bebidas comida para llevar comida y bebida adultos adolescentes",
+    "tagsText": "valparaíso puerto montt arica metropolitana de santiago providencia lo barnechea todo-chile big5 tarjeta-fan jueves los lagos iquique tarapacá viña del mar la serena coquimbo las condes biobío la reina la araucanía temuco santiago maipú maule talca peñalolén quilicura quilpué puente alto san bernardo los angeles magallanes y de la antártica chilena punta arenas copiapó atacama chicureo estación central san miguel arica y parinacota recoleta la cisterna san joaquin conchali lo prado buin padre hurtado la calera"
+   }
+  ],
+  "errors": [
+   {
+    "bank": "Mercado Pago",
+    "message": "Mercado Pago respondio 403: {\"message\":\"forbidden\",\"error\":\"forbidden\",\"status\":403,\"cause\":[]}"
+   }
+  ]
+ },
+ "rappi en Copec Pay y BCI": {
+  "matches": [
+   {
+    "bank": "Copec Pay",
+    "title": "Rappi",
+    "subtitle": "Hasta $6.000 de descuento los viernes en todo Rappi para nuevos usuarios.",
+    "description": "Hasta $6.000 de descuento en Rappi todos los viernes para tu primera compra y $3.000 permanentes.",
+    "url": "https://copecpay.cl/beneficios/delivery/rappi/",
+    "slug": "rappi",
+    "commerceName": "Rappi",
+    "category": "Delivery",
+    "validFrom": "2026-08-01",
+    "validUntil": "2026-11-30",
+    "keywords": "Delivery Online",
+    "tagsText": "Viernes"
+   },
+   {
+    "bank": "Copec Pay",
+    "title": "Rappi Regiones",
+    "subtitle": "$3.000 los días miercoles y jueves en restaurantes seleccionados.",
+    "description": "$3.000 los días miercoles y jueves en restaurantes seleccionados de Antofagasta, La Serena, Viña del Mar, Concepción y Puerto Montt",
+    "url": "https://copecpay.cl/beneficios/delivery/rappi-regiones/",
+    "slug": "rappi-regiones",
+    "commerceName": "Rappi",
+    "category": "Delivery",
+    "validFrom": "2026-08-01",
+    "validUntil": "2026-11-30",
+    "keywords": "Delivery Online",
+    "tagsText": "Miércoles Jueves"
+   }
+  ],
+  "errors": []
+ },
+ "cine en Banco de Chile": {
+  "matches": [
+   {
+    "bank": "Banco de Chile",
+    "title": "We Love Pizza",
+    "subtitle": "20% dto. - martes y miércoles",
+    "description": "We Love Pizza\" es una pizzería Neo-napolitana, mantiene la esencia de la tradición napolitana con un toque contemporáneo. Se ciñe a los procesos de elaboración de la masa y la cocción de una auténtica pizza napolitana, pero lleva la combinación de sabores e ingredientes hacia direcciones nuevas y emocionantes. La pizza se hornea a la piedra en un horno de leña a 450&deg;C a la llama, lo que garantiza una textura y sabor únicos. Nuestra masa, fermentada durante al menos 24 horas, tiene un equilibrio perfecto: delgada en el centro, con bordes gruesos y aireados. Cada pizza es elaborada con ingredientes frescos, seleccionados con cuidado para ofrecer una experiencia auténtica y memorable. 20% de descuento de martes y miércoles pagando con tus tarjetas del Chile. Válido para compra presencial con tus tarjetas del Chile y en WWW.WELOVEPIZZA.CL ingresando los 6 primeros digitos de tu tarjeta. No acumulable con otras promociones, menús ni happy hour.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/we-love-pizza",
+    "slug": "we-love-pizza",
+    "commerceName": "We Love Pizza",
+    "category": "restaurantes-y-bares",
+    "validUntil": "2027-03-31",
+    "keywords": "sabores Menú Cocina Comida Gastronomía Cena Almuerzo Carta Recetas Bebidas Postres restaurantes restaurant",
+    "tagsText": "martes miercoles chillán ñuble"
+   },
+   {
+    "bank": "Banco de Chile",
+    "title": "Cinépolis",
+    "subtitle": "Canjea tus Dólares-Premio - todos los días",
+    "description": "Compra tu entrada desde $6.000 pagando con tus Tarjetas del Chile. Para comprar tus entradas o canjearlas con tus Dólares-Premio, ingresa a tienda.travel.cl > Panoramas Cine. Una vez realizada la compra o canje, recibirás un mail con el código e instrucciones en un plazo de hasta 12 horas hábiles. Canjea tu código en cinepolis.com/cl o directamente en boletería. Máximo 6 entradas mensuales por cliente. Excluye preventas, películas con restricción del distribuidor y salas Premium, IMAX, 4DX, Pluus y Junior.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/cinepolis",
+    "slug": "cinepolis",
+    "commerceName": "Cinépolis",
+    "category": "Cine",
+    "validUntil": "",
+    "keywords": "cine Espectáculo Panorama cinépolis salas cine cartelera películas entradas cine cine 3d cine vip confitería cine palomitas bebidas entretenimiento ocio adultos adolescentes",
+    "tagsText": "viernes domingo sabado todo-chile lunes martes jueves miercoles invierno-2026 dianino2026"
+   },
+   {
+    "bank": "Banco de Chile",
+    "title": "CinePlanet",
+    "subtitle": "Canjea tus Dólares-Premio - todos los días",
+    "description": "Compra tu entrada a $5.200 pagando con tus Tarjetas del Chile. Para comprar tus entradas o canjearlas con tus Dólares-Premio, ingresa a tienda.travel.cl > Panoramas Cine. Recibirás un mail con tus códigos e instrucciones para hacer válidas tus entradas en el sitio web del cine y/o boleterías. Código válido para una entrada Cineplanet 2D convencional, cualquier día y horario. Excluye preventas y películas que cuenten con restricción del distribuidor. Máximo 6 entradas mensuales por cliente.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/cineplanet",
+    "slug": "cineplanet",
+    "commerceName": "CinePlanet",
+    "category": "Cine",
+    "validUntil": "",
+    "keywords": "cine Espectáculo Panorama cineplanet salas cine cartelera películas entradas cine cine 3d cine premium confitería cine palomitas bebidas entretenimiento ocio adultos adolescentes",
+    "tagsText": "viernes domingo sabado todo-chile lunes martes jueves miercoles invierno-2026 dianino2026"
+   },
+   {
+    "bank": "Banco de Chile",
+    "title": "Cine Muvix",
+    "subtitle": "Canjea tus Dólares-Premio - todos los días online",
+    "description": "Compra tu entrada MUVIX sala tradicional 2D por $4.800 pagando con tus Tarjetas del Chile. Para comprar tus entradas o canjearlas con tus Dólares-Premio, ingresa a tienda.travel.cl > Panoramas Cine. Canjea tu código en muvix.cl o directamente en la boletería presencial del cine. Máximo 6 entradas mensuales por cliente. Excluye preventas y películas con restricción del distribuidor.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/cine-muvix",
+    "slug": "cine-muvix",
+    "commerceName": "Cine Muvix",
+    "category": "Cine",
+    "validUntil": "2026-12-31",
+    "keywords": "cine Espectáculo Panorama",
+    "tagsText": "descuentos-santiago viernes domingo sabado lunes martes jueves miercoles dianino2026"
+   },
+   {
+    "bank": "Banco de Chile",
+    "title": "Cine Star",
+    "subtitle": "Canjea tus Dólares-Premio - todos los días",
+    "description": "Compra tu entrada a $4.800 pagando con tus Tarjetas del Chile. Para comprar tus entradas o canjearlas con tus Dólares-Premio, ingresa a tienda.travel.cl > Panoramas Cine. Una vez realizada la compra o canje, recibirás un mail con el código e instrucciones en un plazo de hasta 12 horas hábiles. Canjea tu código en cinestar.cl o directamente en la boletería presencial del cine. El canje online tiene un cargo por servicio de $500, sujeto a modificaciones por parte de Cine Star. Código válido para una entrada Cine Star 2D, cualquier día y horario. Máximo 6 entradas mensuales por cliente. Excluye preventas y películas con restricción del distribuidor.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/cine-star",
+    "slug": "cine-star",
+    "commerceName": "Cine Star",
+    "category": "Cine",
+    "validUntil": "2026-11-30",
+    "keywords": "Teatro Mori Espectáculo Panorama",
+    "tagsText": "metropolitana de santiago viernes domingo sabado lunes martes jueves miercoles invierno-2026 dianino2026"
+   },
+   {
+    "bank": "Banco de Chile",
+    "title": "CINE PLANES OCÉANO",
+    "subtitle": "Disfruta 2x1 en entradas al cine - con tu Tarjeta del Plan Océano.",
+    "description": "Con tus tarjetas del Plan Océano disfruta 2x1 en entradas a cines 2D en Cineplanet, Cine Star, Cine Sol, Cine Muvix y Cinepolis. ¿Cómo obtener el beneficio? Ingresa a tienda.travel.cl Ingresa con tu usuario y contraseña. Selecciona 2 entradas de un mismo tipo. Selecciona ir al carro y en la sección ¿Tienes un código promocional? Ingresa el código 2X1OCEANO y se reflejará el descuento en el carro. Sigue el proceso de pago a través del botón Banco de Chile. Máximo un código por compra. Puedes usar un máximo de 20 códigos por año.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/cine-planes-oceano",
+    "slug": "cine-planes-oceano",
+    "commerceName": "CINE PLANES OCÉANO",
+    "category": "Cine",
+    "validUntil": "2026-12-31",
+    "keywords": "CINE PLANES OCEANO Cineplanet Cine Sol cine Muvix y Cinepolis",
+    "tagsText": "descuentos-regiones descuentos-santiago viernes domingo sabado lunes martes jueves miercoles"
+   },
+   {
+    "bank": "Banco de Chile",
+    "title": "CINE PLANES CORDILLERA",
+    "subtitle": "Disfruta 4X3 en entradas - con tu Tarjeta del Plan Cordillera.",
+    "description": "Con tus tarjetas del Plan Cordillera disfruta 4x3 en entradas a cines 2D en Cineplanet, Cine Sol, cine Muvix y Cinepolis, además de entradas Cinepolis Premium Class. ¿Cómo obtener el beneficio? Ingresa a tienda.travel.cl Ingresa con tu usuario y contraseña. Selecciona 4 entradas de un mismo tipo. Selecciona ir al carro y en la sección ¿Tienes un código promocional? Ingresa el código 4X3CORDILLERA y se reflejará el descuento en el carro. Sigue el proceso de pago a través del botón Banco de Chile. Máximo un código por compra. Puedes usar un máximo de 20 códigos por año.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/cine-planes-cordillera",
+    "slug": "cine-planes-cordillera",
+    "commerceName": "CINE PLANES CORDILLERA",
+    "category": "Cine",
+    "validUntil": "2026-12-31",
+    "keywords": "CINE PLANES cordillera Cineplanet Cine Sol cine Muvix y Cinepolis",
+    "tagsText": "descuentos-regiones descuentos-santiago viernes domingo sabado lunes martes jueves miercoles"
+   }
+  ],
+  "errors": []
+ },
+ "banco inexistente": {
+  "matches": [],
+  "errors": []
+ },
+ "sin tildes ni mayusculas": {
+  "matches": [
+   {
+    "bank": "BCI",
+    "title": "En todas sus sucursales",
+    "subtitle": "Exclusivo con tus tarjetas de Crédito o Débito Bci.",
+    "description": "20% de descuento con tope de $20.000 por cliente al día. Para hacer efectivo el descuento Bci, debes solicitarlo en el restaurante antes de realizar la compra. Descuento no aplica sobre el costo de propina. No acumulable con otras promociones y/o descuentos. Se excluyen de este beneficio Tarjetas de Crédito Corporate, tarjetas emitidas por filiales y sociedades de apoyo al giro de Bci, como Tarjeta Líder Bci.",
+    "url": "https://www.bci.cl/beneficios/beneficios-bci#en-todas-sus-sucursales-02bwzhl",
+    "slug": "en-todas-sus-sucursales-02bwzhl",
+    "commerceName": "El Café Rosa",
+    "keywords": "",
+    "tagsText": "Presencial Descuentos"
+   },
+   {
+    "bank": "Copec Pay",
+    "title": "El Café Rosa",
+    "subtitle": "20% de descuento pagando con tu Copec Pay de manera presencial.",
+    "description": "20% de descuento pagando con tu Copec Pay de manera presencial todos los dias de la semana.",
+    "url": "https://copecpay.cl/beneficios/restaurante/el-cafe-rosa/",
+    "slug": "el-cafe-rosa",
+    "commerceName": "El Café Rosa",
+    "category": "Restaurante, Ruta Sabores",
+    "validFrom": "2026-11-01",
+    "validUntil": "2026-12-31",
+    "keywords": "Restaurante Ruta Sabores presencial",
+    "tagsText": "20% Martes Sábado Domingo Jueves Miércoles Lunes Viernes"
+   }
+  ],
+  "errors": [
+   {
+    "bank": "Mercado Pago",
+    "message": "fetch failed"
+   }
+  ]
+ },
+ "Banco de Chile: PROWASHGO": {
+  "matches": [
+   {
+    "bank": "Banco de Chile",
+    "title": "ProwashGo",
+    "subtitle": "20% dto. - lunes a sábado online",
+    "description": "Prowash Go es una empresa dedicada al lavado y sanitizado de autos a domicilio. Nuestros lavados son ecológicos, no utilizan agua ni electricidad y no dejamos residuos, por lo que se pueden realizar en cualquier lugar. 20% dto. de lunes a sábado Confirma disponibilidad de comunas en el sitio www.prowashgo.com Pide el lavado a través de la App ProwashGo Reserva la hora y tipo de servicio Paga a través de la App ingresando el código de dcto.BCHGO No acumulable con ofertas y promociones.",
+    "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/prowashgo",
+    "slug": "prowashgo",
+    "commerceName": "ProwashGo",
+    "category": "Beneficios y Descuentos",
+    "validUntil": "2027-02-28",
+    "keywords": "Autos Lavados Ecológico Detailing Pro Lavar",
+    "tagsText": "servicios descuentos-santiago metropolitana de santiago viernes sabado lunes martes jueves miercoles"
+   }
+  ],
+  "errors": []
+ },
+ "Tenpo: temu": {
+  "matches": [
+   {
+    "bank": "Tenpo",
+    "title": "Hasta 50% de descuento para nuevos usuarios de la App Temu",
+    "subtitle": "",
+    "description": "Con el código Tenpo2026",
+    "url": "https://www.tenpo.cl/beneficios/temu-noviembre-2026",
+    "commerceName": "Hasta 50% de descuento para nuevos usuarios de la App Temu"
+   }
+  ],
+  "errors": []
+ },
+ "BCI: pedidos ya": {
+  "matches": [
+   {
+    "bank": "BCI",
+    "title": "12 meses gratis de PedidosYa Plus",
+    "subtitle": "Exclusivo con tus tarjetas de Crédito Bci.",
+    "description": "Contrata PedidosYa Plus con su Tarjeta de Crédito Bci y tendrás un año de membresía gratis Promoción válida desde el 01 de septiembre al 31 de diciembre de 2026 Solo para nuevos usuarios PedidosYa Plus (clientes que no esten suscritos en PedidosYa Plus dentro los últimos 90 días) Válido solo para Tarjetas de Crédito Bci",
+    "url": "https://www.pedidosya.cl/",
+    "slug": "un-anio-gratis-de-pedidosya-plus-99gys0m",
+    "commerceName": "PedidosYa",
+    "keywords": "",
+    "tagsText": "Supermercados Descuentos"
+   },
+   {
+    "bank": "BCI",
+    "title": "Multiplica x5 tu cashback en PedidosYa Market",
+    "subtitle": "Exclusivo con tus tarjetas de Crédito Bci.",
+    "description": "El supermercado directo a tu casa. Todas tus compras con Tarjeta de Crédito Bci en PedidosYa Market multiplican x5 tu cashback Valido para compras en App PedidisYa sección Market Se excluyen de este beneficio a clientes de Tarjetas de Crédito Aadvantage",
+    "url": "https://www.pedidosya.cl/",
+    "slug": "multiplica-x5-tu-cashback-en-pedidosya-market-ksgbwla",
+    "commerceName": "PedidosYa",
+    "keywords": "",
+    "tagsText": "Supermercados Cashback"
+   },
+   {
+    "bank": "BCI",
+    "title": "Tu pedido en tu casa ya no tienes que ir al Supermercado con PedidosYa",
+    "subtitle": "Exclusivo con tus tarjetas de Crédito Bci.",
+    "description": "30% de dcto en PedidosYa Market Exclusivo pagando con Tarjetas de Crédito Bci. Tope de dcto de $8.000 por compra en PedidosYa Market . Válido para dos (2) compras al mes por usuario. La vigencia de los beneficios y/o descuentos dispuestos para los usuarios aplicaría desde 01/09/2026 al 30/09/2026.",
+    "url": "https://www.pedidosya.cl/",
+    "slug": "tu-pedido-en-tu-casa-ya-no-tienes-que-ir-al-supermercado-con-pedidosya-hjjwl2",
+    "commerceName": "PedidosYa",
+    "keywords": "",
+    "tagsText": "Descuentos Supermercados"
+   }
+  ],
+  "errors": []
+ },
+ "Santander: burger king": {
+  "matches": [
+   {
+    "bank": "Santander",
+    "title": "Burger King",
+    "subtitle": "40% dcto. todos los jueves.",
+    "description": "¡Disfruta las mejores burger a la parrilla, desde 1954! Recuerda que: Exclusivo con tus Tarjetas de Crédito Santander y Débito Santander. Válido en Autoking y locales, exclusivamente en mesones, no aplica a tótem de autoservicio. Descuento no aplica para productos en promociones o con descuentos. Por compras mínimas de $3.000 y tope descuento de $15.000. Para hacer efectivo el descuento debe ser solicitado mostrando y pagando con tus Tarjetas Santander.",
+    "commerceName": "Burger King",
+    "slug": "burger-king-3",
+    "tagsText": "home-disfrutadores cat-sabores jueves cuarenta regiones maslucas santander-teens todas-las-tarjetas ml-joven-papas metropolitana destacado_home",
+    "url": "https://banco.santander.cl/beneficios/promociones/burger-king-3"
+   }
+  ],
+  "errors": []
+ },
+ "Copec Pay: Rappi": {
+  "matches": [
+   {
+    "bank": "Copec Pay",
+    "title": "Rappi",
+    "subtitle": "Hasta $6.000 de descuento los viernes en todo Rappi para nuevos usuarios.",
+    "description": "Hasta $6.000 de descuento en Rappi todos los viernes para tu primera compra y $3.000 permanentes.",
+    "url": "https://copecpay.cl/beneficios/delivery/rappi/",
+    "slug": "rappi",
+    "commerceName": "Rappi",
+    "category": "Delivery",
+    "validFrom": "2026-08-01",
+    "validUntil": "2026-11-30",
+    "keywords": "Delivery Online",
+    "tagsText": "Viernes"
+   },
+   {
+    "bank": "Copec Pay",
+    "title": "Rappi Regiones",
+    "subtitle": "$3.000 los días miercoles y jueves en restaurantes seleccionados.",
+    "description": "$3.000 los días miercoles y jueves en restaurantes seleccionados de Antofagasta, La Serena, Viña del Mar, Concepción y Puerto Montt",
+    "url": "https://copecpay.cl/beneficios/delivery/rappi-regiones/",
+    "slug": "rappi-regiones",
+    "commerceName": "Rappi",
+    "category": "Delivery",
+    "validFrom": "2026-08-01",
+    "validUntil": "2026-11-30",
+    "keywords": "Delivery Online",
+    "tagsText": "Miércoles Jueves"
+   }
+  ],
+  "errors": []
+ },
+ "Copec Pay: El Café Rosa": {
+  "matches": [
+   {
+    "bank": "Copec Pay",
+    "title": "El Café Rosa",
+    "subtitle": "20% de descuento pagando con tu Copec Pay de manera presencial.",
+    "description": "20% de descuento pagando con tu Copec Pay de manera presencial todos los dias de la semana.",
+    "url": "https://copecpay.cl/beneficios/restaurante/el-cafe-rosa/",
+    "slug": "el-cafe-rosa",
+    "commerceName": "El Café Rosa",
+    "category": "Restaurante, Ruta Sabores",
+    "validFrom": "2026-11-01",
+    "validUntil": "2026-12-31",
+    "keywords": "Restaurante Ruta Sabores presencial",
+    "tagsText": "20% Martes Sábado Domingo Jueves Miércoles Lunes Viernes"
+   }
+  ],
+  "errors": []
+ }
+}

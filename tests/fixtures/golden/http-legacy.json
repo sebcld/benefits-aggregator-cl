@@ -1,0 +1,258 @@
+{
+ "health": {
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "status": "ok"
+  }
+ },
+ "GET search rappi": {
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "matches": [
+    {
+     "bank": "Copec Pay",
+     "title": "Rappi",
+     "subtitle": "Hasta $6.000 de descuento los viernes en todo Rappi para nuevos usuarios.",
+     "description": "Hasta $6.000 de descuento en Rappi todos los viernes para tu primera compra y $3.000 permanentes.",
+     "url": "https://copecpay.cl/beneficios/delivery/rappi/",
+     "slug": "rappi",
+     "commerceName": "Rappi",
+     "category": "Delivery",
+     "validFrom": "2026-08-01",
+     "validUntil": "2026-11-30",
+     "keywords": "Delivery Online",
+     "tagsText": "Viernes"
+    },
+    {
+     "bank": "Copec Pay",
+     "title": "Rappi Regiones",
+     "subtitle": "$3.000 los días miercoles y jueves en restaurantes seleccionados.",
+     "description": "$3.000 los días miercoles y jueves en restaurantes seleccionados de Antofagasta, La Serena, Viña del Mar, Concepción y Puerto Montt",
+     "url": "https://copecpay.cl/beneficios/delivery/rappi-regiones/",
+     "slug": "rappi-regiones",
+     "commerceName": "Rappi",
+     "category": "Delivery",
+     "validFrom": "2026-08-01",
+     "validUntil": "2026-11-30",
+     "keywords": "Delivery Online",
+     "tagsText": "Miércoles Jueves"
+    },
+    {
+     "bank": "Banco de Chile",
+     "title": "Rappi McDonald´s",
+     "subtitle": "30% dto. adicional - en McDonald´s los viernes",
+     "description": "30% dto. adicional en McDonald´s los viernes pagando con Banco del Chile. Ingresando el código: 06 de noviembre: BCH0611 13 de noviembre: BCH1311 20 de noviembre: BCH2011 27 de noviembre: BCH2711 ¿Cómo obtener estos descuentos? Ingresa a la APP RAPPI, luego haz tu pedido y agrégalo al carrito Al momento del pago ingresa tu código en la sección CUPONES y paga con tu Tarjeta de Crédito o Débito del Chile. ¡Recibe tu pedido y disfruta!. Importante: Válido para 1 uso por usuario para cada cupón. Compra mínima: $7.000 Tope de descuento: $9.000 El descuento se verá reflejado al momento de la compra. Promoción es acumulable con otros descuentos. No acumulable con Rappi Créditos.",
+     "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/rappi-dto-mcdonalds",
+     "slug": "rappi-dto-mcdonalds",
+     "commerceName": "Rappi McDonald´s",
+     "category": "Delivery",
+     "validUntil": "2026-11-30",
+     "keywords": "delivery pedidos rappi mcdonalds comida rápida hamburguesas papas fritas pedidos online comida a domicilio combos bebidas restaurante fast food app delivery adultos adolescentes",
+     "tagsText": "viernes todo-chile big5 tarjeta-fan"
+    },
+    {
+     "bank": "Banco de Chile",
+     "title": "Rappi",
+     "subtitle": "Hasta 25% dto adicional. - todos los días",
+     "description": "Hasta 25% dto. adicional todos los días pagando con tus Tarjetas del Chile. 20% dto. adicional en la categoría de restaurantes Ingresando el código BCHRAPPINOV26R 25% dto. adicional en todas las categorías (excepto restaurantes) Ingresando el código BCHRAPPINOV26 ¿Cómo obtener estos descuentos? 1- Ingresa a la APP RAPPI, elige tu favorito y agrégalo al carrito. 2- Al momento del pago ingresa tu código en la sección Cupones y paga con tu Tarjeta de crédito o Débito del Chile. 3- ¡Recibe tu pedido y disfruta! Válido para 1 uso por usuario para cada cupón. Compra mínima: $7.000. Tope de descuento: $5.000. El descuento se verá reflejado al momento de la compra No es acumulable con Rappi Créditos. Descuento no acumulable en el costo de envío El beneficio es acumulable con otros descuentos de la aplicación.",
+     "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/rappi-dto",
+     "slug": "rappi-dto",
+     "commerceName": "Rappi",
+     "category": "Delivery",
+     "validUntil": "2026-11-30",
+     "keywords": "chocolates regalos delivery pedidos rappi app delivery comida a domicilio pedidos online restaurantes supermercados farmacia reparto envíos última milla comercio digital marketplace adultos jóvenes",
+     "tagsText": "viernes domingo sabado todo-chile tarjeta-fan lunes martes jueves miercoles fiestaspatrias2026"
+    }
+   ],
+   "errors": [
+    {
+     "bank": "Mercado Pago",
+     "message": "Mercado Pago respondio 403: {\"message\":\"forbidden\",\"error\":\"forbidden\",\"status\":403,\"cause\":[]}"
+    }
+   ]
+  }
+ },
+ "GET search kfc con banks": {
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "matches": [
+    {
+     "bank": "BCI",
+     "title": "Combo Chicken Share Mixto",
+     "subtitle": "Exclusivo con tus tarjetas de Crédito o Débito Bci.",
+     "description": "Promoción valida todos los lunes en todas las tiendas KFC Chile hasta el 31 de diciembre 2026. Incluye 30% dcto en el producto Combo Chicken Share Mixto (4 Strips, 4 Alitas, 2 Papas y 2 Bebidas Regulares), pagando con tarjetas de Débito o Crédito Banco BCI. Para hacer valido el beneficio se debe solicitar el descuento antes de pagar. Imágenes referenciales igual a la especificación del contenido. El valor de este producto puede variar por tienda y/o región. No acumulable con otras promociones y/o descuentos.",
+     "url": "https://www.bci.cl/beneficios/beneficios-bci#todos-los-lunes-en-combo-chicken-share-alitas-us5tjzf",
+     "slug": "todos-los-lunes-en-combo-chicken-share-alitas-us5tjzf",
+     "commerceName": "KFC",
+     "keywords": "",
+     "tagsText": "Presencial Lunes Descuentos Restaurantes"
+    },
+    {
+     "bank": "Banco de Chile",
+     "title": "KFC",
+     "subtitle": "30% dto. - jueves presencial",
+     "description": "Jueves KFC 30% dto. en compras presenciales. Solicita tu dto. al momento de pagar con tus Tarjetas del Chile y presenta tu código descargado. No acumulable con otras promociones. Promoción no válida para autoservicio.",
+     "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/kfc",
+     "slug": "kfc",
+     "commerceName": "KFC",
+     "category": "comida-rapida",
+     "validUntil": "2026-12-31",
+     "keywords": "kfc kentucky fried chicken comida rápida pollo frito restaurante fast food buckets combos alitas hamburguesas pollo papas fritas bebidas comida para llevar comida y bebida adultos adolescentes",
+     "tagsText": "valparaíso puerto montt arica metropolitana de santiago providencia lo barnechea todo-chile big5 tarjeta-fan jueves los lagos iquique tarapacá viña del mar la serena coquimbo las condes biobío la reina la araucanía temuco santiago maipú maule talca peñalolén quilicura quilpué puente alto san bernardo los angeles magallanes y de la antártica chilena punta arenas copiapó atacama chicureo estación central san miguel arica y parinacota recoleta la cisterna san joaquin conchali lo prado buin padre hurtado la calera"
+    }
+   ],
+   "errors": []
+  }
+ },
+ "GET search PROWASHGO": {
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "matches": [
+    {
+     "bank": "Banco de Chile",
+     "title": "ProwashGo",
+     "subtitle": "20% dto. - lunes a sábado online",
+     "description": "Prowash Go es una empresa dedicada al lavado y sanitizado de autos a domicilio. Nuestros lavados son ecológicos, no utilizan agua ni electricidad y no dejamos residuos, por lo que se pueden realizar en cualquier lugar. 20% dto. de lunes a sábado Confirma disponibilidad de comunas en el sitio www.prowashgo.com Pide el lavado a través de la App ProwashGo Reserva la hora y tipo de servicio Paga a través de la App ingresando el código de dcto.BCHGO No acumulable con ofertas y promociones.",
+     "url": "https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/prowashgo",
+     "slug": "prowashgo",
+     "commerceName": "ProwashGo",
+     "category": "Beneficios y Descuentos",
+     "validUntil": "2027-02-28",
+     "keywords": "Autos Lavados Ecológico Detailing Pro Lavar",
+     "tagsText": "servicios descuentos-santiago metropolitana de santiago viernes sabado lunes martes jueves miercoles"
+    }
+   ],
+   "errors": []
+  }
+ },
+ "GET search sin q": {
+  "status": 400,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "Falta el parametro q"
+  }
+ },
+ "GET search q vacio": {
+  "status": 400,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "Falta el parametro q"
+  }
+ },
+ "POST search El Cafe Rosa": {
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "matches": [
+    {
+     "bank": "Copec Pay",
+     "title": "El Café Rosa",
+     "subtitle": "20% de descuento pagando con tu Copec Pay de manera presencial.",
+     "description": "20% de descuento pagando con tu Copec Pay de manera presencial todos los dias de la semana.",
+     "url": "https://copecpay.cl/beneficios/restaurante/el-cafe-rosa/",
+     "slug": "el-cafe-rosa",
+     "commerceName": "El Café Rosa",
+     "category": "Restaurante, Ruta Sabores",
+     "validFrom": "2026-11-01",
+     "validUntil": "2026-12-31",
+     "keywords": "Restaurante Ruta Sabores presencial",
+     "tagsText": "20% Martes Sábado Domingo Jueves Miércoles Lunes Viernes"
+    }
+   ],
+   "errors": []
+  }
+ },
+ "POST search banks como texto": {
+  "status": 200,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "matches": [
+    {
+     "bank": "Santander",
+     "title": "Burger King",
+     "subtitle": "40% dcto. todos los jueves.",
+     "description": "¡Disfruta las mejores burger a la parrilla, desde 1954! Recuerda que: Exclusivo con tus Tarjetas de Crédito Santander y Débito Santander. Válido en Autoking y locales, exclusivamente en mesones, no aplica a tótem de autoservicio. Descuento no aplica para productos en promociones o con descuentos. Por compras mínimas de $3.000 y tope descuento de $15.000. Para hacer efectivo el descuento debe ser solicitado mostrando y pagando con tus Tarjetas Santander.",
+     "commerceName": "Burger King",
+     "slug": "burger-king-3",
+     "tagsText": "home-disfrutadores cat-sabores jueves cuarenta regiones maslucas santander-teens todas-las-tarjetas ml-joven-papas metropolitana destacado_home",
+     "url": "https://banco.santander.cl/beneficios/promociones/burger-king-3"
+    }
+   ],
+   "errors": []
+  }
+ },
+ "POST search sin query": {
+  "status": 400,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "Falta el campo query"
+  }
+ },
+ "POST search sin body": {
+  "status": 400,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "Falta el campo query"
+  }
+ },
+ "POST search JSON invalido": {
+  "status": 400,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "JSON invalido"
+  }
+ },
+ "POST search body arreglo": {
+  "status": 400,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "Falta el campo query"
+  }
+ },
+ "POST search body null": {
+  "status": 400,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "Falta el campo query"
+  }
+ },
+ "POST search query numerica": {
+  "status": 400,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "Falta el campo query"
+  }
+ },
+ "ruta inexistente": {
+  "status": 404,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "No encontrado"
+  }
+ },
+ "metodo no soportado": {
+  "status": 404,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "No encontrado"
+  }
+ },
+ "prefijo de search": {
+  "status": 404,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "No encontrado"
+  }
+ },
+ "prefijo de health": {
+  "status": 404,
+  "contentType": "application/json; charset=utf-8",
+  "body": {
+   "error": "No encontrado"
+  }
+ }
+}
