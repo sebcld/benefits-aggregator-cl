@@ -1,62 +1,110 @@
-Buscador de beneficios bancarios
-================================
+# Buscador de beneficios bancarios
 
-CLI y API en Node que consultan en vivo las fuentes publicas de varios emisores chilenos (bancos, tarjetas y billeteras), normalizan los beneficios a un formato comun y los filtran por palabra clave (ejemplo: "burger king").
+CLI y API HTTP en Node que consultan en vivo las fuentes públicas de emisores chilenos (bancos, tarjetas y billeteras), normalizan los beneficios a un formato común y los filtran por palabra clave (por ejemplo, `"burger king"`).
 
-Emisores soportados: Santander, BCI, Tenpo, Tapp, Copec Pay, Banco de Chile y Mercado Pago.
+**Emisores:** Santander, BCI, Tenpo, Tapp, Copec Pay, Banco de Chile y Mercado Pago.
 
-Requisitos
-- Node 18 o superior (trae `fetch` nativo).
-- No hay dependencias externas.
+| Documento | Para qué |
+|---|---|
+| [docs/openapi.yaml](docs/openapi.yaml) | Contrato de la API (cliente móvil o web) |
+| [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) | Capas, decisiones, caché, resiliencia y pruebas |
+| [docs/AGREGAR_EMISOR.md](docs/AGREGAR_EMISOR.md) | Guía paso a paso para sumar un emisor |
+| [docs/CHANGELOG_REFACTOR.md](docs/CHANGELOG_REFACTOR.md) | Qué cambió en la 2.0.0 y dónde quedó cada pieza |
+| [docs/RIESGOS.md](docs/RIESGOS.md) | Riesgos y deuda pendiente |
 
-Instalacion
+## Requisitos e instalación
+
+- Node 18 o superior. No hay dependencias externas.
 - `npm install`
-- Copia `.env.example` como `.env` y completa las llaves (ver "Variables de entorno"). `.env` esta en `.gitignore` y no debe subirse al repositorio.
+- Copia `.env.example` como `.env` y completa `BCI_SUBSCRIPTION_KEY`. `.env` está en `.gitignore` y no se sube al repositorio.
 
-Uso rapido (CLI)
-- `npm run search -- "burger king"`
-- Tambien puedes ejecutar `node src/index.js "burger king"`
-- Los resultados se agrupan por emisor y muestran comercio, titulo, bajada, descripcion corta, vigencia (cuando la fuente la entrega) y link.
-- Si un emisor falla, se muestra `<emisor> no disponible: <motivo>` y la busqueda sigue con el resto.
+## Uso
 
-API / backend
-- Levanta el servidor: `npm start` (o `npm run serve`). Puerto por defecto `3000` (variable `PORT`).
-- Endpoints:
-  - `GET /health` -> `{ status: "ok" }`
-  - `GET /search?q=<texto>&banks=<opcional lista separada por comas>` devuelve `{ matches, errors }`.
-  - `POST /search` con cuerpo JSON `{ "query": "burger king", "banks": ["Santander","BCI"] }`.
-    Si omites `banks`, consulta todas las fuentes.
-- Nombres validos para `banks` (sin distinguir mayusculas): `Santander`, `BCI`, `Tenpo`, `Tapp`, `Copec Pay`, `Banco de Chile`, `Mercado Pago`.
-- Una busqueda sobre todas las fuentes tarda unos 10-12 s (Banco de Chile y BCI son las mas lentas). No hay cache: cada busqueda descarga las fuentes de nuevo.
+### CLI
 
-Formato de cada resultado
-- Campos comunes: `bank`, `title`, `subtitle`, `description`, `url`, `slug`, `commerceName`, `keywords`, `tagsText`.
-- Copec Pay agrega ademas `category`, `validFrom` y `validUntil` (fechas `YYYY-MM-DD`).
+```bash
+npm run search -- "burger king"     # o: node src/index.js "burger king"
+```
 
-Estructura
-- `src/config.js`: carga `.env` (sin dependencias) y expone la configuracion al resto del codigo.
-- `src/benefits.js`: extractores por emisor (`fetchSantander`, `fetchBci`, `fetchTenpo`, `fetchTapp`, `fetchCopec`, `fetchBancoChile`, `fetchMercadoPago`), normalizacion y busqueda (`searchBenefits`, `matchesQuery`).
-- `src/index.js`: CLI.
-- `src/server.js`: API HTTP (modulo `http` nativo).
-- `entregable/`: documentacion tecnica (`CONTEXTO_PROYECTO.md` con el contexto completo del proyecto y `diagnostico_copec_pay.md` con la correccion de Copec Pay).
+Los resultados se agrupan por emisor y muestran comercio, título, bajada, descripción corta, vigencia (si la fuente la entrega) y link. Si un emisor falla, se muestra `<emisor> no disponible: <motivo>` y la búsqueda sigue con el resto. El CLI no usa caché ni timeouts: espera a todos los emisores.
 
-Detalle tecnico
-- Santander: `https://banco.santander.cl/beneficios/promociones.json?per_page=9999&custom_fields=true`
-- BCI: `https://api.bciplus.cl/bff-loyalty-beneficios/v1/offers` (usa el header `ocp-apim-subscription-key`, cuyo valor se toma de `BCI_SUBSCRIPTION_KEY` en `.env`).
-- Tenpo: se parsea el HTML publico de `https://www.tenpo.cl/beneficios` y sus paginas de paginacion.
-- Tapp: se consulta `https://web.cajalosandes.cl/api/content/spaces/wp-tapp-beneficios-copia/types/beneficios/entries` paginando de 100 en 100.
-- Copec Pay: se consulta el endpoint REST del tema de `https://copecpay.cl/beneficios/` (`https://copecpay.cl/wp-json/custom/v1/beneficios/`, devuelve todos los beneficios en un solo JSON). Igual que el sitio, solo se incluyen los vigentes hoy segun `fecha_de_inicio`/`fecha_de_termino` (hora de Chile). `fetchCopec({ includeInactive: true })` devuelve tambien los vencidos y futuros.
-- Banco de Chile: se recorre el sitio publico de beneficios (`https://sitiospublicos.bancochile.cl/personas/beneficios`) a traves del proxy de solo lectura `https://r.jina.ai/http://...` para extraer enlaces y textos de cada beneficio.
-- Mercado Pago: se consulta `https://api.mercadolibre.com/sites/MLC/search?q=<query>&limit=50` (sin token responde 403; el script muestra el error y sigue). Si tienes un token de app, define `MELI_ACCESS_TOKEN` o `MERCADOPAGO_TOKEN` para enviarlo en el header `Authorization`.
-- La busqueda es insensible a mayusculas y elimina tildes; compara contra titulo, bajada, descripcion, slug, keywords, tags y nombre de comercio (util cuando el comercio no esta en el titulo). Ejemplo: `"el cafe rosa"` encuentra `"El Café Rosa"`.
+### API HTTP
 
-Variables de entorno
-- Se definen en `.env` en la raiz del proyecto (plantilla: `.env.example`). Las variables ya definidas en el sistema tienen prioridad sobre `.env`.
-- `PORT`: puerto del servidor (por defecto `3000`).
-- `BCI_SUBSCRIPTION_KEY`: llave de subscripcion de BCI. Obligatoria: sin ella BCI aparece como no disponible.
-- `MELI_ACCESS_TOKEN` o `MERCADOPAGO_TOKEN`: token Bearer opcional para Mercado Libre.
+```bash
+npm start                            # http://localhost:3000
+```
 
-Notas
-- Si el API de BCI cambia la llave de subscripcion (responde 401/403), actualiza `BCI_SUBSCRIPTION_KEY` en `.env`.
-- El CLI muestra el slug en el caso de BCI cuando no hay link directo.
-- No hay pruebas automatizadas (`npm test` es un placeholder).
+| Ruta | Descripción |
+|---|---|
+| `GET /v1/search?q=rappi&banks=copec,bci&page=1&pageSize=20` | Búsqueda paginada, con `id` estable, `logo`, `validUntil` y estado por emisor (`sources`) |
+| `POST /v1/search` | Igual, con body `{ "query", "banks", "page", "pageSize" }` |
+| `GET /v1/banks` | Emisores disponibles (`key` y `name`) |
+| `GET /v1/health[?probe=true]` | Estado del servicio y de cada emisor |
+| `GET /search?q=` / `POST /search` / `GET /health` | Rutas 1.x (deprecadas, mismo formato que antes) |
+
+- **Errores de `/v1`:** `{ "error": { "code", "message", "details"? } }` con el status correcto (400, 404, 405, 413).
+- **Resultado parcial:** si un emisor falla, la respuesta incluye `errors` y `meta.partial: true`.
+- **Caché:** los catálogos se guardan en memoria 30 min (`CACHE_TTL_SECONDS`). La primera búsqueda puede tardar 10-20 s; las siguientes, milisegundos. Con `CACHE_WARMUP=true` el servidor los precarga al iniciar.
+
+### Como librería (compatibilidad 1.x)
+
+```js
+const { searchBenefits, fetchCopec } = require('./src/benefits');
+const { matches, errors } = await searchBenefits('rappi', { banks: ['Copec Pay'] });
+```
+
+## Fuentes
+
+| Emisor | Fuente |
+|---|---|
+| Santander | JSON público `banco.santander.cl/beneficios/promociones.json` |
+| BCI | API `api.bciplus.cl/bff-loyalty-beneficios/v1/offers`, paginada (header `ocp-apim-subscription-key` = `BCI_SUBSCRIPTION_KEY`) |
+| Tenpo | HTML de `www.tenpo.cl/beneficios` y su paginación (regex) |
+| Tapp | CMS `web.cajalosandes.cl/api/content/spaces/wp-tapp-beneficios-copia/...`, paginado |
+| Copec Pay | REST del tema WordPress `copecpay.cl/wp-json/custom/v1/beneficios/`. Solo vigentes hoy (hora de Chile); `fetchCopec({ includeInactive: true })` trae todos |
+| Banco de Chile | API de contenido de [Todos los beneficios](https://sitiospublicos.bancochile.cl/personas/beneficios/todos-los-beneficios) (`/api/content/spaces/personas/types/beneficios/entries`), vía el proxy `r.jina.ai` porque el sitio bloquea clientes automatizados (`JINA_API_KEY` opcional) |
+| Mercado Pago | Búsqueda de Mercado Libre `api.mercadolibre.com/sites/MLC/search` (sin token responde 403; ver [RIESGOS](docs/RIESGOS.md)) |
+
+**Búsqueda:**
+- No distingue mayúsculas, tildes ni puntuación (`"el cafe rosa"` encuentra "El Café Rosa").
+- Compara contra título, bajada, descripción, slug, keywords, tags y comercio.
+- Una palabra de 4 letras o menos debe coincidir completa (`kfc`).
+
+## Variables de entorno
+
+Se definen en `.env` (plantilla con todas las opciones: [`.env.example`](.env.example)). Las variables del sistema tienen prioridad. Un valor inválido detiene el inicio con un mensaje claro.
+
+| Variable | Por defecto | Uso |
+|---|---|---|
+| `BCI_SUBSCRIPTION_KEY` | — | **Obligatoria** para BCI |
+| `PORT` | `3000` | Puerto de la API |
+| `LOG_LEVEL` | servidor `info`, CLI `silent` | `debug`, `info`, `warn`, `error` o `silent` (JSON en stderr) |
+| `CACHE_TTL_SECONDS` / `CACHE_WARMUP` | `1800` / `false` | Caché del servidor |
+| `HTTP_TIMEOUT_MS` / `PROVIDER_TIMEOUT_MS` | `20000` / `60000` | Timeouts del servidor |
+| `CORS_ORIGINS` | vacío (desactivado) | Orígenes permitidos o `*` |
+| `BODY_LIMIT_BYTES` | `1000000` | Límite del body |
+| `MELI_ACCESS_TOKEN` / `MERCADOPAGO_TOKEN` | — | Token de Mercado Libre |
+| `JINA_API_KEY` | — | Más límite de uso en `r.jina.ai` (Banco de Chile) |
+
+## Desarrollo
+
+```bash
+npm test                 # 241 tests con node:test, sin internet (fixtures reales grabados)
+npm run lint             # sintaxis + reglas de arquitectura (sin dependencias)
+npm run check            # lint + test
+npm run smoke            # casos de aceptación EN VIVO contra las fuentes reales
+npm run fixtures:record -- <emisor>   # regraba respuestas reales de un emisor
+npm run fixtures:golden               # regenera las salidas de referencia (revisar el diff)
+```
+
+**Casos de aceptación por emisor** (en `npm test` con fixtures y en `npm run smoke` en vivo):
+
+| Emisor | Consulta | Beneficio esperado |
+|---|---|---|
+| Banco de Chile | `PROWASHGO` | ProwashGo |
+| Tenpo | `temu` | Hasta 50% de descuento para nuevos usuarios de la App Temu |
+| BCI | `pedidos ya` | Beneficios PedidosYa |
+| Santander | `burger king` | Burger King |
+| Copec Pay | `Rappi`, `El Café Rosa` | Rappi, El Café Rosa |
+
+La carpeta `entregable/` contiene el diagnóstico de la corrección de Copec Pay y el contexto del proyecto para asistentes de IA.

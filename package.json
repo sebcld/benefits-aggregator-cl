@@ -1,15 +1,28 @@
 {
   "name": "beneficios_banks",
-  "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "version": "2.0.0",
+  "description": "Buscador de beneficios de bancos, tarjetas y billeteras de Chile (CLI y API HTTP).",
+  "main": "src/benefits.js",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
-    "search": "node src/index.js",
     "start": "node src/server.js",
     "serve": "node src/server.js",
-    "test": "echo \"No hay pruebas configuradas\""
+    "search": "node src/index.js",
+    "test": "node --test",
+    "lint": "node scripts/lint.js",
+    "check": "npm run lint && npm test",
+    "smoke": "node tests/tools/smoke-live.js",
+    "fixtures:record": "node tests/tools/record-fixtures.js",
+    "fixtures:golden": "node tests/tools/build-golden.js"
   },
-  "keywords": [],
+  "keywords": [
+    "beneficios",
+    "descuentos",
+    "bancos",
+    "chile"
+  ],
   "author": "",
   "license": "ISC",
   "type": "commonjs"

@@ -1,0 +1,97 @@
+{
+ "recordedAt": "2026-11-12T15:33:37.102Z",
+ "trimmed": false,
+ "records": [
+  {
+   "url": "https://api.mercadolibre.com/sites/MLC/search?q=burger%20king&limit=50",
+   "status": 403,
+   "headers": {
+    "content-type": "application/json; charset=utf-8"
+   },
+   "json": {
+    "message": "forbidden",
+    "error": "forbidden",
+    "status": 403,
+    "cause": []
+   }
+  },
+  {
+   "url": "https://api.mercadolibre.com/sites/MLC/search?q=kfc&limit=50",
+   "status": 403,
+   "headers": {
+    "content-type": "application/json; charset=utf-8"
+   },
+   "json": {
+    "message": "forbidden",
+    "error": "forbidden",
+    "status": 403,
+    "cause": []
+   }
+  },
+  {
+   "url": "https://api.mercadolibre.com/sites/MLC/search?q=temu&limit=50",
+   "status": 403,
+   "headers": {
+    "content-type": "application/json; charset=utf-8"
+   },
+   "json": {
+    "message": "forbidden",
+    "error": "forbidden",
+    "status": 403,
+    "cause": []
+   }
+  },
+  {
+   "url": "https://api.mercadolibre.com/sites/MLC/search?q=Rappi&limit=50",
+   "status": 403,
+   "headers": {
+    "content-type": "application/json; charset=utf-8"
+   },
+   "json": {
+    "message": "forbidden",
+    "error": "forbidden",
+    "status": 403,
+    "cause": []
+   }
+  },
+  {
+   "url": "https://api.mercadolibre.com/sites/MLC/search?q=PROWASHGO&limit=50",
+   "status": 403,
+   "headers": {
+    "content-type": "application/json; charset=utf-8"
+   },
+   "json": {
+    "message": "forbidden",
+    "error": "forbidden",
+    "status": 403,
+    "cause": []
+   }
+  },
+  {
+   "url": "https://api.mercadolibre.com/sites/MLC/search?q=pedidos%20ya&limit=50",
+   "status": 403,
+   "headers": {
+    "content-type": "application/json; charset=utf-8"
+   },
+   "json": {
+    "message": "forbidden",
+    "error": "forbidden",
+    "status": 403,
+    "cause": []
+   }
+  },
+  {
+   "url": "https://api.mercadolibre.com/sites/MLC/search?q=El%20Caf%C3%A9%20Rosa&limit=50",
+   "status": 403,
+   "headers": {
+    "content-type": "application/json; charset=utf-8"
+   },
+   "json": {
+    "message": "forbidden",
+    "error": "forbidden",
+    "status": 403,
+    "cause": []
+   }
+  }
+ ]
+}

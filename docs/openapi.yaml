@@ -1,0 +1,536 @@
+openapi: 3.0.3
+info:
+  title: API de beneficios bancarios (Chile)
+  version: 2.0.0
+  description: |
+    Busca beneficios y descuentos de bancos, tarjetas y billeteras de Chile (Santander, BCI,
+    Tenpo, Tapp, Copec Pay, Banco de Chile y Mercado Pago) consultando sus fuentes publicas.
+
+    ## Como integrar (cliente movil)
+    1. `GET /v1/banks` para poblar el filtro de emisores (usar `key` como valor).
+    2. `GET /v1/search?q=<texto>&banks=<keys>&page=1&pageSize=20` para buscar.
+    3. Mostrar `results`. Si `meta.partial` es `true`, algun emisor fallo: sus detalles estan
+       en `errors` (y por emisor en `sources`). La respuesta sigue siendo valida (HTTP 200).
+    4. Usar `results[].id` como clave estable de cada beneficio (listas, favoritos, deep links).
+
+    ## Reglas de busqueda
+    - Insensible a mayusculas, tildes y puntuacion: `el cafe rosa` encuentra "El Café Rosa".
+    - Una palabra de 4 letras o menos solo coincide como palabra completa (`kfc`, `cine`).
+    - Se ignoran los espacios al comparar: `burgerking` encuentra "Burger King".
+
+    ## Latencia y cache
+    Los catalogos de cada emisor se guardan en cache en el servidor (por defecto 30 minutos).
+    La primera busqueda tras iniciar o vencer la cache puede tardar 10-20 s (Banco de Chile es
+    el mas lento); las siguientes responden en milisegundos. `sources[].cached` indica si el
+    emisor salio de cache. Recomendado: timeout del cliente de 30 s y mostrar un indicador de
+    carga en la primera busqueda.
+
+    ## Errores
+    Todos los errores de `/v1` tienen el formato `{ "error": { "code", "message", "details"? } }`.
+    El cliente debe decidir por `code` (estable); `message` es texto para diagnostico.
+
+    ## Rutas sin version (deprecadas)
+    `/search` y `/health` se mantienen por compatibilidad con la version 1.x. Clientes nuevos
+    deben usar `/v1`.
+
+    ## Seguridad (pendiente)
+    Hoy la API no exige autenticacion. Para produccion se recomienda API key por header
+    `x-api-key` y rate limiting (ver docs/ARQUITECTURA.md). CORS se habilita con `CORS_ORIGINS`.
+servers:
+  - url: http://localhost:3000
+    description: Desarrollo local
+  - url: http://10.0.2.2:3000
+    description: Emulador Android apuntando al host
+tags:
+  - name: v1
+    description: API actual
+  - name: legado
+    description: Rutas de la version 1.x (deprecadas)
+
+paths:
+  /v1/search:
+    get:
+      tags: [v1]
+      summary: Buscar beneficios
+      operationId: searchBenefits
+      parameters:
+        - $ref: '#/components/parameters/Query'
+        - $ref: '#/components/parameters/Banks'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+      responses:
+        '200':
+          $ref: '#/components/responses/SearchOk'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+    post:
+      tags: [v1]
+      summary: Buscar beneficios (body JSON)
+      description: Igual que el GET, con los parametros en el body. Util si la lista de emisores es larga.
+      operationId: searchBenefitsPost
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/SearchRequest'
+            example:
+              query: El Café Rosa
+              banks: [copec]
+              page: 1
+              pageSize: 20
+      responses:
+        '200':
+          $ref: '#/components/responses/SearchOk'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '413':
+          description: Body sobre el limite (`BODY_LIMIT_BYTES`)
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+              example:
+                error:
+                  code: PAYLOAD_TOO_LARGE
+                  message: Body demasiado grande
+                  details: { limitBytes: 1000000 }
+
+  /v1/banks:
+    get:
+      tags: [v1]
+      summary: Emisores disponibles
+      operationId: listBanks
+      responses:
+        '200':
+          description: Lista de emisores en el orden en que aparecen los resultados
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BanksResponse'
+              example:
+                banks:
+                  - { key: santander, name: Santander, searchMode: catalog }
+                  - { key: bci, name: BCI, searchMode: catalog }
+                  - { key: tenpo, name: Tenpo, searchMode: catalog }
+                  - { key: tapp, name: Tapp, searchMode: catalog }
+                  - { key: copec, name: Copec Pay, searchMode: catalog }
+                  - { key: bancochile, name: Banco de Chile, searchMode: catalog }
+                  - { key: mercadopago, name: Mercado Pago, searchMode: query }
+
+  /v1/health:
+    get:
+      tags: [v1]
+      summary: Estado del servicio y de cada emisor
+      description: |
+        Siempre responde 200 si el proceso esta vivo. `status` es `degraded` si algun emisor fallo
+        o devolvio 0 registros en su ultima consulta. El estado por emisor es el de la ultima
+        consulta real (`unknown` si aun no se consulto). Con `probe=true` se consultan (o renuevan
+        en cache) todos los catalogos antes de responder.
+      operationId: health
+      parameters:
+        - name: probe
+          in: query
+          required: false
+          schema: { type: string, enum: ['true'] }
+      responses:
+        '200':
+          description: Estado
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/HealthResponse'
+              example:
+                status: degraded
+                version: 2.0.0
+                uptimeSeconds: 3600
+                cache: { enabled: true, ttlSeconds: 1800 }
+                sources:
+                  - key: copec
+                    bank: Copec Pay
+                    status: ok
+                    count: 48
+                    cached: false
+                    durationMs: 98
+                    checkedAt: '2026-11-12T15:00:00.000Z'
+                  - key: mercadopago
+                    bank: Mercado Pago
+                    status: error
+                    count: 0
+                    cached: false
+                    durationMs: 99
+                    error: { code: HTTP_ERROR, message: 'Mercado Pago respondio 403: ...' }
+                    checkedAt: '2026-11-12T15:00:00.000Z'
+                  - { key: tapp, bank: Tapp, status: unknown, checkedAt: null }
+
+  /search:
+    get:
+      tags: [legado]
+      deprecated: true
+      summary: Busqueda (formato 1.x)
+      parameters:
+        - name: q
+          in: query
+          required: true
+          schema: { type: string }
+        - name: banks
+          in: query
+          description: Nombres visibles separados por coma (ej. "Copec Pay,BCI"). No acepta keys.
+          schema: { type: string }
+      responses:
+        '200':
+          description: Coincidencias sin paginar
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LegacySearchResponse' }
+        '400':
+          description: Falta q
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LegacyError' }
+              example: { error: Falta el parametro q }
+    post:
+      tags: [legado]
+      deprecated: true
+      summary: Busqueda (formato 1.x, body JSON)
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                query: { type: string }
+                banks:
+                  oneOf:
+                    - { type: array, items: { type: string } }
+                    - { type: string }
+      responses:
+        '200':
+          description: Coincidencias sin paginar
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LegacySearchResponse' }
+        '400':
+          description: Falta query, JSON invalido o body que no es objeto
+          content:
+            application/json:
+              schema: { $ref: '#/components/schemas/LegacyError' }
+              example: { error: JSON invalido }
+
+  /health:
+    get:
+      tags: [legado]
+      deprecated: true
+      summary: Liveness (formato 1.x)
+      responses:
+        '200':
+          description: Vivo
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status: { type: string, enum: [ok] }
+
+components:
+  parameters:
+    Query:
+      name: q
+      in: query
+      required: true
+      description: Texto a buscar (1 a 100 caracteres, se recortan espacios).
+      schema: { type: string, minLength: 1, maxLength: 100 }
+      example: Rappi
+    Banks:
+      name: banks
+      in: query
+      required: false
+      description: Emisores separados por coma, por `key` o nombre visible (max. 20). Vacio = todos.
+      schema: { type: string }
+      example: copec,bci
+    Page:
+      name: page
+      in: query
+      required: false
+      schema: { type: integer, minimum: 1, default: 1 }
+    PageSize:
+      name: pageSize
+      in: query
+      required: false
+      schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+
+  responses:
+    SearchOk:
+      description: |
+        Resultados paginados. Puede ser parcial (`meta.partial: true`) si algun emisor fallo.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/SearchResponse'
+          example:
+            query: Rappi
+            results:
+              - id: copec-pay-ac2a0fbac9aa
+                bank: Copec Pay
+                bankKey: copec
+                title: Rappi
+                subtitle: Hasta $6.000 de descuento los viernes en todo Rappi para nuevos usuarios.
+                description: Hasta $6.000 de descuento en Rappi todos los viernes para tu primera compra y $3.000 permanentes.
+                commerceName: Rappi
+                category: Delivery
+                validFrom: '2026-08-01'
+                validUntil: '2026-11-30'
+                url: https://copecpay.cl/beneficios/delivery/rappi/
+                logo: https://copecpay.cl/wp-content/uploads/2025/06/rappid-2-1.png
+            pagination: { page: 1, pageSize: 1, total: 4, totalPages: 4, hasMore: true }
+            sources:
+              - { key: copec, bank: Copec Pay, status: ok, count: 48, cached: true, durationMs: 2 }
+              - key: mercadopago
+                bank: Mercado Pago
+                status: error
+                count: 0
+                cached: false
+                durationMs: 99
+                error: { code: HTTP_ERROR, message: 'Mercado Pago respondio 403: ...' }
+            errors:
+              - bank: Mercado Pago
+                key: mercadopago
+                code: HTTP_ERROR
+                message: 'Mercado Pago respondio 403: ...'
+            meta: { generatedAt: '2026-11-12T15:00:00.000Z', partial: true }
+    BadRequest:
+      description: Parametros invalidos
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          examples:
+            sinConsulta:
+              value: { error: { code: MISSING_QUERY, message: 'Falta la consulta de busqueda ("q" o "query")' } }
+            emisorDesconocido:
+              value:
+                error:
+                  code: UNKNOWN_BANK
+                  message: 'Emisor desconocido: nope'
+                  details:
+                    unknown: [nope]
+                    allowed: [santander, bci, tenpo, tapp, copec, bancochile, mercadopago]
+            paginacion:
+              value:
+                error:
+                  code: INVALID_PAGINATION
+                  message: '"pageSize" debe ser un entero entre 1 y 100'
+                  details: { field: pageSize, value: '101' }
+            jsonInvalido:
+              value: { error: { code: INVALID_JSON, message: JSON invalido } }
+
+  schemas:
+    Benefit:
+      type: object
+      description: Beneficio normalizado. Los campos opcionales vienen en `null` (nunca "").
+      required: [id, bank, bankKey, title]
+      properties:
+        id:
+          type: string
+          description: Identificador estable ("<emisor>-<hash>"), derivado del id de la fuente.
+          example: copec-pay-ac2a0fbac9aa
+        bank: { type: string, description: Nombre visible del emisor, example: Copec Pay }
+        bankKey: { type: string, description: Key del emisor (ver /v1/banks), example: copec }
+        title: { type: string, example: Rappi }
+        subtitle: { type: string, nullable: true }
+        description:
+          type: string
+          nullable: true
+          maxLength: 300
+          description: Texto plano, recortado a 300 caracteres (termina en "..." si se recorto).
+        commerceName: { type: string, nullable: true, example: Rappi }
+        category:
+          type: string
+          nullable: true
+          description: Categorias separadas por coma. Hoy solo Copec Pay y Banco de Chile.
+        validFrom:
+          type: string
+          format: date
+          nullable: true
+          description: Inicio de vigencia (YYYY-MM-DD, hora de Chile). Hoy solo Copec Pay.
+        validUntil:
+          type: string
+          format: date
+          nullable: true
+          description: Fin de vigencia (YYYY-MM-DD). Hoy Copec Pay y Banco de Chile.
+        url: { type: string, format: uri, nullable: true }
+        logo:
+          type: string
+          format: uri
+          nullable: true
+          description: Logo o imagen del beneficio. Tenpo no la entrega.
+    Pagination:
+      type: object
+      required: [page, pageSize, total, totalPages, hasMore]
+      properties:
+        page: { type: integer, minimum: 1 }
+        pageSize: { type: integer, minimum: 1, maximum: 100 }
+        total: { type: integer, description: Total de coincidencias }
+        totalPages: { type: integer, minimum: 1 }
+        hasMore: { type: boolean }
+    ProviderErrorCode:
+      type: string
+      description: |
+        HTTP_ERROR (la fuente respondio no-OK), NETWORK_ERROR (sin conexion), TIMEOUT
+        (excedio el tiempo limite), INVALID_RESPONSE (formato inesperado), MISSING_CREDENTIALS
+        (falta configurar una llave en el servidor), ABORTED (cancelado), PROVIDER_ERROR (otro).
+        Tratar valores desconocidos como PROVIDER_ERROR.
+      enum: [HTTP_ERROR, NETWORK_ERROR, TIMEOUT, INVALID_RESPONSE, MISSING_CREDENTIALS, ABORTED, PROVIDER_ERROR]
+    ProviderErrorDetail:
+      type: object
+      required: [code, message]
+      properties:
+        code: { $ref: '#/components/schemas/ProviderErrorCode' }
+        message: { type: string }
+    SourceStatus:
+      type: object
+      required: [key, bank, status]
+      properties:
+        key: { type: string }
+        bank: { type: string }
+        status:
+          type: string
+          enum: [ok, empty, error, unknown]
+          description: |
+            ok = respondio; empty = respondio 0 registros (posible cambio en la fuente);
+            error = fallo (ver `error`); unknown = aun no consultado (solo en /v1/health).
+        count: { type: integer, description: Registros descargados del emisor (antes de filtrar) }
+        cached: { type: boolean }
+        durationMs: { type: integer }
+        error: { $ref: '#/components/schemas/ProviderErrorDetail' }
+        checkedAt: { type: string, format: date-time, nullable: true, description: Solo en /v1/health }
+    SearchError:
+      type: object
+      required: [bank, key, code, message]
+      properties:
+        bank: { type: string }
+        key: { type: string }
+        code: { $ref: '#/components/schemas/ProviderErrorCode' }
+        message: { type: string }
+    SearchRequest:
+      type: object
+      required: [query]
+      properties:
+        query: { type: string, minLength: 1, maxLength: 100 }
+        banks:
+          description: Keys o nombres de emisores (arreglo o texto separado por comas).
+          oneOf:
+            - { type: array, items: { type: string }, maxItems: 20 }
+            - { type: string }
+        page: { type: integer, minimum: 1, default: 1 }
+        pageSize: { type: integer, minimum: 1, maximum: 100, default: 20 }
+    SearchResponse:
+      type: object
+      required: [query, results, pagination, sources, errors, meta]
+      properties:
+        query: { type: string }
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/Benefit' }
+        pagination: { $ref: '#/components/schemas/Pagination' }
+        sources:
+          type: array
+          description: Estado de cada emisor consultado en esta busqueda.
+          items: { $ref: '#/components/schemas/SourceStatus' }
+        errors:
+          type: array
+          description: Emisores que fallaron (la busqueda continua con el resto).
+          items: { $ref: '#/components/schemas/SearchError' }
+        meta:
+          type: object
+          required: [generatedAt, partial]
+          properties:
+            generatedAt: { type: string, format: date-time }
+            partial: { type: boolean, description: true si algun emisor fallo }
+    BanksResponse:
+      type: object
+      required: [banks]
+      properties:
+        banks:
+          type: array
+          items:
+            type: object
+            required: [key, name, searchMode]
+            properties:
+              key: { type: string }
+              name: { type: string }
+              searchMode:
+                type: string
+                enum: [catalog, query]
+                description: catalog = se descarga el catalogo completo; query = la fuente busca por texto.
+    HealthResponse:
+      type: object
+      required: [status, version, uptimeSeconds, cache, sources]
+      properties:
+        status: { type: string, enum: [ok, degraded] }
+        version: { type: string }
+        uptimeSeconds: { type: integer }
+        cache:
+          type: object
+          properties:
+            enabled: { type: boolean }
+            ttlSeconds: { type: integer }
+        sources:
+          type: array
+          items: { $ref: '#/components/schemas/SourceStatus' }
+    ErrorResponse:
+      type: object
+      required: [error]
+      properties:
+        error:
+          type: object
+          required: [code, message]
+          properties:
+            code:
+              type: string
+              enum:
+                - MISSING_QUERY
+                - QUERY_TOO_LONG
+                - UNKNOWN_BANK
+                - INVALID_PAGINATION
+                - INVALID_JSON
+                - INVALID_BODY
+                - NOT_FOUND
+                - METHOD_NOT_ALLOWED
+                - PAYLOAD_TOO_LARGE
+                - INTERNAL_ERROR
+            message: { type: string }
+            details: { type: object, additionalProperties: true }
+    LegacyEntry:
+      type: object
+      description: Beneficio en formato 1.x (campos variables por emisor, sin id ni logo).
+      properties:
+        bank: { type: string }
+        title: { type: string }
+        subtitle: { type: string }
+        description: { type: string }
+        url: { type: string }
+        slug: { type: string }
+        commerceName: { type: string }
+        keywords: { type: string }
+        tagsText: { type: string }
+        category: { type: string }
+        validFrom: { type: string }
+        validUntil: { type: string }
+    LegacySearchResponse:
+      type: object
+      properties:
+        matches:
+          type: array
+          items: { $ref: '#/components/schemas/LegacyEntry' }
+        errors:
+          type: array
+          items:
+            type: object
+            properties:
+              bank: { type: string }
+              message: { type: string }
+    LegacyError:
+      type: object
+      properties:
+        error: { type: string }
