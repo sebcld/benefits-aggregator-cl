@@ -16,6 +16,7 @@ info:
     ## Reglas de busqueda
     - Insensible a mayusculas, tildes y puntuacion: `el cafe rosa` encuentra "El Café Rosa".
     - Una palabra de 4 letras o menos solo coincide como palabra completa (`kfc`, `cine`).
+      Las marcas con mayuscula interna cuentan como dos palabras: `bus` encuentra "FlixBus".
     - Se ignoran los espacios al comparar: `burgerking` encuentra "Burger King".
 
     ## Latencia y cache

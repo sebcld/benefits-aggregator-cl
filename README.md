@@ -81,7 +81,7 @@ const { matches, errors } = await searchBenefits('rappi', { banks: ['Copec Pay']
 **Búsqueda:**
 - No distingue mayúsculas, tildes ni puntuación (`"el cafe rosa"` encuentra "El Café Rosa").
 - Compara contra título, bajada, descripción, slug, keywords, tags y comercio.
-- Una palabra de 4 letras o menos debe coincidir completa (`kfc`).
+- Una palabra de 4 letras o menos debe coincidir completa (`kfc`). Las marcas escritas juntas con mayúscula interna cuentan como dos palabras: `flix` y `bus` encuentran "FlixBus", y `ya` encuentra "PedidosYa".
 
 ## Variables de entorno
 
