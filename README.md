@@ -71,7 +71,7 @@ const { matches, errors } = await searchBenefits('rappi', { banks: ['Copec Pay']
 | Emisor | Fuente |
 |---|---|
 | Santander | JSON público `banco.santander.cl/beneficios/promociones.json` |
-| BCI | API `api.bciplus.cl/bff-loyalty-beneficios/v1/offers`, paginada (header `ocp-apim-subscription-key` = `BCI_SUBSCRIPTION_KEY`) |
+| BCI | API `api.bciplus.cl/bff-loyalty-beneficios/v1/offers`, paginada (header `ocp-apim-subscription-key` = `BCI_SUBSCRIPTION_KEY`). Título = comercio (`comercio.nombre`), bajada = título de la oferta; link a la ficha `bci.cl/beneficios/beneficios-bci/detalle/<slug>` |
 | Tenpo | HTML de `www.tenpo.cl/beneficios` y su paginación (regex) |
 | Tapp | CMS `web.cajalosandes.cl/api/content/spaces/wp-tapp-beneficios-copia/...`, paginado |
 | Copec Pay | REST del tema WordPress `copecpay.cl/wp-json/custom/v1/beneficios/`. Solo vigentes hoy (hora de Chile); `fetchCopec({ includeInactive: true })` trae todos |

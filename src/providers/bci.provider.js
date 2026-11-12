@@ -6,24 +6,39 @@ const { cleanText } = require('../shared/text');
 
 const NAME = 'BCI';
 const BASE_URL = 'https://api.bciplus.cl/bff-loyalty-beneficios/v1/offers';
+const LIST_URL = 'https://www.bci.cl/beneficios/beneficios-bci';
 const PAGE_SIZE = 100;
 const PAGE_DELAY_MS = 150;
 
+/** Ficha del beneficio en bci.cl: /beneficios/beneficios-bci/detalle/<slug>. */
+function bciDetailUrl(slug) {
+  return `${LIST_URL}/detalle/${encodeURIComponent(slug)}`;
+}
+
+// En BCI, "titulo" describe el beneficio ("Las Condes y Vitacura", "Tienda presencial - ...") y el
+// comercio viene aparte. Para que la tarjeta muestre el comercio (como Santander o Copec Pay):
+//   title       = comercio.nombre      ("Ansaldo")
+//   subtitle    = titulo de la oferta  ("Tienda presencial - Juguetes y articulos ...")
+//   description = subtitulo + descripcion (el subtitulo es la condicion de tarjeta:
+//                 "Exclusivo con tus tarjetas de Credito Bci.")
+// El link va a la ficha del beneficio en bci.cl (no al sitio del comercio, que trae "link").
 function parseBciOffer(offer) {
   const tagsText = (offer?.tags || []).map((t) => t?.nombre || '').join(' ');
-  const fallbackUrl = offer?.slug
-    ? `https://www.bci.cl/beneficios/beneficios-bci#${offer.slug}`
-    : 'https://www.bci.cl/beneficios/beneficios-bci';
+  const commerceName = cleanText(offer?.comercio?.nombre);
+  const offerTitle = cleanText(offer?.titulo);
+  const condition = cleanText(offer?.subtitulo);
+  const description = cleanText(offer?.descripcion);
+  const slug = offer?.slug?.trim() || '';
 
   return createEntry(
     {
       bank: NAME,
-      title: offer?.titulo?.trim() || '',
-      subtitle: cleanText(offer?.subtitulo),
-      description: cleanText(offer?.descripcion),
-      url: offer?.link?.trim() || fallbackUrl,
-      slug: offer?.slug || '',
-      commerceName: cleanText(offer?.comercio?.nombre),
+      title: commerceName || offerTitle,
+      subtitle: commerceName ? offerTitle : condition,
+      description: commerceName && condition ? cleanText(`${condition} ${description}`) : description,
+      url: slug ? bciDetailUrl(slug) : offer?.link?.trim() || LIST_URL,
+      slug,
+      commerceName,
       keywords: cleanText(offer?.keywords),
       tagsText,
     },
@@ -61,4 +76,4 @@ const provider = defineProvider({
   },
 });
 
-module.exports = { provider, parseBciOffer };
+module.exports = { provider, parseBciOffer, bciDetailUrl };

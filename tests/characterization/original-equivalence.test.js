@@ -4,6 +4,10 @@
 //  1. Banco de Chile cambio de fuente (API "Todos los beneficios" en vez de scraping de 9 paginas),
 //     pedido para que "PROWASHGO" funcione. Sus resultados se excluyen de la comparacion.
 //  2. API legada: JSON invalido -> 400 (antes 500) y ruteo exacto (/searchXYZ, /healthcheck -> 404).
+//  3. BCI: el titulo pasa a ser el comercio ("Ansaldo"), el titulo de la oferta pasa a la bajada,
+//     la condicion de tarjeta (subtitulo) va al inicio de la descripcion y el link apunta a la ficha
+//     del beneficio en bci.cl. Sus registros se comparan sin title, subtitle, description ni url:
+//     la cantidad, el orden y el resto de los campos deben seguir identicos.
 // Todo lo demas debe ser identico al original.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -26,7 +30,12 @@ const current = {
 };
 
 const CHANGED_BANK = 'Banco de Chile';
-const withoutChangedBank = (matches) => matches.filter((m) => m.bank !== CHANGED_BANK);
+const BCI = 'BCI';
+const BCI_CHANGED_FIELDS = ['title', 'subtitle', 'description', 'url'];
+
+const withoutBciChanges = (entry) =>
+  entry.bank === BCI ? Object.fromEntries(Object.entries(entry).filter(([k]) => !BCI_CHANGED_FIELDS.includes(k))) : entry;
+const comparable = (matches) => matches.filter((m) => m.bank !== CHANGED_BANK).map(withoutBciChanges);
 
 // Quita del stdout del CLI el bloque "Banco de Chile (n)" (hasta el siguiente emisor).
 function stripBankBlock(stdout, bank) {
@@ -43,22 +52,32 @@ const INTENTIONAL_HTTP = {
 for (const name of Object.keys(original.providers)) {
   if (name === 'bancochile') continue;
   test(`original: extractor ${name} identico`, () => {
-    assertSameJson(current.providers[name], original.providers[name]);
+    assertSameJson(current.providers[name].map(withoutBciChanges), original.providers[name].map(withoutBciChanges));
   });
 }
 
+test('original: BCI cambia exactamente title, subtitle, description y url', () => {
+  const changed = new Set();
+  current.providers.bci.forEach((entry, i) => {
+    for (const key of Object.keys(entry)) if (entry[key] !== original.providers.bci[i][key]) changed.add(key);
+  });
+  assert.deepEqual([...changed].sort(), [...BCI_CHANGED_FIELDS].sort());
+});
+
 for (const [name, expected] of Object.entries(original.search)) {
-  test(`original: busqueda "${name}" identica fuera de Banco de Chile`, () => {
+  test(`original: busqueda "${name}" identica fuera de Banco de Chile y de los campos cambiados de BCI`, () => {
     const actual = current.search[name];
-    assertSameJson(withoutChangedBank(actual.matches), withoutChangedBank(expected.matches));
+    assertSameJson(comparable(actual.matches), comparable(expected.matches));
     assertSameJson(actual.errors, expected.errors);
   });
 }
 
+const stripChangedBlocks = (stdout) => stripBankBlock(stripBankBlock(stdout, CHANGED_BANK), BCI);
+
 for (const [name, expected] of Object.entries(original.cli)) {
-  test(`original: CLI "${name}" identico fuera de Banco de Chile`, () => {
+  test(`original: CLI "${name}" identico fuera de Banco de Chile y BCI`, () => {
     const actual = current.cli[name];
-    assert.equal(stripBankBlock(actual.stdout, CHANGED_BANK), stripBankBlock(expected.stdout, CHANGED_BANK));
+    assert.equal(stripChangedBlocks(actual.stdout), stripChangedBlocks(expected.stdout));
     assert.equal(actual.stderr, expected.stderr);
     assert.equal(actual.code, expected.code);
   });
@@ -72,7 +91,7 @@ for (const [name, expected] of Object.entries(original.http)) {
     assert.equal(actual.contentType, target.contentType);
 
     if (target.body?.matches) {
-      assertSameJson(withoutChangedBank(actual.body.matches), withoutChangedBank(target.body.matches));
+      assertSameJson(comparable(actual.body.matches), comparable(target.body.matches));
       assertSameJson(actual.body.errors, target.body.errors);
     } else {
       assertSameJson(actual.body, target.body);
