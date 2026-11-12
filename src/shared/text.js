@@ -11,9 +11,13 @@ const decodeHtml = (text) =>
     .replace(/&#x([0-9a-fA-F]+);/g, (_, hex) => String.fromCharCode(parseInt(hex, 16)))
     .replace(/&#([0-9]+);/g, (_, dec) => String.fromCharCode(parseInt(dec, 10)));
 
+// Bloques cuyo contenido no es texto visible (CSS, JS, comentarios): se quitan enteros, no solo
+// la etiqueta. Por ejemplo, Tapp incluye <style>.fake-link {...}</style> en algunas bajadas.
+const NON_TEXT_BLOCKS = /<(style|script|noscript|template)\b[^>]*>[\s\S]*?<\/\1\s*>|<!--[\s\S]*?-->/gi;
+
 // Quita etiquetas HTML, decodifica entidades y colapsa espacios. Acepta null/undefined.
 const cleanText = (text) =>
-  decodeHtml((text || '').replace(/<[^>]*>/g, ' '))
+  decodeHtml((text || '').replace(NON_TEXT_BLOCKS, ' ').replace(/<[^>]*>/g, ' '))
     .replace(/\s+/g, ' ')
     .trim();
 

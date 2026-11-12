@@ -13,7 +13,20 @@ const KEPT_HEADERS = ['content-type', 'retry-after'];
 const BCH_META = ['name', 'slug', 'uuid', 'tags', 'category_name', 'unpublish_at'];
 const BCH_FIELDS = ['Titulo', 'Extracto', 'Descripcion', 'Keywords', 'Tipo Beneficio'];
 const pick = (obj, keys) => Object.fromEntries(keys.filter((k) => k in (obj || {})).map((k) => [k, obj[k]]));
+// Tapp finalizados (solo para tests de busqueda): los campos que usa el parser de Tapp.
+const TAPP_META = ['name', 'slug', 'uuid', 'category', 'tags'];
+const TAPP_FIELDS = ['Bajada', 'Cuerpo', 'Tipo de beneficio', 'Tipo de cliente', 'Regiones'];
 const TRIMMERS = {
+  'tapp-finalizados': (json) => ({
+    meta: json.meta,
+    entries: json.entries.map((e) => {
+      const logo = e.fields?.['Logo anunciante'];
+      return {
+        meta: pick(e.meta, TAPP_META),
+        fields: { ...pick(e.fields, TAPP_FIELDS), 'Logo anunciante': logo ? { url: logo.url, title: logo.title } : null },
+      };
+    }),
+  }),
   bancochile: (json) => ({
     meta: json.meta,
     entries: json.entries.map((e) => ({
@@ -54,12 +67,25 @@ globalThis.fetch = async (input, init) => {
 };
 
 const benefits = require('../../src/benefits');
+const tapp = require('../../src/providers/tapp.provider');
+
+// Beneficios finalizados de Tapp, SOLO para probar la busqueda en tests con datos reales.
+// La API nunca los pide (tapp.provider.js descarga solo las categorias vigentes).
+async function recordTappFinished() {
+  for (const category of ['beneficios-finalizados', 'convenios-finalizados']) {
+    for (let page = 1, totalPages = 1; page <= totalPages; page += 1) {
+      const json = await (await fetch(tapp.entriesUrl(category, page))).json();
+      totalPages = json?.meta?.total_pages || 1;
+    }
+  }
+}
 
 const JOBS = {
   santander: () => benefits.fetchSantander(),
   bci: () => benefits.fetchBci(),
   tenpo: () => benefits.fetchTenpo(),
   tapp: () => benefits.fetchTapp(),
+  'tapp-finalizados': recordTappFinished,
   copec: () => benefits.fetchCopec(),
   bancochile: () => benefits.fetchBancoChile(),
   mercadopago: () => Promise.allSettled(ALL_QUERIES.map((q) => benefits.fetchMercadoPago(q))),
