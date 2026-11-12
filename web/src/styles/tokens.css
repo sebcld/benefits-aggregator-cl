@@ -1,0 +1,122 @@
+/* GENERADO por scripts/design/export-tokens.mjs desde design/beneficios_CL.figcraft. No editar a mano.
+ * Light es el tema por defecto. Dark aplica con [data-theme="dark"] o, si el usuario no eligio tema,
+ * con prefers-color-scheme: dark. Los selectores [data-theme] tambien funcionan en un elemento
+ * interior (por ejemplo, para mostrar ambos temas lado a lado en /sistema). */
+
+:root {
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+  --space-12: 48px;
+  --space-16: 64px;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --radius-pill: 999px;
+
+  --shadow-elevated: 0px 8px 24px 0px rgb(20 33 28 / 0.1);
+}
+
+:root,
+[data-theme='light'] {
+  --accent-amber: #d97706;
+  --accent-amber-bg: #fef3c7;
+  --accent-on-amber: #92400e;
+  --bg-page: #f7f7f5;
+  --bg-subtle: #efefea;
+  --bg-surface: #ffffff;
+  --border-default: #e4e4df;
+  --brand-primary: #0a5c36;
+  --brand-soft: #e6f4ed;
+  --brand-soft-border: #cfe8da;
+  --brand-soft-text: #0a5c36;
+  --glass-bg: rgb(247 247 245 / 0.82);
+  --issuer-bancochile: #002464;
+  --issuer-bci: #007a33;
+  --issuer-copec: #f97316;
+  --issuer-santander: #ec0000;
+  --issuer-tapp: #7c3aed;
+  --issuer-tenpo: #00d1b2;
+  --state-error: #b91c1c;
+  --state-error-bg: #fee2e2;
+  --state-warn-bg: #fef3c7;
+  --state-warn-text: #92400e;
+  --text-on-brand: #ffffff;
+  --text-primary: #111412;
+  --text-secondary: #5c635e;
+  --tint-opacity: 6%;
+  --shadow-card: 0px 12px 24px -4px rgb(0 0 0 / 0.039);
+  --shimmer-highlight: rgb(255 255 255 / 0.102);
+  color-scheme: light;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --accent-amber: #fbbf24;
+    --accent-amber-bg: rgb(245 158 11 / 0.149);
+    --accent-on-amber: #fbbf24;
+    --bg-page: #0b0e0c;
+    --bg-subtle: #1d2420;
+    --bg-surface: #141916;
+    --border-default: #262f2a;
+    --brand-primary: #22c55e;
+    --brand-soft: #132e1e;
+    --brand-soft-border: #1e462e;
+    --brand-soft-text: #6ee7b7;
+    --glass-bg: rgb(11 14 12 / 0.82);
+    --issuer-bancochile: #3b82f6;
+    --issuer-bci: #007a33;
+    --issuer-copec: #f97316;
+    --issuer-santander: #ec0000;
+    --issuer-tapp: #7c3aed;
+    --issuer-tenpo: #00d1b2;
+    --state-error: #f87171;
+    --state-error-bg: rgb(239 68 68 / 0.149);
+    --state-warn-bg: rgb(245 158 11 / 0.149);
+    --state-warn-text: #fbbf24;
+    --text-on-brand: #052e16;
+    --text-primary: #f2f5f3;
+    --text-secondary: #94a099;
+    --tint-opacity: 10%;
+    --shadow-card: inset 0px 1px 0px 0px rgb(255 255 255 / 0.059);
+    --shimmer-highlight: rgb(255 255 255 / 0.051);
+    color-scheme: dark;
+  }
+}
+
+[data-theme='dark'] {
+  --accent-amber: #fbbf24;
+  --accent-amber-bg: rgb(245 158 11 / 0.149);
+  --accent-on-amber: #fbbf24;
+  --bg-page: #0b0e0c;
+  --bg-subtle: #1d2420;
+  --bg-surface: #141916;
+  --border-default: #262f2a;
+  --brand-primary: #22c55e;
+  --brand-soft: #132e1e;
+  --brand-soft-border: #1e462e;
+  --brand-soft-text: #6ee7b7;
+  --glass-bg: rgb(11 14 12 / 0.82);
+  --issuer-bancochile: #3b82f6;
+  --issuer-bci: #007a33;
+  --issuer-copec: #f97316;
+  --issuer-santander: #ec0000;
+  --issuer-tapp: #7c3aed;
+  --issuer-tenpo: #00d1b2;
+  --state-error: #f87171;
+  --state-error-bg: rgb(239 68 68 / 0.149);
+  --state-warn-bg: rgb(245 158 11 / 0.149);
+  --state-warn-text: #fbbf24;
+  --text-on-brand: #052e16;
+  --text-primary: #f2f5f3;
+  --text-secondary: #94a099;
+  --tint-opacity: 10%;
+  --shadow-card: inset 0px 1px 0px 0px rgb(255 255 255 / 0.059);
+  --shimmer-highlight: rgb(255 255 255 / 0.051);
+  color-scheme: dark;
+}

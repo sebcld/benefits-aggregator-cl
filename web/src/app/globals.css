@@ -1,0 +1,170 @@
+@import 'tailwindcss';
+@import '../styles/tokens.css';
+
+/* Variante dark: con las mismas reglas que tokens.css: [data-theme="dark"] (tambien en un elemento
+   interior) o el sistema en oscuro cuando no se eligio tema. */
+@custom-variant dark {
+  &:where([data-theme='dark'], [data-theme='dark'] *) {
+    @slot;
+  }
+  @media (prefers-color-scheme: dark) {
+    &:where(:root:not([data-theme]) *):not(:where([data-theme='light'], [data-theme='light'] *)) {
+      @slot;
+    }
+  }
+}
+
+/* Solo existen los colores del diseno: se borra la paleta por defecto de Tailwind para que ningun
+   componente pueda usar un color fuera de los tokens (lo verifica tests/unit/tokens.test.ts). */
+@theme {
+  --color-*: initial;
+  --font-*: initial;
+  --text-*: initial;
+}
+
+/* Mapeo de tokens semanticos (tokens.css, generado desde FigCraft) a utilidades de Tailwind.
+   "reference" evita volver a declarar las variables; "inline" hace que la utilidad use var(--token)
+   directamente, asi que el tema (Light/Dark) se resuelve en tiempo de ejecucion. */
+@theme inline reference {
+  --color-page: var(--bg-page);
+  --color-surface: var(--bg-surface);
+  --color-subtle: var(--bg-subtle);
+  --color-fg: var(--text-primary);
+  --color-fg-muted: var(--text-secondary);
+  --color-on-brand: var(--text-on-brand);
+  --color-line: var(--border-default);
+  --color-brand: var(--brand-primary);
+  --color-brand-soft: var(--brand-soft);
+  --color-brand-soft-line: var(--brand-soft-border);
+  --color-brand-soft-fg: var(--brand-soft-text);
+  --color-amber: var(--accent-amber);
+  --color-amber-bg: var(--accent-amber-bg);
+  --color-on-amber: var(--accent-on-amber);
+  --color-warn-bg: var(--state-warn-bg);
+  --color-warn-fg: var(--state-warn-text);
+  --color-danger: var(--state-error);
+  --color-danger-bg: var(--state-error-bg);
+  --color-glass: var(--glass-bg);
+  --color-issuer: var(--issuer);
+
+  /* radius/sm|md|lg|pill del diseno: 8 / 14 / 20 / 999 */
+  --radius-sm: var(--radius-sm);
+  --radius-md: var(--radius-md);
+  --radius-lg: var(--radius-lg);
+  --radius-pill: var(--radius-pill);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-elevated: var(--shadow-elevated);
+
+  --font-display: var(--font-bricolage), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+}
+
+/* Escala tipografica usada en las pantallas del diseno (px). "auto" en FigCraft = normal. */
+@theme {
+  --text-12: 12px;
+  --text-12--line-height: normal;
+  --text-13: 13px;
+  --text-13--line-height: normal;
+  --text-14: 14px;
+  --text-14--line-height: normal;
+  --text-15: 15px;
+  --text-15--line-height: normal;
+  --text-17: 17px;
+  --text-17--line-height: normal;
+  --text-18: 18px;
+  --text-18--line-height: normal;
+  --text-20: 20px;
+  --text-20--line-height: normal;
+  --text-22: 22px;
+  --text-22--line-height: normal;
+  --text-24: 24px;
+  --text-24--line-height: normal;
+  --text-34: 34px;
+  --text-34--line-height: normal;
+  --text-56: 56px;
+  --text-56--line-height: normal;
+  --text-120: 120px;
+  --text-120--line-height: normal;
+
+  /* Bricolage Grotesque en titulos y valores de descuento: -2% en todo el diseno. */
+  --tracking-display: -0.02em;
+  --tracking-watermark: -0.04em;
+
+  /* Espaciado: la escala space/N del diseno es N x 4px, igual que la de Tailwind (p-4 = 16px). */
+  --spacing: var(--space-1);
+
+  --breakpoint-lg: 64rem;
+}
+
+@layer base {
+  html {
+    background: var(--bg-page);
+    color: var(--text-primary);
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    font-family: var(--font-sans);
+    background: var(--bg-page);
+    color: var(--text-primary);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Foco visible y consistente en ambos temas. */
+  :focus-visible {
+    outline: 2px solid var(--brand-primary);
+    outline-offset: 2px;
+  }
+}
+
+/* Tinte del emisor en la cabecera de la tarjeta: 6% en Light, 10% en Dark (token tint/opacity).
+   Igual que en el diseno: una capa del color del emisor con esa opacidad, detras del contenido. */
+@utility issuer-tint {
+  position: relative;
+  isolation: isolate;
+
+  &::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-color: var(--issuer);
+    opacity: var(--tint-opacity);
+  }
+}
+
+/* Header y panel de filtros: efecto vidrio. */
+@utility glass {
+  background-color: var(--glass-bg);
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+/* Barrido del skeleton. Se desactiva con prefers-reduced-motion. */
+@utility shimmer {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    transform: translateX(-100%);
+    background: linear-gradient(90deg, transparent, var(--shimmer-highlight), transparent);
+    animation: shimmer 1.4s ease-in-out infinite;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    &::after {
+      animation: none;
+      display: none;
+    }
+  }
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
