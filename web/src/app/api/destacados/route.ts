@@ -1,4 +1,4 @@
-// BFF: GET /api/destacados -> beneficios para "Destacados de hoy" (inicio movil), cache de 30 min.
+// BFF: GET /api/destacados -> beneficios para "Destacados de hoy" (inicio movil), cache de 2 horas.
 import { connection } from 'next/server';
 import { getFeatured } from '@/lib/server/benefits';
 import { errorBody } from '@/lib/server/upstream';
