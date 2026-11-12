@@ -24,6 +24,12 @@ npm install
 npm run dev                     # http://localhost:3001
 ```
 
+**Desde el teléfono (misma red Wi-Fi).** Abre `http://<IP-del-computador>:3001`, por ejemplo `http://192.168.0.101:3001`.
+- **IP del computador:** búscala con `ipconfig`. Usa la de la red Wi-Fi, que no siempre es la "Network" que muestra Next.
+- **Sin configuración extra:** `next.config.ts` ya permite en desarrollo las IPs de red local del equipo (`allowedDevOrigins`). Para otros hosts, como un túnel, usa `DEV_ALLOWED_ORIGINS`.
+- **API:** el teléfono no necesita alcanzarla, porque el BFF la llama desde el computador.
+- **Si no carga:** permite el puerto 3001 en el firewall de Windows.
+
 | Script | Qué hace |
 |---|---|
 | `npm run check` | Corre lint (ESLint), tipos (`tsc`) y los tests unitarios (Vitest). |
@@ -77,5 +83,5 @@ src/
 | Separación entre filas de la grilla | 20 px, igual que entre columnas. | Lo pide el brief. El diseño usa 10 px entre filas (el `cross_gap` por defecto de FigCraft). |
 | Sombra Dark de la tarjeta y del buscador | Borde y brillo superior. | Así lo muestran las pantallas Dark; la hoja de componentes Dark todavía tiene la sombra Light. |
 | Ícono del sol | Recentrado. | En el archivo estaba desplazado 0,8 × 1,5 px. |
-| Inicio en móvil | Muestra "Destacados de hoy" (de `/api/destacados`, con caché de 30 min) en vez del Bento y las fuentes. | Así está en el diseño. |
+| Inicio en móvil | Muestra "Destacados de hoy" (de `/api/destacados`, con caché de 2 horas) en vez del Bento y las fuentes. | Así está en el diseño. |
 | Mercado Pago en los filtros | Aparece con conteo "–". | La API lo lista, pero hoy siempre falla ([RIESGOS #1](../docs/RIESGOS.md)). No tiene token de color, así que usa el color secundario. |

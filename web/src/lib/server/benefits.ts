@@ -32,13 +32,14 @@ export async function countByBank(query: string, banks: Bank[], signal?: AbortSi
 }
 
 /** Consultas de "Destacados de hoy" (inicio movil): una tarjeta por consulta, de emisores distintos. */
-export const FEATURED_QUERIES = ['burger king', 'rappi', 'pedidos ya', 'temu'];
-const FEATURED_LIMIT = 4;
+export const FEATURED_QUERIES = ['burger king', 'rappi', 'pedidos ya', 'temu', 'uber eats', 'aliexpress', 'starbucks', 'dunkin', 'donas', 'mcdonalds'];
+const FEATURED_LIMIT = 8;
 
 export async function getFeatured(): Promise<Benefit[]> {
   'use cache';
-  // Igual que la cache de la API (30 min).
-  cacheLife({ stale: 300, revalidate: 1800, expire: 3600 });
+  // Se recalcula cada 2 horas, igual que la cache de catalogos de la API (CACHE_TTL_SECONDS=7200).
+  // Si nadie la pide en 4 horas, se descarta.
+  cacheLife({ stale: 300, revalidate: 7200, expire: 14_400 });
 
   const responses = await Promise.all(
     FEATURED_QUERIES.map((q) => upstreamGet<SearchResponse>(`/v1/search?${new URLSearchParams({ q, pageSize: '10' })}`)),
