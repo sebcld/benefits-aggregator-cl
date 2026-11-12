@@ -2,7 +2,7 @@
 
 Cada ADR documenta **una** decisión: el contexto, las alternativas, lo que se decidió y sus consecuencias. Formato [MADR](https://adr.github.io/madr/), numeración correlativa y un archivo por decisión.
 
-- **Aceptado:** ya está en el código. Los ADR 0001 a 0013 son **retroactivos**: se redactaron después de implementar, a partir del código, el historial de git y `docs/CHANGELOG_REFACTOR.md`. Las alternativas descartadas salen de lo que se evaluó durante el trabajo. Las marcadas como *(reconstruida)* son alternativas razonables que no hay registro de que se evaluaran en su momento: se agregaron para que el ADR explique por qué la decisión tomada es mejor.
+- **Aceptado:** ya está en el código. El 0020 se aceptó al implementarse. Los ADR 0001 a 0013 son **retroactivos**: se redactaron después de implementar, a partir del código, el historial de git y `docs/CHANGELOG_REFACTOR.md`. Las alternativas descartadas salen de lo que se evaluó durante el trabajo. Las marcadas como *(reconstruida)* son alternativas razonables que no hay registro de que se evaluaran en su momento: se agregaron para que el ADR explique por qué la decisión tomada es mejor.
 - **Propuesto:** todavía **no** está decidido ni implementado. Necesita aprobación antes de aplicarse.
 - **Reemplazado:** sustituido por otro ADR, que se enlaza. Hoy no hay ninguno.
 
@@ -29,7 +29,7 @@ Cada ADR documenta **una** decisión: el contexto, las alternativas, lo que se d
 | [0017](0017-warm-up-programado-y-stale-while-revalidate.md) | Warm-up programado y stale-while-revalidate | **Propuesto** | 2026-11-12 |
 | [0018](0018-futuro-de-mercado-pago.md) | Futuro de Mercado Pago como emisor | **Propuesto** | 2026-11-12 |
 | [0019](0019-eslint-y-prettier.md) | ESLint y Prettier como devDependencies | **Propuesto** | 2026-11-12 |
-| [0020](0020-actualizacion-a-node-26-y-ci.md) | Actualización a Node 26 (LTS) e integración continua | **Propuesto** | 2026-11-12 |
+| [0020](0020-actualizacion-a-node-26-y-ci.md) | Actualización a Node 26 (LTS) e integración continua | Aceptado | 2026-11-12 |
 | [0021](0021-acceso-a-banco-de-chile-sin-proxy-gratuito.md) | Acceso a Banco de Chile sin depender de un proxy gratuito | **Propuesto** | 2026-11-12 |
 
 ```mermaid
@@ -37,6 +37,7 @@ flowchart LR
   a0001["0001 Capas"] --> a0003["0003 Providers"]
   a0001 --> a0007["0007 CacheStore"]
   a0002["0002 Sin dependencias"] --> a0013["0013 Lint propio"]
+  a0002 --> a0020["0020 Node 26 y CI"]
   a0003 --> a0012["0012 Banco de Chile"]
   a0006["0006 API v1"] --> a0005["0005 Errores"]
   a0007 --> a0008["0008 CLI sin cache"]
@@ -54,7 +55,8 @@ flowchart LR
 **Leyenda del grafo**
 - **Flecha continua:** un ADR aceptado se apoya en otro.
 - **Flecha punteada hacia una caja gris:** ADR propuesto que extiende o revisa uno aceptado.
-- 0004, 0009, 0010, 0011, 0018 y 0020 no aparecen porque no dependen de otros ADR.
+- 0004, 0009, 0010, 0011 y 0018 no aparecen porque no dependen de otros ADR.
+- 0020 reemplaza solo la versión mínima de Node de 0002.
 
 ## Cómo agregar un ADR
 

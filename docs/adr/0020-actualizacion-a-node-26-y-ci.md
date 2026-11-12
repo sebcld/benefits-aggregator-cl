@@ -1,8 +1,8 @@
 # 0020. Actualización a Node 26 (LTS) e integración continua
 
-- **Estado:** **Propuesto** (no implementado: `engines` y el CI no cambiaron)
+- **Estado:** Aceptado (pasos 1 a 4 implementados; el paso 5 queda para PR separados)
 - **Fecha:** 2026-11-12
-- **Relación:** revisa la versión mínima de [0002](0002-node-nativo-sin-dependencias-y-commonjs.md)
+- **Relación:** reemplaza la versión mínima de Node de [0002](0002-node-nativo-sin-dependencias-y-commonjs.md); el resto de 0002 sigue vigente
 
 ## Contexto
 
@@ -39,23 +39,25 @@
    - Pros: soporte hasta 2029-04-30, y ya se verificó que funciona.
    - Contras: los entornos con Node 24 o anterior tienen que actualizarse.
 
-## Decisión (recomendación)
+## Decisión
 
-**Opción 4: actualizar a Node 26 LTS.** Plan propuesto, en un PR aparte:
+**Opción 4: actualizar a Node 26 LTS.** Se implementó así:
 
 1. **Versión fija.**
    - `package.json`: `"engines": { "node": ">=26" }`.
    - Agregar `.nvmrc` con `26`, para que nvm, fnm y los servicios de despliegue tomen la versión.
-2. **CI con GitHub Actions** (`.github/workflows/check.yml`):
-   - en cada push y PR, `npm run check` en Node 26, sin secretos, porque los tests no usan red;
-   - diario, `npm run smoke` con `BCI_SUBSCRIPTION_KEY` (y `JINA_API_KEY`, si existe) como secretos del repositorio. Si falla, debe abrir un issue o una alerta, porque indica que una fuente cambió.
-3. **Entorno local.** Instalar Node 26 (en Windows, `winget install OpenJS.NodeJS.LTS`) y volver a correr `npm run check`.
-4. **Documentación.** Cambiar "Node 18 o superior" por "Node 26 o superior" en `README.md`, `docs/ARQUITECTURA.md` y `entregable/CONTEXTO_PROYECTO.md`, y cerrar el riesgo #14 de `docs/RIESGOS.md`.
-5. **Simplificaciones opcionales, en PR separados y protegidas por los tests de caracterización.** Requieren que la versión mínima sea 26, no solo ejecutar con Node 26:
+2. **CI con GitHub Actions** (`.github/workflows/check.yml`). La versión de Node se toma de `.nvmrc`.
+   - **Job `check`:** en cada PR y en cada push a `main`, `npm run check` en Node 26, sin secretos, porque los tests no usan red.
+   - **Job `smoke`:** una vez al día (08:00 en Chile) o a mano (`workflow_dispatch`), `npm run smoke` con los secretos del repositorio `BCI_SUBSCRIPTION_KEY` y `JINA_API_KEY` (opcional).
+     - Si falla, abre el issue "Smoke en vivo fallando", o lo comenta si ya está abierto, porque indica que una fuente cambió.
+     - Antes de publicar la salida en el issue, reemplaza los valores de los secretos por `***`.
+3. **Entorno local.** Node 26 instalado con `winget upgrade --id OpenJS.NodeJS.LTS` (de 24.13.0 a 26.13.1).
+4. **Documentación.** "Node 26 o superior" en `README.md`, `docs/ARQUITECTURA.md` y `entregable/CONTEXTO_PROYECTO.md`. El riesgo #14 de `docs/RIESGOS.md` quedó resuelto.
+5. **Simplificaciones opcionales (pendientes), en PR separados y protegidas por los tests de caracterización.** Ahora que la versión mínima es 26, se pueden usar:
    - reemplazar `anySignal` (`src/shared/async.js`) por `AbortSignal.any`, nativo desde Node 20.3;
    - evaluar reemplazar el parser de `src/config/env-file.js` por `util.parseEnv` (Node 20.12+), que tampoco modifica `process.env`. Hay que verificar con `tests/unit/config/config.test.js` que se comporta igual con comentarios, `export` y comillas.
 
-## Consecuencias si se aprueba
+## Consecuencias
 
 - **Positivas:**
   - Runtime con soporte hasta 2029-04-30.
@@ -65,3 +67,9 @@
   - **Es un cambio visible.** Quien use el proyecto con Node 24 o anterior verá un aviso de `engines` y tendrá que actualizar.
   - **Los secretos de BCI quedan en GitHub,** y el smoke diario consume parte del límite de `r.jina.ai`.
   - **Habrá que repetir el ejercicio** cuando Node 26 pase a mantenimiento (2027-10-20).
+
+## Evidencia
+
+- **Código:** `package.json` (`engines.node >= 26`), `.nvmrc` y `.github/workflows/check.yml`.
+- **Verificación local con Node v26.13.1 instalado:** `npm run check` (lint y 241 tests) y `npm run smoke` en vivo.
+- **CI:** la primera corrida del job `check` en el PR de esta implementación.
