@@ -10,7 +10,7 @@
     "start": "node src/server.js",
     "serve": "node src/server.js",
     "search": "node src/index.js",
-    "test": "node --test",
+    "test": "node --test \"tests/**/*.test.js\"",
     "lint": "node scripts/lint.js",
     "check": "npm run lint && npm test",
     "smoke": "node tests/tools/smoke-live.js",
