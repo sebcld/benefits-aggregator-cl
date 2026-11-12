@@ -64,7 +64,7 @@ Resumen de una línea por decisión. El contexto, las alternativas y las consecu
 | Payload | `Benefit` con `id`, `bank`, `bankKey`, `title`, `subtitle`, `description` (hasta 300 caracteres), `commerceName`, `category`, `validFrom`, `validUntil`, `url` y `logo`. Los campos vacíos van como `null`. No se envían los campos internos de búsqueda. |
 | Paginación | `page` y `pageSize`; la respuesta trae `pagination { page, pageSize, total, totalPages, hasMore }`. |
 | Caché | En memoria, con TTL por emisor (`CACHE_TTL_SECONDS`, por defecto 1800). Las búsquedas siguientes pasan de unos 12-20 s a milisegundos. `CACHE_WARMUP=true` precarga los catálogos al iniciar. |
-| Resiliencia | Timeout por petición (`HTTP_TIMEOUT_MS`) y por emisor (`PROVIDER_TIMEOUT_MS`). Si un emisor falla, la respuesta es parcial (`meta.partial`, `errors`, `sources`). Un catálogo con 0 registros queda como `empty` y genera una alerta `provider_empty` en el log. |
+| Resiliencia | Timeout por petición (`HTTP_TIMEOUT_MS`) y por emisor (`PROVIDER_TIMEOUT_MS`). Si un emisor falla, la respuesta es parcial (`meta.partial`, `errors`, `sources`). Un catálogo con 0 registros queda como `empty`, genera una alerta `provider_empty` en el log y se guarda en caché solo 1 minuto. |
 | Observabilidad | Logger JSON por línea en stderr (`LOG_LEVEL`), con `x-request-id` por petición y log de acceso. `/v1/health` muestra el estado de cada emisor; `?probe=true` los consulta en el momento. |
 | CORS | `CORS_ORIGINS` (lista o `*`). Vacío = desactivado, porque las apps nativas no lo necesitan. |
 
