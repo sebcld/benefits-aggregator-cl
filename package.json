@@ -4,7 +4,7 @@
   "description": "Buscador de beneficios de bancos, tarjetas y billeteras de Chile (CLI y API HTTP).",
   "main": "src/benefits.js",
   "engines": {
-    "node": ">=18"
+    "node": ">=26"
   },
   "scripts": {
     "start": "node src/server.js",
