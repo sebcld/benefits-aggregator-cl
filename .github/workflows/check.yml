@@ -1,5 +1,6 @@
 # CI del proyecto (ADR 0020).
 # - check: lint + tests en cada push a main y en cada PR. Sin red ni secretos (los tests usan fixtures).
+# - web: lint, tipos, tests, build y e2e de la web (web/), tambien sin red ni secretos.
 # - smoke: casos de aceptacion EN VIVO contra las fuentes reales, una vez al dia o a mano.
 #   Si falla, abre (o comenta) un issue: indica que una fuente cambio.
 name: check
@@ -31,6 +32,27 @@ jobs:
           node-version-file: .nvmrc
       - run: node --version
       - run: npm run check
+
+  # Web (Next.js, ADR 0022): lint, tipos, tests unitarios, build y e2e con el BFF simulado.
+  web:
+    if: github.event_name == 'push' || github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    timeout-minutes: 20
+    defaults:
+      run:
+        working-directory: web
+    steps:
+      - uses: actions/checkout@v7
+      - uses: actions/setup-node@v7
+        with:
+          node-version-file: .nvmrc
+          cache: npm
+          cache-dependency-path: web/package-lock.json
+      - run: npm ci
+      - run: npm run check
+      - run: npm run build
+      - run: npx playwright install --with-deps chromium
+      - run: npx playwright test
 
   smoke:
     if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
