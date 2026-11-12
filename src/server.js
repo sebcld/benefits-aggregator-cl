@@ -1,91 +1,48 @@
-const http = require('http');
-const config = require('./config');
-const { searchBenefits } = require('./benefits');
+// Entrypoint de la API HTTP: node src/server.js  (o npm start)
+const { createApp } = require('./bootstrap');
+const { createHttpServer } = require('./interfaces/http/server');
+const { version } = require('../package.json');
 
-const PORT = config.port;
+function start() {
+  const app = createApp({ defaultLogLevel: 'info' });
+  const { config, logger, searchService } = app;
+  const server = createHttpServer({ app, version });
 
-function parseJson(req) {
-  return new Promise((resolve, reject) => {
-    let body = '';
-    req.on('data', (chunk) => {
-      body += chunk.toString();
-      if (body.length > 1_000_000) {
-        req.destroy();
-        reject(new Error('Body demasiado grande'));
-      }
+  server.listen(config.port, () => {
+    console.log(`API de beneficios escuchando en http://localhost:${config.port}`);
+    logger.info('server_started', {
+      port: config.port,
+      version,
+      cacheTtlSeconds: config.cacheTtlSeconds,
+      corsOrigins: config.corsOrigins,
     });
-    req.on('end', () => {
-      if (!body) return resolve({});
-      try {
-        resolve(JSON.parse(body));
-      } catch (err) {
-        reject(new Error('JSON invalido'));
-      }
-    });
-    req.on('error', reject);
+
+    if (config.cacheWarmup) {
+      searchService
+        .warmUp()
+        .then((sources) => logger.info('cache_warmup_done', { sources: sources.map((s) => s.status) }))
+        .catch((err) => logger.error('cache_warmup_failed', { error: err }));
+    }
   });
+
+  const shutdown = (signal) => {
+    logger.info('server_stopping', { signal });
+    server.close(() => process.exit(0));
+    setTimeout(() => process.exit(0), 5000).unref();
+  };
+  process.once('SIGINT', shutdown);
+  process.once('SIGTERM', shutdown);
+
+  return server;
 }
 
-function send(res, status, data) {
-  const json = JSON.stringify(data);
-  res.writeHead(status, {
-    'content-type': 'application/json; charset=utf-8',
-    'content-length': Buffer.byteLength(json),
-  });
-  res.end(json);
-}
-
-function parseBanks(raw) {
-  if (!raw) return [];
-  if (Array.isArray(raw)) return raw.filter(Boolean);
-  if (typeof raw === 'string') {
-    return raw
-      .split(',')
-      .map((s) => s.trim())
-      .filter(Boolean);
-  }
-  return [];
-}
-
-const server = http.createServer(async (req, res) => {
+if (require.main === module) {
   try {
-    if (req.method === 'GET' && req.url.startsWith('/health')) {
-      return send(res, 200, { status: 'ok' });
-    }
-
-    if (req.method === 'GET' && req.url.startsWith('/search')) {
-      const url = new URL(req.url, `http://${req.headers.host}`);
-      const query = (url.searchParams.get('q') || '').trim();
-      const banks = parseBanks(url.searchParams.get('banks'));
-
-      if (!query) {
-        return send(res, 400, { error: 'Falta el parametro q' });
-      }
-
-      const { matches, errors } = await searchBenefits(query, { banks });
-      return send(res, 200, { matches, errors });
-    }
-
-    if (req.method === 'POST' && req.url.startsWith('/search')) {
-      const body = await parseJson(req);
-      const query = (body.query || '').trim();
-      const banks = parseBanks(body.banks);
-
-      if (!query) {
-        return send(res, 400, { error: 'Falta el campo query' });
-      }
-
-      const { matches, errors } = await searchBenefits(query, { banks });
-      return send(res, 200, { matches, errors });
-    }
-
-    send(res, 404, { error: 'No encontrado' });
+    start();
   } catch (err) {
-    console.error('Server error', err);
-    send(res, 500, { error: err.message || 'Error interno' });
+    console.error(`Error: ${err.message}`);
+    process.exitCode = 1;
   }
-});
+}
 
-server.listen(PORT, () => {
-  console.log(`API de beneficios escuchando en http://localhost:${PORT}`);
-});
+module.exports = { start };
