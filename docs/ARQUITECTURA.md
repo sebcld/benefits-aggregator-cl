@@ -5,6 +5,8 @@ Buscador de beneficios de bancos, tarjetas y billeteras de Chile. Consulta en vi
 - Node 18 o superior, CommonJS y **cero dependencias de runtime** (solo módulos nativos).
 - Contrato HTTP: [`openapi.yaml`](openapi.yaml). Agregar un emisor: [`AGREGAR_EMISOR.md`](AGREGAR_EMISOR.md).
 - Qué cambió respecto de la 1.x: [`CHANGELOG_REFACTOR.md`](CHANGELOG_REFACTOR.md). Riesgos y deuda: [`RIESGOS.md`](RIESGOS.md).
+- **Diagramas** (contexto, capas, secuencias, dominio, errores, arquitectura objetivo): [`arquitectura/`](arquitectura/README.md).
+- **Decisiones registradas** (13 aceptadas y 8 propuestas): [`adr/`](adr/README.md).
 
 ## Capas
 
@@ -24,72 +26,28 @@ src/
 └── benefits.js    Fachada de compatibilidad con la API pública 1.x
 ```
 
-```mermaid
-graph TD
-  IDX[src/index.js] --> BOOT
-  SRV[src/server.js] --> BOOT
-  FAC[src/benefits.js<br/>fachada 1.x] --> BOOT
-  BOOT[bootstrap.js] --> CFG[config]
-  BOOT --> REG[providers/index<br/>registro]
-  BOOT --> SVC[services]
-  BOOT --> SH[shared]
-  IDX --> CLI[interfaces/cli]
-  SRV --> HTTP[interfaces/http]
-  CLI --> SVC
-  HTTP --> SVC
-  HTTP --> DOM
-  SVC --> DOM[domain]
-  SVC --> SH
-  REG --> PROV[providers/*.provider.js]
-  PROV --> PI[provider.interface]
-  PROV --> DOM
-  PROV --> SH
-  SH --> DOM
-  CFG --> DOM
-```
-
-**Regla de dependencias.** Las flechas apuntan hacia `domain`. `services` no conoce emisores concretos: recibe el registro. Los providers no conocen servicios ni interfaces. `npm run lint` verifica estas reglas automáticamente (ver [Calidad](#calidad)).
-
-| Capa | No puede importar |
-|---|---|
-| `domain` | ninguna otra capa |
-| `shared`, `config` | `providers`, `services`, `interfaces` |
-| `providers` | `services`, `interfaces`, `config` (la configuración llega por `ctx`) |
-| `services` | `providers` (los recibe por el registro), `interfaces`, `config` |
+**Regla de dependencias.** Las dependencias apuntan hacia `domain`. `services` no conoce emisores concretos: recibe el registro. `interfaces` no importa `services`: recibe el `searchService` ya armado a través del `app` de `bootstrap.js`. El grafo real de imports y la tabla de dependencias prohibidas que verifica `npm run lint` están en el [diagrama 2: Capas y dependencias](arquitectura/02-capas.md). Cómo se conectan las piezas en tiempo de ejecución está en el [diagrama 3: Componentes](arquitectura/03-componentes.md).
 
 ## Flujo de una búsqueda
 
-```
-GET /v1/search?q=rappi
-  └─ server.js ─ router (ruta exacta) ─ search.controller
-       ├─ validation.parseV1Search          q, banks (key o nombre), page, pageSize
-       ├─ searchService.search(query, { banks, allowKeys })
-       │    ├─ registry.select(banks)        emisores incluidos, en orden fijo
-       │    ├─ runner.run(provider) × N      en paralelo; NUNCA rechaza
-       │    │    ├─ cache.get("provider:<key>")      hit → devuelve sin red
-       │    │    ├─ in-flight dedupe                 N peticiones = 1 descarga
-       │    │    ├─ provider.fetch(ctx) con timeout por emisor
-       │    │    ├─ cache.set(...) solo si tuvo éxito
-       │    │    └─ SourceReport { status: ok|empty|error, count, cached, durationMs, error? }
-       │    └─ matcher.matchesQuery(entry, query)
-       └─ serializers.toV1SearchResponse     paginación, payload liviano, nulls
-```
+- [Diagrama 4: secuencia de `GET /v1/search`](arquitectura/04-secuencia-busqueda.md), con acierto y fallo de caché y emisor caído.
+- [Diagrama 5: ciclo del `provider-runner`](arquitectura/05-provider-runner.md): caché, deduplicación, timeout y estados `ok`/`empty`/`error`.
+- [Diagrama 7: flujo de datos de un emisor](arquitectura/07-flujo-datos-emisor.md), de la fuente al serializer.
 
 ## Decisiones (qué y por qué)
 
-| Decisión | Por qué |
-|---|---|
-| **Composition root único** (`bootstrap.js`) | Las interfaces y los tests piden una "app" armada. Así se inyectan `fetch`, reloj, `sleep`, caché y providers sin tocar el código de negocio. |
-| **Contrato de provider** `{ key, name, queryDependent, fetch(ctx) }` | El servicio depende del contrato, no de los emisores. Agregar uno es crear un archivo y sumar una línea al registro. |
-| **`ctx` en vez de globales** (`http`, `config`, `now`, `sleep`, `signal`) | Los providers se prueban sin red ni reloj real, y el timeout cancela las pausas y peticiones en curso. |
-| **Parsing en funciones puras exportadas** (`parseCopec`, `parseBancoChileEntry`…) | Se prueban con un objeto, sin simular HTTP. |
-| **`Entry` inmutable y con `id` estable** (`<emisor>-<sha1(id de la fuente)>`) | La caché comparte objetos entre peticiones, y la app móvil necesita una clave para listas y favoritos. |
-| **Errores con `code` estable** (`domain/errors.js`) | La app decide por `code`; el `message` es solo diagnóstico. |
-| **Dos formatos de API**: legado (`/search`, `/health`) y `/v1` | La 1.x no se rompe, y `/v1` puede tener un contrato pensado para móvil (paginación, nulls, errores uniformes). |
-| **`CacheStore` asíncrono** con implementación en memoria | Se puede reemplazar por Redis cuando haya más de una instancia, sin tocar los servicios. |
-| **El CLI y la fachada no usan caché ni timeouts** | Conservan exactamente la semántica 1.x: un proceso nuevo por consulta, que espera a todos los emisores. |
-| **CommonJS** (no ESM) | No hay beneficio concreto que justifique migrar, y la fachada debe seguir siendo `require`-able por consumidores 1.x. |
-| **Sin dependencias** | Lo pide el proyecto. El router, el body parser, CORS y el logger son pequeños y están probados. |
+Resumen de una línea por decisión. El contexto, las alternativas y las consecuencias están en cada ADR.
+
+| Decisión | Por qué | ADR |
+|---|---|---|
+| **Composition root único** (`bootstrap.js`) | Las interfaces y los tests piden una "app" armada. Así se inyectan `fetch`, reloj, `sleep`, caché y providers sin tocar el código de negocio. | [0001](adr/0001-arquitectura-por-capas-con-composition-root.md) |
+| **Contrato de provider** `{ key, name, queryDependent, fetch(ctx) }` + parsers puros | El servicio depende del contrato, no de los emisores; los providers se prueban sin red ni reloj real. | [0003](adr/0003-contrato-de-provider-y-registro.md) |
+| **`Entry` inmutable y con `id` estable** | La caché comparte objetos entre peticiones, y la app necesita una clave estable. | [0004](adr/0004-entry-inmutable-con-id-estable.md) |
+| **Errores con `code` estable y respuestas parciales** | La app decide por `code`, y un emisor caído no rompe la búsqueda. | [0005](adr/0005-errores-con-codigo-estable.md) |
+| **Dos formatos de API**: legado y `/v1` | La 1.x no se rompe, y `/v1` tiene un contrato pensado para móvil. | [0006](adr/0006-api-versionada-v1-con-rutas-legadas.md) |
+| **`CacheStore` asíncrono**, con implementación en memoria | Latencia de milisegundos, y reemplazable por Redis. | [0007](adr/0007-cache-en-memoria-detras-de-cachestore.md) |
+| **El CLI y la fachada sin caché ni timeouts** | Conservan exactamente la semántica 1.x. | [0008](adr/0008-cli-y-fachada-sin-cache-ni-timeouts.md) |
+| **CommonJS y sin dependencias** | Lo pide el proyecto; la fachada debe seguir siendo `require`-able. | [0002](adr/0002-node-nativo-sin-dependencias-y-commonjs.md) |
 
 ## Preparación para la app móvil
 
@@ -107,26 +65,27 @@ GET /v1/search?q=rappi
 | Observabilidad | Logger JSON por línea en stderr (`LOG_LEVEL`), con `x-request-id` por petición y log de acceso. `/v1/health` muestra el estado de cada emisor; `?probe=true` los consulta en el momento. |
 | CORS | `CORS_ORIGINS` (lista o `*`). Vacío = desactivado, porque las apps nativas no lo necesitan. |
 
-### Recomendaciones para producción (no implementadas)
+Cómo se convierte cada error en una respuesta HTTP, para v1 y para la API legada: [diagrama 8](arquitectura/08-manejo-errores.md). Cómo conviven el CLI, la fachada y las dos APIs: [diagrama 9](arquitectura/09-interfaces-compatibilidad.md).
 
-- **Autenticación.** Exigir API key por header `x-api-key` en `/v1/*`, con llaves en `.env` o en un gestor de secretos y rotables. CORS ya permite ese header. Si la API se expone a usuarios finales, conviene un gateway (por ejemplo Cloudflare o API Gateway) que la valide.
-- **Rate limiting.** Limitar por API key o IP (por ejemplo 60 peticiones por minuto) antes de llegar a Node, en el gateway o el proxy. Las búsquedas son baratas mientras la caché está vigente, pero una caché fría dispara unas 25 peticiones a fuentes externas.
-- **Varias instancias.** Reemplazar `MemoryCacheStore` por un `CacheStore` compartido (Redis) y activar `CACHE_WARMUP` en una sola instancia o en un job programado.
-- **Stale-while-revalidate.** Al vencer la caché, servir el dato anterior mientras se renueva en segundo plano, para que ningún usuario espere 15 s.
-- **Métricas.** Exportar `durationMs` y `status` por emisor (los logs `provider_*` ya los traen) a un sistema de alertas.
+### Hacia producción (propuesto, no implementado)
+
+Ver el [diagrama 10: arquitectura objetivo](arquitectura/10-arquitectura-objetivo.md) y los ADR propuestos, que necesitan aprobación:
+
+| Tema | ADR |
+|---|---|
+| Autenticación con API key (`x-api-key`) | [0014](adr/0014-autenticacion-con-api-key.md) |
+| Rate limiting | [0015](adr/0015-rate-limiting.md) |
+| `CacheStore` compartido en Redis para varias instancias | [0016](adr/0016-cachestore-compartido-en-redis.md) |
+| Warm-up programado y stale-while-revalidate | [0017](adr/0017-warm-up-programado-y-stale-while-revalidate.md) |
+| Futuro de Mercado Pago | [0018](adr/0018-futuro-de-mercado-pago.md) |
+| Acceso a Banco de Chile sin un proxy gratuito | [0021](adr/0021-acceso-a-banco-de-chile-sin-proxy-gratuito.md) |
+
+Las métricas por emisor (`durationMs` y `status` en los logs `provider_*`) ya están disponibles para conectarlas a un sistema de alertas.
 
 ## Pruebas
 
-| Tipo | Dónde | Qué asegura |
-|---|---|---|
-| Caracterización | `tests/characterization/` | La salida de la fachada, el CLI y la API legada coincide byte a byte con el golden (`tests/fixtures/golden/`). |
-| Equivalencia con 1.x | `original-equivalence.test.js` | Fuera de los cambios intencionales, todo es idéntico a lo que producía el código original (`tests/fixtures/golden-original/`, commit `f8352c7`). |
-| Aceptación | `tests/acceptance/` | Los casos de negocio por emisor (PROWASHGO, temu, pedidos ya, burger king, Rappi, El Café Rosa) funcionan por servicio, CLI y API. |
-| Unitarias | `tests/unit/` | Parsers, http-client, config, caché, runner, router, validación y serializers. |
-| Contrato | `tests/interfaces/` | API v1 completa y sincronía con `openapi.yaml`. |
-| En vivo | `npm run smoke` | Los casos de aceptación contra los sitios reales (requiere internet y `.env`). |
+Estrategia (fixtures reales, golden, preload y smoke en vivo) y tabla de tipos de prueba: [diagrama 12](arquitectura/12-estrategia-pruebas.md) y [ADR 0009](adr/0009-tests-de-caracterizacion-con-fixtures-y-golden.md).
 
-- **Sin internet.** Los fixtures en `tests/fixtures/http/` son respuestas reales grabadas. Para los procesos hijo (CLI y servidor), `preload.js` reemplaza `fetch`, congela la fecha en 2026-11-12 y acelera las pausas.
 - **Actualizar fixtures:** `npm run fixtures:record -- <emisor>`, luego `npm run fixtures:golden`, y revisar el diff en git.
 
 ## Calidad
@@ -136,8 +95,10 @@ GET /v1/search?q=rappi
 - `process.env` solo en `src/config/`;
 - `fetch` global solo en `src/shared/http-client.js`;
 - ninguna llave de 32 caracteres hexadecimales en `src/` ni en `docs/`;
-- las dependencias entre capas de la tabla anterior.
+- las dependencias entre capas del [diagrama 2](arquitectura/02-capas.md).
 
-`npm run check` corre el lint y los tests.
+`npm run check` corre el lint y los tests. Ver [ADR 0013](adr/0013-reglas-de-arquitectura-con-lint-propio.md).
 
-**Propuesta pendiente de aprobación:** agregar como devDependencies `eslint` (con `eslint-config-prettier`) y `prettier`, configurado con `singleQuote`, `semi`, `trailingComma: all` y `printWidth: 100`. Así el estilo se aplica automáticamente en lugar de mantenerlo a mano. No se instalaron porque requieren aprobación.
+**Propuestas pendientes de aprobación:**
+- ESLint y Prettier como devDependencies: [ADR 0019](adr/0019-eslint-y-prettier.md).
+- Actualización a Node 26 (LTS) e integración continua: [ADR 0020](adr/0020-actualizacion-a-node-26-y-ci.md).

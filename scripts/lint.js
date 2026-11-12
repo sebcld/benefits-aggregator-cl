@@ -7,12 +7,17 @@ const { execFileSync } = require('child_process');
 const ROOT = path.resolve(__dirname, '..');
 const MAX_LINES = 200;
 
-const listJs = (dir) =>
+// Archivos de "dir" (recursivo) con alguna de las extensiones dadas. Omite fixtures y node_modules.
+const listFiles = (dir, extensions) =>
   fs.readdirSync(path.join(ROOT, dir), { withFileTypes: true }).flatMap((d) => {
     const rel = path.posix.join(dir, d.name);
-    if (d.isDirectory()) return d.name === 'fixtures' || d.name === 'node_modules' ? [] : listJs(rel);
-    return d.name.endsWith('.js') ? [rel] : [];
+    if (d.isDirectory()) {
+      return d.name === 'fixtures' || d.name === 'node_modules' ? [] : listFiles(rel, extensions);
+    }
+    return extensions.some((ext) => d.name.endsWith(ext)) ? [rel] : [];
   });
+
+const listJs = (dir) => listFiles(dir, ['.js']);
 
 // Codigo sin comentarios (las reglas de codigo no deben dispararse por la documentacion).
 const stripComments = (source) =>
@@ -66,7 +71,8 @@ const RULES = [
 ];
 
 const files = [...listJs('src'), ...listJs('tests'), ...listJs('scripts')];
-const docs = fs.readdirSync(path.join(ROOT, 'docs')).map((f) => `docs/${f}`);
+// Toda la documentacion, incluidas subcarpetas (docs/arquitectura, docs/adr).
+const docs = listFiles('docs', ['.md', '.yaml', '.yml']);
 const problems = [];
 
 for (const file of files) {
