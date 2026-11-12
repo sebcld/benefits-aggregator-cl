@@ -1,0 +1,16 @@
+{
+  "name": "beneficios_banks",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "search": "node src/index.js",
+    "start": "node src/server.js",
+    "serve": "node src/server.js",
+    "test": "echo \"No hay pruebas configuradas\""
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
