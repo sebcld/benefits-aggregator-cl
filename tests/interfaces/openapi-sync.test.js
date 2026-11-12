@@ -9,7 +9,8 @@ const { createEntry } = require('../../src/domain/entry');
 const { createFixtureApp } = require('../helpers/fakes');
 const { ROOT } = require('../helpers/constants');
 
-const spec = fs.readFileSync(path.join(ROOT, 'docs', 'openapi.yaml'), 'utf8');
+// Normaliza CRLF: con core.autocrlf=true (Windows) git entrega el archivo con \r\n.
+const spec = fs.readFileSync(path.join(ROOT, 'docs', 'openapi.yaml'), 'utf8').replace(/\r\n/g, '\n');
 
 // Bloque YAML de un schema: desde "    <Nombre>:" hasta el siguiente schema del mismo nivel.
 const schemaBlock = (name) => {
