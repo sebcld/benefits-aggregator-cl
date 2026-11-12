@@ -7,10 +7,15 @@ const { fakeProvider, recordingLogger } = require('../../helpers/fakes');
 // CacheStore minimo en memoria para probar el runner sin TTL real.
 function mapCache() {
   const store = new Map();
+  const ttls = new Map();
   return {
     store,
+    ttls,
     get: async (key) => store.get(key),
-    set: async (key, value, ttlMs) => store.set(key, value) && ttlMs,
+    set: async (key, value, ttlMs) => {
+      store.set(key, value);
+      ttls.set(key, ttlMs);
+    },
     delete: async (key) => store.delete(key),
     clear: async () => store.clear(),
   };
@@ -39,6 +44,32 @@ test('los errores no se guardan en cache', async () => {
   await runner.run(fake.provider);
   assert.equal(fake.calls(), 2);
   assert.equal(cache.store.size, 0);
+});
+
+test('un catalogo con registros se guarda el TTL completo', async () => {
+  const cache = mapCache();
+  await runnerWith({ cache, cacheTtlMs: 7_200_000 }).run(fakeProvider({}).provider);
+  assert.equal(cache.ttls.get('provider:fake'), 7_200_000);
+});
+
+test('un catalogo vacio se guarda solo 1 minuto: el emisor se recupera apenas vuelve la fuente', async () => {
+  const cache = mapCache();
+  const runner = runnerWith({ cache, cacheTtlMs: 7_200_000 });
+  const report = await runner.run(fakeProvider({ titles: [] }).provider);
+  assert.equal(report.status, 'empty');
+  assert.equal(cache.ttls.get('provider:fake'), 60_000);
+});
+
+test('el TTL corto de un catalogo vacio nunca supera el TTL configurado', async () => {
+  const cache = mapCache();
+  await runnerWith({ cache, cacheTtlMs: 30_000 }).run(fakeProvider({ titles: [] }).provider);
+  assert.equal(cache.ttls.get('provider:fake'), 30_000);
+});
+
+test('en un provider por consulta, 0 resultados se guarda el TTL completo (es una respuesta normal)', async () => {
+  const cache = mapCache();
+  await runnerWith({ cache, cacheTtlMs: 7_200_000 }).run(fakeProvider({ queryDependent: true, titles: [] }).provider, { query: 'x' });
+  assert.equal(cache.ttls.get('provider:fake:q:x'), 7_200_000);
 });
 
 test('los providers por consulta se cachean por consulta normalizada', async () => {

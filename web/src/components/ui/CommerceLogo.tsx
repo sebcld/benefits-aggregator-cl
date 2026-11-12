@@ -22,7 +22,8 @@ export function CommerceLogo({ logo, name }: { logo: string | null | undefined; 
           decoding="async"
           referrerPolicy="no-referrer"
           onError={() => setFailed(true)}
-          className="size-full object-cover"
+          // contain: muchos logos son rectangulares (Tapp) y "cover" los recortaba.
+          className="size-full object-contain"
         />
       ) : (
         <span aria-hidden="true" className="text-14 font-bold text-fg-muted">

@@ -5,11 +5,16 @@ const { TimeoutError, errorCode } = require('../domain/errors');
 const { anySignal } = require('../shared/async');
 const { normalize } = require('../shared/text');
 
+// Un catalogo que llega vacio casi siempre es una falla pasajera o un cambio en la fuente, no la
+// realidad: se guarda solo 1 minuto (no todo el TTL) para recuperarse apenas la fuente vuelva.
+const EMPTY_CACHE_TTL_MS = 60_000;
+
 /**
  * @param {object} deps
  * @param {(provider: object, extra: object) => object} deps.createContext arma el ProviderContext
  * @param {import('../shared/cache/cache-store').CacheStore|null} [deps.cache]
  * @param {number} [deps.cacheTtlMs]
+ * @param {number} [deps.emptyCacheTtlMs] cuanto se guarda un catalogo que llego vacio
  * @param {number} [deps.timeoutMs] limite por emisor; 0 = sin limite
  * @param {object} deps.logger
  * @param {{ record: Function }} [deps.statusTracker]
@@ -18,6 +23,7 @@ function createProviderRunner({
   createContext,
   cache = null,
   cacheTtlMs = 0,
+  emptyCacheTtlMs = EMPTY_CACHE_TTL_MS,
   timeoutMs = 0,
   logger,
   statusTracker,
@@ -61,7 +67,11 @@ function createProviderRunner({
     if (!options) inFlight.set(key, promise);
     try {
       const entries = await promise;
-      if (useCache && !options) await cache.set(key, entries, cacheTtlMs);
+      if (useCache && !options) {
+        // En los providers por consulta (Mercado Pago), 0 resultados es una respuesta normal.
+        const emptyCatalog = !provider.queryDependent && entries.length === 0;
+        await cache.set(key, entries, emptyCatalog ? Math.min(emptyCacheTtlMs, cacheTtlMs) : cacheTtlMs);
+      }
       return { entries, cached: false };
     } finally {
       if (inFlight.get(key) === promise) inFlight.delete(key);

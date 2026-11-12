@@ -73,7 +73,7 @@ const { matches, errors } = await searchBenefits('rappi', { banks: ['Copec Pay']
 | Santander | JSON público `banco.santander.cl/beneficios/promociones.json` |
 | BCI | API `api.bciplus.cl/bff-loyalty-beneficios/v1/offers`, paginada (header `ocp-apim-subscription-key` = `BCI_SUBSCRIPTION_KEY`). Título = comercio (`comercio.nombre`), bajada = título de la oferta; link a la ficha `bci.cl/beneficios/beneficios-bci/detalle/<slug>` |
 | Tenpo | HTML de `www.tenpo.cl/beneficios` y su paginación (regex). Logo: `<img class="brand-partner">` de cada tarjeta, si la tiene |
-| Tapp | CMS `web.cajalosandes.cl/api/content/spaces/wp-tapp-beneficios-copia/...`, paginado |
+| Tapp | CMS `web.cajalosandes.cl/api/content/spaces/wp-tapp-beneficios-copia/...` (el mismo de `www.tapp.cl/beneficios`). Solo las categorías vigentes (`meta.category=beneficios` y `convenios`); las finalizadas no se descargan |
 | Copec Pay | REST del tema WordPress `copecpay.cl/wp-json/custom/v1/beneficios/`. Solo vigentes hoy (hora de Chile); `fetchCopec({ includeInactive: true })` trae todos |
 | Banco de Chile | API de contenido de [Todos los beneficios](https://sitiospublicos.bancochile.cl/personas/beneficios/todos-los-beneficios) (`/api/content/spaces/personas/types/beneficios/entries`), vía el proxy `r.jina.ai` porque el sitio bloquea clientes automatizados (`JINA_API_KEY` opcional) |
 | Mercado Pago | Búsqueda de Mercado Libre `api.mercadolibre.com/sites/MLC/search` (sin token responde 403; ver [RIESGOS](docs/RIESGOS.md)) |
@@ -81,7 +81,7 @@ const { matches, errors } = await searchBenefits('rappi', { banks: ['Copec Pay']
 **Búsqueda:**
 - No distingue mayúsculas, tildes ni puntuación (`"el cafe rosa"` encuentra "El Café Rosa").
 - Compara contra título, bajada, descripción, slug, keywords, tags y comercio.
-- Una palabra de 4 letras o menos debe coincidir completa (`kfc`).
+- Una palabra de 4 letras o menos debe coincidir completa (`kfc`). Las marcas escritas juntas con mayúscula interna cuentan como dos palabras: `flix` y `bus` encuentran "FlixBus", y `ya` encuentra "PedidosYa".
 
 ## Variables de entorno
 
@@ -107,6 +107,7 @@ npm run lint             # sintaxis + reglas de arquitectura (sin dependencias)
 npm run check            # lint + test
 npm run smoke            # casos de aceptación EN VIVO contra las fuentes reales
 npm run fixtures:record -- <emisor>   # regraba respuestas reales de un emisor
+                                      # (tapp-finalizados: datos solo para tests de busqueda de Tapp)
 npm run fixtures:golden               # regenera las salidas de referencia (revisar el diff)
 ```
 
