@@ -4,10 +4,14 @@ CLI y API HTTP en Node que consultan en vivo las fuentes públicas de emisores c
 
 **Emisores:** Santander, BCI, Tenpo, Tapp, Copec Pay, Banco de Chile y Mercado Pago.
 
+**¿Eres nuevo en el proyecto?** Lee en este orden: [contexto](docs/arquitectura/01-contexto.md), [capas](docs/arquitectura/02-capas.md), [secuencia de una búsqueda](docs/arquitectura/04-secuencia-busqueda.md), [interfaces](docs/arquitectura/09-interfaces-compatibilidad.md) y [arquitectura objetivo](docs/arquitectura/10-arquitectura-objetivo.md). Son unos 15 minutos.
+
 | Documento | Para qué |
 |---|---|
 | [docs/openapi.yaml](docs/openapi.yaml) | Contrato de la API (cliente móvil o web) |
 | [docs/ARQUITECTURA.md](docs/ARQUITECTURA.md) | Capas, decisiones, caché, resiliencia y pruebas |
+| [docs/arquitectura/](docs/arquitectura/README.md) | **Diagramas** Mermaid: contexto, capas, secuencias, dominio, errores, arquitectura objetivo |
+| [docs/adr/](docs/adr/README.md) | **Decisiones de arquitectura** (ADR): por qué se decidió cada cosa y qué está propuesto |
 | [docs/AGREGAR_EMISOR.md](docs/AGREGAR_EMISOR.md) | Guía paso a paso para sumar un emisor |
 | [docs/CHANGELOG_REFACTOR.md](docs/CHANGELOG_REFACTOR.md) | Qué cambió en la 2.0.0 y dónde quedó cada pieza |
 | [docs/RIESGOS.md](docs/RIESGOS.md) | Riesgos y deuda pendiente |
