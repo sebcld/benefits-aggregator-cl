@@ -25,6 +25,11 @@ describe('buildSearchPath', () => {
     );
     expect(buildSearchPath({ query: 'x', page: 1, banks: [] })).toBe('/api/search?q=x');
   });
+
+  it('refresh agrega refresh=true (boton "Actualizar")', () => {
+    expect(buildSearchPath({ query: 'flixbus', refresh: true })).toBe('/api/search?q=flixbus&refresh=true');
+    expect(buildSearchPath({ query: 'flixbus', refresh: false })).toBe('/api/search?q=flixbus');
+  });
 });
 
 describe('searchBenefits', () => {

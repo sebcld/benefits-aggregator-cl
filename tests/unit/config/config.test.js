@@ -13,6 +13,7 @@ test('valores por defecto sin .env ni variables', () => {
   assert.equal(config.logLevel, null);
   assert.equal(config.bciSubscriptionKey, '');
   assert.equal(config.cacheTtlSeconds, 1800);
+  assert.equal(config.cacheRefreshMinAgeSeconds, 300);
   assert.deepEqual(config.corsOrigins, []);
   assert.ok(Object.isFrozen(config));
 });
@@ -31,6 +32,12 @@ test('las variables del entorno tienen prioridad sobre el archivo .env', () => {
 test('variables que ya no se usan (por ejemplo MELI_ACCESS_TOKEN de un .env viejo) se ignoran', () => {
   const config = loadConfig({ env: { MELI_ACCESS_TOKEN: 'abc', MERCADOPAGO_TOKEN: 'def' }, envFilePath: null });
   assert.equal('mercadoPagoToken' in config, false);
+});
+
+test('CACHE_REFRESH_MIN_AGE_SECONDS acepta 0 (sin minimo) y rechaza valores no enteros', () => {
+  const config = loadConfig({ env: { CACHE_REFRESH_MIN_AGE_SECONDS: '0' }, envFilePath: null });
+  assert.equal(config.cacheRefreshMinAgeSeconds, 0);
+  assert.throws(() => loadConfig({ env: { CACHE_REFRESH_MIN_AGE_SECONDS: '5m' }, envFilePath: null }), ConfigError);
 });
 
 test('CORS_ORIGINS se separa por comas', () => {

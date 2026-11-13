@@ -305,6 +305,12 @@ export interface components {
             count?: number;
             cached?: boolean;
             durationMs?: number;
+            /**
+             * Format: date-time
+             * @description Cuando se descargo de la fuente el catalogo usado (si salio de cache, es la fecha de esa
+             *     descarga, no la de esta consulta). null si el emisor fallo.
+             */
+            fetchedAt?: string | null;
             error?: components["schemas"]["ProviderErrorDetail"];
             /**
              * Format: date-time
@@ -326,6 +332,11 @@ export interface components {
             page: number;
             /** @default 20 */
             pageSize: number;
+            /**
+             * @description Igual que el parametro `refresh` del GET.
+             * @default false
+             */
+            refresh: boolean;
         };
         SearchResponse: {
             query: string;
@@ -340,6 +351,13 @@ export interface components {
                 generatedAt: string;
                 /** @description true si algun emisor fallo */
                 partial: boolean;
+                /**
+                 * Format: date-time
+                 * @description Desde cuando `refresh=true` volveria a descargar al menos un catalogo de esta
+                 *     busqueda. null si la cache esta desactivada (cada busqueda ya descarga) o si ningun
+                 *     emisor respondio.
+                 */
+                refreshableAt: string | null;
             };
         };
         BanksResponse: {
@@ -362,6 +380,8 @@ export interface components {
             cache: {
                 enabled?: boolean;
                 ttlSeconds?: number;
+                /** @description Antiguedad minima de un catalogo para que `refresh=true` lo vuelva a descargar. */
+                refreshMinAgeSeconds?: number;
             };
             sources: components["schemas"]["SourceStatus"][];
         };
@@ -444,7 +464,8 @@ export interface components {
                  *           "status": "ok",
                  *           "count": 48,
                  *           "cached": true,
-                 *           "durationMs": 2
+                 *           "durationMs": 2,
+                 *           "fetchedAt": "2026-11-12T13:30:00.000Z"
                  *         },
                  *         {
                  *           "key": "bancochile",
@@ -453,6 +474,7 @@ export interface components {
                  *           "count": 0,
                  *           "cached": false,
                  *           "durationMs": 60000,
+                 *           "fetchedAt": null,
                  *           "error": {
                  *             "code": "TIMEOUT",
                  *             "message": "Banco de Chile excedio el tiempo limite (60000 ms)"
@@ -469,7 +491,8 @@ export interface components {
                  *       ],
                  *       "meta": {
                  *         "generatedAt": "2026-11-12T15:00:00.000Z",
-                 *         "partial": true
+                 *         "partial": true,
+                 *         "refreshableAt": "2026-11-12T13:35:00.000Z"
                  *       }
                  *     }
                  */
@@ -499,6 +522,11 @@ export interface components {
         Banks: string;
         Page: number;
         PageSize: number;
+        /**
+         * @description `true` vuelve a descargar los catalogos de los emisores consultados que tengan al menos
+         *     `CACHE_REFRESH_MIN_AGE_SECONDS` de antiguedad. Cualquier otro valor se ignora.
+         */
+        Refresh: "true";
     };
     requestBodies: never;
     headers: never;
@@ -521,6 +549,11 @@ export interface operations {
                 banks?: components["parameters"]["Banks"];
                 page?: components["parameters"]["Page"];
                 pageSize?: components["parameters"]["PageSize"];
+                /**
+                 * @description `true` vuelve a descargar los catalogos de los emisores consultados que tengan al menos
+                 *     `CACHE_REFRESH_MIN_AGE_SECONDS` de antiguedad. Cualquier otro valor se ignora.
+                 */
+                refresh?: components["parameters"]["Refresh"];
             };
             header?: never;
             path?: never;
@@ -664,7 +697,8 @@ export interface operations {
                      *       "uptimeSeconds": 3600,
                      *       "cache": {
                      *         "enabled": true,
-                     *         "ttlSeconds": 1800
+                     *         "ttlSeconds": 1800,
+                     *         "refreshMinAgeSeconds": 300
                      *       },
                      *       "sources": [
                      *         {
@@ -674,6 +708,7 @@ export interface operations {
                      *           "count": 48,
                      *           "cached": false,
                      *           "durationMs": 98,
+                     *           "fetchedAt": "2026-11-12T15:00:00.000Z",
                      *           "checkedAt": "2026-11-12T15:00:00.000Z"
                      *         },
                      *         {
@@ -683,6 +718,7 @@ export interface operations {
                      *           "count": 0,
                      *           "cached": false,
                      *           "durationMs": 60000,
+                     *           "fetchedAt": null,
                      *           "error": {
                      *             "code": "TIMEOUT",
                      *             "message": "Banco de Chile excedio el tiempo limite (60000 ms)"

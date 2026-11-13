@@ -30,7 +30,11 @@ function createHealthController({ registry, statusTracker, searchService, config
           status: degraded ? 'degraded' : 'ok',
           version,
           uptimeSeconds: getUptime(),
-          cache: { enabled: config.cacheTtlSeconds > 0, ttlSeconds: config.cacheTtlSeconds },
+          cache: {
+            enabled: config.cacheTtlSeconds > 0,
+            ttlSeconds: config.cacheTtlSeconds,
+            refreshMinAgeSeconds: config.cacheRefreshMinAgeSeconds,
+          },
           sources,
         },
       };

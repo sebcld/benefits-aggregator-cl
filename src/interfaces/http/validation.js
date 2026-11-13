@@ -43,9 +43,12 @@ function parsePositiveInt(value, name, { fallback, max }) {
   return parsed;
 }
 
+// refresh: solo true (body) o "true" (query string) lo activan, igual que probe en /v1/health.
+const isTrue = (value) => value === true || value === 'true';
+
 /**
- * API v1: valida consulta, emisores (por nombre o key) y paginacion.
- * @param {{ query?: unknown, banks?: unknown, page?: unknown, pageSize?: unknown }} input
+ * API v1: valida consulta, emisores (por nombre o key), paginacion y refresh.
+ * @param {{ query?: unknown, banks?: unknown, page?: unknown, pageSize?: unknown, refresh?: unknown }} input
  * @param {ReturnType<import('../../providers').createProviderRegistry>} registry
  */
 function parseV1Search(input, registry) {
@@ -87,6 +90,7 @@ function parseV1Search(input, registry) {
       fallback: LIMITS.defaultPageSize,
       max: LIMITS.maxPageSize,
     }),
+    refresh: isTrue(input.refresh),
   };
 }
 
@@ -96,6 +100,7 @@ const v1InputFromQueryString = (params) => ({
   banks: params.get('banks') ?? undefined,
   page: params.get('page') ?? undefined,
   pageSize: params.get('pageSize') ?? undefined,
+  refresh: params.get('refresh') ?? undefined,
 });
 
 module.exports = { LIMITS, parseBanks, parseLegacySearch, parseV1Search, v1InputFromQueryString };

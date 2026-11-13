@@ -14,6 +14,7 @@ import { SearchBox } from '@/components/ui/SearchBox';
 import { userMessage } from '@/lib/api/errors';
 import type { SearchError } from '@/lib/api/types';
 import { parseBanksParam } from '@/lib/filters';
+import { DataFreshness } from './DataFreshness';
 import { IssuerFilterChips, IssuerFilterPanel } from './IssuerFilters';
 import { useBanks } from './use-banks';
 import { useSearch } from './use-search';
@@ -129,6 +130,16 @@ export function ResultsView() {
                 </p>
                 <p className="hidden text-13 font-medium text-fg-muted lg:block">Ordenado por emisor</p>
               </div>
+
+              {data.freshness && (
+                <DataFreshness freshness={data.freshness} refreshing={search.refreshing} onRefresh={search.refresh} />
+              )}
+
+              {search.refreshError && (
+                <Notice type="error" action={<NoticeAction onClick={search.refresh}>Reintentar</NoticeAction>}>
+                  No pudimos actualizar los catálogos. Seguimos mostrando los datos anteriores.
+                </Notice>
+              )}
 
               {data.errors.length > 0 && <Notice type="partial">{partialMessage(data.errors)}</Notice>}
 

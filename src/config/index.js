@@ -10,6 +10,7 @@ const DEFAULT_ENV_PATH = path.resolve(__dirname, '..', '..', '.env');
 const DEFAULTS = Object.freeze({
   PORT: 3000,
   CACHE_TTL_SECONDS: 1800, // 30 min; 0 desactiva la cache
+  CACHE_REFRESH_MIN_AGE_SECONDS: 300, // 5 min: antiguedad minima para forzar la actualizacion
   HTTP_TIMEOUT_MS: 20000, // por peticion HTTP a un emisor
   PROVIDER_TIMEOUT_MS: 60000, // por emisor completo (incluye paginacion y pausas)
   BODY_LIMIT_BYTES: 1000000,
@@ -75,6 +76,11 @@ function loadConfig({ env = process.env, envFilePath = DEFAULT_ENV_PATH } = {}) 
     // Opcional: sube el limite de uso de r.jina.ai (proxy usado para Banco de Chile).
     jinaApiKey: read.raw('JINA_API_KEY'),
     cacheTtlSeconds: read.integer('CACHE_TTL_SECONDS', DEFAULTS.CACHE_TTL_SECONDS),
+    // /v1/search?refresh=true solo vuelve a descargar catalogos con al menos esta antiguedad.
+    cacheRefreshMinAgeSeconds: read.integer(
+      'CACHE_REFRESH_MIN_AGE_SECONDS',
+      DEFAULTS.CACHE_REFRESH_MIN_AGE_SECONDS,
+    ),
     // true = el servidor descarga los catalogos al iniciar (la primera busqueda ya es rapida).
     cacheWarmup: read.boolean('CACHE_WARMUP', false),
     httpTimeoutMs: read.integer('HTTP_TIMEOUT_MS', DEFAULTS.HTTP_TIMEOUT_MS),

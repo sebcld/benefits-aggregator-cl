@@ -35,11 +35,20 @@ const toV1Benefit = (entry, keyForBank) => ({
   termsUrl: orNull(entry.termsUrl),
 });
 
-const toV1Source = ({ key, bank, status, count, cached, durationMs, error }) => {
-  const source = { key, bank, status, count, cached, durationMs };
+const toV1Source = ({ key, bank, status, count, cached, durationMs, fetchedAt, error }) => {
+  const source = { key, bank, status, count, cached, durationMs, fetchedAt: fetchedAt ?? null };
   if (error) source.error = error;
   return source;
 };
+
+// El primer momento en que refresh=true volveria a descargar algun catalogo de esta busqueda.
+// null si no hay cache (cada busqueda ya descarga) o si ningun emisor respondio.
+// Las fechas ISO en UTC con el mismo formato se ordenan bien como texto.
+const earliestRefresh = (sources) =>
+  sources
+    .map((s) => s.refreshableAt)
+    .filter(Boolean)
+    .sort()[0] ?? null;
 
 function paginate(items, page, pageSize) {
   const total = items.length;
@@ -71,6 +80,7 @@ function toV1SearchResponse({ query, result, page, pageSize, keyForBank, now }) 
     meta: {
       generatedAt: now.toISOString(),
       partial: result.errors.length > 0,
+      refreshableAt: earliestRefresh(result.sources),
     },
   };
 }

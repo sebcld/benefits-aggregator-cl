@@ -29,6 +29,15 @@ info:
     emisor salio de cache. Recomendado: timeout del cliente de 30 s y mostrar un indicador de
     carga en la primera busqueda.
 
+    **Antiguedad y actualizacion manual.** `sources[].fetchedAt` es cuando se descargo el
+    catalogo de cada emisor (no cuando se consulto). Con `refresh=true` se vuelven a descargar
+    los catalogos con al menos `CACHE_REFRESH_MIN_AGE_SECONDS` de antiguedad (por defecto 5 min);
+    los mas recientes salen de cache, asi que repetir el pedido no castiga a las fuentes.
+    `meta.refreshableAt` indica desde cuando `refresh=true` volveria a descargar alguno (para
+    habilitar un boton "Actualizar"). Si una actualizacion falla, el emisor sigue respondiendo
+    con su catalogo anterior. Para mostrar la antiguedad sin depender del reloj del cliente,
+    usar `meta.generatedAt - fetchedAt`.
+
     ## Errores
     Todos los errores de `/v1` tienen el formato `{ "error": { "code", "message", "details"? } }`.
     El cliente debe decidir por `code` (estable); `message` es texto para diagnostico.
@@ -62,6 +71,7 @@ paths:
         - $ref: '#/components/parameters/Banks'
         - $ref: '#/components/parameters/Page'
         - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/Refresh'
       responses:
         '200':
           $ref: '#/components/responses/SearchOk'
@@ -148,7 +158,7 @@ paths:
                 status: degraded
                 version: 2.0.0
                 uptimeSeconds: 3600
-                cache: { enabled: true, ttlSeconds: 1800 }
+                cache: { enabled: true, ttlSeconds: 1800, refreshMinAgeSeconds: 300 }
                 sources:
                   - key: copec
                     bank: Copec Pay
@@ -156,6 +166,7 @@ paths:
                     count: 48
                     cached: false
                     durationMs: 98
+                    fetchedAt: '2026-11-12T15:00:00.000Z'
                     checkedAt: '2026-11-12T15:00:00.000Z'
                   - key: bancochile
                     bank: Banco de Chile
@@ -163,6 +174,7 @@ paths:
                     count: 0
                     cached: false
                     durationMs: 60000
+                    fetchedAt: null
                     error: { code: TIMEOUT, message: 'Banco de Chile excedio el tiempo limite (60000 ms)' }
                     checkedAt: '2026-11-12T15:00:00.000Z'
                   - { key: tapp, bank: Tapp, status: unknown, checkedAt: null }
@@ -262,6 +274,14 @@ components:
       in: query
       required: false
       schema: { type: integer, minimum: 1, maximum: 100, default: 20 }
+    Refresh:
+      name: refresh
+      in: query
+      required: false
+      description: |
+        `true` vuelve a descargar los catalogos de los emisores consultados que tengan al menos
+        `CACHE_REFRESH_MIN_AGE_SECONDS` de antiguedad. Cualquier otro valor se ignora.
+      schema: { type: string, enum: ['true'] }
 
   responses:
     SearchOk:
@@ -291,20 +311,30 @@ components:
                 termsUrl: null
             pagination: { page: 1, pageSize: 1, total: 5, totalPages: 5, hasMore: true }
             sources:
-              - { key: copec, bank: Copec Pay, status: ok, count: 48, cached: true, durationMs: 2 }
+              - key: copec
+                bank: Copec Pay
+                status: ok
+                count: 48
+                cached: true
+                durationMs: 2
+                fetchedAt: '2026-11-12T13:30:00.000Z'
               - key: bancochile
                 bank: Banco de Chile
                 status: error
                 count: 0
                 cached: false
                 durationMs: 60000
+                fetchedAt: null
                 error: { code: TIMEOUT, message: 'Banco de Chile excedio el tiempo limite (60000 ms)' }
             errors:
               - bank: Banco de Chile
                 key: bancochile
                 code: TIMEOUT
                 message: 'Banco de Chile excedio el tiempo limite (60000 ms)'
-            meta: { generatedAt: '2026-11-12T15:00:00.000Z', partial: true }
+            meta:
+              generatedAt: '2026-11-12T15:00:00.000Z'
+              partial: true
+              refreshableAt: '2026-11-12T13:35:00.000Z'
     BadRequest:
       description: Parametros invalidos
       content:
@@ -426,6 +456,13 @@ components:
         count: { type: integer, description: Registros descargados del emisor (antes de filtrar) }
         cached: { type: boolean }
         durationMs: { type: integer }
+        fetchedAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: |
+            Cuando se descargo de la fuente el catalogo usado (si salio de cache, es la fecha de esa
+            descarga, no la de esta consulta). null si el emisor fallo.
         error: { $ref: '#/components/schemas/ProviderErrorDetail' }
         checkedAt: { type: string, format: date-time, nullable: true, description: Solo en /v1/health }
     SearchError:
@@ -448,6 +485,10 @@ components:
             - { type: string }
         page: { type: integer, minimum: 1, default: 1 }
         pageSize: { type: integer, minimum: 1, maximum: 100, default: 20 }
+        refresh:
+          type: boolean
+          default: false
+          description: Igual que el parametro `refresh` del GET.
     SearchResponse:
       type: object
       required: [query, results, pagination, sources, errors, meta]
@@ -467,10 +508,18 @@ components:
           items: { $ref: '#/components/schemas/SearchError' }
         meta:
           type: object
-          required: [generatedAt, partial]
+          required: [generatedAt, partial, refreshableAt]
           properties:
             generatedAt: { type: string, format: date-time }
             partial: { type: boolean, description: true si algun emisor fallo }
+            refreshableAt:
+              type: string
+              format: date-time
+              nullable: true
+              description: |
+                Desde cuando `refresh=true` volveria a descargar al menos un catalogo de esta
+                busqueda. null si la cache esta desactivada (cada busqueda ya descarga) o si ningun
+                emisor respondio.
     BanksResponse:
       type: object
       required: [banks]
@@ -501,6 +550,9 @@ components:
           properties:
             enabled: { type: boolean }
             ttlSeconds: { type: integer }
+            refreshMinAgeSeconds:
+              type: integer
+              description: Antiguedad minima de un catalogo para que `refresh=true` lo vuelva a descargar.
         sources:
           type: array
           items: { $ref: '#/components/schemas/SourceStatus' }

@@ -61,6 +61,8 @@ function createApp(options = {}) {
     createContext,
     cache,
     cacheTtlMs: config.cacheTtlSeconds * 1000,
+    refreshMinAgeMs: config.cacheRefreshMinAgeSeconds * 1000,
+    now: () => clock().getTime(),
     timeoutMs: useTimeouts ? config.providerTimeoutMs : 0,
     logger,
     statusTracker,

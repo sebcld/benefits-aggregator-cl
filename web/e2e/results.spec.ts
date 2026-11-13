@@ -114,6 +114,40 @@ test('error de red: aviso con "Reintentar" que vuelve a buscar', async ({ page }
   await expect(results(page).getByTestId('benefit-card')).toHaveCount(6);
 });
 
+test('antiguedad de los datos y "Actualizar" vuelve a descargar los catalogos', async ({ page }) => {
+  const requests: URL[] = [];
+  const NEW_OFFER = { ...RAPPI_PAGE_1[0], id: 'copec-nueva', title: 'Rappi oferta nueva' };
+  await mockApi(page, {
+    search: (url) => {
+      requests.push(url);
+      const refreshed = url.searchParams.get('refresh') === 'true';
+      const fetchedAt = refreshed ? '2026-11-12T15:00:00.000Z' : '2026-11-12T13:30:00.000Z';
+      const body = searchResponse(refreshed ? [NEW_OFFER, ...RAPPI_PAGE_1] : RAPPI_PAGE_1, 1, {
+        sources: [{ key: 'copec', bank: 'Copec Pay', status: 'ok', count: 48, cached: !refreshed, durationMs: 5, fetchedAt }],
+        meta: {
+          generatedAt: '2026-11-12T15:00:00.000Z',
+          partial: true,
+          refreshableAt: refreshed ? '2026-11-12T15:05:00.000Z' : '2026-11-12T13:35:00.000Z',
+        },
+      });
+      return { body };
+    },
+  });
+  await page.goto('/buscar?q=rappi');
+
+  const freshness = results(page).getByTestId('data-freshness');
+  await expect(freshness).toContainText('Datos actualizados hace 1 h 30 min');
+  await freshness.getByRole('button', { name: 'Actualizar' }).click();
+
+  await expect(results(page).getByRole('heading', { name: 'Rappi oferta nueva' })).toBeVisible();
+  await expect(freshness).toContainText('Datos actualizados hace menos de 1 min');
+  await expect(freshness.getByRole('button', { name: 'Actualizar' })).toBeDisabled();
+  await expect(freshness).toContainText('Podrás volver a actualizar en 5 min');
+
+  const refreshRequest = requests.find((u) => u.searchParams.get('refresh') === 'true');
+  expect(refreshRequest?.searchParams.get('facets')).toBe('1');
+});
+
 test('sin resultados: mensaje y sugerencias', async ({ page }) => {
   await mockApi(page, {
     search: () => ({
@@ -121,7 +155,7 @@ test('sin resultados: mensaje y sugerencias', async ({ page }) => {
         query: 'xyz',
         pagination: { page: 1, pageSize: 12, total: 0, totalPages: 1, hasMore: false },
         errors: [],
-        meta: { generatedAt: '2026-11-12T15:00:00.000Z', partial: false },
+        meta: { generatedAt: '2026-11-12T15:00:00.000Z', partial: false, refreshableAt: null },
       }),
     }),
   });

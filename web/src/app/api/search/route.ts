@@ -1,4 +1,4 @@
-// BFF de busqueda: GET /api/search?q=&banks=&page=&pageSize=&facets=1
+// BFF de busqueda: GET /api/search?q=&banks=&page=&pageSize=&facets=1&refresh=true
 // Reenvia a GET /v1/search (mismo contrato y mismos errores) y, si se pide facets=1, agrega el
 // conteo de coincidencias por emisor para los filtros.
 import type { NextRequest } from 'next/server';
@@ -6,7 +6,7 @@ import type { SearchResponse, WebSearchResponse } from '@/lib/api/types';
 import { countByBank, getBanks } from '@/lib/server/benefits';
 import { errorBody, upstreamGet } from '@/lib/server/upstream';
 
-const FORWARDED = ['q', 'banks', 'page', 'pageSize'] as const;
+const FORWARDED = ['q', 'banks', 'page', 'pageSize', 'refresh'] as const;
 const NO_STORE = { 'cache-control': 'no-store' };
 
 export async function GET(request: NextRequest) {
@@ -23,14 +23,20 @@ export async function GET(request: NextRequest) {
   }
 
   const wantsFacets = input.get('facets') === '1';
-  const [main, facets] = await Promise.all([
-    upstreamGet<SearchResponse>(`/v1/search?${params}`, { signal: request.signal }),
+  const loadFacets = () =>
     wantsFacets
       ? getBanks()
           .then((banks) => countByBank(query, banks, request.signal))
           .catch(() => undefined)
-      : Promise.resolve(undefined),
-  ]);
+      : Promise.resolve(undefined);
+
+  // Con refresh, los conteos se piden DESPUES: en paralelo leerian los catalogos viejos de la
+  // cache mientras se descargan los nuevos. Sin refresh, en paralelo (salen de cache).
+  const refresh = params.get('refresh') === 'true';
+  const mainRequest = () => upstreamGet<SearchResponse>(`/v1/search?${params}`, { signal: request.signal });
+  const [main, facets] = refresh
+    ? await mainRequest().then(async (res) => [res, await loadFacets()] as const)
+    : await Promise.all([mainRequest(), loadFacets()]);
 
   if (main.status !== 200 || !('results' in main.body)) {
     return Response.json(main.body, { status: main.status === 200 ? 502 : main.status, headers: NO_STORE });

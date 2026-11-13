@@ -49,6 +49,7 @@ npm start                            # http://localhost:3000
 - **Errores de `/v1`:** `{ "error": { "code", "message", "details"? } }` con el status correcto (400, 404, 405, 413).
 - **Resultado parcial:** si un emisor falla, la respuesta incluye `errors` y `meta.partial: true`.
 - **Caché:** los catálogos se guardan en memoria 30 min (`CACHE_TTL_SECONDS`). La primera búsqueda puede tardar 10-20 s; las siguientes, milisegundos. Con `CACHE_WARMUP=true` el servidor los precarga al iniciar.
+- **Antigüedad y actualización manual:** cada emisor informa en `sources[].fetchedAt` cuándo se descargó su catálogo. `refresh=true` (o `"refresh": true` en el POST) vuelve a descargar los catálogos con al menos 5 min de antigüedad (`CACHE_REFRESH_MIN_AGE_SECONDS`), y `meta.refreshableAt` indica desde cuándo tiene efecto. En la web es el botón "Actualizar" bajo los resultados.
 
 ### Web
 
@@ -94,6 +95,7 @@ Se definen en `.env` (plantilla con todas las opciones: [`.env.example`](.env.ex
 | `PORT` | `3000` | Puerto de la API |
 | `LOG_LEVEL` | servidor `info`, CLI `silent` | `debug`, `info`, `warn`, `error` o `silent` (JSON en stderr) |
 | `CACHE_TTL_SECONDS` / `CACHE_WARMUP` | `1800` / `false` | Caché del servidor |
+| `CACHE_REFRESH_MIN_AGE_SECONDS` | `300` | Antigüedad mínima para que `refresh=true` vuelva a descargar un catálogo (`0` = sin mínimo) |
 | `HTTP_TIMEOUT_MS` / `PROVIDER_TIMEOUT_MS` | `20000` / `60000` | Timeouts del servidor |
 | `CORS_ORIGINS` | vacío (desactivado) | Orígenes permitidos o `*` |
 | `BODY_LIMIT_BYTES` | `1000000` | Límite del body |

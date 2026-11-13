@@ -1,5 +1,6 @@
 import { fireEvent, render, screen } from '@testing-library/react';
 import { describe, expect, it, vi } from 'vitest';
+import { DataFreshness } from '@/components/results/DataFreshness';
 import { BenefitCard } from '@/components/ui/BenefitCard';
 import { ChipButton } from '@/components/ui/Chip';
 import { IssuerCheckbox } from '@/components/ui/IssuerCheckbox';
@@ -178,5 +179,43 @@ describe('ThemeToggle', () => {
     render(<ThemeToggle />);
     fireEvent.click(screen.getByRole('button', { name: 'Activar tema oscuro' }));
     expect(document.documentElement).toHaveAttribute('data-theme', 'dark');
+  });
+});
+
+describe('DataFreshness', () => {
+  const MIN = 60_000;
+  // Respuesta recien llegada: la hora del servidor es "ahora".
+  const freshness = (ageMinutes: number, refreshableInMinutes: number) => {
+    const now = Date.now();
+    return {
+      oldestFetchedAt: new Date(now - ageMinutes * MIN).toISOString(),
+      generatedAt: new Date(now).toISOString(),
+      refreshableAt: new Date(now + refreshableInMinutes * MIN).toISOString(),
+      receivedAt: now,
+    };
+  };
+
+  it('muestra la antiguedad y "Actualizar" llama a onRefresh', () => {
+    const onRefresh = vi.fn();
+    render(<DataFreshness freshness={freshness(90, -85)} refreshing={false} onRefresh={onRefresh} />);
+    expect(screen.getByText('Datos actualizados hace 1 h 30 min')).toBeInTheDocument();
+    fireEvent.click(screen.getByRole('button', { name: 'Actualizar' }));
+    expect(onRefresh).toHaveBeenCalledOnce();
+  });
+
+  it('recien actualizado: boton deshabilitado y cuanto falta para poder actualizar', () => {
+    render(<DataFreshness freshness={freshness(0, 5)} refreshing={false} onRefresh={() => {}} />);
+    expect(screen.getByText('Datos actualizados hace menos de 1 min')).toBeInTheDocument();
+    const button = screen.getByRole('button', { name: 'Actualizar' });
+    expect(button).toBeDisabled();
+    expect(button).toHaveAccessibleDescription('Podrás volver a actualizar en 5 min');
+  });
+
+  it('mientras actualiza: estado ocupado y aviso de que puede tardar', () => {
+    render(<DataFreshness freshness={freshness(90, -85)} refreshing onRefresh={() => {}} />);
+    const button = screen.getByRole('button', { name: 'Actualizando…' });
+    expect(button).toBeDisabled();
+    expect(button).toHaveAttribute('aria-busy', 'true');
+    expect(screen.getByText(/Actualizando los catálogos/)).toBeInTheDocument();
   });
 });

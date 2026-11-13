@@ -18,16 +18,17 @@ const { matchesQuery } = require('./matcher');
 function createSearchService({ registry, runner }) {
   /**
    * @param {string} query
-   * @param {{ banks?: string[], allowKeys?: boolean }} [options]
+   * @param {{ banks?: string[], allowKeys?: boolean, refresh?: boolean }} [options]
+   *   refresh: vuelve a descargar los catalogos en cache que ya tienen la antiguedad minima
    * @returns {Promise<SearchResult>}
    */
-  async function search(query, { banks, allowKeys = false } = {}) {
+  async function search(query, { banks, allowKeys = false, refresh = false } = {}) {
     if (!query) {
       throw new ValidationError('Falta la palabra a buscar', { code: 'MISSING_QUERY' });
     }
 
     const providers = registry.select(banks, { allowKeys });
-    const reports = await Promise.all(providers.map((provider) => runner.run(provider)));
+    const reports = await Promise.all(providers.map((provider) => runner.run(provider, { refresh })));
 
     const matches = reports.flatMap((r) => r.entries).filter((entry) => matchesQuery(entry, query));
     const errors = reports

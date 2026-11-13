@@ -157,7 +157,53 @@ describe('API v1', () => {
     const mp = res.body.sources.find((s) => s.key === 'mercadopago');
     assert.equal(mp.status, 'ok');
     assert.equal(mp.count, 7);
-    assert.deepEqual(res.body.cache, { enabled: true, ttlSeconds: 1800 });
+    assert.deepEqual(res.body.cache, { enabled: true, ttlSeconds: 1800, refreshMinAgeSeconds: 300 });
+    assert.equal(mp.fetchedAt, '2026-11-12T15:00:00.000Z');
+  });
+
+  test('cada fuente informa cuando se descargo su catalogo, y meta desde cuando se puede actualizar', async () => {
+    const res = await api.call('/v1/search?q=rappi&banks=copec,bci');
+    for (const source of res.body.sources) assert.equal(source.fetchedAt, '2026-11-12T15:00:00.000Z');
+    // FIXED_NOW + CACHE_REFRESH_MIN_AGE_SECONDS (300 por defecto).
+    assert.equal(res.body.meta.refreshableAt, '2026-11-12T15:05:00.000Z');
+  });
+
+  test('refresh=true antes de la antiguedad minima no vuelve a descargar', async () => {
+    await api.call('/v1/search?q=rappi&banks=santander');
+    const before = api.fetchImpl.calls.length;
+    const res = await api.call('/v1/search?q=rappi&banks=santander&refresh=true');
+    assert.equal(api.fetchImpl.calls.length, before);
+    assert.equal(res.body.sources[0].cached, true);
+  });
+});
+
+describe('API v1 con actualizacion manual sin antiguedad minima', () => {
+  let api;
+  before(async () => {
+    api = await startInProcess({ CACHE_REFRESH_MIN_AGE_SECONDS: '0' });
+  });
+  after(() => api.close());
+
+  test('refresh=true (GET) y refresh: true (POST) vuelven a descargar el catalogo', async () => {
+    await api.call('/v1/search?q=rappi&banks=copec');
+    const afterFirst = api.fetchImpl.calls.length;
+
+    const viaGet = await api.call('/v1/search?q=rappi&banks=copec&refresh=true');
+    assert.ok(api.fetchImpl.calls.length > afterFirst);
+    assert.equal(viaGet.body.sources[0].cached, false);
+
+    const afterGet = api.fetchImpl.calls.length;
+    const viaPost = await api.call(post('/v1/search', { query: 'rappi', banks: ['copec'], refresh: true }));
+    assert.ok(api.fetchImpl.calls.length > afterGet);
+    assert.equal(viaPost.body.sources[0].cached, false);
+  });
+
+  test('otro valor de refresh no fuerza la descarga', async () => {
+    await api.call('/v1/search?q=rappi&banks=tenpo');
+    const before = api.fetchImpl.calls.length;
+    const res = await api.call('/v1/search?q=rappi&banks=tenpo&refresh=1');
+    assert.equal(api.fetchImpl.calls.length, before);
+    assert.equal(res.body.sources[0].cached, true);
   });
 });
 

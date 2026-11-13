@@ -59,7 +59,7 @@ export function searchResponse(results: Benefit[], page: number, overrides: Part
     pagination: { page, pageSize: 6, total: 12, totalPages: 2, hasMore: page < 2 },
     sources: [],
     errors: [{ bank: 'BCI', key: 'bci', code: 'TIMEOUT', message: 'BCI excedio el tiempo limite' }],
-    meta: { generatedAt: '2026-11-12T15:00:00.000Z', partial: true },
+    meta: { generatedAt: '2026-11-12T15:00:00.000Z', partial: true, refreshableAt: null },
     ...overrides,
   };
 }

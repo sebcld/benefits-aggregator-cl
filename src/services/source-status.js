@@ -8,14 +8,16 @@
  * @property {number} count
  * @property {boolean} cached
  * @property {number} durationMs
+ * @property {string|null} fetchedAt      cuando se descargo el catalogo usado (null si fallo)
+ * @property {string|null} refreshableAt  desde cuando refresh lo vuelve a descargar (interno)
  * @property {{ code: string, message: string }} [error]
  */
 
 function createSourceStatusTracker({ clock = () => new Date() } = {}) {
   const last = new Map();
 
-  const record = ({ key, bank, status, count, cached, durationMs, error }) => {
-    const summary = { key, bank, status, count, cached, durationMs };
+  const record = ({ key, bank, status, count, cached, durationMs, fetchedAt, error }) => {
+    const summary = { key, bank, status, count, cached, durationMs, fetchedAt: fetchedAt ?? null };
     if (error) summary.error = error;
     last.set(key, { ...summary, checkedAt: clock().toISOString() });
   };

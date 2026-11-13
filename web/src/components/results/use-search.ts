@@ -1,11 +1,13 @@
 'use client';
 
-// Estado de una busqueda: primera pagina, "Cargar más", reintento y conteo por emisor (facets).
+// Estado de una busqueda: primera pagina, "Cargar más", reintento, conteo por emisor (facets) y
+// actualizacion manual de los catalogos ("Actualizar", refresh=true).
 // La carga se deriva de la clave de la peticion (sin setState sincrono dentro del efecto).
 import { useCallback, useEffect, useRef, useState } from 'react';
 import { searchBenefits } from '@/lib/api/client';
 import { ApiError } from '@/lib/api/errors';
 import type { Benefit, Facet, Pagination, SearchError, WebSearchResponse } from '@/lib/api/types';
+import { freshnessOf, type Freshness } from '@/lib/freshness';
 
 export const PAGE_SIZE = 12;
 /** Desde cuanto se avisa que la primera busqueda (cache fria) puede tardar. */
@@ -16,7 +18,17 @@ interface Data {
   pagination: Pagination;
   errors: SearchError[];
   partial: boolean;
+  /** Antiguedad de los catalogos (de la primera pagina); null si no aplica. */
+  freshness: Freshness | null;
 }
+
+interface Pending {
+  key: string;
+  loading: boolean;
+  error: ApiError | null;
+}
+
+const IDLE: Pending = { key: '', loading: false, error: null };
 
 interface Settled {
   key: string;
@@ -35,6 +47,10 @@ export interface SearchState {
   loadMoreError: ApiError | null;
   loadMore: () => void;
   retry: () => void;
+  /** Hay una actualizacion manual en curso (los resultados actuales siguen visibles). */
+  refreshing: boolean;
+  refreshError: ApiError | null;
+  refresh: () => void;
 }
 
 const toApiError = (err: unknown) =>
@@ -45,8 +61,15 @@ function mergeErrors(a: SearchError[], b: SearchError[]): SearchError[] {
   return [...a, ...b.filter((e) => !seen.has(e.key))];
 }
 
+// Se llama al llegar la respuesta (en un callback, no al renderizar).
 function toData(res: WebSearchResponse): Data {
-  return { results: res.results, pagination: res.pagination, errors: res.errors, partial: res.meta.partial };
+  return {
+    results: res.results,
+    pagination: res.pagination,
+    errors: res.errors,
+    partial: res.meta.partial,
+    freshness: freshnessOf(res.sources, res.meta, Date.now()),
+  };
 }
 
 export function useSearch(query: string, banks: string[]): SearchState {
@@ -57,11 +80,13 @@ export function useSearch(query: string, banks: string[]): SearchState {
   const [settled, setSettled] = useState<Settled | null>(null);
   const [facets, setFacets] = useState<{ query: string; items: Facet[] } | null>(null);
   const [slowKey, setSlowKey] = useState<string | null>(null);
-  const [more, setMore] = useState<{ key: string; loading: boolean; error: ApiError | null }>({ key: '', loading: false, error: null });
+  const [more, setMore] = useState<Pending>(IDLE);
+  const [refreshState, setRefreshState] = useState<Pending>(IDLE);
 
   // Consulta para la que ya hay conteos: al filtrar no se vuelven a pedir.
   const facetsQuery = useRef<string | null>(null);
   const moreController = useRef<AbortController | null>(null);
+  const refreshController = useRef<AbortController | null>(null);
 
   useEffect(() => {
     facetsQuery.current = facets?.query ?? null;
@@ -90,6 +115,7 @@ export function useSearch(query: string, banks: string[]): SearchState {
       controller.abort();
       clearTimeout(slowTimer);
       moreController.current?.abort();
+      refreshController.current?.abort();
     };
   }, [query, banksKey, key]);
 
@@ -116,6 +142,7 @@ export function useSearch(query: string, banks: string[]): SearchState {
               pagination: res.pagination,
               errors: mergeErrors(prev.data.errors, res.errors),
               partial: prev.data.partial || res.meta.partial,
+              freshness: prev.data.freshness,
             },
           };
         });
@@ -126,10 +153,35 @@ export function useSearch(query: string, banks: string[]): SearchState {
       });
   }, [data, more, key, query, banksKey]);
 
+  // Vuelve a pedir la primera pagina con refresh=true y reemplaza los resultados (y los conteos,
+  // que pueden cambiar con ofertas nuevas). Mientras tanto se siguen mostrando los actuales.
+  const refreshInFlight = refreshState.key === key && refreshState.loading;
+  const refresh = useCallback(() => {
+    if (!data || refreshInFlight) return;
+    moreController.current?.abort(); // "Cargar más" de la lista vieja ya no aplica
+    const controller = new AbortController();
+    refreshController.current = controller;
+    setMore(IDLE);
+    setRefreshState({ key, loading: true, error: null });
+    searchBenefits(
+      { query, banks: banksKey ? banksKey.split(',') : [], pageSize: PAGE_SIZE, facets: true, refresh: true },
+      { signal: controller.signal },
+    )
+      .then((res) => {
+        setSettled({ key, data: toData(res), error: null });
+        if (res.facets) setFacets({ query, items: res.facets });
+        setRefreshState({ key, loading: false, error: null });
+      })
+      .catch((err) => {
+        if (!controller.signal.aborted) setRefreshState({ key, loading: false, error: toApiError(err) });
+      });
+  }, [data, refreshInFlight, key, query, banksKey]);
+
   const retry = useCallback(() => setAttempt((n) => n + 1), []);
 
   const status: SearchState['status'] = !query ? 'idle' : !current ? 'loading' : current.error ? 'error' : 'success';
   const moreState = more.key === key ? more : { loading: false, error: null };
+  const refreshCurrent = refreshState.key === key ? refreshState : IDLE;
 
   return {
     status,
@@ -141,5 +193,8 @@ export function useSearch(query: string, banks: string[]): SearchState {
     loadMoreError: moreState.error,
     loadMore,
     retry,
+    refreshing: refreshCurrent.loading,
+    refreshError: refreshCurrent.error,
+    refresh,
   };
 }

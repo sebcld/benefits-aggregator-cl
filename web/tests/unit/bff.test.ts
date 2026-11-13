@@ -96,6 +96,23 @@ describe('GET /api/search', () => {
     expect(await res.json()).not.toHaveProperty('facets');
   });
 
+  it('reenvia refresh=true y, con facets, cuenta DESPUES de actualizar (no lee catalogos viejos)', async () => {
+    const { countByBank } = await import('@/lib/server/benefits');
+    const order: string[] = [];
+    vi.mocked(countByBank).mockImplementationOnce(async () => {
+      order.push('facets');
+      return [];
+    });
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockImplementation(async () => {
+      order.push('search');
+      return jsonResponse(searchBody);
+    });
+    const { GET } = await import('@/app/api/search/route');
+    await GET(new NextRequest('http://web/api/search?q=flixbus&facets=1&refresh=true'));
+    expect(fetchSpy.mock.calls[0][0]).toBe('http://api/v1/search?q=flixbus&refresh=true');
+    expect(order).toEqual(['search', 'facets']);
+  });
+
   it('con facets=1 agrega el conteo por emisor', async () => {
     vi.spyOn(globalThis, 'fetch').mockResolvedValue(jsonResponse(searchBody));
     const { GET } = await import('@/app/api/search/route');

@@ -17,8 +17,8 @@ function createSearchController({ searchService, registry, clock }) {
   }
 
   async function runV1(input) {
-    const { query, banks, page, pageSize } = parseV1Search(input, registry);
-    const result = await searchService.search(query, { banks, allowKeys: true });
+    const { query, banks, page, pageSize, refresh } = parseV1Search(input, registry);
+    const result = await searchService.search(query, { banks, allowKeys: true, refresh });
     return {
       status: 200,
       body: toV1SearchResponse({ query, result, page, pageSize, keyForBank, now: clock() }),
@@ -41,10 +41,10 @@ function createSearchController({ searchService, registry, clock }) {
       return runLegacy(parseLegacySearch(body, { missingMessage: 'Falta el campo query' }));
     },
 
-    // GET /v1/search?q=&banks=&page=&pageSize=
+    // GET /v1/search?q=&banks=&page=&pageSize=&refresh=true
     v1Get: ({ url }) => runV1(v1InputFromQueryString(url.searchParams)),
 
-    // POST /v1/search { query, banks, page, pageSize }
+    // POST /v1/search { query, banks, page, pageSize, refresh }
     v1Post: async ({ readJson }) => runV1(await readJson()),
   };
 }

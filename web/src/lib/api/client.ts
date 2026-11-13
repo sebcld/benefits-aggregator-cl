@@ -13,6 +13,8 @@ export interface SearchParams {
   pageSize?: number;
   /** Pide al BFF el conteo de coincidencias por emisor (para los filtros). */
   facets?: boolean;
+  /** Vuelve a descargar los catalogos que ya tienen la antiguedad minima (boton "Actualizar"). */
+  refresh?: boolean;
 }
 
 export interface RequestOptions {
@@ -69,12 +71,13 @@ async function request<T>(path: string, options: RequestOptions = {}): Promise<T
   return body as T;
 }
 
-export function buildSearchPath({ query, banks = [], page = 1, pageSize, facets }: SearchParams): string {
+export function buildSearchPath({ query, banks = [], page = 1, pageSize, facets, refresh }: SearchParams): string {
   const params = new URLSearchParams({ q: query });
   if (banks.length) params.set('banks', banks.join(','));
   if (page > 1) params.set('page', String(page));
   if (pageSize) params.set('pageSize', String(pageSize));
   if (facets) params.set('facets', '1');
+  if (refresh) params.set('refresh', 'true');
   return `/api/search?${params}`;
 }
 
