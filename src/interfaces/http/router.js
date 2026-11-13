@@ -6,6 +6,7 @@ const { notFound, methodNotAllowed } = require('./http-error');
  * @property {string} method
  * @property {string} path            ruta exacta, sin query string
  * @property {'legacy'|'v1'} api      formato de errores a usar
+ * @property {boolean} [public]       true = no exige API key
  * @property {(ctx: object) => Promise<{ status: number, body: any, headers?: object }>} handler
  */
 

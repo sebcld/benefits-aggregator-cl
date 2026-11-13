@@ -2,7 +2,7 @@
 // BFF: acceso a la API (/v1) desde el servidor y Route Handler /api/search.
 import { NextRequest } from 'next/server';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { upstreamConfig, upstreamGet } from '@/lib/server/upstream';
+import { assertNoPublicSecrets, publicSecretNames, upstreamConfig, upstreamGet } from '@/lib/server/upstream';
 
 vi.mock('@/lib/server/benefits', () => ({
   getBanks: vi.fn(async () => [
@@ -29,19 +29,38 @@ describe('upstreamConfig', () => {
     });
     expect(upstreamConfig(env({}))).toMatchObject({ baseUrl: 'http://localhost:3000', apiKey: null });
   });
+
+  it('rechaza una llave con prefijo NEXT_PUBLIC_ (Next la incrustaria en el navegador)', () => {
+    const leaked = env({ BENEFITS_API_URL: 'http://api', NEXT_PUBLIC_BENEFITS_API_KEY: 'k' });
+    expect(publicSecretNames(leaked)).toEqual(['NEXT_PUBLIC_BENEFITS_API_KEY']);
+    expect(() => upstreamConfig(leaked)).toThrow(/NEXT_PUBLIC_BENEFITS_API_KEY.*BENEFITS_API_KEY \(sin NEXT_PUBLIC_\)/);
+    expect(() => assertNoPublicSecrets(env({ NEXT_PUBLIC_API_TOKEN: 't' }))).toThrow();
+    // Las variables publicas legitimas (y las vacias) no molestan.
+    expect(() => assertNoPublicSecrets(env({ NEXT_PUBLIC_CONTACT_URL: 'https://x.cl', NEXT_PUBLIC_API_KEY: '' }))).not.toThrow();
+  });
 });
 
 describe('upstreamGet', () => {
   const config = { baseUrl: 'http://api', apiKey: null, timeoutMs: 1000 };
 
-  it('envia x-api-key solo si esta configurada (ADR 0014), nunca al navegador', async () => {
+  it('envia Authorization: Bearer <BENEFITS_API_KEY> en cada peticion si esta configurada (ADR 0014)', async () => {
     const fetchImpl = vi.fn(async () => jsonResponse({ ok: true }));
     await upstreamGet('/v1/banks', { config: { ...config, apiKey: 'secreta' }, fetchImpl });
-    expect(fetchImpl).toHaveBeenCalledWith('http://api/v1/banks', expect.objectContaining({ headers: expect.objectContaining({ 'x-api-key': 'secreta' }) }));
+    expect(fetchImpl).toHaveBeenCalledWith('http://api/v1/banks', expect.objectContaining({ headers: expect.objectContaining({ authorization: 'Bearer secreta' }) }));
 
     await upstreamGet('/v1/banks', { config, fetchImpl });
     const headers = (fetchImpl.mock.calls[1] as unknown as [string, RequestInit])[1].headers as Record<string, string>;
-    expect(headers['x-api-key']).toBeUndefined();
+    expect(headers.authorization).toBeUndefined();
+  });
+
+  it('un 401 de la API llega al navegador como 502 UPSTREAM_UNAUTHORIZED (sin mostrar la llave)', async () => {
+    const logged = vi.spyOn(console, 'error').mockImplementation(() => {});
+    const unauthorized = { error: { code: 'UNAUTHORIZED', message: 'Falta una API key valida' } };
+    const res = await upstreamGet('/v1/search?q=x', { config: { ...config, apiKey: 'secreta' }, fetchImpl: async () => jsonResponse(unauthorized, 401) });
+    expect(res).toMatchObject({ status: 502, body: { error: { code: 'UPSTREAM_UNAUTHORIZED' } } });
+    expect(logged).toHaveBeenCalledWith(expect.stringContaining('BENEFITS_API_KEY'));
+    expect(logged.mock.calls.flat().join(' ')).not.toContain('secreta');
+    logged.mockRestore();
   });
 
   it('pasa el status y el cuerpo de la API tal cual', async () => {

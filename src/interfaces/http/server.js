@@ -1,10 +1,12 @@
-// Servidor HTTP (modulo nativo). Une router, CORS, body parser, manejo de errores y log de acceso.
+// Servidor HTTP (modulo nativo). Une router, CORS, API key, body parser, manejo de errores y log
+// de acceso.
 const http = require('http');
 const { randomUUID } = require('crypto');
 const { performance } = require('perf_hooks');
 const { createRouter } = require('./router');
 const { createRoutes } = require('./routes');
 const { corsHeaders, preflightResponse } = require('./middlewares/cors');
+const { createAuthenticator } = require('./middlewares/auth');
 const { readJsonBody } = require('./middlewares/body-parser');
 const { toErrorResponse } = require('./middlewares/error-handler');
 
@@ -31,11 +33,17 @@ function sendJson(res, status, body, headers = {}) {
 function createHttpServer({ app, version }) {
   const { config, logger } = app;
   const router = createRouter(createRoutes({ app, version }));
+  const auth = createAuthenticator(config.apiKeys);
 
-  async function handle(req, url, requestId, cors) {
+  // "who" guarda el nombre del cliente autenticado, para el log de acceso.
+  async function handle(req, url, requestId, cors, who) {
+    // El preflight de CORS no lleva credenciales (el navegador no las envia): no se autentica.
     if (req.method === 'OPTIONS' && cors) return { api: 'legacy', response: preflightResponse() };
 
     const match = router.match(req.method, url.pathname);
+    // Se autentica ANTES de responder 404/405: sin llave no se puede descubrir que rutas existen.
+    // Lanza 401 si falta la llave o es incorrecta.
+    if (!match.route?.public) who.client = auth.authenticate(req);
     if (match.error) return { api: match.api, error: match.error };
 
     const lenient = match.route.api === 'legacy';
@@ -51,10 +59,11 @@ function createHttpServer({ app, version }) {
     let url = null;
     let api = String(req.url).startsWith('/v1/') ? 'v1' : 'legacy';
     let response;
+    const who = { client: null };
 
     try {
       url = new URL(req.url, 'http://localhost');
-      const outcome = await handle(req, url, requestId, cors);
+      const outcome = await handle(req, url, requestId, cors, who);
       api = outcome.api;
       response = outcome.error ? toErrorResponse(outcome.error, api) : outcome.response;
     } catch (err) {
@@ -74,6 +83,8 @@ function createHttpServer({ app, version }) {
       path: url ? url.pathname : req.url,
       status: response.status,
       durationMs: Math.round(performance.now() - started),
+      // Nombre del cliente segun API_KEYS (nunca la llave). Ausente sin autenticacion.
+      ...(who.client ? { client: who.client } : {}),
     });
   });
 }

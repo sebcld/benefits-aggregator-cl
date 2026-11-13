@@ -2,7 +2,7 @@
 
 Cada ADR documenta **una** decisión: el contexto, las alternativas, lo que se decidió y sus consecuencias. Formato [MADR](https://adr.github.io/madr/), numeración correlativa y un archivo por decisión.
 
-- **Aceptado:** ya está en el código. El 0018, el 0020 y el 0022 se aceptaron al implementarse. Los ADR 0001 a 0013 son **retroactivos**: se redactaron después de implementar, a partir del código, el historial de git y `docs/CHANGELOG_REFACTOR.md`. Las alternativas descartadas salen de lo que se evaluó durante el trabajo. Las marcadas como *(reconstruida)* son alternativas razonables que no hay registro de que se evaluaran en su momento: se agregaron para que el ADR explique por qué la decisión tomada es mejor.
+- **Aceptado:** ya está en el código. El 0014, el 0018, el 0020 y el 0022 se aceptaron al implementarse. Los ADR 0001 a 0013 son **retroactivos**: se redactaron después de implementar, a partir del código, el historial de git y `docs/CHANGELOG_REFACTOR.md`. Las alternativas descartadas salen de lo que se evaluó durante el trabajo. Las marcadas como *(reconstruida)* son alternativas razonables que no hay registro de que se evaluaran en su momento: se agregaron para que el ADR explique por qué la decisión tomada es mejor.
 - **Propuesto:** todavía **no** está decidido ni implementado. Necesita aprobación antes de aplicarse.
 - **Reemplazado:** sustituido por otro ADR, que se enlaza. Hoy no hay ninguno.
 
@@ -23,7 +23,7 @@ Cada ADR documenta **una** decisión: el contexto, las alternativas, lo que se d
 | [0011](0011-copec-pay-via-endpoint-rest-del-tema.md) | Copec Pay a través del endpoint REST del tema WordPress | Aceptado | 2026-11-12 |
 | [0012](0012-banco-de-chile-via-api-modyo-y-jina.md) | Banco de Chile a través de la API de contenido Modyo y `r.jina.ai` | Aceptado | 2026-11-12 |
 | [0013](0013-reglas-de-arquitectura-con-lint-propio.md) | Reglas de arquitectura verificadas con un lint propio | Aceptado | 2026-11-12 |
-| [0014](0014-autenticacion-con-api-key.md) | Autenticación de la API con API key | **Propuesto** | 2026-11-12 |
+| [0014](0014-autenticacion-con-api-key.md) | Autenticación de la API con API key | Aceptado | 2026-11-13 |
 | [0015](0015-rate-limiting.md) | Rate limiting | **Propuesto** | 2026-11-12 |
 | [0016](0016-cachestore-compartido-en-redis.md) | `CacheStore` compartido en Redis | **Propuesto** | 2026-11-12 |
 | [0017](0017-warm-up-programado-y-stale-while-revalidate.md) | Warm-up programado y stale-while-revalidate | **Propuesto** | 2026-11-12 |
@@ -45,13 +45,14 @@ flowchart LR
   a0007 --> a0008["0008 CLI sin cache"]
   a0007 -.-> p0016["0016 Redis"]
   a0007 -.-> p0017["0017 Warm-up"]
-  a0006 -.-> p0014["0014 API key"]
-  p0014 -.-> p0015["0015 Rate limiting"]
+  a0006 --> a0014["0014 API key"]
+  a0022 --> a0014
+  a0014 -.-> p0015["0015 Rate limiting"]
   a0012 -.-> p0021["0021 Acceso Banco de Chile"]
   a0013 -.-> p0019["0019 ESLint"]
 
   classDef propuesto fill:#f5f5f5,stroke:#9e9e9e,stroke-dasharray:5 5,color:#555555
-  class p0014,p0015,p0016,p0017,p0019,p0021 propuesto
+  class p0015,p0016,p0017,p0019,p0021 propuesto
 ```
 
 **Leyenda del grafo**

@@ -47,7 +47,12 @@ npm start                            # http://localhost:3000
 | `GET /v1/health[?probe=true]` | Estado del servicio y de cada emisor |
 | `GET /search?q=` / `POST /search` / `GET /health` | Rutas 1.x (deprecadas, mismo formato que antes) |
 
-- **Errores de `/v1`:** `{ "error": { "code", "message", "details"? } }` con el status correcto (400, 404, 405, 413).
+- **Autenticación:** con `API_KEYS` configurada, toda ruta exige `Authorization: Bearer <llave>` (o `x-api-key: <llave>`) y responde **401** `UNAUTHORIZED` sin ella. Solo `GET /health` queda abierto, para los health checks. Sin `API_KEYS` no se exige llave; es solo para desarrollo, y el servidor lo avisa al iniciar ([ADR 0014](docs/adr/0014-autenticacion-con-api-key.md)).
+
+  ```bash
+  curl -H "Authorization: Bearer <llave>" "http://localhost:3000/v1/search?q=rappi"
+  ```
+- **Errores de `/v1`:** `{ "error": { "code", "message", "details"? } }` con el status correcto (400, 401, 404, 405, 413).
 - **Resultado parcial:** si un emisor falla, la respuesta incluye `errors` y `meta.partial: true`.
 - **Caché:** los catálogos se guardan en memoria 30 min (`CACHE_TTL_SECONDS`). La primera búsqueda puede tardar 10-20 s; las siguientes, milisegundos. Con `CACHE_WARMUP=true` el servidor los precarga al iniciar.
 - **Antigüedad y actualización manual:** cada emisor informa en `sources[].fetchedAt` cuándo se descargó su catálogo. `refresh=true` (o `"refresh": true` en el POST) vuelve a descargar los catálogos con al menos 5 min de antigüedad (`CACHE_REFRESH_MIN_AGE_SECONDS`), y `meta.refreshableAt` indica desde cuándo tiene efecto. En la web es el botón "Actualizar" bajo los resultados.
@@ -58,7 +63,7 @@ La web está en [`web/`](web/README.md): Next.js, TypeScript y Tailwind, con sus
 
 ```bash
 npm start                                   # API en :3000
-cd web && npm install && npm run dev        # web en :3001 (lee BENEFITS_API_URL de web/.env.local)
+cd web && npm install && npm run dev        # web en :3001 (lee BENEFITS_API_URL y BENEFITS_API_KEY de web/.env.local)
 ```
 
 ### Como librería (compatibilidad 1.x)
@@ -94,6 +99,7 @@ Se definen en `.env` (plantilla con todas las opciones: [`.env.example`](.env.ex
 | Variable | Por defecto | Uso |
 |---|---|---|
 | `BCI_SUBSCRIPTION_KEY` | — | **Obligatoria** para BCI |
+| `API_KEYS` | vacío (sin autenticación) | Llaves de los clientes, `web:<llave>,movil:<llave>` (mínimo 32 caracteres). **Obligatoria en producción** |
 | `PORT` | `3000` | Puerto de la API |
 | `LOG_LEVEL` | servidor `info`, CLI `silent` | `debug`, `info`, `warn`, `error` o `silent` (JSON en stderr) |
 | `CACHE_TTL_SECONDS` / `CACHE_WARMUP` | `1800` / `false` | Caché del servidor |

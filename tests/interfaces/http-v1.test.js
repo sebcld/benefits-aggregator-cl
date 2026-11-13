@@ -177,6 +177,71 @@ describe('API v1', () => {
   });
 });
 
+describe('API con API_KEYS: solo responde a quien trae una llave valida', () => {
+  const WEB_KEY = 'llave-web-de-prueba-0123456789abcdef';
+  const MOBILE_KEY = 'llave-movil-de-prueba-0123456789abcd';
+  const bearer = (key) => ({ authorization: `Bearer ${key}` });
+  let api;
+  before(async () => {
+    api = await startInProcess({ API_KEYS: `web:${WEB_KEY},movil:${MOBILE_KEY}`, CORS_ORIGINS: 'https://app.cl' });
+  });
+  after(() => api.close());
+
+  for (const path of ['/v1/search?q=rappi', '/v1/banks', '/v1/health', '/v1/health?probe=true', '/v1/nada']) {
+    test(`sin llave: ${path} responde 401 UNAUTHORIZED (formato v1)`, async () => {
+      const res = await api.call(path);
+      assert.equal(res.status, 401);
+      assert.equal(res.body.error.code, 'UNAUTHORIZED');
+      assert.match(res.headers['www-authenticate'], /^Bearer realm=/);
+    });
+  }
+
+  test('sin llave: las rutas legadas tambien responden 401 (formato 1.x)', async () => {
+    for (const req of ['/search?q=rappi', post('/search', { query: 'rappi' })]) {
+      const res = await api.call(req);
+      assert.equal(res.status, 401);
+      assert.equal(typeof res.body.error, 'string');
+    }
+  });
+
+  test('una llave incorrecta responde igual que no enviar llave, y no descarga nada', async () => {
+    const before = api.fetchImpl.calls.length;
+    const res = await api.call({ path: '/v1/search?q=rappi', headers: bearer('llave-incorrecta-0123456789abcdefghij') });
+    assert.equal(res.status, 401);
+    assert.equal(api.fetchImpl.calls.length, before);
+  });
+
+  test('con Bearer o con x-api-key responde normalmente', async () => {
+    const viaBearer = await api.call({ path: '/v1/search?q=rappi&banks=copec', headers: bearer(WEB_KEY) });
+    assert.equal(viaBearer.status, 200);
+    assert.ok(viaBearer.body.results.length > 0);
+
+    const viaHeader = await api.call({ path: '/v1/banks', headers: { 'x-api-key': MOBILE_KEY } });
+    assert.equal(viaHeader.status, 200);
+
+    const legacy = await api.call({ path: '/search?q=rappi&banks=Copec%20Pay', headers: bearer(WEB_KEY) });
+    assert.equal(legacy.status, 200);
+    assert.ok(Array.isArray(legacy.body.matches));
+  });
+
+  test('con llave, una ruta inexistente sigue siendo 404', async () => {
+    const res = await api.call({ path: '/v1/nada', headers: bearer(WEB_KEY) });
+    assert.equal(res.status, 404);
+  });
+
+  test('GET /health es publico (health check de la plataforma)', async () => {
+    const res = await api.call('/health');
+    assert.equal(res.status, 200);
+    assert.deepEqual(res.body, { status: 'ok' });
+  });
+
+  test('el preflight de CORS no exige llave (el navegador no la envia)', async () => {
+    const res = await api.call({ method: 'OPTIONS', path: '/v1/search', headers: { origin: 'https://app.cl' } });
+    assert.equal(res.status, 204);
+    assert.match(res.headers['access-control-allow-headers'], /authorization/);
+  });
+});
+
 describe('API v1 con actualizacion manual sin antiguedad minima', () => {
   let api;
   before(async () => {

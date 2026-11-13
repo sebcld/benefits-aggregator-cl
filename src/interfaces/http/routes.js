@@ -15,9 +15,11 @@ function createRoutes({ app, version }) {
   const health = createHealthController({ registry, statusTracker, searchService, config, version });
   const banks = createBanksController({ registry });
 
+  // Todas las rutas exigen API key (si API_KEYS esta configurada), salvo las "public": solo
+  // GET /health, que responde { status: "ok" } sin datos, para los health checks de las plataformas.
   return [
     // Legadas (formato historico)
-    { method: 'GET', path: '/health', api: 'legacy', handler: health.legacy },
+    { method: 'GET', path: '/health', api: 'legacy', handler: health.legacy, public: true },
     { method: 'GET', path: '/search', api: 'legacy', handler: search.legacyGet },
     { method: 'POST', path: '/search', api: 'legacy', handler: search.legacyPost },
 

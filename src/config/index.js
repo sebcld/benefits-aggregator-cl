@@ -2,6 +2,7 @@
 // a loadConfig(). Prioridad: variables del entorno > archivo .env > valores por defecto.
 const path = require('path');
 const { readEnvFile } = require('./env-file');
+const { parseApiKeys } = require('./api-keys');
 const { ConfigError } = require('../domain/errors');
 const { LEVELS } = require('../shared/logger');
 
@@ -86,6 +87,8 @@ function loadConfig({ env = process.env, envFilePath = DEFAULT_ENV_PATH } = {}) 
     httpTimeoutMs: read.integer('HTTP_TIMEOUT_MS', DEFAULTS.HTTP_TIMEOUT_MS),
     providerTimeoutMs: read.integer('PROVIDER_TIMEOUT_MS', DEFAULTS.PROVIDER_TIMEOUT_MS),
     corsOrigins: read.list('CORS_ORIGINS'),
+    // Llaves de los clientes (servidor de la web, app movil). Vacio = sin autenticacion.
+    apiKeys: parseApiKeys(read.list('API_KEYS'), problems),
     bodyLimitBytes: read.integer('BODY_LIMIT_BYTES', DEFAULTS.BODY_LIMIT_BYTES, { min: 1 }),
   };
 

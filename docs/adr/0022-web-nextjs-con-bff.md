@@ -9,7 +9,7 @@
 Faltaba una página web para buscar beneficios. Más adelante vendrá una app móvil. El diseño inicial tenía las pantallas Inicio y Resultados en móvil y escritorio, Light y Dark, y una biblioteca de componentes.
 
 Hay tres restricciones:
-- **La API key no puede llegar al navegador.** Si se aprueba el ADR 0014, la API exigirá `x-api-key`, y cualquier llave presente en el navegador queda a la vista en DevTools.
+- **La API key no puede llegar al navegador.** Si se aprueba el ADR 0014, la API exigirá `x-api-key`, y cualquier llave presente en el navegador queda a la vista en DevTools. (El 0014 se implementó después: el BFF envía `Authorization: Bearer <BENEFITS_API_KEY>` desde el servidor.)
 - **El backend no debe sumar dependencias.** El ADR 0002 lo prohíbe, y la API cachea en memoria, así que no conviene llevarla a funciones serverless.
 - **La primera búsqueda con la caché fría tarda 10-20 s.**
 

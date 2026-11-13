@@ -21,4 +21,10 @@ const payloadTooLarge = (limit) =>
     details: { limitBytes: limit },
   });
 
-module.exports = { HttpError, notFound, methodNotAllowed, payloadTooLarge };
+// Mismo mensaje y status si falta la llave o si es incorrecta: no se le da pistas a quien prueba.
+const unauthorized = (message = 'Falta una API key valida (Authorization: Bearer <llave> o x-api-key)') =>
+  new HttpError(401, 'UNAUTHORIZED', message, {
+    headers: { 'www-authenticate': 'Bearer realm="beneficios"' },
+  });
+
+module.exports = { HttpError, notFound, methodNotAllowed, payloadTooLarge, unauthorized };

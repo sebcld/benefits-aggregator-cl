@@ -15,7 +15,13 @@ function start() {
       version,
       cacheTtlSeconds: config.cacheTtlSeconds,
       corsOrigins: config.corsOrigins,
+      // Solo los nombres de los clientes, nunca las llaves.
+      apiKeyClients: config.apiKeys.map((k) => k.name),
     });
+    if (!config.apiKeys.length) {
+      console.warn('AVISO: API_KEYS no esta configurada: la API responde a cualquiera (solo para desarrollo).');
+      logger.warn('auth_disabled', { hint: 'Configura API_KEYS antes de exponer la API a internet' });
+    }
 
     if (config.cacheWarmup) {
       searchService

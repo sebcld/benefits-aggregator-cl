@@ -46,14 +46,25 @@ info:
     `/search` y `/health` se mantienen por compatibilidad con la version 1.x. Clientes nuevos
     deben usar `/v1`.
 
-    ## Seguridad (pendiente)
-    Hoy la API no exige autenticacion. Para produccion se recomienda API key por header
-    `x-api-key` y rate limiting (ver docs/ARQUITECTURA.md). CORS se habilita con `CORS_ORIGINS`.
+    ## Autenticacion (API key)
+    Si el servidor tiene `API_KEYS` configurada, **todas las rutas exigen una API key**, salvo
+    `GET /health` (liveness, sin datos, para los health checks). La llave se envia como
+    `Authorization: Bearer <llave>` o como `x-api-key: <llave>`. Sin llave, o con una llave
+    incorrecta, la respuesta es **401** `UNAUTHORIZED` (formato legado en `/search`) con el header
+    `WWW-Authenticate: Bearer`. Sin `API_KEYS` la API no exige llave (solo para desarrollo local).
+
+    La web llama a la API desde su servidor (BFF) con `BENEFITS_API_KEY`: el navegador nunca ve la
+    llave. Una llave embebida en una app movil se puede extraer: identifica al cliente, no es un
+    secreto fuerte (ADR 0014). El rate limiting sigue pendiente (ADR 0015). CORS se habilita con
+    `CORS_ORIGINS`.
 servers:
   - url: http://localhost:3000
     description: Desarrollo local
   - url: http://10.0.2.2:3000
     description: Emulador Android apuntando al host
+security:
+  - BearerAuth: []
+  - ApiKeyAuth: []
 tags:
   - name: v1
     description: API actual
@@ -77,6 +88,8 @@ paths:
           $ref: '#/components/responses/SearchOk'
         '400':
           $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
     post:
       tags: [v1]
       summary: Buscar beneficios (body JSON)
@@ -98,6 +111,8 @@ paths:
           $ref: '#/components/responses/SearchOk'
         '400':
           $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
         '413':
           description: Body sobre el limite (`BODY_LIMIT_BYTES`)
           content:
@@ -132,6 +147,8 @@ paths:
                   - { key: bancochile, name: Banco de Chile, searchMode: catalog }
                   - { key: mercadopago, name: Mercado Pago, searchMode: catalog }
                   - { key: entel, name: Entel, searchMode: catalog }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /v1/health:
     get:
@@ -142,6 +159,9 @@ paths:
         o devolvio 0 registros en su ultima consulta. El estado por emisor es el de la ultima
         consulta real (`unknown` si aun no se consulto). Con `probe=true` se consultan (o renuevan
         en cache) todos los catalogos antes de responder.
+
+        Exige API key (expone el estado de las fuentes y `probe=true` dispara descargas). Para un
+        health check sin llave, usar `GET /health`.
       operationId: health
       parameters:
         - name: probe
@@ -179,6 +199,8 @@ paths:
                     error: { code: TIMEOUT, message: 'Banco de Chile excedio el tiempo limite (60000 ms)' }
                     checkedAt: '2026-11-12T15:00:00.000Z'
                   - { key: tapp, bank: Tapp, status: unknown, checkedAt: null }
+        '401':
+          $ref: '#/components/responses/Unauthorized'
 
   /search:
     get:
@@ -206,6 +228,8 @@ paths:
             application/json:
               schema: { $ref: '#/components/schemas/LegacyError' }
               example: { error: Falta el parametro q }
+        '401':
+          $ref: '#/components/responses/LegacyUnauthorized'
     post:
       tags: [legado]
       deprecated: true
@@ -233,12 +257,16 @@ paths:
             application/json:
               schema: { $ref: '#/components/schemas/LegacyError' }
               example: { error: JSON invalido }
+        '401':
+          $ref: '#/components/responses/LegacyUnauthorized'
 
   /health:
     get:
       tags: [legado]
       deprecated: true
       summary: Liveness (formato 1.x)
+      description: Unica ruta sin API key. Sirve como health check de la plataforma de despliegue.
+      security: []
       responses:
         '200':
           description: Vivo
@@ -250,6 +278,16 @@ paths:
                   status: { type: string, enum: [ok] }
 
 components:
+  securitySchemes:
+    BearerAuth:
+      type: http
+      scheme: bearer
+      description: 'Authorization: Bearer <llave>. Una de las llaves de API_KEYS en el servidor.'
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: x-api-key
+      description: Alternativa al Bearer, con la misma llave.
   parameters:
     Query:
       name: q
@@ -336,6 +374,29 @@ components:
               generatedAt: '2026-11-12T15:00:00.000Z'
               partial: true
               refreshableAt: '2026-11-12T13:35:00.000Z'
+    Unauthorized:
+      description: Falta la API key o es incorrecta (solo si el servidor tiene `API_KEYS`)
+      headers:
+        WWW-Authenticate:
+          schema: { type: string }
+          example: Bearer realm="beneficios"
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+          example:
+            error:
+              code: UNAUTHORIZED
+              message: 'Falta una API key valida (Authorization: Bearer <llave> o x-api-key)'
+    LegacyUnauthorized:
+      description: Falta la API key o es incorrecta (formato 1.x)
+      headers:
+        WWW-Authenticate:
+          schema: { type: string }
+      content:
+        application/json:
+          schema: { $ref: '#/components/schemas/LegacyError' }
+          example: { error: 'Falta una API key valida (Authorization: Bearer <llave> o x-api-key)' }
     BadRequest:
       description: Parametros invalidos
       content:
@@ -574,6 +635,7 @@ components:
                 - INVALID_PAGINATION
                 - INVALID_JSON
                 - INVALID_BODY
+                - UNAUTHORIZED
                 - NOT_FOUND
                 - METHOD_NOT_ALLOWED
                 - PAYLOAD_TOO_LARGE

@@ -55,6 +55,9 @@ export interface paths {
          *     o devolvio 0 registros en su ultima consulta. El estado por emisor es el de la ultima
          *     consulta real (`unknown` si aun no se consulto). Con `probe=true` se consultan (o renuevan
          *     en cache) todos los catalogos antes de responder.
+         *
+         *     Exige API key (expone el estado de las fuentes y `probe=true` dispara descargas). Para un
+         *     health check sin llave, usar `GET /health`.
          */
         get: operations["health"];
         put?: never;
@@ -112,6 +115,7 @@ export interface paths {
                         "application/json": components["schemas"]["LegacyError"];
                     };
                 };
+                401: components["responses"]["LegacyUnauthorized"];
             };
         };
         put?: never;
@@ -158,6 +162,7 @@ export interface paths {
                         "application/json": components["schemas"]["LegacyError"];
                     };
                 };
+                401: components["responses"]["LegacyUnauthorized"];
             };
         };
         delete?: never;
@@ -176,6 +181,7 @@ export interface paths {
         /**
          * Liveness (formato 1.x)
          * @deprecated
+         * @description Unica ruta sin API key. Sirve como health check de la plataforma de despliegue.
          */
         get: {
             parameters: {
@@ -388,7 +394,7 @@ export interface components {
         ErrorResponse: {
             error: {
                 /** @enum {string} */
-                code: "MISSING_QUERY" | "QUERY_TOO_LONG" | "UNKNOWN_BANK" | "INVALID_PAGINATION" | "INVALID_JSON" | "INVALID_BODY" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "PAYLOAD_TOO_LARGE" | "INTERNAL_ERROR";
+                code: "MISSING_QUERY" | "QUERY_TOO_LONG" | "UNKNOWN_BANK" | "INVALID_PAGINATION" | "INVALID_JSON" | "INVALID_BODY" | "UNAUTHORIZED" | "NOT_FOUND" | "METHOD_NOT_ALLOWED" | "PAYLOAD_TOO_LARGE" | "INTERNAL_ERROR";
                 message: string;
                 details?: {
                     [key: string]: unknown;
@@ -499,6 +505,40 @@ export interface components {
                 "application/json": components["schemas"]["SearchResponse"];
             };
         };
+        /** @description Falta la API key o es incorrecta (solo si el servidor tiene `API_KEYS`) */
+        Unauthorized: {
+            headers: {
+                /** @example Bearer realm="beneficios" */
+                "WWW-Authenticate"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "error": {
+                 *         "code": "UNAUTHORIZED",
+                 *         "message": "Falta una API key valida (Authorization: Bearer <llave> o x-api-key)"
+                 *       }
+                 *     }
+                 */
+                "application/json": components["schemas"]["ErrorResponse"];
+            };
+        };
+        /** @description Falta la API key o es incorrecta (formato 1.x) */
+        LegacyUnauthorized: {
+            headers: {
+                "WWW-Authenticate"?: string;
+                [name: string]: unknown;
+            };
+            content: {
+                /**
+                 * @example {
+                 *       "error": "Falta una API key valida (Authorization: Bearer <llave> o x-api-key)"
+                 *     }
+                 */
+                "application/json": components["schemas"]["LegacyError"];
+            };
+        };
         /** @description Parametros invalidos */
         BadRequest: {
             headers: {
@@ -563,6 +603,7 @@ export interface operations {
         responses: {
             200: components["responses"]["SearchOk"];
             400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
         };
     };
     searchBenefitsPost: {
@@ -590,6 +631,7 @@ export interface operations {
         responses: {
             200: components["responses"]["SearchOk"];
             400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
             /** @description Body sobre el limite (`BODY_LIMIT_BYTES`) */
             413: {
                 headers: {
@@ -676,6 +718,7 @@ export interface operations {
                     "application/json": components["schemas"]["BanksResponse"];
                 };
             };
+            401: components["responses"]["Unauthorized"];
         };
     };
     health: {
@@ -742,6 +785,7 @@ export interface operations {
                     "application/json": components["schemas"]["HealthResponse"];
                 };
             };
+            401: components["responses"]["Unauthorized"];
         };
     };
 }
