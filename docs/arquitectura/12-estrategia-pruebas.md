@@ -12,7 +12,6 @@ flowchart LR
   replay["replay-fetch y preload<br/>fecha 2026-11-12, pausas aceleradas"]
   build["npm run fixtures:golden<br/>build-golden.js"]
   golden[("tests/fixtures/golden<br/>salida vigente")]
-  original[("golden-original<br/>codigo 1.0.0")]
   tests["npm test<br/>unit, characterization,<br/>acceptance, interfaces"]
   smoke["npm run smoke<br/>casos de aceptacion en vivo"]
   lint["npm run lint<br/>reglas de arquitectura"]
@@ -22,7 +21,6 @@ flowchart LR
   replay --> build --> golden
   replay --> tests
   golden -->|"compara"| tests
-  original -->|"compara salvo cambios declarados"| tests
   smoke -->|"requiere internet"| sitios
 ```
 
@@ -35,7 +33,6 @@ flowchart LR
 |---|---|---|
 | Unitarias | `tests/unit/` | Parsers, `http-client`, `config`, caché, runner, router, validación y serializers, con dobles inyectados por `ctx` |
 | Caracterización | `tests/characterization/` | El CLI, la API legada y la fachada producen **byte a byte** lo mismo que el golden |
-| Equivalencia con 1.x | `original-equivalence.test.js` | Todo coincide con el código original, salvo los cambios declarados en el test |
 | Aceptación | `tests/acceptance/` | PROWASHGO, temu, pedidos ya, burger king, Rappi y El Café Rosa funcionan por servicio, CLI y API |
 | Contrato | `tests/interfaces/` | La API v1 completa y su sincronía con `openapi.yaml` |
 | En vivo | `npm run smoke` | Los casos de aceptación contra las fuentes reales |
@@ -44,4 +41,4 @@ flowchart LR
 
 **Si un golden falla:**
 - **Sin un cambio intencional:** es una regresión. Hay que arreglar el código.
-- **Con un cambio intencional:** regenerar con `npm run fixtures:golden` y revisar `git diff tests/fixtures/golden`. `golden-original/` no se regenera nunca. Ver [ADR 0009](../adr/0009-tests-de-caracterizacion-con-fixtures-y-golden.md).
+- **Con un cambio intencional:** regenerar con `npm run fixtures:golden` y revisar `git diff tests/fixtures/golden`. Ver [ADR 0009](../adr/0009-tests-de-caracterizacion-con-fixtures-y-golden.md).

@@ -1,8 +1,7 @@
 // Genera las salidas de referencia (golden) a partir de los fixtures HTTP, sin internet.
 // Volver a ejecutarlo solo si se cambian los fixtures o el comportamiento A PROPOSITO:
 //   npm run fixtures:golden
-// tests/fixtures/golden-original/ se genero con este mismo script sobre el codigo original
-// (commit f8352c7) y NO se regenera: es la referencia de equivalencia del refactor.
+// y revisar el diff de tests/fixtures/golden antes de hacer commit.
 const fs = require('fs');
 const path = require('path');
 const { GOLDEN_DIR, ALL_QUERIES: QUERIES } = require('../helpers/constants');

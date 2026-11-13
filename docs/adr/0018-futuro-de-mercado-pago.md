@@ -55,7 +55,7 @@ Además:
   - **Dependencia del formato interno de la plataforma de landings.** Si Mercado Pago cambia el formato del estado o los tipos de sección, el provider falla con `INVALID_RESPONSE` en vez de devolver datos incorrectos.
   - **La vigencia y el tope salen de texto legal libre.** Se extraen con dos formatos conocidos y, si no coinciden, quedan vacíos.
   - **Términos desactualizados.** Lipigas 50% aparece en la landing, pero sus términos dicen que venció el 31/07/2026. Se publica sin fecha de vigencia.
-  - **Cambio visible para clientes 1.x.** Ya no reciben el error de Mercado Pago en `errors` y ahora reciben sus beneficios. La equivalencia con la 1.x lo registra como cambio de fuente.
+  - **Cambio visible para clientes 1.x.** Ya no reciben el error de Mercado Pago en `errors` y ahora reciben sus beneficios. El golden de la API legada lo registra.
 
 ## Evidencia
 

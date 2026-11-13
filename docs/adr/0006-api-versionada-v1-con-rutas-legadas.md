@@ -36,7 +36,7 @@ La regla del refactor era mantener la compatibilidad de las respuestas. Al mismo
 ## Consecuencias
 
 - **Positivas:**
-  - Ningún cliente 1.x se rompe; `original-equivalence.test.js` lo demuestra.
+  - Ningún cliente 1.x se rompió: durante el refactor un test de equivalencia lo demostró contra la salida de la 1.0.0. Hoy `http-legacy.test.js` fija el formato legado contra el golden vigente.
   - El equipo móvil integra la API leyendo solo `openapi.yaml`.
   - Un test falla si el contrato y el código se desalinean.
 - **Negativas:**

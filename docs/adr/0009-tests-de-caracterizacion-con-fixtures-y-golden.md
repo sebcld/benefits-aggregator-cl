@@ -16,7 +16,7 @@ La versión 1.0.0 no tenía tests (`npm test` era un placeholder) y el refactor 
 ## Decisión
 
 - **Fixtures.** `npm run fixtures:record` graba en `tests/fixtures/http/` la URL, el status, el content-type y el body de cada respuesta, sin los headers de la petición, para que la llave de BCI no quede guardada. Banco de Chile se recorta a los campos que usa el parser.
-- **Golden original.** `tests/fixtures/golden-original/` se generó **una vez** con el código 1.0.0 (`f8352c7`) y no se regenera. `original-equivalence.test.js` compara contra él, salvo los cambios declarados en el mismo test.
+- **Golden original (retirado).** Durante el refactor, `tests/fixtures/golden-original/` (la salida del código 1.0.0, `f8352c7`) y `original-equivalence.test.js` demostraron que la 2.0.0 daba lo mismo que la 1.x. Cumplida esa función, se eliminaron: la salida de la app antigua ya no es una referencia, y cada cambio intencional obligaba a registrarlo como excepción en ese test. Se pueden recuperar desde el historial de git (último commit que los tiene: `f051196`).
 - **Golden vigente.** `tests/fixtures/golden/` se regenera solo con `npm run fixtures:golden`, cuando hay un cambio intencional, y se revisa con `git diff`.
 - **Procesos hijo.** El CLI y el servidor legado se prueban como procesos separados, con `-r tests/helpers/preload.js`, que reemplaza `fetch`, congela `Date` en 2026-11-12 12:00 (hora de Chile) y acelera las pausas.
 - **Pruebas en vivo.** `npm run smoke` corre los casos de aceptación contra las fuentes reales. Es opcional y requiere internet.
@@ -25,7 +25,7 @@ La versión 1.0.0 no tenía tests (`npm test` era un placeholder) y el refactor 
 
 - **Positivas:**
   - 241 tests deterministas en unos 5 s, sin internet.
-  - La equivalencia con 1.x quedó demostrada byte a byte.
+  - La equivalencia con 1.x quedó demostrada byte a byte durante el refactor.
   - Un cambio intencional deja un diff revisable en git.
 - **Negativas:**
   - Unos 5,7 MB de fixtures en el repositorio.

@@ -1,5 +1,5 @@
 // Caracterizacion de la API publica (src/benefits.js): cada extractor y searchBenefits
-// deben devolver exactamente lo mismo que el codigo original para los mismos fixtures.
+// deben devolver exactamente lo mismo que el golden vigente para los mismos fixtures.
 const { test, before } = require('node:test');
 const golden = {
   providers: require('../fixtures/golden/providers.json'),
@@ -15,7 +15,7 @@ before(async () => {
 });
 
 for (const name of Object.keys(golden.providers)) {
-  test(`extractor ${name} devuelve lo mismo que el original`, () => {
+  test(`extractor ${name} devuelve lo mismo que el golden`, () => {
     assertSameJson(actual.providers[name], golden.providers[name], name);
   });
 }

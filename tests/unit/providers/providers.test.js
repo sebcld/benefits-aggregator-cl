@@ -21,7 +21,7 @@ const CASES = [
 ];
 
 for (const [key, goldenName, extra] of CASES) {
-  test(`provider ${goldenName}: misma salida que el original`, async () => {
+  test(`provider ${goldenName}: misma salida que el golden`, async () => {
     const entries = await registry.get(key).fetch(createTestContext(extra));
     assertSameJson(legacy(entries), golden[goldenName]);
   });

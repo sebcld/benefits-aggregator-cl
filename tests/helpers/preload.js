@@ -1,7 +1,7 @@
 // Precarga para procesos hijo (CLI y servidor) en los tests de caracterizacion:
 //   node -r ./tests/helpers/preload.js src/index.js "rappi"
 // Reemplaza fetch por los fixtures grabados, congela la fecha y acelera las pausas entre paginas.
-// Sirve igual para el codigo original y para el refactorizado, porque no depende de sus modulos.
+// No depende de los modulos de src/: solo reemplaza globales.
 const { createReplayFetch } = require('./replay-fetch');
 const { FIXED_NOW } = require('./constants');
 

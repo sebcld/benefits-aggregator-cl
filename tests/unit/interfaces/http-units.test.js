@@ -80,7 +80,7 @@ test('paginate', () => {
   assert.deepEqual(paginate([], 1, 20).pagination.totalPages, 1);
 });
 
-test('parseBanks igual que el original', () => {
+test('parseBanks separa por coma y descarta vacios', () => {
   assert.deepEqual(parseBanks(' BCI , ,Copec Pay'), ['BCI', 'Copec Pay']);
   assert.deepEqual(parseBanks(['a', '', null]), ['a']);
   assert.deepEqual(parseBanks(42), []);

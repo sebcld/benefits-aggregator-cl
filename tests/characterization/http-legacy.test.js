@@ -1,6 +1,4 @@
 // Caracterizacion de la API sin version (/search, /health) contra el golden vigente.
-// La comparacion con el codigo original (y los 3 cambios intencionales) esta en
-// original-equivalence.test.js.
 const { test, before, after } = require('node:test');
 const assert = require('node:assert/strict');
 const golden = require('../fixtures/golden/http-legacy.json');

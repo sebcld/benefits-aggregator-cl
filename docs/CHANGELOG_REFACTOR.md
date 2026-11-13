@@ -4,7 +4,7 @@ Se pasó de un módulo monolítico (`src/benefits.js`, 618 líneas) a una arquit
 
 ## Resumen
 
-- **Equivalencia demostrada sin internet.** El CLI, la API legada y la fachada producen la misma salida que el código original, salvo los cambios listados en [Cambios de comportamiento](#cambios-de-comportamiento). Lo verifica `tests/characterization/original-equivalence.test.js` contra `tests/fixtures/golden-original/`, generado con el código original.
+- **Equivalencia demostrada sin internet.** El CLI, la API legada y la fachada producen la misma salida que el código original, salvo los cambios listados en [Cambios de comportamiento](#cambios-de-comportamiento). Lo verificó `tests/characterization/original-equivalence.test.js` contra `tests/fixtures/golden-original/`, generado con el código original. Ambos se retiraron después, una vez cumplida su función ([ADR 0009](adr/0009-tests-de-caracterizacion-con-fixtures-y-golden.md)).
 - **Equivalencia en vivo.** El 2026-11-12 se levantaron el servidor original y el nuevo en paralelo, y `GET /search` dio respuestas idénticas para `Rappi`, `El Café Rosa`, `burger king` y `kfc`. En el CLI hubo diferencias entre corridas secuenciales que venían de Banco de Chile por `r.jina.ai`: la misma página falla o responde según el momento (ver [RIESGOS.md](RIESGOS.md)).
 - **241 tests** con `node:test`, sin red (`npm test`), y lint de arquitectura (`npm run lint`).
 
@@ -94,15 +94,14 @@ src/
         └── middlewares/  body-parser.js, cors.js, error-handler.js
 tests/
 ├── acceptance/        casos de negocio por emisor
-├── characterization/  fachada, CLI, API legada, matcher y equivalencia con el original
+├── characterization/  fachada, CLI, API legada y matcher
 ├── interfaces/        API v1 y sincronía con openapi.yaml
 ├── unit/              config, domain, providers, services, shared, interfaces
 ├── helpers/           fetch simulado, preload, procesos, dobles de prueba
 ├── tools/             record-fixtures, build-golden, smoke-live
 └── fixtures/
     ├── http/              respuestas reales grabadas (Banco de Chile recortado a los campos usados)
-    ├── golden/            salida de referencia vigente
-    └── golden-original/   salida del código original (no se regenera)
+    └── golden/            salida de referencia vigente
 scripts/lint.js
 docs/              ARQUITECTURA.md, AGREGAR_EMISOR.md, openapi.yaml, CHANGELOG_REFACTOR.md, RIESGOS.md
 ```

@@ -22,7 +22,7 @@ Buscador de beneficios y descuentos de bancos, tarjetas y billeteras de **Chile*
 | Estilo | 2 espacios, comillas simples, punto y coma, trailing commas, unas 100 columnas. Comentarios en español y sin tildes |
 | Secretos | Solo en `.env` (ignorado por git), leídos con `src/config`. Plantilla en `.env.example` |
 | Lint | `npm run lint` hace cumplir las capas, que `process.env` solo se use en `config/` y `fetch` solo en `shared/http-client.js`, que no haya llaves en el código y el máximo de 200 líneas |
-| Regla de trabajo | No cambiar el comportamiento observable sin aprobación. Todo cambio intencional queda registrado en `docs/CHANGELOG_REFACTOR.md` y en `tests/characterization/original-equivalence.test.js` |
+| Regla de trabajo | No cambiar el comportamiento observable sin aprobación. Un cambio intencional se regenera con `npm run fixtures:golden` y se revisa en el diff de `tests/fixtures/golden/` |
 
 ## 3. Arquitectura (detalle en `docs/ARQUITECTURA.md`)
 
@@ -66,11 +66,12 @@ src/bootstrap.js  composition root: createApp({ env, fetchImpl, clock, sleep, ca
 | BCI | `pedidos ya` | PedidosYa |
 | Santander | `burger king` | Burger King |
 | Copec Pay | `Rappi`, `El Café Rosa` | Rappi, El Café Rosa |
+| Mercado Pago | `turbus` | Turbus |
 
 ## 6. Pruebas
 
 - **Sin internet:** `npm test` usa las respuestas reales grabadas en `tests/fixtures/http/`. La fecha queda congelada en 2026-11-12 12:00 (hora de Chile), porque Copec Pay filtra por vigencia.
-- **Golden:** `tests/fixtures/golden/` es la salida vigente. `golden-original/` es la del código 1.0.0 y **no se regenera**.
+- **Golden:** `tests/fixtures/golden/` es la salida vigente (fachada, CLI, API legada y providers). La comparación con la app 1.0.0 ya no existe: cumplió su función en el refactor.
 - **Procesos hijo:** el CLI y el servidor legado se prueban con `node -r tests/helpers/preload.js` (fetch simulado, fecha congelada, pausas aceleradas).
 - **Actualizar datos:** `npm run fixtures:record -- <key>`, luego `npm run fixtures:golden`, y revisar el diff.
 - **En vivo:** `npm run smoke`.

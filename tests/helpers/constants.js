@@ -32,16 +32,11 @@ const TEST_ENV = {
   LOG_LEVEL: 'silent',
 };
 
-// Golden generado con el codigo original (commit f8352c7), antes del refactor y del cambio de
-// fuente de Banco de Chile. Se conserva para demostrar la equivalencia del resto de emisores.
-const ORIGINAL_GOLDEN_DIR = path.join(FIXTURES_DIR, 'golden-original');
-
 module.exports = {
   ROOT,
   FIXTURES_DIR,
   HTTP_FIXTURES_DIR,
   GOLDEN_DIR,
-  ORIGINAL_GOLDEN_DIR,
   FIXED_NOW,
   QUERIES,
   ACCEPTANCE_CASES,
