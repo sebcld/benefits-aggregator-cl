@@ -47,4 +47,4 @@ flowchart LR
 | Job de warm-up y stale-while-revalidate | Que ningún usuario espere 10-20 s con la caché fría | `searchService.warmUp()`, `CACHE_WARMUP` y `/v1/health?probe=true` | [0017](../adr/0017-warm-up-programado-y-stale-while-revalidate.md) |
 | Alertas sobre los logs | Detectar a tiempo un parser roto o una llave vencida | Logs JSON con `provider_empty` y `provider_error` | — |
 
-La fuente de Mercado Pago y la dependencia de `r.jina.ai` también tienen decisiones abiertas: [ADR 0018](../adr/0018-futuro-de-mercado-pago.md) y [ADR 0021](../adr/0021-acceso-a-banco-de-chile-sin-proxy-gratuito.md).
+La dependencia de `r.jina.ai` también tiene una decisión abierta: [ADR 0021](../adr/0021-acceso-a-banco-de-chile-sin-proxy-gratuito.md). La fuente de Mercado Pago ya se resolvió ([ADR 0018](../adr/0018-futuro-de-mercado-pago.md)).

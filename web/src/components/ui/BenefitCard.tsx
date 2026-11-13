@@ -1,8 +1,8 @@
 // Tarjeta de beneficio (variante por emisor: el color sale de --issuer).
 // Mapeo de datos: bank/bankKey -> emisor y color; title/subtitle -> titulo y bajada;
 // description -> descripcion; logo -> logo o iniciales; validUntil -> pastilla de vigencia
-// (se oculta si es null); url -> "Ver beneficio"; hero -> extraido del titulo o, si no, de la
-// bajada (si no hay valor claro, no se muestra).
+// (se oculta si es null); cardType -> pastilla de tarjeta (se oculta si es null); url -> "Ver
+// beneficio"; hero -> extraido del titulo o, si no, de la bajada (si no hay valor claro, no se muestra).
 import type { Benefit } from '@/lib/api/types';
 import { extractHero, formatValidUntil } from '@/lib/benefit-format';
 import { cn } from '@/lib/cn';
@@ -13,6 +13,8 @@ import { IssuerTag } from './IssuerTag';
 
 type CardBenefit = Pick<Benefit, 'bank' | 'bankKey' | 'title' | 'subtitle' | 'description' | 'validUntil' | 'url' | 'logo'> & {
   commerceName?: string | null;
+  /** Tarjeta con la que aplica (pildora "medio de pago" del diseno). Hoy solo Mercado Pago. */
+  cardType?: string | null;
 };
 
 interface BenefitCardProps {
@@ -52,12 +54,23 @@ export function BenefitCard({ benefit, headingLevel: Heading = 'h3', className }
 
       <div className="flex flex-col gap-3 px-4 pt-4 pb-3">
         {benefit.description && <p className="line-clamp-3 text-14 leading-5 text-fg">{benefit.description}</p>}
-        {validUntil && (
+        {(validUntil || benefit.cardType) && (
           <ul className="flex flex-wrap gap-2">
-            <li className="inline-flex items-center gap-1.5 rounded-pill bg-amber-bg py-1 pr-2.5 pl-2 text-12 font-semibold text-on-amber">
-              <Icon name="calendar" className="text-amber" />
-              <time dateTime={benefit.validUntil ?? undefined}>{validUntil}</time>
-            </li>
+            {validUntil && (
+              <li className="inline-flex items-center gap-1.5 rounded-pill bg-amber-bg py-1 pr-2.5 pl-2 text-12 font-semibold text-on-amber">
+                <Icon name="calendar" className="text-amber" />
+                <time dateTime={benefit.validUntil ?? undefined}>{validUntil}</time>
+              </li>
+            )}
+            {benefit.cardType && (
+              <li
+                data-testid="benefit-card-type"
+                className="inline-flex items-center gap-1.5 rounded-pill bg-subtle py-1 pr-2.5 pl-2 text-12 font-semibold text-fg-muted"
+              >
+                <Icon name="card" />
+                {benefit.cardType}
+              </li>
+            )}
           </ul>
         )}
       </div>

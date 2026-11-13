@@ -2,7 +2,7 @@
 
 Cada ADR documenta **una** decisión: el contexto, las alternativas, lo que se decidió y sus consecuencias. Formato [MADR](https://adr.github.io/madr/), numeración correlativa y un archivo por decisión.
 
-- **Aceptado:** ya está en el código. El 0020 y el 0022 se aceptaron al implementarse. Los ADR 0001 a 0013 son **retroactivos**: se redactaron después de implementar, a partir del código, el historial de git y `docs/CHANGELOG_REFACTOR.md`. Las alternativas descartadas salen de lo que se evaluó durante el trabajo. Las marcadas como *(reconstruida)* son alternativas razonables que no hay registro de que se evaluaran en su momento: se agregaron para que el ADR explique por qué la decisión tomada es mejor.
+- **Aceptado:** ya está en el código. El 0018, el 0020 y el 0022 se aceptaron al implementarse. Los ADR 0001 a 0013 son **retroactivos**: se redactaron después de implementar, a partir del código, el historial de git y `docs/CHANGELOG_REFACTOR.md`. Las alternativas descartadas salen de lo que se evaluó durante el trabajo. Las marcadas como *(reconstruida)* son alternativas razonables que no hay registro de que se evaluaran en su momento: se agregaron para que el ADR explique por qué la decisión tomada es mejor.
 - **Propuesto:** todavía **no** está decidido ni implementado. Necesita aprobación antes de aplicarse.
 - **Reemplazado:** sustituido por otro ADR, que se enlaza. Hoy no hay ninguno.
 
@@ -27,7 +27,7 @@ Cada ADR documenta **una** decisión: el contexto, las alternativas, lo que se d
 | [0015](0015-rate-limiting.md) | Rate limiting | **Propuesto** | 2026-11-12 |
 | [0016](0016-cachestore-compartido-en-redis.md) | `CacheStore` compartido en Redis | **Propuesto** | 2026-11-12 |
 | [0017](0017-warm-up-programado-y-stale-while-revalidate.md) | Warm-up programado y stale-while-revalidate | **Propuesto** | 2026-11-12 |
-| [0018](0018-futuro-de-mercado-pago.md) | Futuro de Mercado Pago como emisor | **Propuesto** | 2026-11-12 |
+| [0018](0018-futuro-de-mercado-pago.md) | Futuro de Mercado Pago como emisor | Aceptado | 2026-11-12 |
 | [0019](0019-eslint-y-prettier.md) | ESLint y Prettier como devDependencies | **Propuesto** | 2026-11-12 |
 | [0020](0020-actualizacion-a-node-26-y-ci.md) | Actualización a Node 26 (LTS) e integración continua | Aceptado | 2026-11-12 |
 | [0021](0021-acceso-a-banco-de-chile-sin-proxy-gratuito.md) | Acceso a Banco de Chile sin depender de un proxy gratuito | **Propuesto** | 2026-11-12 |

@@ -13,8 +13,11 @@ const crypto = require('crypto');
  * @property {string} [keywords]    Texto extra para la busqueda
  * @property {string} [tagsText]    Tags para la busqueda
  * @property {string} [category]    Categorias separadas por coma (hoy solo Copec Pay)
- * @property {string} [validFrom]   YYYY-MM-DD (hoy solo Copec Pay)
- * @property {string} [validUntil]  YYYY-MM-DD (hoy solo Copec Pay)
+ * @property {string} [validFrom]   YYYY-MM-DD (Copec Pay, Mercado Pago)
+ * @property {string} [validUntil]  YYYY-MM-DD (Copec Pay, Banco de Chile, Mercado Pago)
+ * @property {string} [cardType]    Tarjeta con la que aplica ("Tarjeta prepago virtual")
+ * @property {string} [discountCap] Tope del descuento ("$5.000")
+ * @property {string} [termsUrl]    Terminos y condiciones
  * @property {string} id            Identificador estable (derivado del id de la fuente)
  * @property {string} [logo]        URL de logo o imagen, si la fuente la entrega
  */
@@ -32,10 +35,14 @@ const TEXT_FIELDS = [
   'category',
   'validFrom',
   'validUntil',
+  'cardType',
+  'discountCap',
+  'termsUrl',
 ];
 
-// Campos agregados por el refactor. La forma historica (API legada, CLI, fachada) no los expone.
-const INTERNAL_FIELDS = ['id', 'logo'];
+// Campos agregados despues de la 1.x. La forma historica (API legada, CLI, fachada) no los expone:
+// solo los entrega la API v1.
+const INTERNAL_FIELDS = ['id', 'logo', 'cardType', 'discountCap', 'termsUrl'];
 
 const slugify = (text) =>
   text

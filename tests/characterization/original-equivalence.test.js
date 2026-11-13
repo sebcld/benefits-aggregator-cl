@@ -11,6 +11,9 @@
 //  4. Tapp: la descripcion es la Bajada (antes, los "Terminos y condiciones" del Cuerpo), sin el
 //     CSS que traia incrustado, y la bajada pasa a ser "Tipo de cliente · Regiones". Sus registros
 //     se comparan sin subtitle ni description.
+//  5. Mercado Pago cambio de fuente: antes buscaba productos en Mercado Libre (siempre respondia 403
+//     y quedaba en "errors"); ahora lee los beneficios de la landing de la tarjeta prepago. Igual que
+//     Banco de Chile, sus resultados y su error historico se excluyen de la comparacion.
 // Todo lo demas debe ser identico al original.
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
@@ -33,6 +36,16 @@ const current = {
 };
 
 const CHANGED_BANK = 'Banco de Chile';
+// Emisores que cambiaron de fuente (puntos 1 y 5): no se comparan sus resultados ni sus errores.
+const CHANGED_SOURCES = [CHANGED_BANK, 'Mercado Pago'];
+const PROVIDER_KEYS_CHANGED_SOURCE = ['bancochile', 'mercadopago'];
+const fromUnchangedSource = (item) => !CHANGED_SOURCES.includes(item.bank);
+// stderr del CLI sin las lineas "<emisor> no disponible: ..." de esos emisores.
+const stderrWithoutChangedSources = (stderr) =>
+  stderr
+    .split('\n')
+    .filter((line) => !CHANGED_SOURCES.some((bank) => line.startsWith(`${bank} no disponible:`)))
+    .join('\n');
 // Campos que cambiaron a proposito, por emisor (puntos 3 y 4). El resto se compara igual.
 const CHANGED_FIELDS = {
   BCI: ['title', 'subtitle', 'description', 'url'],
@@ -44,7 +57,7 @@ const withoutIntentionalChanges = (entry) => {
   const fields = CHANGED_FIELDS[entry.bank];
   return fields ? Object.fromEntries(Object.entries(entry).filter(([k]) => !fields.includes(k))) : entry;
 };
-const comparable = (matches) => matches.filter((m) => m.bank !== CHANGED_BANK).map(withoutIntentionalChanges);
+const comparable = (matches) => matches.filter(fromUnchangedSource).map(withoutIntentionalChanges);
 
 // Quita del stdout del CLI el bloque "Banco de Chile (n)" (hasta el siguiente emisor).
 function stripBankBlock(stdout, bank) {
@@ -59,7 +72,7 @@ const INTENTIONAL_HTTP = {
 };
 
 for (const name of Object.keys(original.providers)) {
-  if (name === 'bancochile') continue;
+  if (PROVIDER_KEYS_CHANGED_SOURCE.includes(name)) continue;
   test(`original: extractor ${name} identico`, () => {
     assertSameJson(current.providers[name].map(withoutIntentionalChanges), original.providers[name].map(withoutIntentionalChanges));
   });
@@ -76,22 +89,22 @@ for (const [provider, bank] of Object.entries(PROVIDER_BANK)) {
 }
 
 for (const [name, expected] of Object.entries(original.search)) {
-  test(`original: busqueda "${name}" identica fuera de Banco de Chile y de los campos cambiados a proposito`, () => {
+  test(`original: busqueda "${name}" identica fuera de los emisores y campos cambiados a proposito`, () => {
     const actual = current.search[name];
     assertSameJson(comparable(actual.matches), comparable(expected.matches));
-    assertSameJson(actual.errors, expected.errors);
+    assertSameJson(actual.errors.filter(fromUnchangedSource), expected.errors.filter(fromUnchangedSource));
   });
 }
 
 // El CLI imprime titulo, bajada y descripcion: se quitan los bloques de los emisores que cambiaron.
 const stripChangedBlocks = (stdout) =>
-  [CHANGED_BANK, ...Object.keys(CHANGED_FIELDS)].reduce((out, bank) => stripBankBlock(out, bank), stdout);
+  [...CHANGED_SOURCES, ...Object.keys(CHANGED_FIELDS)].reduce((out, bank) => stripBankBlock(out, bank), stdout);
 
 for (const [name, expected] of Object.entries(original.cli)) {
-  test(`original: CLI "${name}" identico fuera de Banco de Chile, BCI y Tapp`, () => {
+  test(`original: CLI "${name}" identico fuera de los emisores que cambiaron`, () => {
     const actual = current.cli[name];
     assert.equal(stripChangedBlocks(actual.stdout), stripChangedBlocks(expected.stdout));
-    assert.equal(actual.stderr, expected.stderr);
+    assert.equal(stderrWithoutChangedSources(actual.stderr), stderrWithoutChangedSources(expected.stderr));
     assert.equal(actual.code, expected.code);
   });
 }
@@ -105,7 +118,7 @@ for (const [name, expected] of Object.entries(original.http)) {
 
     if (target.body?.matches) {
       assertSameJson(comparable(actual.body.matches), comparable(target.body.matches));
-      assertSameJson(actual.body.errors, target.body.errors);
+      assertSameJson(actual.body.errors.filter(fromUnchangedSource), target.body.errors.filter(fromUnchangedSource));
     } else {
       assertSameJson(actual.body, target.body);
     }

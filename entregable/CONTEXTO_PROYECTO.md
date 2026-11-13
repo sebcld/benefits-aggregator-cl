@@ -55,7 +55,7 @@ src/bootstrap.js  composition root: createApp({ env, fetchImpl, clock, sleep, ca
 | `tapp` | CMS Modyo, space `...-copia` | 6 | Revisar el space |
 | `copec` | `/wp-json/custom/v1/beneficios/` | 48 vigentes / 313 | Filtra por vigencia en hora de Chile |
 | `bancochile` | API Modyo `/api/content/spaces/personas/types/beneficios/entries` vía `r.jina.ai` (texto) | 919 | Desde la 2.0.0; antes era scraping de 9 páginas |
-| `mercadopago` | Búsqueda de Mercado Libre (`queryDependent`) | — | Responde siempre 403 sin token |
+| `mercadopago` | Landing `mercadopago.cl/landing/beneficios-tarjeta-prepago` (estado incrustado) + landing por beneficio + términos de la campaña | — | 7 beneficios; incluye tipo de tarjeta, tope y vigencia |
 
 ## 5. Casos de aceptación (`tests/helpers/constants.js` → `ACCEPTANCE_CASES`)
 

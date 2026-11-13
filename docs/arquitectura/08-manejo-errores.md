@@ -30,7 +30,7 @@ flowchart LR
 
 **Leyenda:** el texto de las flechas es el `code` que recibe el cliente.
 
-- El mensaje conserva el formato histórico, por ejemplo `"Mercado Pago respondio 403: {...}"`. Está pensado para diagnóstico: la app debe decidir por `code`.
+- El mensaje conserva el formato histórico, por ejemplo `"BCI respondio 401: {...}"`. Está pensado para diagnóstico: la app debe decidir por `code`.
 - La fachada `benefits.js` es la excepción: `fetchSantander()`, `fetchBci()` y las demás rechazan la promesa con el error, igual que en la versión 1.x. Solo `searchBenefits` lo convierte en `errors`.
 
 ## 8b. Error de la petición: de excepción a respuesta HTTP

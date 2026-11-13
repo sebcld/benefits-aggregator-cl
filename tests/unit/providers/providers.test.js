@@ -69,26 +69,7 @@ test('Copec Pay rechaza respuestas HTML (redireccion a la home)', async () => {
   });
 });
 
-test('Mercado Pago sin consulta no hace peticiones', async () => {
-  const ctx = createTestContext();
-  assert.deepEqual(await registry.get('mercadopago').fetch(ctx), []);
-  assert.equal(ctx.fetchImpl.calls.length, 0);
-});
-
-test('Mercado Pago 403 se informa con el mensaje historico', async () => {
-  const ctx = createTestContext({ query: 'Rappi' });
-  await assert.rejects(registry.get('mercadopago').fetch(ctx), (err) => {
-    assert.match(err.message, /^Mercado Pago respondio 403: \{"message":"forbidden"/);
-    assert.equal(err.status, 403);
-    return true;
-  });
-});
-
-test('Mercado Pago envia token si esta configurado', async () => {
-  const ctx = createTestContext({ query: 'kfc', env: { MELI_ACCESS_TOKEN: 'tok' } });
-  await registry.get('mercadopago').fetch(ctx).catch(() => {});
-  assert.equal(ctx.fetchImpl.calls[0].headers.Authorization, 'Bearer tok');
-});
+// Mercado Pago: ver tests/unit/providers/mercadopago.test.js.
 
 test('Tenpo deja de paginar al encontrar una pagina vacia', async () => {
   const ctx = createTestContext();

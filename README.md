@@ -76,7 +76,7 @@ const { matches, errors } = await searchBenefits('rappi', { banks: ['Copec Pay']
 | Tapp | CMS `web.cajalosandes.cl/api/content/spaces/wp-tapp-beneficios-copia/...` (el mismo de `www.tapp.cl/beneficios`). Solo las categorías vigentes (`meta.category=beneficios` y `convenios`); las finalizadas no se descargan |
 | Copec Pay | REST del tema WordPress `copecpay.cl/wp-json/custom/v1/beneficios/`. Solo vigentes hoy (hora de Chile); `fetchCopec({ includeInactive: true })` trae todos |
 | Banco de Chile | API de contenido de [Todos los beneficios](https://sitiospublicos.bancochile.cl/personas/beneficios/todos-los-beneficios) (`/api/content/spaces/personas/types/beneficios/entries`), vía el proxy `r.jina.ai` porque el sitio bloquea clientes automatizados (`JINA_API_KEY` opcional) |
-| Mercado Pago | Búsqueda de Mercado Libre `api.mercadolibre.com/sites/MLC/search` (sin token responde 403; ver [RIESGOS](docs/RIESGOS.md)) |
+| Mercado Pago | Landing [Beneficios tarjeta Mercado Pago](https://www.mercadopago.cl/landing/beneficios-tarjeta-prepago), su landing por beneficio y los términos de cada campaña (`api.mercadopago.com/v2/discounts/campaign/<id>/terms/html`). No hay API JSON: se lee el estado que la página trae incrustado. Incluye tipo de tarjeta, tope y vigencia |
 
 **Búsqueda:**
 - No distingue mayúsculas, tildes ni puntuación (`"el cafe rosa"` encuentra "El Café Rosa").
@@ -122,5 +122,6 @@ npm run fixtures:golden               # regenera las salidas de referencia (revi
 | BCI | `pedidos ya` | Beneficios PedidosYa |
 | Santander | `burger king` | Burger King |
 | Copec Pay | `Rappi`, `El Café Rosa` | Rappi, El Café Rosa |
+| Mercado Pago | `turbus` | Turbus (15% de cashback, tarjeta prepago física) |
 
 La carpeta `entregable/` contiene el diagnóstico de la corrección de Copec Pay y el contexto del proyecto para asistentes de IA.

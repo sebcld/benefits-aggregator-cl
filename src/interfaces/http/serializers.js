@@ -30,6 +30,9 @@ const toV1Benefit = (entry, keyForBank) => ({
   validUntil: orNull(entry.validUntil),
   url: orNull(entry.url),
   logo: orNull(entry.logo),
+  cardType: orNull(entry.cardType),
+  discountCap: orNull(entry.discountCap),
+  termsUrl: orNull(entry.termsUrl),
 });
 
 const toV1Source = ({ key, bank, status, count, cached, durationMs, error }) => {
