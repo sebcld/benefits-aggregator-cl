@@ -22,7 +22,7 @@
   --text-*: initial;
 }
 
-/* Mapeo de tokens semanticos (tokens.css, generado desde FigCraft) a utilidades de Tailwind.
+/* Mapeo de tokens semanticos (src/styles/tokens.css) a utilidades de Tailwind.
    "reference" evita volver a declarar las variables; "inline" hace que la utilidad use var(--token)
    directamente, asi que el tema (Light/Dark) se resuelve en tiempo de ejecucion. */
 @theme inline reference {
@@ -47,7 +47,7 @@
   --color-glass: var(--glass-bg);
   --color-issuer: var(--issuer);
 
-  /* radius/sm|md|lg|pill del diseno: 8 / 14 / 20 / 999 */
+  /* --radius-sm|md|lg|pill de tokens.css: 8 / 14 / 20 / 999 */
   --radius-sm: var(--radius-sm);
   --radius-md: var(--radius-md);
   --radius-lg: var(--radius-lg);
@@ -60,7 +60,7 @@
   --font-sans: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
-/* Escala tipografica usada en las pantallas del diseno (px). "auto" en FigCraft = normal. */
+/* Escala tipografica de la web (px), con interlineado normal. */
 @theme {
   --text-12: 12px;
   --text-12--line-height: normal;

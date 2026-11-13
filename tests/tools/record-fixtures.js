@@ -5,7 +5,7 @@
 // Despues de grabar, regenerar los golden: npm run fixtures:golden
 const fs = require('fs');
 const path = require('path');
-const { HTTP_FIXTURES_DIR, ALL_QUERIES } = require('../helpers/constants');
+const { HTTP_FIXTURES_DIR } = require('../helpers/constants');
 
 const KEPT_HEADERS = ['content-type', 'retry-after'];
 
@@ -36,6 +36,16 @@ const TRIMMERS = {
   }),
 };
 
+// Respuestas de texto (HTML) que se recortan a lo que usa el parser.
+// Mercado Pago: de cada landing (~150 KB) solo el script con el estado incrustado; de los
+// terminos (~40 KB), solo el texto visible.
+const TEXT_TRIMMERS = {
+  mercadopago: (url, text) =>
+    /\/terms\/html$/.test(url)
+      ? `<html><body>${require('../../src/shared/text').cleanText(text)}</body></html>`
+      : (text.match(/<script\b[^>]*>\s*_n\.ctx\.s\["nr"\]\.q\([\s\S]*?<\/script>/g) || []).join('\n'),
+};
+
 const realFetch = globalThis.fetch;
 const recorded = new Map(); // emisor -> Map(url -> record)
 let current = null;
@@ -58,7 +68,7 @@ globalThis.fetch = async (input, init) => {
       const json = JSON.parse(text);
       record.json = TRIMMERS[current] ? TRIMMERS[current](json) : json;
     } catch {
-      record.text = text;
+      record.text = TEXT_TRIMMERS[current] ? TEXT_TRIMMERS[current](url, text) : text;
     }
     recorded.get(current).set(url, record);
   }
@@ -88,7 +98,7 @@ const JOBS = {
   'tapp-finalizados': recordTappFinished,
   copec: () => benefits.fetchCopec(),
   bancochile: () => benefits.fetchBancoChile(),
-  mercadopago: () => Promise.allSettled(ALL_QUERIES.map((q) => benefits.fetchMercadoPago(q))),
+  mercadopago: () => benefits.fetchMercadoPago(),
 };
 
 async function main() {

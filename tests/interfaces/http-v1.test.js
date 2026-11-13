@@ -35,7 +35,8 @@ describe('API v1', () => {
     const res = await api.call('/v1/banks');
     assert.equal(res.status, 200);
     assert.deepEqual(res.body.banks[4], { key: 'copec', name: 'Copec Pay', searchMode: 'catalog' });
-    assert.equal(res.body.banks[6].searchMode, 'query');
+    // Mercado Pago es un catalogo (landing de la tarjeta prepago), ya no una busqueda por consulta.
+    assert.deepEqual(res.body.banks[6], { key: 'mercadopago', name: 'Mercado Pago', searchMode: 'catalog' });
   });
 
   test('GET /v1/search devuelve beneficios livianos, paginacion y fuentes', async () => {
@@ -44,7 +45,7 @@ describe('API v1', () => {
     assert.ok(res.headers['x-request-id']);
 
     const { results, pagination, sources, errors, meta } = res.body;
-    assert.equal(pagination.total, 4);
+    assert.equal(pagination.total, 5);
     assert.deepEqual(Object.keys(results[0]), [
       'id',
       'bank',
@@ -58,21 +59,22 @@ describe('API v1', () => {
       'validUntil',
       'url',
       'logo',
+      'cardType',
+      'discountCap',
+      'termsUrl',
     ]);
     const rappi = results.find((r) => r.title === 'Rappi');
     assert.equal(rappi.bankKey, 'copec');
     assert.equal(rappi.validUntil, '2026-11-30');
     assert.match(rappi.logo, /^https:\/\//);
+    assert.equal(rappi.cardType, null);
+    const rappiPro = results.find((r) => r.title === 'RappiPro');
+    assert.equal(rappiPro.bankKey, 'mercadopago');
+    assert.equal(rappiPro.cardType, 'Tarjeta prepago virtual');
+    assert.match(rappiPro.termsUrl, /^https:\/\/api\.mercadopago\.com\/v2\/discounts\/campaign\/\d+\/terms\/html$/);
     assert.equal(sources.length, 7);
-    assert.deepEqual(errors, [
-      {
-        bank: 'Mercado Pago',
-        key: 'mercadopago',
-        code: 'HTTP_ERROR',
-        message: errors[0].message,
-      },
-    ]);
-    assert.equal(meta.partial, true);
+    assert.deepEqual(errors, []);
+    assert.equal(meta.partial, false);
     for (const r of results) {
       assert.ok(r.description === null || r.description.length <= 300);
       assert.notEqual(r.subtitle, '');
@@ -150,9 +152,11 @@ describe('API v1', () => {
     const res = await api.call('/v1/health');
     assert.equal(res.status, 200);
     assert.equal(res.body.version, '9.9.9');
-    assert.equal(res.body.status, 'degraded'); // Mercado Pago fallo en las busquedas previas
+    // Todos los emisores respondieron en las busquedas previas (Mercado Pago ya no falla con 403).
+    assert.equal(res.body.status, 'ok');
     const mp = res.body.sources.find((s) => s.key === 'mercadopago');
-    assert.equal(mp.status, 'error');
+    assert.equal(mp.status, 'ok');
+    assert.equal(mp.count, 7);
     assert.deepEqual(res.body.cache, { enabled: true, ttlSeconds: 1800 });
   });
 });
@@ -191,7 +195,7 @@ describe('API v1 con CORS y limite de body', () => {
     const res = await api.call('/v1/health?probe=true');
     const statuses = Object.fromEntries(res.body.sources.map((s) => [s.key, s.status]));
     assert.equal(statuses.copec, 'ok');
-    assert.equal(statuses.mercadopago, 'unknown');
+    assert.equal(statuses.mercadopago, 'ok'); // ahora es un catalogo: tambien se precarga
     assert.equal(res.body.status, 'ok');
   });
 });

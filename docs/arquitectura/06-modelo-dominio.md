@@ -27,7 +27,6 @@ classDiagram
     <<interface>>
     +String key
     +String name
-    +Boolean queryDependent
     +fetch(ctx) Promise
   }
   class ProviderContext {
@@ -82,7 +81,7 @@ classDiagram
 | Tipo | Dónde | Reglas |
 |---|---|---|
 | `Entry` | `src/domain/entry.js` | `createEntry(fields, { sourceId, logo })` exige `bank` y valida que los campos de texto sean `string`. Además:<br>• conserva el orden de claves recibido;<br>• agrega `id` y `logo` al final;<br>• congela el objeto (`Object.freeze`), porque la caché comparte objetos entre peticiones.<br>`id` = `<slug del emisor>-<12 hex de sha1(bank\|sourceId)>`; sin `sourceId`, usa `url\|slug\|title`. `toLegacyEntry` quita `id` y `logo` (forma 1.x). |
-| `Provider` | `src/providers/provider.interface.js` | `defineProvider` valida `key` en kebab-case, `name`, `fetch` y `queryDependent` (por defecto `false`), y congela el objeto. |
+| `Provider` | `src/providers/provider.interface.js` | `defineProvider` valida `key` en kebab-case, `name` y `fetch`, y congela el objeto. |
 | `ProviderContext` | lo arma `createContext` en `src/bootstrap.js` | Es la única vía de un provider a la red (`http`), el reloj (`now`), las pausas (`sleep`) y la configuración (`config`). |
 | `CacheStore` | `src/shared/cache/cache-store.js` | Contrato asíncrono a propósito, para poder implementarlo sobre Redis ([ADR 0007](../adr/0007-cache-en-memoria-detras-de-cachestore.md)). |
 | `SourceReport` | `src/services/provider-runner.js` | `status` puede ser `ok`, `empty` o `error`. Internamente lleva también `entries`, que se quitan antes de exponerlo. `source-status` le agrega `checkedAt`. |

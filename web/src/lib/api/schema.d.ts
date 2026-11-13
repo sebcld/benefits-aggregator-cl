@@ -255,6 +255,22 @@ export interface components {
              * @description Logo o imagen del beneficio. En Tenpo es el logo del comercio, cuando la tarjeta lo tiene.
              */
             logo?: string | null;
+            /**
+             * @description Tarjeta con la que aplica el beneficio, por ejemplo "Tarjeta prepago virtual" o
+             *     "Tarjeta prepago física". Hoy solo Mercado Pago.
+             * @example Tarjeta prepago física
+             */
+            cardType?: string | null;
+            /**
+             * @description Tope del descuento o de la devolución, en pesos. Hoy solo Mercado Pago.
+             * @example $5.000
+             */
+            discountCap?: string | null;
+            /**
+             * Format: uri
+             * @description Términos y condiciones del beneficio. Hoy solo Mercado Pago.
+             */
+            termsUrl?: string | null;
         };
         Pagination: {
             page: number;
@@ -331,10 +347,11 @@ export interface components {
                 key: string;
                 name: string;
                 /**
-                 * @description catalog = se descarga el catalogo completo; query = la fuente busca por texto.
+                 * @description Siempre "catalog": se descarga el catalogo completo del emisor y la busqueda se
+                 *     hace sobre el. Se mantiene por compatibilidad con clientes existentes.
                  * @enum {string}
                  */
-                searchMode: "catalog" | "query";
+                searchMode: "catalog";
             }[];
         };
         HealthResponse: {
@@ -407,14 +424,17 @@ export interface components {
                  *           "validFrom": "2026-08-01",
                  *           "validUntil": "2026-11-30",
                  *           "url": "https://copecpay.cl/beneficios/delivery/rappi/",
-                 *           "logo": "https://copecpay.cl/wp-content/uploads/2025/06/rappid-2-1.png"
+                 *           "logo": "https://copecpay.cl/wp-content/uploads/2025/06/rappid-2-1.png",
+                 *           "cardType": null,
+                 *           "discountCap": null,
+                 *           "termsUrl": null
                  *         }
                  *       ],
                  *       "pagination": {
                  *         "page": 1,
                  *         "pageSize": 1,
-                 *         "total": 4,
-                 *         "totalPages": 4,
+                 *         "total": 5,
+                 *         "totalPages": 5,
                  *         "hasMore": true
                  *       },
                  *       "sources": [
@@ -427,24 +447,24 @@ export interface components {
                  *           "durationMs": 2
                  *         },
                  *         {
-                 *           "key": "mercadopago",
-                 *           "bank": "Mercado Pago",
+                 *           "key": "bancochile",
+                 *           "bank": "Banco de Chile",
                  *           "status": "error",
                  *           "count": 0,
                  *           "cached": false,
-                 *           "durationMs": 99,
+                 *           "durationMs": 60000,
                  *           "error": {
-                 *             "code": "HTTP_ERROR",
-                 *             "message": "Mercado Pago respondio 403: ..."
+                 *             "code": "TIMEOUT",
+                 *             "message": "Banco de Chile excedio el tiempo limite (60000 ms)"
                  *           }
                  *         }
                  *       ],
                  *       "errors": [
                  *         {
-                 *           "bank": "Mercado Pago",
-                 *           "key": "mercadopago",
-                 *           "code": "HTTP_ERROR",
-                 *           "message": "Mercado Pago respondio 403: ..."
+                 *           "bank": "Banco de Chile",
+                 *           "key": "bancochile",
+                 *           "code": "TIMEOUT",
+                 *           "message": "Banco de Chile excedio el tiempo limite (60000 ms)"
                  *         }
                  *       ],
                  *       "meta": {
@@ -610,7 +630,7 @@ export interface operations {
                      *         {
                      *           "key": "mercadopago",
                      *           "name": "Mercado Pago",
-                     *           "searchMode": "query"
+                     *           "searchMode": "catalog"
                      *         }
                      *       ]
                      *     }
@@ -657,15 +677,15 @@ export interface operations {
                      *           "checkedAt": "2026-11-12T15:00:00.000Z"
                      *         },
                      *         {
-                     *           "key": "mercadopago",
-                     *           "bank": "Mercado Pago",
+                     *           "key": "bancochile",
+                     *           "bank": "Banco de Chile",
                      *           "status": "error",
                      *           "count": 0,
                      *           "cached": false,
-                     *           "durationMs": 99,
+                     *           "durationMs": 60000,
                      *           "error": {
-                     *             "code": "HTTP_ERROR",
-                     *             "message": "Mercado Pago respondio 403: ..."
+                     *             "code": "TIMEOUT",
+                     *             "message": "Banco de Chile excedio el tiempo limite (60000 ms)"
                      *           },
                      *           "checkedAt": "2026-11-12T15:00:00.000Z"
                      *         },

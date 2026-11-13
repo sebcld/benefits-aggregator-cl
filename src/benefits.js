@@ -30,7 +30,10 @@ const fetchTapp = () => fetchByKey('tapp');
 const fetchCopec = ({ includeInactive = false } = {}) =>
   fetchByKey('copec', { options: { includeInactive } });
 const fetchBancoChile = () => fetchByKey('bancochile');
-const fetchMercadoPago = (query) => fetchByKey('mercadopago', { query });
+// Mercado Pago ahora es un catalogo (landing de la tarjeta prepago): el parametro "query" de la
+// 1.x se acepta por compatibilidad, pero ya no se usa.
+// eslint-disable-next-line no-unused-vars
+const fetchMercadoPago = (_query) => fetchByKey('mercadopago');
 
 // Devuelve { matches, errors } con errors = [{ bank, message }], como la version original.
 async function searchBenefits(query, { banks } = {}) {

@@ -42,7 +42,7 @@ function parseBciOffer(offer) {
       keywords: cleanText(offer?.keywords),
       tagsText,
     },
-    { sourceId: offer?.id, logo: offer?.imagenes?.imagen1 },
+    { sourceId: offer?.id, logo: offer?.imagenes?.imagen4 },
   );
 }
 

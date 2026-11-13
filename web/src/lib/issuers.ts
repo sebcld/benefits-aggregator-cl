@@ -16,6 +16,7 @@ const KNOWN: Record<string, { name: string; token: string }> = {
   tapp: { name: 'Tapp', token: '--issuer-tapp' },
   copec: { name: 'Copec Pay', token: '--issuer-copec' },
   bancochile: { name: 'Banco de Chile', token: '--issuer-bancochile' },
+  mercadopago: { name: 'Mercado Pago', token: '--issuer-mercadopago' },
 };
 
 const FALLBACK_TOKEN = '--text-secondary';

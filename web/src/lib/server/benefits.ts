@@ -32,8 +32,8 @@ export async function countByBank(query: string, banks: Bank[], signal?: AbortSi
 }
 
 /** Consultas de "Destacados de hoy" (inicio movil): una tarjeta por consulta, de emisores distintos. */
-export const FEATURED_QUERIES = ['burger king', 'rappi', 'pedidos ya', 'temu', 'uber eats', 'aliexpress', 'starbucks', 'dunkin', 'donas', 'mcdonalds'];
-const FEATURED_LIMIT = 8;
+export const FEATURED_QUERIES = ['burger king', 'rappi', 'dunkin', 'mcdonalds', 'temu', 'uber eats', 'aliexpress', 'starbucks', 'donas', 'pedidos ya'];
+const FEATURED_LIMIT = 10;
 
 export async function getFeatured(): Promise<Benefit[]> {
   'use cache';

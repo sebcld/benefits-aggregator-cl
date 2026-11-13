@@ -13,11 +13,13 @@ import { SourcePill } from '@/components/ui/SourcePill';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 import { FEATURED_SOURCES } from '@/lib/issuers';
 import { SAMPLE_BENEFITS } from '@/lib/sample-benefits';
-import { colorTokens, type ColorToken } from '@/styles/tokens';
+import { colorTokenNames, readTokens } from '@/styles/read-tokens';
 
 export const metadata: Metadata = { title: 'Sistema de diseño', robots: { index: false } };
 
-const COLOR_NAMES = Object.keys(colorTokens.light) as ColorToken[];
+// Se lee tokens.css en el build: los swatches muestran siempre los valores reales.
+const TOKENS = readTokens();
+const COLOR_NAMES = colorTokenNames(TOKENS.light);
 
 function Section({ title, children }: { title: string; children: ReactNode }) {
   return (
@@ -36,11 +38,11 @@ function Swatches({ mode }: { mode: 'light' | 'dark' }) {
           <span
             aria-hidden="true"
             className="size-8 shrink-0 rounded-sm border border-line"
-            style={{ background: `var(--${name.replace('/', '-')})` }}
+            style={{ background: `var(${name})` }}
           />
           <span className="min-w-0">
             <span className="block truncate text-13 font-semibold text-fg">{name}</span>
-            <span className="block text-12 text-fg-muted">{colorTokens[mode][name]}</span>
+            <span className="block truncate text-12 text-fg-muted">{TOKENS[mode][name]}</span>
           </span>
         </li>
       ))}
@@ -117,7 +119,7 @@ export default function SistemaPage() {
       <div>
         <h1 className="font-display text-34 font-bold tracking-display">Sistema de diseño</h1>
         <p className="text-15 text-fg-muted">
-          Tokens exportados de <code>design/beneficios_CL.figcraft</code> y la biblioteca de componentes, en ambos temas.
+          Tokens de <code>src/styles/tokens.css</code> y la biblioteca de componentes, en ambos temas.
         </p>
       </div>
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">

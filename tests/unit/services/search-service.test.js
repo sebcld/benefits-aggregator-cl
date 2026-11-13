@@ -74,13 +74,6 @@ test('catalogo vacio se marca como empty y se alerta en el log', async () => {
   assert.ok(logger.lines.some((l) => l.level === 'warn' && l.msg === 'provider_empty'));
 });
 
-test('un provider por consulta sin resultados no se considera vacio', async () => {
-  const byQuery = fakeProvider({ key: 'q', name: 'Q', titles: [], queryDependent: true });
-  const { searchService } = appWith([byQuery.provider]);
-  const result = await searchService.search('rappi');
-  assert.equal(result.sources[0].status, 'ok');
-});
-
 test('filtro por banks acepta keys solo con allowKeys', async () => {
   const a = fakeProvider({ key: 'copec', name: 'Copec Pay' });
   const { searchService } = appWith([a.provider]);

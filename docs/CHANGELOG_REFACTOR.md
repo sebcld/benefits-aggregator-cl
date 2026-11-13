@@ -23,7 +23,7 @@ Se pasó de un módulo monolítico (`src/benefits.js`, 618 líneas) a una arquit
 | `fetchTapp` | `src/providers/tapp.provider.js` (`parseTappEntry`) |
 | `fetchCopec`, `termNames` | `src/providers/copec.provider.js` (`parseCopecItem`, `parseCopec`) |
 | `fetchBancoChile` (9 páginas + `commerceFromSlug` + Big5 escrito 3 veces) | `src/providers/bancochile.provider.js` + `bancochile.parser.js`, **con otra fuente** (ver cambio 1) |
-| `fetchMercadoPago` | `src/providers/mercadopago.provider.js` (`parseMercadoPago`, `queryDependent: true`) |
+| `fetchMercadoPago` | `src/providers/mercadopago.provider.js` y `mercadopago.parser.js`. Desde el [ADR 0018](adr/0018-futuro-de-mercado-pago.md) lee la landing de beneficios de la tarjeta; la búsqueda en Mercado Libre (`parseMercadoPago`, `queryDependent`) se eliminó |
 | Literales de objeto por emisor | `src/domain/entry.js` → `createEntry` (validación, `id`, `logo`, inmutable) y `toLegacyEntry` |
 | `throw new Error(...)` sueltos | `src/domain/errors.js` (`AppError`, `ValidationError`, `ProviderError`, `TimeoutError`, `ConfigError` y `errorCode`) |
 | `searchBenefits` (lista fija de 7 `if`) | `src/services/search-service.js` (usa el registro) + `src/services/provider-runner.js` (caché, timeout, dedupe, alerta de catálogo vacío) + `src/providers/index.js` (registro) |

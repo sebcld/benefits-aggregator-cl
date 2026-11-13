@@ -20,17 +20,17 @@ test('valores por defecto sin .env ni variables', () => {
 test('las variables del entorno tienen prioridad sobre el archivo .env', () => {
   const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'cfg-'));
   const file = path.join(dir, '.env');
-  fs.writeFileSync(file, 'PORT=4000\nBCI_SUBSCRIPTION_KEY=desde-archivo\nMELI_ACCESS_TOKEN=tok\n');
+  fs.writeFileSync(file, 'PORT=4000\nBCI_SUBSCRIPTION_KEY=desde-archivo\nJINA_API_KEY=tok\n');
 
-  const config = loadConfig({ env: { PORT: '5000', MELI_ACCESS_TOKEN: '' }, envFilePath: file });
+  const config = loadConfig({ env: { PORT: '5000', JINA_API_KEY: '' }, envFilePath: file });
   assert.equal(config.port, 5000);
   assert.equal(config.bciSubscriptionKey, 'desde-archivo');
-  assert.equal(config.mercadoPagoToken, '');
+  assert.equal(config.jinaApiKey, '');
 });
 
-test('MERCADOPAGO_TOKEN es alternativa de MELI_ACCESS_TOKEN', () => {
-  const config = loadConfig({ env: { MERCADOPAGO_TOKEN: 'abc' }, envFilePath: null });
-  assert.equal(config.mercadoPagoToken, 'abc');
+test('variables que ya no se usan (por ejemplo MELI_ACCESS_TOKEN de un .env viejo) se ignoran', () => {
+  const config = loadConfig({ env: { MELI_ACCESS_TOKEN: 'abc', MERCADOPAGO_TOKEN: 'def' }, envFilePath: null });
+  assert.equal('mercadoPagoToken' in config, false);
 });
 
 test('CORS_ORIGINS se separa por comas', () => {

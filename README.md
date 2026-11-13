@@ -52,7 +52,7 @@ npm start                            # http://localhost:3000
 
 ### Web
 
-La web está en [`web/`](web/README.md): Next.js, TypeScript y Tailwind, siguiendo el diseño de [`design/beneficios_CL.figcraft`](design/beneficios_CL.figcraft). Consume esta API a través de sus Route Handlers `/api/*` (BFF), así que la URL y la API key nunca llegan al navegador ([ADR 0022](docs/adr/0022-web-nextjs-con-bff.md)).
+La web está en [`web/`](web/README.md): Next.js, TypeScript y Tailwind, con sus colores y medidas en [`web/src/styles/tokens.css`](web/src/styles/tokens.css). Consume esta API a través de sus Route Handlers `/api/*` (BFF), así que la URL y la API key nunca llegan al navegador ([ADR 0022](docs/adr/0022-web-nextjs-con-bff.md)).
 
 ```bash
 npm start                                   # API en :3000
@@ -76,12 +76,13 @@ const { matches, errors } = await searchBenefits('rappi', { banks: ['Copec Pay']
 | Tapp | CMS `web.cajalosandes.cl/api/content/spaces/wp-tapp-beneficios-copia/...` (el mismo de `www.tapp.cl/beneficios`). Solo las categorías vigentes (`meta.category=beneficios` y `convenios`); las finalizadas no se descargan |
 | Copec Pay | REST del tema WordPress `copecpay.cl/wp-json/custom/v1/beneficios/`. Solo vigentes hoy (hora de Chile); `fetchCopec({ includeInactive: true })` trae todos |
 | Banco de Chile | API de contenido de [Todos los beneficios](https://sitiospublicos.bancochile.cl/personas/beneficios/todos-los-beneficios) (`/api/content/spaces/personas/types/beneficios/entries`), vía el proxy `r.jina.ai` porque el sitio bloquea clientes automatizados (`JINA_API_KEY` opcional) |
-| Mercado Pago | Búsqueda de Mercado Libre `api.mercadolibre.com/sites/MLC/search` (sin token responde 403; ver [RIESGOS](docs/RIESGOS.md)) |
+| Mercado Pago | Landing [Beneficios tarjeta Mercado Pago](https://www.mercadopago.cl/landing/beneficios-tarjeta-prepago), su landing por beneficio y los términos de cada campaña (`api.mercadopago.com/v2/discounts/campaign/<id>/terms/html`). No hay API JSON: se lee el estado que la página trae incrustado. Incluye tipo de tarjeta, tope y vigencia |
 
 **Búsqueda:**
 - No distingue mayúsculas, tildes ni puntuación (`"el cafe rosa"` encuentra "El Café Rosa").
 - Compara contra título, bajada, descripción, slug, keywords, tags y comercio.
 - Una palabra de 4 letras o menos debe coincidir completa (`kfc`). Las marcas escritas juntas con mayúscula interna cuentan como dos palabras: `flix` y `bus` encuentran "FlixBus", y `ya` encuentra "PedidosYa".
+- **Categorías:** `gas`, `bus` y `taxi` (y variantes como `buses`, `taxis`, `gas licuado`) también encuentran los comercios de esa categoría en todos los emisores: Gasconnect, Lipigas, Abastible; Turbus, Kupos, FlixBus; Cabify, Uber, DiDi, Transvip. Se editan en [`src/services/search-categories.js`](src/services/search-categories.js).
 
 ## Variables de entorno
 
@@ -96,7 +97,6 @@ Se definen en `.env` (plantilla con todas las opciones: [`.env.example`](.env.ex
 | `HTTP_TIMEOUT_MS` / `PROVIDER_TIMEOUT_MS` | `20000` / `60000` | Timeouts del servidor |
 | `CORS_ORIGINS` | vacío (desactivado) | Orígenes permitidos o `*` |
 | `BODY_LIMIT_BYTES` | `1000000` | Límite del body |
-| `MELI_ACCESS_TOKEN` / `MERCADOPAGO_TOKEN` | — | Token de Mercado Libre |
 | `JINA_API_KEY` | — | Más límite de uso en `r.jina.ai` (Banco de Chile) |
 
 ## Desarrollo
@@ -122,5 +122,6 @@ npm run fixtures:golden               # regenera las salidas de referencia (revi
 | BCI | `pedidos ya` | Beneficios PedidosYa |
 | Santander | `burger king` | Burger King |
 | Copec Pay | `Rappi`, `El Café Rosa` | Rappi, El Café Rosa |
+| Mercado Pago | `turbus` | Turbus (15% de cashback, tarjeta prepago física) |
 
 La carpeta `entregable/` contiene el diagnóstico de la corrección de Copec Pay y el contexto del proyecto para asistentes de IA.

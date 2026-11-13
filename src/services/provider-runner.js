@@ -3,7 +3,6 @@
 const { performance } = require('perf_hooks');
 const { TimeoutError, errorCode } = require('../domain/errors');
 const { anySignal } = require('../shared/async');
-const { normalize } = require('../shared/text');
 
 // Un catalogo que llega vacio casi siempre es una falla pasajera o un cambio en la fuente, no la
 // realidad: se guarda solo 1 minuto (no todo el TTL) para recuperarse apenas la fuente vuelva.
@@ -31,8 +30,8 @@ function createProviderRunner({
   const inFlight = new Map();
   const useCache = Boolean(cache && cacheTtlMs > 0);
 
-  const cacheKey = (provider, query) =>
-    provider.queryDependent ? `provider:${provider.key}:q:${normalize(query)}` : `provider:${provider.key}`;
+  // Se guarda el catalogo completo de cada emisor: todas las busquedas lo reutilizan.
+  const cacheKey = (provider) => `provider:${provider.key}`;
 
   async function fetchWithTimeout(provider, extra) {
     const timeoutSignal = timeoutMs > 0 ? AbortSignal.timeout(timeoutMs) : undefined;
@@ -54,8 +53,8 @@ function createProviderRunner({
   }
 
   // Devuelve { entries, cached }. Lanza si el emisor falla (los errores no se cachean).
-  async function fetchEntries(provider, { query, options } = {}) {
-    const key = cacheKey(provider, query);
+  async function fetchEntries(provider, { options } = {}) {
+    const key = cacheKey(provider);
 
     if (useCache && !options) {
       const hit = await cache.get(key);
@@ -63,14 +62,12 @@ function createProviderRunner({
     }
     if (inFlight.has(key) && !options) return { entries: await inFlight.get(key), cached: false };
 
-    const promise = fetchWithTimeout(provider, { query, options });
+    const promise = fetchWithTimeout(provider, { options });
     if (!options) inFlight.set(key, promise);
     try {
       const entries = await promise;
       if (useCache && !options) {
-        // En los providers por consulta (Mercado Pago), 0 resultados es una respuesta normal.
-        const emptyCatalog = !provider.queryDependent && entries.length === 0;
-        await cache.set(key, entries, emptyCatalog ? Math.min(emptyCacheTtlMs, cacheTtlMs) : cacheTtlMs);
+        await cache.set(key, entries, entries.length === 0 ? Math.min(emptyCacheTtlMs, cacheTtlMs) : cacheTtlMs);
       }
       return { entries, cached: false };
     } finally {
@@ -79,13 +76,13 @@ function createProviderRunner({
   }
 
   // Nunca rechaza: devuelve un SourceReport con las entradas o el error normalizado.
-  async function run(provider, { query } = {}) {
+  async function run(provider) {
     const started = performance.now();
     let report;
 
     try {
-      const { entries, cached } = await fetchEntries(provider, { query });
-      const status = entries.length || provider.queryDependent ? 'ok' : 'empty';
+      const { entries, cached } = await fetchEntries(provider);
+      const status = entries.length ? 'ok' : 'empty';
       report = { key: provider.key, bank: provider.name, status, count: entries.length, cached, entries };
       if (status === 'empty') {
         logger.warn('provider_empty', { provider: provider.key, hint: 'posible cambio en la fuente' });

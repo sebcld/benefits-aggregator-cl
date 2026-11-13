@@ -6,7 +6,7 @@ Buscador de beneficios de bancos, tarjetas y billeteras de Chile. Consulta en vi
 - Contrato HTTP: [`openapi.yaml`](openapi.yaml). Agregar un emisor: [`AGREGAR_EMISOR.md`](AGREGAR_EMISOR.md).
 - Qué cambió respecto de la 1.x: [`CHANGELOG_REFACTOR.md`](CHANGELOG_REFACTOR.md). Riesgos y deuda: [`RIESGOS.md`](RIESGOS.md).
 - **Diagramas** (contexto, capas, secuencias, dominio, errores, arquitectura objetivo): [`arquitectura/`](arquitectura/README.md).
-- **Decisiones registradas** (15 aceptadas y 7 propuestas): [`adr/`](adr/README.md).
+- **Decisiones registradas** (16 aceptadas y 6 propuestas): [`adr/`](adr/README.md).
 - **Web** (Next.js, consume `/v1` a través de su propio BFF `/api/*`): [`web/README.md`](../web/README.md) y [ADR 0022](adr/0022-web-nextjs-con-bff.md).
 
 ## Capas
@@ -42,7 +42,7 @@ Resumen de una línea por decisión. El contexto, las alternativas y las consecu
 | Decisión | Por qué | ADR |
 |---|---|---|
 | **Composition root único** (`bootstrap.js`) | Las interfaces y los tests piden una "app" armada. Así se inyectan `fetch`, reloj, `sleep`, caché y providers sin tocar el código de negocio. | [0001](adr/0001-arquitectura-por-capas-con-composition-root.md) |
-| **Contrato de provider** `{ key, name, queryDependent, fetch(ctx) }` + parsers puros | El servicio depende del contrato, no de los emisores; los providers se prueban sin red ni reloj real. | [0003](adr/0003-contrato-de-provider-y-registro.md) |
+| **Contrato de provider** `{ key, name, fetch(ctx) }` + parsers puros | El servicio depende del contrato, no de los emisores; los providers se prueban sin red ni reloj real. | [0003](adr/0003-contrato-de-provider-y-registro.md) |
 | **`Entry` inmutable y con `id` estable** | La caché comparte objetos entre peticiones, y la app necesita una clave estable. | [0004](adr/0004-entry-inmutable-con-id-estable.md) |
 | **Errores con `code` estable y respuestas parciales** | La app decide por `code`, y un emisor caído no rompe la búsqueda. | [0005](adr/0005-errores-con-codigo-estable.md) |
 | **Dos formatos de API**: legado y `/v1` | La 1.x no se rompe, y `/v1` tiene un contrato pensado para móvil. | [0006](adr/0006-api-versionada-v1-con-rutas-legadas.md) |
@@ -80,7 +80,6 @@ Ver el [diagrama 10: arquitectura objetivo](arquitectura/10-arquitectura-objetiv
 | Rate limiting | [0015](adr/0015-rate-limiting.md) |
 | `CacheStore` compartido en Redis para varias instancias | [0016](adr/0016-cachestore-compartido-en-redis.md) |
 | Warm-up programado y stale-while-revalidate | [0017](adr/0017-warm-up-programado-y-stale-while-revalidate.md) |
-| Futuro de Mercado Pago | [0018](adr/0018-futuro-de-mercado-pago.md) |
 | Acceso a Banco de Chile sin un proxy gratuito | [0021](adr/0021-acceso-a-banco-de-chile-sin-proxy-gratuito.md) |
 
 Las métricas por emisor (`durationMs` y `status` en los logs `provider_*`) ya están disponibles para conectarlas a un sistema de alertas.

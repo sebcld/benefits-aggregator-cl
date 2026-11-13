@@ -35,7 +35,7 @@ stateDiagram-v2
   cacheActiva --> Guardar: cache activa y sin options
   cacheActiva --> Evaluar: sin cache
   Guardar --> Evaluar
-  Evaluar --> Ok: count mayor que 0 o queryDependent
+  Evaluar --> Ok: count mayor que 0
   Evaluar --> Empty: catalogo con 0 registros
   Ok --> [*]
   Empty --> [*]
@@ -51,7 +51,7 @@ stateDiagram-v2
 
 | Tema | Comportamiento |
 |---|---|
-| **Clave de caché** | `provider:<key>`. Los providers con `queryDependent` (Mercado Pago) usan `provider:<key>:q:<consulta normalizada>`, así que "El Café" y "el cafe" comparten entrada. |
+| **Clave de caché** | `provider:<key>`: se guarda el catálogo completo del emisor y todas las búsquedas lo reutilizan. |
 | **Caché activa** | Solo si se inyectó un `CacheStore` y `cacheTtlMs > 0`. El servidor usa caché en memoria; el CLI y la fachada pasan `cache: null` ([ADR 0008](../adr/0008-cli-y-fachada-sin-cache-ni-timeouts.md)). |
 | **`options`** | `fetchEntries(provider, { options })` (por ejemplo `fetchCopec({ includeInactive: true })` de la fachada) se salta la caché y la deduplicación, porque el resultado depende de las opciones. |
 | **Deduplicación** | Un `Map` de promesas en curso por clave: si llegan N peticiones simultáneas al mismo emisor, se hace una sola descarga. |

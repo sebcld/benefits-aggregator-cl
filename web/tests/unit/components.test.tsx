@@ -76,8 +76,15 @@ describe('BenefitCard', () => {
     expect(screen.queryByRole('link')).not.toBeInTheDocument();
   });
 
+  it('muestra la pastilla de tarjeta solo si la API trae cardType', () => {
+    const { rerender } = render(<BenefitCard benefit={BENEFIT} />);
+    expect(screen.queryByTestId('benefit-card-type')).not.toBeInTheDocument();
+    rerender(<BenefitCard benefit={{ ...BENEFIT, cardType: 'Tarjeta prepago física' }} />);
+    expect(screen.getByTestId('benefit-card-type')).toHaveTextContent('Tarjeta prepago física');
+  });
+
   it('un emisor sin token de color usa el secundario', () => {
-    render(<BenefitCard benefit={{ ...BENEFIT, bankKey: 'mercadopago', bank: 'Mercado Pago' }} />);
+    render(<BenefitCard benefit={{ ...BENEFIT, bankKey: 'emisor-nuevo', bank: 'Emisor Nuevo' }} />);
     expect(screen.getByTestId('benefit-card').style.getPropertyValue('--issuer')).toBe('var(--text-secondary)');
   });
 });

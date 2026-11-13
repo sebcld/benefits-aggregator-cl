@@ -31,6 +31,8 @@ test('una palabra corta sigue sin coincidir dentro de otra palabra normal', () =
 
 test('una marca en mayusculas sin separacion no se puede partir', () => {
   // "FLIXBUS" no tiene mayuscula interna; la encuentra la consulta completa.
-  assert.equal(matchesQuery(entry({ title: 'FLIXBUS' }), 'bus'), false);
+  assert.equal(matchesQuery(entry({ title: 'FLIXBUS' }), 'flix'), false);
   assert.equal(matchesQuery(entry({ title: 'FLIXBUS' }), 'flixbus'), true);
+  // "bus" si la encuentra, pero por la categoria de buses (search-categories.js), no por partirla.
+  assert.equal(matchesQuery(entry({ title: 'FLIXBUS' }), 'bus'), true);
 });

@@ -5,12 +5,11 @@ const { createApp } = require('../../src/bootstrap');
 const { createReplayFetch } = require('./replay-fetch');
 const { FIXED_NOW, TEST_ENV } = require('./constants');
 
-function fakeProvider({ key = 'fake', name = 'Fake', titles = ['Rappi'], fail, delayMs, queryDependent }) {
+function fakeProvider({ key = 'fake', name = 'Fake', titles = ['Rappi'], fail, delayMs }) {
   let calls = 0;
   const provider = defineProvider({
     key,
     name,
-    queryDependent: Boolean(queryDependent),
     async fetch({ signal }) {
       calls += 1;
       if (delayMs) {

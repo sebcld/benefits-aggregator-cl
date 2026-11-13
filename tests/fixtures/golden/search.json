@@ -54,14 +54,23 @@
     "validUntil": "2026-11-30",
     "keywords": "chocolates regalos delivery pedidos rappi app delivery comida a domicilio pedidos online restaurantes supermercados farmacia reparto envíos última milla comercio digital marketplace adultos jóvenes",
     "tagsText": "viernes domingo sabado todo-chile tarjeta-fan lunes martes jueves miercoles fiestaspatrias2026"
-   }
-  ],
-  "errors": [
+   },
    {
     "bank": "Mercado Pago",
-    "message": "Mercado Pago respondio 403: {\"message\":\"forbidden\",\"error\":\"forbidden\",\"status\":403,\"cause\":[]}"
+    "title": "RappiPro",
+    "subtitle": "Disfruta un mes gratis en RappiPro",
+    "description": "Disfruta de un mes de suscripción gratis en RappiPro al pagar con tu tarjeta Mercado Pago.",
+    "url": "https://www.mercadopago.cl/landing/rappi-pro",
+    "slug": "rappi-pro",
+    "commerceName": "RappiPro",
+    "keywords": "Descuento EN RappiPro con Mercado Pago Mes gratis en RappiPro Tarjeta prepago virtual",
+    "tagsText": "TARJETA VIRTUAL",
+    "category": "Comida",
+    "validFrom": "",
+    "validUntil": ""
    }
-  ]
+  ],
+  "errors": []
  },
  "El Café Rosa": {
   "matches": [
@@ -91,12 +100,7 @@
     "tagsText": "20% Martes Sábado Domingo Jueves Miércoles Lunes Viernes"
    }
   ],
-  "errors": [
-   {
-    "bank": "Mercado Pago",
-    "message": "Mercado Pago respondio 403: {\"message\":\"forbidden\",\"error\":\"forbidden\",\"status\":403,\"cause\":[]}"
-   }
-  ]
+  "errors": []
  },
  "burger king": {
   "matches": [
@@ -111,12 +115,7 @@
     "url": "https://banco.santander.cl/beneficios/promociones/burger-king-3"
    }
   ],
-  "errors": [
-   {
-    "bank": "Mercado Pago",
-    "message": "Mercado Pago respondio 403: {\"message\":\"forbidden\",\"error\":\"forbidden\",\"status\":403,\"cause\":[]}"
-   }
-  ]
+  "errors": []
  },
  "kfc": {
   "matches": [
@@ -145,12 +144,7 @@
     "tagsText": "valparaíso puerto montt arica metropolitana de santiago providencia lo barnechea todo-chile big5 tarjeta-fan jueves los lagos iquique tarapacá viña del mar la serena coquimbo las condes biobío la reina la araucanía temuco santiago maipú maule talca peñalolén quilicura quilpué puente alto san bernardo los angeles magallanes y de la antártica chilena punta arenas copiapó atacama chicureo estación central san miguel arica y parinacota recoleta la cisterna san joaquin conchali lo prado buin padre hurtado la calera"
    }
   ],
-  "errors": [
-   {
-    "bank": "Mercado Pago",
-    "message": "Mercado Pago respondio 403: {\"message\":\"forbidden\",\"error\":\"forbidden\",\"status\":403,\"cause\":[]}"
-   }
-  ]
+  "errors": []
  },
  "rappi en Copec Pay y BCI": {
   "matches": [
@@ -313,12 +307,7 @@
     "tagsText": "20% Martes Sábado Domingo Jueves Miércoles Lunes Viernes"
    }
   ],
-  "errors": [
-   {
-    "bank": "Mercado Pago",
-    "message": "fetch failed"
-   }
-  ]
+  "errors": []
  },
  "Banco de Chile: PROWASHGO": {
   "matches": [
@@ -400,6 +389,25 @@
     "slug": "burger-king-3",
     "tagsText": "home-disfrutadores cat-sabores jueves cuarenta regiones maslucas santander-teens todas-las-tarjetas ml-joven-papas metropolitana destacado_home",
     "url": "https://banco.santander.cl/beneficios/promociones/burger-king-3"
+   }
+  ],
+  "errors": []
+ },
+ "Mercado Pago: turbus": {
+  "matches": [
+   {
+    "bank": "Mercado Pago",
+    "title": "Turbus",
+    "subtitle": "Disfruta 15% de cashback pagando por primera vez en tótems",
+    "description": "Exclusivo para primera compra física en tótems de Turbus con la tarjeta Mercado Pago. Tope de descuento: $5.000.",
+    "url": "https://www.mercadopago.cl/landing/turbus-fisica",
+    "slug": "turbus-fisica",
+    "commerceName": "Turbus",
+    "keywords": "15% OFF presencial Ahorra en Turbus con Mercado Pago Tarjeta prepago física",
+    "tagsText": "TARJETA física",
+    "category": "Viajes",
+    "validFrom": "2025-09-25",
+    "validUntil": "2027-03-31"
    }
   ],
   "errors": []

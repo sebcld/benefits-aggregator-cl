@@ -12,8 +12,7 @@ const eslintConfig = defineConfig([
     "out/**",
     "build/**",
     "next-env.d.ts",
-    // Generados: capturas, reportes y tipos de OpenAPI.
-    "design-ref/**",
+    // Generados: reportes y tipos de OpenAPI.
     "test-results/**",
     "playwright-report/**",
     "src/lib/api/schema.d.ts",

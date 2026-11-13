@@ -16,11 +16,11 @@ En 1.0.0, `searchBenefits` tenía siete `if (shouldInclude('X'))` escritos a man
 
 ## Decisión
 
-- **Contrato.** Cada emisor es un objeto `{ key, name, queryDependent, fetch(ctx) }` creado con `defineProvider`, que valida el contrato y congela el objeto.
-- **Acceso a recursos.** `fetch(ctx)` solo accede al mundo exterior a través de `ctx`: `http`, `config`, `now`, `sleep`, `signal`, `query`, `options` y `logger`.
+- **Contrato.** Cada emisor es un objeto `{ key, name, fetch(ctx) }` creado con `defineProvider`, que valida el contrato y congela el objeto. `fetch` devuelve el catálogo completo del emisor.
+- **Acceso a recursos.** `fetch(ctx)` solo accede al mundo exterior a través de `ctx`: `http`, `config`, `now`, `sleep`, `signal`, `options` y `logger`.
 - **Parsing puro.** El parsing va en funciones puras exportadas (`parseSantander`, `parseCopec`, `parseBancoChileEntry`, etc.).
 - **Registro.** `src/providers/index.js` (`DEFAULT_PROVIDERS`) es una lista explícita cuyo orden es el orden de los resultados. `createProviderRegistry` rechaza `key` o `name` duplicados y permite elegir emisores por nombre visible o, si se pide `allowKeys`, por `key`.
-- **Búsqueda en la fuente.** `queryDependent: true` marca a los emisores que buscan por texto en la fuente (hoy solo Mercado Pago): su caché se separa por consulta y un resultado vacío no se considera una falla.
+- **Solo catálogos.** Hasta el [0018](0018-futuro-de-mercado-pago.md), el contrato tenía un campo `queryDependent` para emisores que buscaban por texto en la fuente, con caché por consulta. Lo usaba solo el Mercado Pago anterior; cuando pasó a leer un catálogo, se eliminó.
 
 ## Consecuencias
 

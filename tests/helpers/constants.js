@@ -18,18 +18,17 @@ const ACCEPTANCE_CASES = [
   ['Tenpo', 'temu', /Temu/],
   ['BCI', 'pedidos ya', /PedidosYa/],
   ['Santander', 'burger king', /^Burger King$/],
+  ['Mercado Pago', 'turbus', /^Turbus$/],
   ['Copec Pay', 'Rappi', /^Rappi$/],
   ['Copec Pay', 'El Café Rosa', /^El Café Rosa$/],
 ];
 
-// Todas las consultas para las que se graban respuestas de Mercado Pago.
+// Todas las consultas de los golden (las de caracterizacion mas las de aceptacion).
 const ALL_QUERIES = [...new Set([...QUERIES, ...ACCEPTANCE_CASES.map(([, q]) => q)])];
 
 // Variables de entorno de los tests: no dependen del .env local.
 const TEST_ENV = {
   BCI_SUBSCRIPTION_KEY: 'test-key',
-  MELI_ACCESS_TOKEN: '',
-  MERCADOPAGO_TOKEN: '',
   LOG_LEVEL: 'silent',
 };
 

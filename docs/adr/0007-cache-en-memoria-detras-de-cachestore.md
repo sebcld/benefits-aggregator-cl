@@ -18,7 +18,7 @@ Cada búsqueda descargaba los 7 emisores: unos 25 requests y entre 10 y 20 s (Ba
 
 - **Contrato `CacheStore`** (`src/shared/cache/cache-store.js`): `get`, `set(key, value, ttlMs)`, `delete` y `clear`, todos asíncronos, para que una implementación remota (Redis) pueda reemplazarlo sin cambiar los servicios.
 - **Implementación inicial:** `createMemoryCacheStore`, con TTL por clave y un tope de 500 entradas. Al superarlo, se descarta la entrada más antigua.
-- **Qué se cachea:** el runner guarda el catálogo completo de cada emisor, con la clave `provider:<key>`. Mercado Pago (`queryDependent`) se cachea por consulta normalizada. Los errores nunca se cachean.
+- **Qué se cachea:** el runner guarda el catálogo completo de cada emisor, con la clave `provider:<key>`, y todas las búsquedas lo reutilizan. Los errores nunca se cachean, y un catálogo vacío se guarda solo 1 minuto.
 - **Deduplicación:** si llegan N peticiones simultáneas al mismo emisor, se hace una sola descarga.
 - **Configuración:** `CACHE_TTL_SECONDS` (1800 por defecto; 0 la desactiva). `CACHE_WARMUP=true` descarga los catálogos al iniciar. `/v1/health?probe=true` hace lo mismo bajo demanda.
 

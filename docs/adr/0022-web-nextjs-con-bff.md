@@ -6,7 +6,7 @@
 
 ## Contexto
 
-Faltaba una página web para buscar beneficios. Más adelante vendrá una app móvil. El diseño está en `design/beneficios_CL.figcraft`, con pantallas Inicio y Resultados en móvil y escritorio, Light y Dark, y una biblioteca de componentes.
+Faltaba una página web para buscar beneficios. Más adelante vendrá una app móvil. El diseño inicial tenía las pantallas Inicio y Resultados en móvil y escritorio, Light y Dark, y una biblioteca de componentes.
 
 Hay tres restricciones:
 - **La API key no puede llegar al navegador.** Si se aprueba el ADR 0014, la API exigirá `x-api-key`, y cualquier llave presente en el navegador queda a la vista en DevTools.
@@ -32,7 +32,7 @@ Hay tres restricciones:
   - La futura app en Expo / React Native usará el mismo BFF.
 - **Conteo por emisor (facets):** `/api/search?facets=1` agrega un conteo por emisor, calculado con una búsqueda `pageSize=1` por emisor. No se cambió el contrato de `/v1`.
 - **Contrato tipado:** los tipos se generan desde `docs/openapi.yaml` (`npm run api:types`).
-- **Diseño como código:** los tokens se exportan del archivo de FigCraft (`npm run design:tokens`) y las pantallas se comparan contra un render del diseño con Playwright (`npm run design:compare`).
+- **Tokens de diseño:** `web/src/styles/tokens.css` es la única fuente de colores, medidas y sombras, y se edita a mano. Al principio se exportaba desde un archivo de FigCraft y las pantallas se comparaban con un render del diseño; ese flujo se eliminó cuando los colores pasaron a ajustarse directamente en el código.
 - **Calidad:** ESLint, Vitest (unitarios y BFF) y Playwright (e2e con el BFF simulado) corren en el job `web` del CI.
 
 ## Consecuencias
@@ -50,5 +50,4 @@ Hay tres restricciones:
 ## Evidencia
 
 - **Código:** `web/` (ver [web/README.md](../../web/README.md)).
-- **Pruebas:** `web/tests/unit/` (componentes, cliente de la API, BFF y contraste AA de los tokens) y `web/e2e/` (estados y flujos).
-- **Comparación con el diseño:** `npm run design:compare`.
+- **Pruebas:** `web/tests/unit/` (componentes, cliente de la API, BFF, contraste AA y consistencia de los tokens) y `web/e2e/` (estados y flujos).
