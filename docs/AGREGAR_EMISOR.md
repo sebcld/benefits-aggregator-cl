@@ -53,7 +53,6 @@ function parseMiEmisor(data) {
 const provider = defineProvider({
   key: 'miemisor', // kebab-case, estable: lo usan la app y la cache
   name: NAME,
-  // queryDependent: true  <- solo si la fuente busca por texto (recibe ctx.query)
   async fetch({ http, config, sleep, signal }) {
     const data = await http.getJson(URL, { label: NAME, signal });
     return parseMiEmisor(data);

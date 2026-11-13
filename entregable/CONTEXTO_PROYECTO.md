@@ -30,7 +30,7 @@ Buscador de beneficios y descuentos de bancos, tarjetas y billeteras de **Chile*
 src/config      loadConfig(): .env + entorno → config validada (sin efectos al importar)
 src/domain      createEntry (id estable, logo, inmutable), toLegacyEntry, errores con "code"
 src/shared      text, dates, async (sleep cancelable), http-client, logger JSON, cache/ (CacheStore)
-src/providers   <emisor>.provider.js con { key, name, queryDependent, fetch(ctx) } + parse* puros;
+src/providers   <emisor>.provider.js con { key, name, fetch(ctx) } + parse* puros;
                 index.js = registro (agregar emisor = 1 archivo + 1 línea)
 src/services    search-service (orquesta y tolera fallos), provider-runner (caché, dedupe,
                 timeout, alerta de catálogo vacío), matcher, source-status

@@ -347,10 +347,11 @@ export interface components {
                 key: string;
                 name: string;
                 /**
-                 * @description catalog = se descarga el catalogo completo; query = la fuente busca por texto.
+                 * @description Siempre "catalog": se descarga el catalogo completo del emisor y la busqueda se
+                 *     hace sobre el. Se mantiene por compatibilidad con clientes existentes.
                  * @enum {string}
                  */
-                searchMode: "catalog" | "query";
+                searchMode: "catalog";
             }[];
         };
         HealthResponse: {

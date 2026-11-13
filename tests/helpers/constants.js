@@ -29,8 +29,6 @@ const ALL_QUERIES = [...new Set([...QUERIES, ...ACCEPTANCE_CASES.map(([, q]) => 
 // Variables de entorno de los tests: no dependen del .env local.
 const TEST_ENV = {
   BCI_SUBSCRIPTION_KEY: 'test-key',
-  MELI_ACCESS_TOKEN: '',
-  MERCADOPAGO_TOKEN: '',
   LOG_LEVEL: 'silent',
 };
 

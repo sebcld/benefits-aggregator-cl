@@ -42,7 +42,7 @@ Resumen de una línea por decisión. El contexto, las alternativas y las consecu
 | Decisión | Por qué | ADR |
 |---|---|---|
 | **Composition root único** (`bootstrap.js`) | Las interfaces y los tests piden una "app" armada. Así se inyectan `fetch`, reloj, `sleep`, caché y providers sin tocar el código de negocio. | [0001](adr/0001-arquitectura-por-capas-con-composition-root.md) |
-| **Contrato de provider** `{ key, name, queryDependent, fetch(ctx) }` + parsers puros | El servicio depende del contrato, no de los emisores; los providers se prueban sin red ni reloj real. | [0003](adr/0003-contrato-de-provider-y-registro.md) |
+| **Contrato de provider** `{ key, name, fetch(ctx) }` + parsers puros | El servicio depende del contrato, no de los emisores; los providers se prueban sin red ni reloj real. | [0003](adr/0003-contrato-de-provider-y-registro.md) |
 | **`Entry` inmutable y con `id` estable** | La caché comparte objetos entre peticiones, y la app necesita una clave estable. | [0004](adr/0004-entry-inmutable-con-id-estable.md) |
 | **Errores con `code` estable y respuestas parciales** | La app decide por `code`, y un emisor caído no rompe la búsqueda. | [0005](adr/0005-errores-con-codigo-estable.md) |
 | **Dos formatos de API**: legado y `/v1` | La 1.x no se rompe, y `/v1` tiene un contrato pensado para móvil. | [0006](adr/0006-api-versionada-v1-con-rutas-legadas.md) |

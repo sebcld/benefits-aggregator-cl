@@ -72,7 +72,6 @@ function loadConfig({ env = process.env, envFilePath = DEFAULT_ENV_PATH } = {}) 
     // null => cada interfaz decide (CLI: silent, servidor: info).
     logLevel: read.oneOf('LOG_LEVEL', Object.keys(LEVELS)),
     bciSubscriptionKey: read.raw('BCI_SUBSCRIPTION_KEY'),
-    mercadoPagoToken: read.raw('MELI_ACCESS_TOKEN') || read.raw('MERCADOPAGO_TOKEN'),
     // Opcional: sube el limite de uso de r.jina.ai (proxy usado para Banco de Chile).
     jinaApiKey: read.raw('JINA_API_KEY'),
     cacheTtlSeconds: read.integer('CACHE_TTL_SECONDS', DEFAULTS.CACHE_TTL_SECONDS),

@@ -27,7 +27,7 @@ function createSearchService({ registry, runner }) {
     }
 
     const providers = registry.select(banks, { allowKeys });
-    const reports = await Promise.all(providers.map((provider) => runner.run(provider, { query })));
+    const reports = await Promise.all(providers.map((provider) => runner.run(provider)));
 
     const matches = reports.flatMap((r) => r.entries).filter((entry) => matchesQuery(entry, query));
     const errors = reports
@@ -39,10 +39,9 @@ function createSearchService({ registry, runner }) {
   }
 
   // Descarga (o renueva en cache) los catalogos completos. Util al iniciar el servidor y en
-  // /v1/health?probe=true. Los providers por consulta (Mercado Pago) no se precargan.
+  // /v1/health?probe=true.
   async function warmUp() {
-    const catalogs = registry.list().filter((p) => !p.queryDependent);
-    const reports = await Promise.all(catalogs.map((provider) => runner.run(provider)));
+    const reports = await Promise.all(registry.list().map((provider) => runner.run(provider)));
     return reports.map(({ entries, ...summary }) => summary);
   }
 

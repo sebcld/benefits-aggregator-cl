@@ -66,22 +66,10 @@ test('el TTL corto de un catalogo vacio nunca supera el TTL configurado', async 
   assert.equal(cache.ttls.get('provider:fake'), 30_000);
 });
 
-test('en un provider por consulta, 0 resultados se guarda el TTL completo (es una respuesta normal)', async () => {
+test('la clave de cache es el emisor: todas las busquedas comparten su catalogo', async () => {
   const cache = mapCache();
-  await runnerWith({ cache, cacheTtlMs: 7_200_000 }).run(fakeProvider({ queryDependent: true, titles: [] }).provider, { query: 'x' });
-  assert.equal(cache.ttls.get('provider:fake:q:x'), 7_200_000);
-});
-
-test('los providers por consulta se cachean por consulta normalizada', async () => {
-  const fake = fakeProvider({ queryDependent: true });
-  const cache = mapCache();
-  const runner = runnerWith({ cache, cacheTtlMs: 60000 });
-
-  await runner.run(fake.provider, { query: 'El Café' });
-  await runner.run(fake.provider, { query: 'el cafe' });
-  await runner.run(fake.provider, { query: 'otro' });
-  assert.equal(fake.calls(), 2);
-  assert.deepEqual([...cache.store.keys()], ['provider:fake:q:el cafe', 'provider:fake:q:otro']);
+  await runnerWith({ cache, cacheTtlMs: 60000 }).run(fakeProvider({}).provider);
+  assert.deepEqual([...cache.store.keys()], ['provider:fake']);
 });
 
 test('peticiones simultaneas al mismo emisor comparten una sola descarga', async () => {

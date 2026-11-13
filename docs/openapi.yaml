@@ -482,8 +482,10 @@ components:
               name: { type: string }
               searchMode:
                 type: string
-                enum: [catalog, query]
-                description: catalog = se descarga el catalogo completo; query = la fuente busca por texto.
+                enum: [catalog]
+                description: |
+                  Siempre "catalog": se descarga el catalogo completo del emisor y la busqueda se
+                  hace sobre el. Se mantiene por compatibilidad con clientes existentes.
     HealthResponse:
       type: object
       required: [status, version, uptimeSeconds, cache, sources]

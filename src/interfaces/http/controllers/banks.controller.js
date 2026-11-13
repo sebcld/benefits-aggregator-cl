@@ -8,7 +8,8 @@ function createBanksController({ registry }) {
         banks: registry.list().map((p) => ({
           key: p.key,
           name: p.name,
-          searchMode: p.queryDependent ? 'query' : 'catalog',
+          // Todos los emisores descargan su catalogo. El campo se mantiene por compatibilidad de la API.
+          searchMode: 'catalog',
         })),
       },
     }),

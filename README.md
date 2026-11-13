@@ -96,7 +96,6 @@ Se definen en `.env` (plantilla con todas las opciones: [`.env.example`](.env.ex
 | `HTTP_TIMEOUT_MS` / `PROVIDER_TIMEOUT_MS` | `20000` / `60000` | Timeouts del servidor |
 | `CORS_ORIGINS` | vacío (desactivado) | Orígenes permitidos o `*` |
 | `BODY_LIMIT_BYTES` | `1000000` | Límite del body |
-| `MELI_ACCESS_TOKEN` / `MERCADOPAGO_TOKEN` | — | Token de Mercado Libre |
 | `JINA_API_KEY` | — | Más límite de uso en `r.jina.ai` (Banco de Chile) |
 
 ## Desarrollo

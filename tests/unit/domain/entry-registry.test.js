@@ -32,7 +32,6 @@ test('defineProvider valida el contrato', () => {
   assert.throws(() => defineProvider({ key: 'Mal Key', name: 'X', fetch() {} }), /kebab-case/);
   assert.throws(() => defineProvider({ key: 'x', name: 'X' }), /fetch/);
   const p = defineProvider({ key: 'x', name: 'X', fetch: async () => [] });
-  assert.equal(p.queryDependent, false);
   assert.ok(Object.isFrozen(p));
   assert.equal(assertProvider(p), p);
 });

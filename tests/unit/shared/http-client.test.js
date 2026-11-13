@@ -18,11 +18,11 @@ test('envia user-agent y devuelve JSON', async () => {
 });
 
 test('respuesta no-OK lanza ProviderError con el mensaje historico', async () => {
-  const http = createHttpClient({ fetchImpl: async () => respond(403, 'prohibido') });
-  await assert.rejects(http.getJson('https://x', { label: 'Mercado Pago' }), (err) => {
+  const http = createHttpClient({ fetchImpl: async () => respond(401, 'prohibido') });
+  await assert.rejects(http.getJson('https://x', { label: 'BCI' }), (err) => {
     assert.ok(err instanceof ProviderError);
-    assert.equal(err.message, 'Mercado Pago respondio 403: prohibido');
-    assert.equal(err.status, 403);
+    assert.equal(err.message, 'BCI respondio 401: prohibido');
+    assert.equal(err.status, 401);
     assert.equal(err.code, 'HTTP_ERROR');
     return true;
   });
