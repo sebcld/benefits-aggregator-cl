@@ -1,5 +1,6 @@
 // Hero del inicio: titular, bajada, buscador y chips de sugerencia.
 // Escritorio: centrado, titular 56px. Movil: alineado a la izquierda, titular 34px.
+import Link from 'next/link';
 import { ChipLink } from '@/components/ui/Chip';
 import { SearchBox } from '@/components/ui/SearchBox';
 import { cn } from '@/lib/cn';
@@ -31,6 +32,11 @@ export function Hero() {
           ))}
         </ul>
       </nav>
+      {/* El header solo muestra la navegacion en escritorio: en movil este es el acceso. */}
+      <Link href="/beneficios" className="inline-flex items-center gap-1.5 self-start rounded-sm text-14 font-semibold text-brand hover:underline lg:self-center">
+        o mira todos los beneficios
+        <span aria-hidden="true">→</span>
+      </Link>
     </section>
   );
 }

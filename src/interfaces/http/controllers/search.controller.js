@@ -1,6 +1,6 @@
 // Controladores de busqueda: validan entrada, llaman al servicio y serializan la salida.
-const { parseLegacySearch, parseV1Search, v1InputFromQueryString } = require('../validation');
-const { toLegacySearchResponse, toV1SearchResponse } = require('../serializers');
+const { parseLegacySearch, parseV1Search, parseV1Listing, v1InputFromQueryString } = require('../validation');
+const { toLegacySearchResponse, toV1SearchResponse, toV1BenefitsResponse } = require('../serializers');
 
 /**
  * @param {object} deps
@@ -26,6 +26,15 @@ function createSearchController({ searchService, registry, clock }) {
   }
 
   return {
+    // GET /v1/benefits?banks=&page=&pageSize=&refresh=true: todos, sin consulta.
+    v1ListAll: async ({ url }) => {
+      const input = v1InputFromQueryString(url.searchParams);
+      const { banks, page, pageSize, refresh } = parseV1Listing(input, registry);
+      const result = await searchService.listAll({ banks, allowKeys: true, refresh });
+      const body = toV1BenefitsResponse({ result, page, pageSize, keyForBank, now: clock() });
+      return { status: 200, body };
+    },
+
     // GET /search?q=&banks=
     legacyGet: ({ url }) =>
       runLegacy(

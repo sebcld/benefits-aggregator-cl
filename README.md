@@ -43,6 +43,7 @@ npm start                            # http://localhost:3000
 |---|---|
 | `GET /v1/search?q=rappi&banks=copec,bci&page=1&pageSize=20` | Búsqueda paginada, con `id` estable, `logo`, `validUntil` y estado por emisor (`sources`) |
 | `POST /v1/search` | Igual, con body `{ "query", "banks", "page", "pageSize" }` |
+| `GET /v1/benefits?banks=&page=&pageSize=` | **Todos** los beneficios, sin consulta: paginados e intercalados por emisor (cada página mezcla emisores) |
 | `GET /v1/banks` | Emisores disponibles (`key` y `name`) |
 | `GET /v1/health[?probe=true]` | Estado del servicio y de cada emisor |
 | `GET /search?q=` / `POST /search` / `GET /health` | Rutas 1.x (deprecadas, mismo formato que antes) |

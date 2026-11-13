@@ -1,7 +1,9 @@
 'use client';
 
 // Pantalla de resultados. El estado vive en la URL (?q=&banks=), asi se puede compartir y
-// el boton "atras" funciona.
+// el boton "atras" funciona. Dos modos: "search" (/buscar?q=) y "all" (/beneficios: todos los
+// beneficios sin buscar; mismos filtros, "Cargar más" y "Actualizar").
+import Link from 'next/link';
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useCallback } from 'react';
 import { SUGGESTIONS } from '@/components/home/Hero';
@@ -17,7 +19,7 @@ import { parseBanksParam } from '@/lib/filters';
 import { DataFreshness } from './DataFreshness';
 import { IssuerFilterChips, IssuerFilterPanel } from './IssuerFilters';
 import { useBanks } from './use-banks';
-import { useSearch } from './use-search';
+import { useSearch, type ResultsMode } from './use-search';
 
 /** "BCI", "BCI y Tenpo", "BCI, Tenpo y Tapp". */
 export function joinNames(names: string[]): string {
@@ -29,9 +31,27 @@ export function partialMessage(errors: SearchError[]): string {
   return `No pudimos consultar ${joinNames(errors.map((e) => e.bank))} en este momento. Mostramos los demás resultados.`;
 }
 
+/** 1761 -> "1.761" (a mano: el mismo texto en el servidor y en el navegador). */
+export const formatCount = (n: number) => String(n).replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+
+/** Con consulta: "Mostrando 12 de 40 beneficios para «rappi»"; sin consulta: "Mostrando 12 de 1.761 beneficios". */
 export function summaryText(shown: number, total: number, query: string): string {
   const noun = total === 1 ? 'beneficio' : 'beneficios';
-  return `Mostrando ${shown} de ${total} ${noun} para «${query}»`;
+  const base = `Mostrando ${formatCount(shown)} de ${formatCount(total)} ${noun}`;
+  return query ? `${base} para «${query}»` : base;
+}
+
+/** Enlace a /beneficios (todos, sin buscar). */
+export function AllBenefitsLink({ className }: { className?: string }) {
+  return (
+    <Link
+      href="/beneficios"
+      className={`inline-flex items-center gap-1.5 rounded-sm text-14 font-semibold text-brand hover:underline ${className ?? ''}`}
+    >
+      Ver todos los beneficios
+      <span aria-hidden="true">→</span>
+    </Link>
+  );
 }
 
 function Suggestions({ label }: { label: string }) {
@@ -48,15 +68,17 @@ function Suggestions({ label }: { label: string }) {
   );
 }
 
-export function ResultsView() {
+export function ResultsView({ mode = 'search' }: { mode?: ResultsMode }) {
   const params = useSearchParams();
   const router = useRouter();
   const pathname = usePathname();
-  const query = (params.get('q') ?? '').trim();
+  const all = mode === 'all';
+  // En "todos" no hay consulta: buscar desde el SearchBox lleva a /buscar?q=.
+  const query = all ? '' : (params.get('q') ?? '').trim();
   const selected = parseBanksParam(params.get('banks'));
 
   const banks = useBanks();
-  const search = useSearch(query, selected);
+  const search = useSearch(query, selected, mode);
   const { status, data } = search;
 
   const setSelected = useCallback(
@@ -69,16 +91,23 @@ export function ResultsView() {
     [params, pathname, router],
   );
 
-  const filters = banks && banks.length > 0 && query ? { banks, facets: search.facets, selected, onChange: setSelected } : null;
+  const filters = banks && banks.length > 0 && (query || all) ? { banks, facets: search.facets, selected, onChange: setSelected } : null;
   const shown = data?.results.length ?? 0;
 
   return (
     <div className="mx-auto max-w-[1440px]">
-      <h1 className="sr-only">{query ? `Beneficios para «${query}»` : 'Buscar beneficios'}</h1>
+      {all ? (
+        <div className="px-4 pt-6 lg:px-16 lg:pt-9">
+          <h1 className="font-display text-24 font-bold tracking-display text-fg lg:text-34">Todos los beneficios</h1>
+          <p className="mt-1 text-14 text-fg-muted lg:text-15">De todos los emisores, sin buscar. Filtra por emisor o busca un comercio.</p>
+        </div>
+      ) : (
+        <h1 className="sr-only">{query ? `Beneficios para «${query}»` : 'Buscar beneficios'}</h1>
+      )}
 
       <div className="px-4 pt-4 lg:px-16 lg:pt-7">
         {/* key: al cambiar la consulta desde la URL, el input muestra el valor nuevo. */}
-        <SearchBox key={query} defaultValue={query} autoFocus={!query} id="buscar-resultados" />
+        <SearchBox key={query} defaultValue={query} autoFocus={!query && !all} id="buscar-resultados" />
       </div>
 
       <div className="flex flex-col gap-3.5 px-4 pt-3.5 pb-10 lg:flex-row lg:items-start lg:gap-6 lg:px-16 lg:pt-6 lg:pb-14">
@@ -98,6 +127,7 @@ export function ResultsView() {
             <div className="flex flex-col gap-4 py-6">
               <p className="font-display text-20 font-semibold tracking-display text-fg">Escribe un comercio o marca para buscar.</p>
               <Suggestions label="Búsquedas sugeridas" />
+              <AllBenefitsLink />
             </div>
           )}
 
@@ -106,7 +136,9 @@ export function ResultsView() {
               <p role="status" className="text-13 font-medium text-fg-muted lg:text-14">
                 {search.slow
                   ? 'Consultando bancos y billeteras… la primera búsqueda puede tardar hasta 20 segundos.'
-                  : `Buscando beneficios para «${query}»…`}
+                  : all
+                    ? 'Cargando todos los beneficios…'
+                    : `Buscando beneficios para «${query}»…`}
               </p>
               <div className="grid grid-cols-1 gap-3.5 md:grid-cols-2 lg:gap-5">
                 {Array.from({ length: 4 }, (_, i) => (
@@ -128,7 +160,7 @@ export function ResultsView() {
                 <p role="status" className="text-13 font-medium text-fg-muted lg:text-14">
                   {summaryText(shown, data.pagination.total, query)}
                 </p>
-                <p className="hidden text-13 font-medium text-fg-muted lg:block">Ordenado por emisor</p>
+                <p className="hidden text-13 font-medium text-fg-muted lg:block">{all ? 'Intercalados por emisor' : 'Ordenado por emisor'}</p>
               </div>
 
               {data.freshness && (
@@ -145,16 +177,21 @@ export function ResultsView() {
 
               {shown === 0 ? (
                 <div className="flex flex-col gap-4 py-6">
-                  <p className="font-display text-20 font-semibold tracking-display text-fg">No encontramos beneficios para «{query}».</p>
-                  <p className="text-15 text-fg-muted">
-                    {selected.length > 0 ? 'Prueba con todos los emisores o con otro comercio.' : 'Prueba con otro comercio o marca.'}
+                  <p className="font-display text-20 font-semibold tracking-display text-fg">
+                    {all ? 'Estos emisores no tienen beneficios disponibles en este momento.' : `No encontramos beneficios para «${query}».`}
                   </p>
+                  {!all && (
+                    <p className="text-15 text-fg-muted">
+                      {selected.length > 0 ? 'Prueba con todos los emisores o con otro comercio.' : 'Prueba con otro comercio o marca.'}
+                    </p>
+                  )}
                   {selected.length > 0 && (
                     <div>
                       <PillButton onClick={() => setSelected([])}>Ver todos los emisores</PillButton>
                     </div>
                   )}
                   <Suggestions label="Otras búsquedas" />
+                  {!all && <AllBenefitsLink />}
                 </div>
               ) : (
                 <ul className="grid grid-cols-1 gap-3.5 md:grid-cols-2 lg:gap-5">

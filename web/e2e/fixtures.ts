@@ -94,4 +94,17 @@ export async function mockApi(page: Page, options: MockOptions = {}) {
     const body = searchResponse(pageNumber === 1 ? RAPPI_PAGE_1 : RAPPI_PAGE_2, pageNumber);
     return json(route, url.searchParams.get('facets') === '1' ? { ...body, facets: FACETS } : body);
   });
+  // "Todos los beneficios": las mismas dos paginas, sin "query" (como /v1/benefits).
+  await page.route('**/api/beneficios**', (route) => {
+    const url = new URL(route.request().url());
+    const pageNumber = Number(url.searchParams.get('page') ?? 1);
+    const body: Record<string, unknown> = {
+      ...searchResponse(pageNumber === 1 ? RAPPI_PAGE_1 : RAPPI_PAGE_2, pageNumber, {
+        errors: [],
+        meta: { generatedAt: '2026-11-12T15:00:00.000Z', partial: false, refreshableAt: null },
+      }),
+    };
+    delete body.query;
+    return json(route, url.searchParams.get('facets') === '1' ? { ...body, facets: FACETS } : body);
+  });
 }

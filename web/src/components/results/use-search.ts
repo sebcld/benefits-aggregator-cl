@@ -2,12 +2,19 @@
 
 // Estado de una busqueda: primera pagina, "Cargar más", reintento, conteo por emisor (facets) y
 // actualizacion manual de los catalogos ("Actualizar", refresh=true).
+// Dos modos: "search" (una consulta, /api/search) y "all" (todos los beneficios, sin consulta,
+// /api/beneficios). El resto del estado es el mismo.
 // La carga se deriva de la clave de la peticion (sin setState sincrono dentro del efecto).
 import { useCallback, useEffect, useRef, useState } from 'react';
-import { searchBenefits } from '@/lib/api/client';
+import { listAllBenefits, searchBenefits, type ListParams, type RequestOptions } from '@/lib/api/client';
 import { ApiError } from '@/lib/api/errors';
-import type { Benefit, Facet, Pagination, SearchError, WebSearchResponse } from '@/lib/api/types';
+import type { Benefit, Facet, Pagination, SearchError, WebBenefitsResponse, WebSearchResponse } from '@/lib/api/types';
 import { freshnessOf, type Freshness } from '@/lib/freshness';
+
+export type ResultsMode = 'search' | 'all';
+type PageResponse = WebSearchResponse | WebBenefitsResponse;
+// Clave de los conteos en modo "all" (no hay consulta; no puede chocar con una consulta real).
+const ALL_SUBJECT = '\u0000todos';
 
 export const PAGE_SIZE = 12;
 /** Desde cuanto se avisa que la primera busqueda (cache fria) puede tardar. */
@@ -62,7 +69,7 @@ function mergeErrors(a: SearchError[], b: SearchError[]): SearchError[] {
 }
 
 // Se llama al llegar la respuesta (en un callback, no al renderizar).
-function toData(res: WebSearchResponse): Data {
+function toData(res: PageResponse): Data {
   return {
     results: res.results,
     pagination: res.pagination,
@@ -72,10 +79,19 @@ function toData(res: WebSearchResponse): Data {
   };
 }
 
-export function useSearch(query: string, banks: string[]): SearchState {
+export function useSearch(query: string, banks: string[], mode: ResultsMode = 'search'): SearchState {
   const banksKey = banks.join(',');
   const [attempt, setAttempt] = useState(0);
-  const key = `${query}|${banksKey}|${attempt}`;
+  const key = `${mode}|${query}|${banksKey}|${attempt}`;
+  // Lo que identifica a los resultados: la consulta, o "todos".
+  const subject = mode === 'all' ? ALL_SUBJECT : query;
+  const active = Boolean(subject);
+
+  const fetchPage = useCallback(
+    (params: ListParams, options: RequestOptions): Promise<PageResponse> =>
+      mode === 'all' ? listAllBenefits(params, options) : searchBenefits({ query, ...params }, options),
+    [mode, query],
+  );
 
   const [settled, setSettled] = useState<Settled | null>(null);
   const [facets, setFacets] = useState<{ query: string; items: Facet[] } | null>(null);
@@ -93,18 +109,15 @@ export function useSearch(query: string, banks: string[]): SearchState {
   }, [facets]);
 
   useEffect(() => {
-    if (!query) return;
+    if (!active) return;
     const controller = new AbortController();
-    const wantsFacets = facetsQuery.current !== query;
+    const wantsFacets = facetsQuery.current !== subject;
     const slowTimer = setTimeout(() => setSlowKey(key), SLOW_AFTER_MS);
 
-    searchBenefits(
-      { query, banks: banksKey ? banksKey.split(',') : [], pageSize: PAGE_SIZE, facets: wantsFacets },
-      { signal: controller.signal },
-    )
+    fetchPage({ banks: banksKey ? banksKey.split(',') : [], pageSize: PAGE_SIZE, facets: wantsFacets }, { signal: controller.signal })
       .then((res) => {
         setSettled({ key, data: toData(res), error: null });
-        if (res.facets) setFacets({ query, items: res.facets });
+        if (res.facets) setFacets({ query: subject, items: res.facets });
       })
       .catch((err) => {
         if (!controller.signal.aborted) setSettled({ key, data: null, error: toApiError(err) });
@@ -117,7 +130,7 @@ export function useSearch(query: string, banks: string[]): SearchState {
       moreController.current?.abort();
       refreshController.current?.abort();
     };
-  }, [query, banksKey, key]);
+  }, [active, subject, fetchPage, banksKey, key]);
 
   const current = settled?.key === key ? settled : null;
   const data = current?.data ?? null;
@@ -127,8 +140,8 @@ export function useSearch(query: string, banks: string[]): SearchState {
     const controller = new AbortController();
     moreController.current = controller;
     setMore({ key, loading: true, error: null });
-    searchBenefits(
-      { query, banks: banksKey ? banksKey.split(',') : [], page: data.pagination.page + 1, pageSize: PAGE_SIZE },
+    fetchPage(
+      { banks: banksKey ? banksKey.split(',') : [], page: data.pagination.page + 1, pageSize: PAGE_SIZE },
       { signal: controller.signal },
     )
       .then((res) => {
@@ -151,7 +164,7 @@ export function useSearch(query: string, banks: string[]): SearchState {
       .catch((err) => {
         if (!controller.signal.aborted) setMore({ key, loading: false, error: toApiError(err) });
       });
-  }, [data, more, key, query, banksKey]);
+  }, [data, more, key, fetchPage, banksKey]);
 
   // Vuelve a pedir la primera pagina con refresh=true y reemplaza los resultados (y los conteos,
   // que pueden cambiar con ofertas nuevas). Mientras tanto se siguen mostrando los actuales.
@@ -163,23 +176,23 @@ export function useSearch(query: string, banks: string[]): SearchState {
     refreshController.current = controller;
     setMore(IDLE);
     setRefreshState({ key, loading: true, error: null });
-    searchBenefits(
-      { query, banks: banksKey ? banksKey.split(',') : [], pageSize: PAGE_SIZE, facets: true, refresh: true },
+    fetchPage(
+      { banks: banksKey ? banksKey.split(',') : [], pageSize: PAGE_SIZE, facets: true, refresh: true },
       { signal: controller.signal },
     )
       .then((res) => {
         setSettled({ key, data: toData(res), error: null });
-        if (res.facets) setFacets({ query, items: res.facets });
+        if (res.facets) setFacets({ query: subject, items: res.facets });
         setRefreshState({ key, loading: false, error: null });
       })
       .catch((err) => {
         if (!controller.signal.aborted) setRefreshState({ key, loading: false, error: toApiError(err) });
       });
-  }, [data, refreshInFlight, key, query, banksKey]);
+  }, [data, refreshInFlight, key, fetchPage, subject, banksKey]);
 
   const retry = useCallback(() => setAttempt((n) => n + 1), []);
 
-  const status: SearchState['status'] = !query ? 'idle' : !current ? 'loading' : current.error ? 'error' : 'success';
+  const status: SearchState['status'] = !active ? 'idle' : !current ? 'loading' : current.error ? 'error' : 'success';
   const moreState = more.key === key ? more : { loading: false, error: null };
   const refreshCurrent = refreshState.key === key ? refreshState : IDLE;
 
@@ -187,7 +200,7 @@ export function useSearch(query: string, banks: string[]): SearchState {
     status,
     data,
     error: current?.error ?? null,
-    facets: facets?.query === query ? facets.items : null,
+    facets: facets?.query === subject ? facets.items : null,
     slow: status === 'loading' && slowKey === key,
     loadingMore: moreState.loading,
     loadMoreError: moreState.error,

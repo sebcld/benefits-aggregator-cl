@@ -152,3 +152,51 @@ describe('GET /api/search', () => {
     expect(await res.json()).toEqual(error);
   });
 });
+
+describe('GET /api/beneficios (todos, sin consulta)', () => {
+  const sources = [
+    { key: 'bci', bank: 'BCI', status: 'ok', count: 326, cached: true, durationMs: 1, fetchedAt: null },
+    { key: 'tapp', bank: 'Tapp', status: 'error', count: 0, cached: false, durationMs: 1, fetchedAt: null },
+  ];
+  const listBody = {
+    results: [],
+    pagination: { page: 1, pageSize: 12, total: 326, totalPages: 28, hasMore: true },
+    sources,
+    errors: [],
+    meta: { generatedAt: '2026-11-13T15:00:00.000Z', partial: true, refreshableAt: null },
+  };
+
+  beforeEach(() => {
+    vi.stubEnv('BENEFITS_API_URL', 'http://api');
+    vi.stubEnv('BENEFITS_API_KEY', '');
+  });
+
+  it('reenvia a /v1/benefits solo los parametros conocidos (no hay q)', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(jsonResponse(listBody));
+    const { GET } = await import('@/app/api/beneficios/route');
+    const res = await GET(new NextRequest('http://web/api/beneficios?banks=bci&page=2&pageSize=12&q=x&refresh=true'));
+    expect(res.status).toBe(200);
+    expect(fetchSpy.mock.calls[0][0]).toBe('http://api/v1/benefits?banks=bci&page=2&pageSize=12&refresh=true');
+    expect(res.headers.get('cache-control')).toBe('no-store');
+  });
+
+  it('sin filtro, los conteos salen de la misma respuesta (tamano de cada catalogo)', async () => {
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockResolvedValue(jsonResponse(listBody));
+    const { GET } = await import('@/app/api/beneficios/route');
+    const body = await (await GET(new NextRequest('http://web/api/beneficios?facets=1'))).json();
+    expect(fetchSpy).toHaveBeenCalledTimes(1);
+    expect(body.facets).toEqual([
+      { key: 'bci', bank: 'BCI', count: 326 },
+      { key: 'tapp', bank: 'Tapp', count: null }, // fallo: sin conteo
+    ]);
+  });
+
+  it('con filtro de emisores, los conteos de todos salen de una peticion extra sin filtro', async () => {
+    // Una Response nueva por llamada: el cuerpo de una Response solo se puede leer una vez.
+    const fetchSpy = vi.spyOn(globalThis, 'fetch').mockImplementation(async () => jsonResponse(listBody));
+    const { GET } = await import('@/app/api/beneficios/route');
+    const body = await (await GET(new NextRequest('http://web/api/beneficios?banks=bci&facets=1'))).json();
+    expect(fetchSpy.mock.calls.map((c) => c[0])).toEqual(['http://api/v1/benefits?banks=bci', 'http://api/v1/benefits?pageSize=1']);
+    expect(body.facets).toHaveLength(2);
+  });
+});

@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'vitest';
-import { buildSearchPath, listBanks, searchBenefits } from '@/lib/api/client';
+import { buildListPath, buildSearchPath, listBanks, searchBenefits } from '@/lib/api/client';
 import { ApiError, userMessage } from '@/lib/api/errors';
 
 const jsonResponse = (body: unknown, status = 200) =>
@@ -29,6 +29,15 @@ describe('buildSearchPath', () => {
   it('refresh agrega refresh=true (boton "Actualizar")', () => {
     expect(buildSearchPath({ query: 'flixbus', refresh: true })).toBe('/api/search?q=flixbus&refresh=true');
     expect(buildSearchPath({ query: 'flixbus', refresh: false })).toBe('/api/search?q=flixbus');
+  });
+});
+
+describe('buildListPath (todos los beneficios)', () => {
+  it('va a /api/beneficios, sin consulta', () => {
+    expect(buildListPath({})).toBe('/api/beneficios');
+    expect(buildListPath({ banks: ['bci'], page: 2, pageSize: 12, facets: true, refresh: true })).toBe(
+      '/api/beneficios?banks=bci&page=2&pageSize=12&facets=1&refresh=true',
+    );
   });
 });
 

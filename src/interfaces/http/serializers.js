@@ -72,9 +72,13 @@ function paginate(items, page, pageSize) {
  * @param {Date} params.now
  */
 function toV1SearchResponse({ query, result, page, pageSize, keyForBank, now }) {
+  return { query, ...toV1BenefitsResponse({ result, page, pageSize, keyForBank, now }) };
+}
+
+/** Respuesta de /v1/benefits: la de /v1/search sin "query" (no hay consulta). */
+function toV1BenefitsResponse({ result, page, pageSize, keyForBank, now }) {
   const { items, pagination } = paginate(result.matches, page, pageSize);
   return {
-    query,
     results: items.map((entry) => toV1Benefit(entry, keyForBank)),
     pagination,
     sources: result.sources.map(toV1Source),
@@ -87,4 +91,11 @@ function toV1SearchResponse({ query, result, page, pageSize, keyForBank, now }) 
   };
 }
 
-module.exports = { toLegacySearchResponse, toV1Benefit, toV1SearchResponse, paginate, V1_DESCRIPTION_LIMIT };
+module.exports = {
+  toLegacySearchResponse,
+  toV1Benefit,
+  toV1SearchResponse,
+  toV1BenefitsResponse,
+  paginate,
+  V1_DESCRIPTION_LIMIT,
+};

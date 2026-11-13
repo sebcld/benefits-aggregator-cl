@@ -23,6 +23,37 @@ for (const [name, query, options] of SEARCH_CASES) {
   });
 }
 
+test('listAll: todos los beneficios sin consulta, intercalados por emisor', async () => {
+  const a = fakeProvider({ key: 'a', name: 'A', titles: ['a1', 'a2', 'a3'] });
+  const b = fakeProvider({ key: 'b', name: 'B', titles: ['b1'] });
+  const c = fakeProvider({ key: 'c', name: 'C', titles: ['c1', 'c2'] });
+  const { searchService } = appWith([a.provider, b.provider, c.provider]);
+  const { matches, errors, sources } = await searchService.listAll();
+  assert.deepEqual(
+    matches.map((m) => m.title),
+    ['a1', 'b1', 'c1', 'a2', 'c2', 'a3'],
+  );
+  assert.deepEqual(errors, []);
+  assert.deepEqual(
+    sources.map((s) => s.count),
+    [3, 1, 2],
+  );
+});
+
+test('listAll: filtra por emisor y un emisor caido queda en errors', async () => {
+  const ok = fakeProvider({ key: 'ok', name: 'Ok', titles: ['x', 'y'] });
+  const down = fakeProvider({ key: 'down', name: 'Down', fail: new Error('caido') });
+  const { searchService } = appWith([ok.provider, down.provider]);
+  const all = await searchService.listAll();
+  assert.deepEqual(
+    all.matches.map((m) => m.title),
+    ['x', 'y'],
+  );
+  assert.equal(all.errors[0].key, 'down');
+  const onlyOk = await searchService.listAll({ banks: ['ok'], allowKeys: true });
+  assert.equal(onlyOk.sources.length, 1);
+});
+
 test('consulta vacia lanza ValidationError MISSING_QUERY', async () => {
   const { searchService } = appWith([fakeProvider({}).provider]);
   await assert.rejects(searchService.search(''), (err) => {

@@ -62,7 +62,15 @@ function parseV1Search(input, registry) {
       details: { maxLength: LIMITS.maxQueryLength },
     });
   }
+  return { query, ...parseV1Listing(input, registry) };
+}
 
+/**
+ * Emisores, paginacion y refresh: comun a /v1/search y /v1/benefits (este no lleva consulta).
+ * @param {{ banks?: unknown, page?: unknown, pageSize?: unknown, refresh?: unknown }} input
+ * @param {ReturnType<import('../../providers').createProviderRegistry>} registry
+ */
+function parseV1Listing(input, registry) {
   if (input.banks !== undefined && typeof input.banks !== 'string' && !Array.isArray(input.banks)) {
     throw new ValidationError('"banks" debe ser texto separado por comas o un arreglo', {
       code: 'UNKNOWN_BANK',
@@ -83,7 +91,6 @@ function parseV1Search(input, registry) {
   }
 
   return {
-    query,
     banks: resolved.map((p) => p.key),
     page: parsePositiveInt(input.page, 'page', { fallback: 1 }),
     pageSize: parsePositiveInt(input.pageSize, 'pageSize', {
@@ -103,4 +110,4 @@ const v1InputFromQueryString = (params) => ({
   refresh: params.get('refresh') ?? undefined,
 });
 
-module.exports = { LIMITS, parseBanks, parseLegacySearch, parseV1Search, v1InputFromQueryString };
+module.exports = { LIMITS, parseBanks, parseLegacySearch, parseV1Search, parseV1Listing, v1InputFromQueryString };

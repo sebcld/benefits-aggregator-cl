@@ -28,6 +28,7 @@ function createRoutes({ app, version }) {
     { method: 'GET', path: '/v1/banks', api: 'v1', handler: banks.list },
     { method: 'GET', path: '/v1/search', api: 'v1', handler: search.v1Get },
     { method: 'POST', path: '/v1/search', api: 'v1', handler: search.v1Post },
+    { method: 'GET', path: '/v1/benefits', api: 'v1', handler: search.v1ListAll },
   ];
 }
 

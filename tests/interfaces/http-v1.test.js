@@ -113,6 +113,42 @@ describe('API v1', () => {
     assert.equal(res.body.sources[0].cached, true);
   });
 
+  test('GET /v1/benefits lista todos los beneficios sin consulta, paginados', async () => {
+    const res = await api.call('/v1/benefits?pageSize=12');
+    assert.equal(res.status, 200);
+    assert.equal('query' in res.body, false);
+    const { results, pagination, sources, meta } = res.body;
+    // El total es la suma de los catalogos de todos los emisores.
+    const catalogTotal = sources.reduce((sum, s) => sum + (s.count || 0), 0);
+    assert.equal(pagination.total, catalogTotal);
+    assert.ok(pagination.total > 1500, `total: ${pagination.total}`);
+    assert.equal(results.length, 12);
+    assert.equal(sources.length, 8);
+    assert.equal(typeof meta.refreshableAt, 'string');
+  });
+
+  test('GET /v1/benefits intercala emisores: la primera pagina no es de uno solo', async () => {
+    const { results } = (await api.call('/v1/benefits?pageSize=8')).body;
+    assert.equal(new Set(results.map((r) => r.bankKey)).size, 8);
+  });
+
+  test('GET /v1/benefits con banks: solo ese emisor, en el orden de su fuente', async () => {
+    const all = (await api.call('/v1/benefits?banks=copec&pageSize=100')).body;
+    assert.ok(all.results.every((r) => r.bankKey === 'copec'));
+    assert.equal(all.pagination.total, all.sources[0].count);
+    const page2 = (await api.call('/v1/benefits?banks=copec&page=2&pageSize=5')).body;
+    assert.deepEqual(
+      page2.results.map((r) => r.id),
+      all.results.slice(5, 10).map((r) => r.id),
+    );
+  });
+
+  test('GET /v1/benefits valida emisores y paginacion como /v1/search', async () => {
+    assert.equal((await api.call('/v1/benefits?banks=nope')).body.error.code, 'UNKNOWN_BANK');
+    assert.equal((await api.call('/v1/benefits?pageSize=101')).body.error.code, 'INVALID_PAGINATION');
+    assert.equal((await api.call({ method: 'POST', path: '/v1/benefits' })).status, 405);
+  });
+
   const ERROR_CASES = [
     ['sin q', '/v1/search', 400, 'MISSING_QUERY'],
     ['q muy larga', `/v1/search?q=${'a'.repeat(101)}`, 400, 'QUERY_TOO_LONG'],
@@ -189,7 +225,7 @@ describe('API con API_KEYS: solo responde a quien trae una llave valida', () => 
   });
   after(() => api.close());
 
-  for (const path of ['/v1/search?q=rappi', '/v1/banks', '/v1/health', '/v1/health?probe=true', '/v1/nada']) {
+  for (const path of ['/v1/search?q=rappi', '/v1/benefits', '/v1/banks', '/v1/health', '/v1/health?probe=true', '/v1/nada']) {
     test(`sin llave: ${path} responde 401 UNAUTHORIZED (formato v1)`, async () => {
       const res = await api.call(path);
       assert.equal(res.status, 401);

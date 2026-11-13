@@ -11,11 +11,37 @@ const { matchesQuery } = require('./matcher');
  */
 
 /**
+ * Intercala los catalogos: el 1.o de cada emisor, luego el 2.o de cada uno, etc. Asi cada pagina
+ * de "todos los beneficios" mezcla emisores (en orden de emisor, las primeras ~26 paginas de 12
+ * serian solo Santander). Es determinista: la paginacion es estable entre peticiones.
+ * @param {import('../domain/entry').Entry[][]} lists
+ */
+function interleave(lists) {
+  const out = [];
+  const longest = Math.max(0, ...lists.map((l) => l.length));
+  for (let i = 0; i < longest; i += 1) {
+    for (const list of lists) if (i < list.length) out.push(list[i]);
+  }
+  return out;
+}
+
+/**
  * @param {object} deps
  * @param {ReturnType<import('../providers').createProviderRegistry>} deps.registry
  * @param {ReturnType<import('./provider-runner').createProviderRunner>} deps.runner
  */
 function createSearchService({ registry, runner }) {
+  // Corre los emisores elegidos y separa entradas, errores y estado por fuente.
+  async function collect({ banks, allowKeys, refresh }) {
+    const providers = registry.select(banks, { allowKeys });
+    const reports = await Promise.all(providers.map((provider) => runner.run(provider, { refresh })));
+    const errors = reports
+      .filter((r) => r.status === 'error')
+      .map((r) => ({ bank: r.bank, key: r.key, code: r.error.code, message: r.error.message }));
+    const sources = reports.map(({ entries, ...summary }) => summary);
+    return { reports, errors, sources };
+  }
+
   /**
    * @param {string} query
    * @param {{ banks?: string[], allowKeys?: boolean, refresh?: boolean }} [options]
@@ -26,17 +52,19 @@ function createSearchService({ registry, runner }) {
     if (!query) {
       throw new ValidationError('Falta la palabra a buscar', { code: 'MISSING_QUERY' });
     }
-
-    const providers = registry.select(banks, { allowKeys });
-    const reports = await Promise.all(providers.map((provider) => runner.run(provider, { refresh })));
-
+    const { reports, errors, sources } = await collect({ banks, allowKeys, refresh });
     const matches = reports.flatMap((r) => r.entries).filter((entry) => matchesQuery(entry, query));
-    const errors = reports
-      .filter((r) => r.status === 'error')
-      .map((r) => ({ bank: r.bank, key: r.key, code: r.error.code, message: r.error.message }));
-    const sources = reports.map(({ entries, ...summary }) => summary);
-
     return { matches, errors, sources };
+  }
+
+  /**
+   * Todos los beneficios de los emisores elegidos, sin filtrar por texto, intercalados por emisor.
+   * @param {{ banks?: string[], allowKeys?: boolean, refresh?: boolean }} [options]
+   * @returns {Promise<SearchResult>}
+   */
+  async function listAll({ banks, allowKeys = false, refresh = false } = {}) {
+    const { reports, errors, sources } = await collect({ banks, allowKeys, refresh });
+    return { matches: interleave(reports.map((r) => r.entries)), errors, sources };
   }
 
   // Descarga (o renueva en cache) los catalogos completos. Util al iniciar el servidor y en
@@ -46,7 +74,7 @@ function createSearchService({ registry, runner }) {
     return reports.map(({ entries, ...summary }) => summary);
   }
 
-  return { search, warmUp };
+  return { search, listAll, warmUp };
 }
 
-module.exports = { createSearchService };
+module.exports = { createSearchService, interleave };

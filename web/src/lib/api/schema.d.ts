@@ -25,6 +25,30 @@ export interface paths {
         patch?: never;
         trace?: never;
     };
+    "/v1/benefits": {
+        parameters: {
+            query?: never;
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        /**
+         * Todos los beneficios (sin consulta)
+         * @description Catalogo completo de los emisores elegidos (todos si no se indica `banks`), paginado, para
+         *     explorar sin buscar un comercio. Los beneficios vienen **intercalados por emisor** (el 1.o
+         *     de cada emisor, luego el 2.o de cada uno...) para que cada pagina mezcle emisores; con un
+         *     solo emisor, en el orden de su fuente. El orden es estable entre peticiones. Mismos
+         *     parametros (salvo `q`), errores, cache y `refresh` que `/v1/search`.
+         */
+        get: operations["listBenefits"];
+        put?: never;
+        post?: never;
+        delete?: never;
+        options?: never;
+        head?: never;
+        patch?: never;
+        trace?: never;
+    };
     "/v1/banks": {
         parameters: {
             query?: never;
@@ -366,19 +390,30 @@ export interface components {
             sources: components["schemas"]["SourceStatus"][];
             /** @description Emisores que fallaron (la busqueda continua con el resto). */
             errors: components["schemas"]["SearchError"][];
-            meta: {
-                /** Format: date-time */
-                generatedAt: string;
-                /** @description true si algun emisor fallo */
-                partial: boolean;
-                /**
-                 * Format: date-time
-                 * @description Desde cuando `refresh=true` volveria a descargar al menos un catalogo de esta
-                 *     busqueda. null si la cache esta desactivada (cada busqueda ya descarga) o si ningun
-                 *     emisor respondio.
-                 */
-                refreshableAt: string | null;
-            };
+            meta: components["schemas"]["ResponseMeta"];
+        };
+        /** @description Igual que SearchResponse, sin `query` (no hay consulta). */
+        BenefitsResponse: {
+            results: components["schemas"]["Benefit"][];
+            pagination: components["schemas"]["Pagination"];
+            /** @description Estado de cada emisor incluido. `count` es su catalogo completo. */
+            sources: components["schemas"]["SourceStatus"][];
+            /** @description Emisores que fallaron (la lista sigue con el resto). */
+            errors: components["schemas"]["SearchError"][];
+            meta: components["schemas"]["ResponseMeta"];
+        };
+        ResponseMeta: {
+            /** Format: date-time */
+            generatedAt: string;
+            /** @description true si algun emisor fallo */
+            partial: boolean;
+            /**
+             * Format: date-time
+             * @description Desde cuando `refresh=true` volveria a descargar al menos un catalogo de esta
+             *     respuesta. null si la cache esta desactivada (cada peticion ya descarga) o si ningun
+             *     emisor respondio.
+             */
+            refreshableAt: string | null;
         };
         BanksResponse: {
             banks: {
@@ -668,6 +703,41 @@ export interface operations {
                     "application/json": components["schemas"]["ErrorResponse"];
                 };
             };
+        };
+    };
+    listBenefits: {
+        parameters: {
+            query?: {
+                /**
+                 * @description Emisores separados por coma, por `key` o nombre visible (max. 20). Vacio = todos.
+                 * @example copec,bci
+                 */
+                banks?: components["parameters"]["Banks"];
+                page?: components["parameters"]["Page"];
+                pageSize?: components["parameters"]["PageSize"];
+                /**
+                 * @description `true` vuelve a descargar los catalogos de los emisores consultados que tengan al menos
+                 *     `CACHE_REFRESH_MIN_AGE_SECONDS` de antiguedad. Cualquier otro valor se ignora.
+                 */
+                refresh?: components["parameters"]["Refresh"];
+            };
+            header?: never;
+            path?: never;
+            cookie?: never;
+        };
+        requestBody?: never;
+        responses: {
+            /** @description Beneficios paginados. Puede ser parcial (`meta.partial`) si algun emisor fallo. */
+            200: {
+                headers: {
+                    [name: string]: unknown;
+                };
+                content: {
+                    "application/json": components["schemas"]["BenefitsResponse"];
+                };
+            };
+            400: components["responses"]["BadRequest"];
+            401: components["responses"]["Unauthorized"];
         };
     };
     listBanks: {

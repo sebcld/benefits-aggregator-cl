@@ -125,6 +125,34 @@ paths:
                   message: Body demasiado grande
                   details: { limitBytes: 1000000 }
 
+  /v1/benefits:
+    get:
+      tags: [v1]
+      summary: Todos los beneficios (sin consulta)
+      description: |
+        Catalogo completo de los emisores elegidos (todos si no se indica `banks`), paginado, para
+        explorar sin buscar un comercio. Los beneficios vienen **intercalados por emisor** (el 1.o
+        de cada emisor, luego el 2.o de cada uno...) para que cada pagina mezcle emisores; con un
+        solo emisor, en el orden de su fuente. El orden es estable entre peticiones. Mismos
+        parametros (salvo `q`), errores, cache y `refresh` que `/v1/search`.
+      operationId: listBenefits
+      parameters:
+        - $ref: '#/components/parameters/Banks'
+        - $ref: '#/components/parameters/Page'
+        - $ref: '#/components/parameters/PageSize'
+        - $ref: '#/components/parameters/Refresh'
+      responses:
+        '200':
+          description: Beneficios paginados. Puede ser parcial (`meta.partial`) si algun emisor fallo.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BenefitsResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+
   /v1/banks:
     get:
       tags: [v1]
@@ -586,20 +614,39 @@ components:
           type: array
           description: Emisores que fallaron (la busqueda continua con el resto).
           items: { $ref: '#/components/schemas/SearchError' }
-        meta:
-          type: object
-          required: [generatedAt, partial, refreshableAt]
-          properties:
-            generatedAt: { type: string, format: date-time }
-            partial: { type: boolean, description: true si algun emisor fallo }
-            refreshableAt:
-              type: string
-              format: date-time
-              nullable: true
-              description: |
-                Desde cuando `refresh=true` volveria a descargar al menos un catalogo de esta
-                busqueda. null si la cache esta desactivada (cada busqueda ya descarga) o si ningun
-                emisor respondio.
+        meta: { $ref: '#/components/schemas/ResponseMeta' }
+    BenefitsResponse:
+      type: object
+      description: Igual que SearchResponse, sin `query` (no hay consulta).
+      required: [results, pagination, sources, errors, meta]
+      properties:
+        results:
+          type: array
+          items: { $ref: '#/components/schemas/Benefit' }
+        pagination: { $ref: '#/components/schemas/Pagination' }
+        sources:
+          type: array
+          description: Estado de cada emisor incluido. `count` es su catalogo completo.
+          items: { $ref: '#/components/schemas/SourceStatus' }
+        errors:
+          type: array
+          description: Emisores que fallaron (la lista sigue con el resto).
+          items: { $ref: '#/components/schemas/SearchError' }
+        meta: { $ref: '#/components/schemas/ResponseMeta' }
+    ResponseMeta:
+      type: object
+      required: [generatedAt, partial, refreshableAt]
+      properties:
+        generatedAt: { type: string, format: date-time }
+        partial: { type: boolean, description: true si algun emisor fallo }
+        refreshableAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: |
+            Desde cuando `refresh=true` volveria a descargar al menos un catalogo de esta
+            respuesta. null si la cache esta desactivada (cada peticion ya descarga) o si ningun
+            emisor respondio.
     BanksResponse:
       type: object
       required: [banks]

@@ -9,6 +9,8 @@ export type Pagination = Schemas['Pagination'];
 export type SourceStatus = Schemas['SourceStatus'];
 export type SearchError = Schemas['SearchError'];
 export type SearchResponse = Schemas['SearchResponse'];
+/** GET /v1/benefits: todos los beneficios, sin consulta (SearchResponse sin `query`). */
+export type BenefitsResponse = Schemas['BenefitsResponse'];
 export type Bank = Schemas['BanksResponse']['banks'][number];
 export type BanksResponse = Schemas['BanksResponse'];
 export type ApiErrorBody = Schemas['ErrorResponse'];
@@ -23,6 +25,11 @@ export interface Facet {
 
 /** Respuesta de GET /api/search: la de /v1/search mas los conteos por emisor, si se pidieron. */
 export interface WebSearchResponse extends SearchResponse {
+  facets?: Facet[];
+}
+
+/** Respuesta de GET /api/beneficios: la de /v1/benefits mas los conteos por emisor, si se pidieron. */
+export interface WebBenefitsResponse extends BenefitsResponse {
   facets?: Facet[];
 }
 

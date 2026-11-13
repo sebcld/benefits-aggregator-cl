@@ -6,7 +6,7 @@ Buscador de beneficios de bancos, tarjetas y billeteras de Chile. Consulta en vi
 - Contrato HTTP: [`openapi.yaml`](openapi.yaml). Agregar un emisor: [`AGREGAR_EMISOR.md`](AGREGAR_EMISOR.md).
 - Qué cambió respecto de la 1.x: [`CHANGELOG_REFACTOR.md`](CHANGELOG_REFACTOR.md). Riesgos y deuda: [`RIESGOS.md`](RIESGOS.md).
 - **Diagramas** (contexto, capas, secuencias, dominio, errores, arquitectura objetivo): [`arquitectura/`](arquitectura/README.md).
-- **Decisiones registradas** (17 aceptadas y 5 propuestas): [`adr/`](adr/README.md).
+- **Decisiones registradas** (18 aceptadas y 5 propuestas): [`adr/`](adr/README.md).
 - **Web** (Next.js, consume `/v1` a través de su propio BFF `/api/*`): [`web/README.md`](../web/README.md) y [ADR 0022](adr/0022-web-nextjs-con-bff.md).
 
 ## Capas
@@ -51,13 +51,14 @@ Resumen de una línea por decisión. El contexto, las alternativas y las consecu
 | **CommonJS y sin dependencias** | Lo pide el proyecto; la fachada debe seguir siendo `require`-able. | [0002](adr/0002-node-nativo-sin-dependencias-y-commonjs.md) |
 | **Node 26 LTS y CI** | Runtime con soporte hasta 2029-04-30, y ningún PR entra con tests rotos. | [0020](adr/0020-actualizacion-a-node-26-y-ci.md) |
 | **Web en Next.js con BFF** (`web/`) | La API key y la URL de la API quedan en el servidor; la futura app en Expo usa el mismo puente. | [0022](adr/0022-web-nextjs-con-bff.md) |
+| **Listado completo en `/v1/benefits`**, intercalado por emisor | Ver todo sin buscar, sin cambiar el contrato de `/v1/search`; cada página mezcla emisores. Lee la misma caché. | [0023](adr/0023-listado-completo-en-endpoint-propio.md) |
 | **API key en todas las rutas** (`API_KEYS`, `Authorization: Bearer`) | Con una URL pública, la API solo responde a la web (y a los clientes con llave). `GET /health` queda abierto para los health checks. | [0014](adr/0014-autenticacion-con-api-key.md) |
 
 ## Preparación para la app móvil
 
 | Tema | Implementación |
 |---|---|
-| Versionado | `/v1/search`, `/v1/banks`, `/v1/health`. Las rutas sin versión siguen funcionando (deprecadas). |
+| Versionado | `/v1/search`, `/v1/benefits` (todos, sin consulta), `/v1/banks`, `/v1/health`. Las rutas sin versión siguen funcionando (deprecadas). |
 | Contrato | [`openapi.yaml`](openapi.yaml), con un test (`tests/interfaces/openapi-sync.test.js`) que falla si una ruta o un campo no está documentado. |
 | Autenticación | Con `API_KEYS`, toda ruta salvo `GET /health` exige `Authorization: Bearer <llave>` o `x-api-key`; sin llave válida, 401 `UNAUTHORIZED`. El log de acceso registra el nombre del cliente. |
 | Errores | `{ error: { code, message, details? } }` con el status HTTP correcto (400, 401, 404, 405, 413 y 500). Los 500 no exponen detalles internos. |

@@ -53,6 +53,44 @@ test('si /api/destacados falla, el inicio se muestra sin la seccion', async ({ p
   await expect(page.getByRole('heading', { name: 'Destacados de hoy' })).toHaveCount(0);
 });
 
+test('"Todos los beneficios": se llega sin buscar y se puede filtrar y cargar mas', async ({ page }, info) => {
+  const requests: string[] = [];
+  await mockApi(page);
+  page.on('request', (r) => r.url().includes('/api/beneficios') && requests.push(r.url()));
+  await page.goto('/');
+  if (info.project.name === 'escritorio') {
+    await page.getByRole('navigation', { name: 'Principal' }).getByRole('link', { name: 'Todos los beneficios' }).click();
+  } else {
+    await page.getByRole('link', { name: /mira todos los beneficios/ }).click();
+  }
+  await expect(page).toHaveURL(/\/beneficios$/);
+  await expect(page.getByRole('heading', { level: 1, name: 'Todos los beneficios' })).toBeVisible();
+  await expect(results(page).getByTestId('benefit-card')).toHaveCount(6);
+  await expect(page.getByText('Mostrando 6 de 12 beneficios', { exact: true })).toBeVisible();
+  expect(requests[0]).toContain('facets=1');
+  expect(requests[0]).not.toContain('q=');
+
+  await page.getByRole('button', { name: 'Cargar más' }).click();
+  await expect(results(page).getByTestId('benefit-card')).toHaveCount(12);
+});
+
+test('"Todos los beneficios" con filtro por emisor en la URL', async ({ page }, info) => {
+  desktopOnly(info.project.name);
+  await mockApi(page);
+  await page.goto('/beneficios');
+  const panel = page.getByRole('group', { name: 'Emisores' });
+  await expect(panel.getByRole('checkbox', { name: 'Copec Pay, 2 beneficios' })).toBeChecked();
+  await panel.getByText('Santander').click();
+  await expect(page).toHaveURL(/\/beneficios\?banks=bci%2Ctenpo%2Ctapp%2Ccopec%2Cbancochile/);
+});
+
+test('sin consulta, /buscar ofrece ver todos los beneficios', async ({ page }) => {
+  await mockApi(page);
+  await page.goto('/buscar');
+  await results(page).getByRole('link', { name: /Ver todos los beneficios/ }).click();
+  await expect(page).toHaveURL(/\/beneficios$/);
+});
+
 test('un chip de sugerencia busca ese comercio', async ({ page }) => {
   await mockApi(page);
   await page.goto('/');

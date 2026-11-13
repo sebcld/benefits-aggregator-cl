@@ -4,6 +4,7 @@ import { BetaBadge } from '@/components/ui/BetaBadge';
 import { ThemeToggle } from '@/components/ui/ThemeToggle';
 
 const NAV = [
+  { href: '/beneficios', label: 'Todos los beneficios' },
   { href: '/#como-funciona', label: 'Cómo funciona' },
   { href: '/#fuentes', label: 'Emisores' },
   { href: process.env.NEXT_PUBLIC_CONTACT_URL || 'https://github.com/sebcld/benefits-aggregator-cl/issues', label: 'Contacto' },

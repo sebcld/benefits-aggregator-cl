@@ -2,7 +2,7 @@
 
 Cada ADR documenta **una** decisión: el contexto, las alternativas, lo que se decidió y sus consecuencias. Formato [MADR](https://adr.github.io/madr/), numeración correlativa y un archivo por decisión.
 
-- **Aceptado:** ya está en el código. El 0014, el 0018, el 0020 y el 0022 se aceptaron al implementarse. Los ADR 0001 a 0013 son **retroactivos**: se redactaron después de implementar, a partir del código, el historial de git y `docs/CHANGELOG_REFACTOR.md`. Las alternativas descartadas salen de lo que se evaluó durante el trabajo. Las marcadas como *(reconstruida)* son alternativas razonables que no hay registro de que se evaluaran en su momento: se agregaron para que el ADR explique por qué la decisión tomada es mejor.
+- **Aceptado:** ya está en el código. El 0014, el 0018, el 0020, el 0022 y el 0023 se aceptaron al implementarse. Los ADR 0001 a 0013 son **retroactivos**: se redactaron después de implementar, a partir del código, el historial de git y `docs/CHANGELOG_REFACTOR.md`. Las alternativas descartadas salen de lo que se evaluó durante el trabajo. Las marcadas como *(reconstruida)* son alternativas razonables que no hay registro de que se evaluaran en su momento: se agregaron para que el ADR explique por qué la decisión tomada es mejor.
 - **Propuesto:** todavía **no** está decidido ni implementado. Necesita aprobación antes de aplicarse.
 - **Reemplazado:** sustituido por otro ADR, que se enlaza. Hoy no hay ninguno.
 
@@ -32,6 +32,7 @@ Cada ADR documenta **una** decisión: el contexto, las alternativas, lo que se d
 | [0020](0020-actualizacion-a-node-26-y-ci.md) | Actualización a Node 26 (LTS) e integración continua | Aceptado | 2026-11-12 |
 | [0021](0021-acceso-a-banco-de-chile-sin-proxy-gratuito.md) | Acceso a Banco de Chile sin depender de un proxy gratuito | **Propuesto** | 2026-11-12 |
 | [0022](0022-web-nextjs-con-bff.md) | Web en Next.js con Route Handlers como BFF | Aceptado | 2026-11-12 |
+| [0023](0023-listado-completo-en-endpoint-propio.md) | Listado completo de beneficios en un endpoint propio | Aceptado | 2026-11-13 |
 
 ```mermaid
 flowchart LR
@@ -42,6 +43,8 @@ flowchart LR
   a0003 --> a0012["0012 Banco de Chile"]
   a0006["0006 API v1"] --> a0005["0005 Errores"]
   a0006 --> a0022["0022 Web y BFF"]
+  a0006 --> a0023["0023 Listado completo"]
+  a0007 --> a0023
   a0007 --> a0008["0008 CLI sin cache"]
   a0007 -.-> p0016["0016 Redis"]
   a0007 -.-> p0017["0017 Warm-up"]
