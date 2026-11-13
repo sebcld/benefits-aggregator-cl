@@ -13,8 +13,8 @@ const crypto = require('crypto');
  * @property {string} [keywords]    Texto extra para la busqueda
  * @property {string} [tagsText]    Tags para la busqueda
  * @property {string} [category]    Categorias separadas por coma (hoy solo Copec Pay)
- * @property {string} [validFrom]   YYYY-MM-DD (Copec Pay, Mercado Pago)
- * @property {string} [validUntil]  YYYY-MM-DD (Copec Pay, Banco de Chile, Mercado Pago)
+ * @property {string} [validFrom]   YYYY-MM-DD (Copec Pay, Mercado Pago, Entel)
+ * @property {string} [validUntil]  YYYY-MM-DD (Copec Pay, Banco de Chile, Mercado Pago, Entel)
  * @property {string} [cardType]    Tarjeta con la que aplica ("Tarjeta prepago virtual")
  * @property {string} [discountCap] Tope del descuento ("$5.000")
  * @property {string} [termsUrl]    Terminos y condiciones

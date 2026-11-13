@@ -37,4 +37,20 @@ function anySignal(signals) {
   return controller.signal;
 }
 
-module.exports = { sleep, anySignal, abortReason };
+// Como Promise.all(items.map(fn)), pero con a lo sumo "limit" tareas en curso a la vez (para no
+// abrir decenas de conexiones a la misma fuente). Mantiene el orden de "items" en el resultado.
+async function mapWithLimit(items, limit, fn) {
+  const results = new Array(items.length);
+  let next = 0;
+  const worker = async () => {
+    while (next < items.length) {
+      const index = next;
+      next += 1;
+      results[index] = await fn(items[index], index);
+    }
+  };
+  await Promise.all(Array.from({ length: Math.max(1, Math.min(limit, items.length)) }, worker));
+  return results;
+}
+
+module.exports = { sleep, anySignal, abortReason, mapWithLimit };

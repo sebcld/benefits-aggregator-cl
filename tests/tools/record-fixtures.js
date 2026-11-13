@@ -39,11 +39,19 @@ const TRIMMERS = {
 // Respuestas de texto (HTML) que se recortan a lo que usa el parser.
 // Mercado Pago: de cada landing (~150 KB) solo el script con el estado incrustado; de los
 // terminos (~40 KB), solo el texto visible.
+// Entel: de la lista (~860 KB) solo las tarjetas (con su <swiper-slide>, que trae los dias); de
+// cada ficha (~260 KB) solo el modal de condiciones.
+const ENTEL_CARD = /(?:<swiper-slide\b[^>]*>\s*)?<ads-card-general\b[^>]*>[\s\S]*?<\/ads-card-general>/g;
+const ENTEL_TERMS = /<andino-modal-passive\b[^>]*eds-title=(["'])Información del beneficio\1[^>]*>[\s\S]*?<\/andino-modal-passive>/;
 const TEXT_TRIMMERS = {
   mercadopago: (url, text) =>
     /\/terms\/html$/.test(url)
       ? `<html><body>${require('../../src/shared/text').cleanText(text)}</body></html>`
       : (text.match(/<script\b[^>]*>\s*_n\.ctx\.s\["nr"\]\.q\([\s\S]*?<\/script>/g) || []).join('\n'),
+  entel: (url, text) =>
+    url === require('../../src/providers/entel.provider').LIST_URL
+      ? (text.match(ENTEL_CARD) || []).join('\n')
+      : (text.match(ENTEL_TERMS) || [''])[0],
 };
 
 const realFetch = globalThis.fetch;
@@ -99,6 +107,7 @@ const JOBS = {
   copec: () => benefits.fetchCopec(),
   bancochile: () => benefits.fetchBancoChile(),
   mercadopago: () => benefits.fetchMercadoPago(),
+  entel: () => benefits.fetchEntel(),
 };
 
 async function main() {

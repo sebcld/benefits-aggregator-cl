@@ -10,6 +10,7 @@ const DEFAULT_PROVIDERS = [
   require('./copec.provider').provider,
   require('./bancochile.provider').provider,
   require('./mercadopago.provider').provider,
+  require('./entel.provider').provider,
 ];
 
 /**

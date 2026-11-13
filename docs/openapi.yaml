@@ -4,7 +4,7 @@ info:
   version: 2.0.0
   description: |
     Busca beneficios y descuentos de bancos, tarjetas y billeteras de Chile (Santander, BCI,
-    Tenpo, Tapp, Copec Pay, Banco de Chile y Mercado Pago) consultando sus fuentes publicas.
+    Tenpo, Tapp, Copec Pay, Banco de Chile, Mercado Pago y Entel) consultando sus fuentes publicas.
 
     ## Como integrar (cliente movil)
     1. `GET /v1/banks` para poblar el filtro de emisores (usar `key` como valor).
@@ -131,6 +131,7 @@ paths:
                   - { key: copec, name: Copec Pay, searchMode: catalog }
                   - { key: bancochile, name: Banco de Chile, searchMode: catalog }
                   - { key: mercadopago, name: Mercado Pago, searchMode: catalog }
+                  - { key: entel, name: Entel, searchMode: catalog }
 
   /v1/health:
     get:
@@ -351,7 +352,7 @@ components:
                   message: 'Emisor desconocido: nope'
                   details:
                     unknown: [nope]
-                    allowed: [santander, bci, tenpo, tapp, copec, bancochile, mercadopago]
+                    allowed: [santander, bci, tenpo, tapp, copec, bancochile, mercadopago, entel]
             paginacion:
               value:
                 error:
@@ -411,7 +412,7 @@ components:
         discountCap:
           type: string
           nullable: true
-          description: Tope del descuento o de la devolución, en pesos. Hoy solo Mercado Pago.
+          description: Tope del descuento o de la devolución, en pesos. Hoy Mercado Pago y Entel.
           example: $5.000
         termsUrl:
           type: string

@@ -34,6 +34,7 @@ const fetchBancoChile = () => fetchByKey('bancochile');
 // 1.x se acepta por compatibilidad, pero ya no se usa.
 // eslint-disable-next-line no-unused-vars
 const fetchMercadoPago = (_query) => fetchByKey('mercadopago');
+const fetchEntel = () => fetchByKey('entel');
 
 // Devuelve { matches, errors } con errors = [{ bank, message }], como la version original.
 async function searchBenefits(query, { banks } = {}) {
@@ -58,4 +59,5 @@ module.exports = {
   fetchCopec,
   fetchBancoChile,
   fetchMercadoPago,
+  fetchEntel,
 };

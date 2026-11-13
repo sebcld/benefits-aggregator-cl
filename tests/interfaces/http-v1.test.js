@@ -72,7 +72,7 @@ describe('API v1', () => {
     assert.equal(rappiPro.bankKey, 'mercadopago');
     assert.equal(rappiPro.cardType, 'Tarjeta prepago virtual');
     assert.match(rappiPro.termsUrl, /^https:\/\/api\.mercadopago\.com\/v2\/discounts\/campaign\/\d+\/terms\/html$/);
-    assert.equal(sources.length, 7);
+    assert.equal(sources.length, 8);
     assert.deepEqual(errors, []);
     assert.equal(meta.partial, false);
     for (const r of results) {

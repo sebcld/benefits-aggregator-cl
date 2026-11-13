@@ -36,7 +36,7 @@ test('defineProvider valida el contrato', () => {
   assert.equal(assertProvider(p), p);
 });
 
-test('el registro trae los 7 emisores en el orden historico', () => {
+test('el registro trae los 8 emisores en el orden historico (los nuevos al final)', () => {
   const names = createProviderRegistry().list().map((p) => p.name);
   assert.deepEqual(names, [
     'Santander',
@@ -46,6 +46,7 @@ test('el registro trae los 7 emisores en el orden historico', () => {
     'Copec Pay',
     'Banco de Chile',
     'Mercado Pago',
+    'Entel',
   ]);
 });
 
@@ -55,7 +56,7 @@ test('select filtra por nombre sin distinguir mayusculas y conserva el orden', (
   assert.deepEqual(keys(registry.select(['copec pay', 'BCI'])), ['bci', 'copec']);
   assert.deepEqual(keys(registry.select(['copec'])), []);
   assert.deepEqual(keys(registry.select(['copec'], { allowKeys: true })), ['copec']);
-  assert.equal(registry.select([]).length, 7);
+  assert.equal(registry.select([]).length, 8);
 });
 
 test('el registro rechaza duplicados', () => {

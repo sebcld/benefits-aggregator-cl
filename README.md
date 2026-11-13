@@ -2,7 +2,7 @@
 
 CLI y API HTTP en Node que consultan en vivo las fuentes públicas de emisores chilenos (bancos, tarjetas y billeteras), normalizan los beneficios a un formato común y los filtran por palabra clave (por ejemplo, `"burger king"`).
 
-**Emisores:** Santander, BCI, Tenpo, Tapp, Copec Pay, Banco de Chile y Mercado Pago.
+**Emisores:** Santander, BCI, Tenpo, Tapp, Copec Pay, Banco de Chile, Mercado Pago y Entel.
 
 **¿Eres nuevo en el proyecto?** Lee en este orden: [contexto](docs/arquitectura/01-contexto.md), [capas](docs/arquitectura/02-capas.md), [secuencia de una búsqueda](docs/arquitectura/04-secuencia-busqueda.md), [interfaces](docs/arquitectura/09-interfaces-compatibilidad.md) y [arquitectura objetivo](docs/arquitectura/10-arquitectura-objetivo.md). Son unos 15 minutos.
 
@@ -78,6 +78,7 @@ const { matches, errors } = await searchBenefits('rappi', { banks: ['Copec Pay']
 | Copec Pay | REST del tema WordPress `copecpay.cl/wp-json/custom/v1/beneficios/`. Solo vigentes hoy (hora de Chile); `fetchCopec({ includeInactive: true })` trae todos |
 | Banco de Chile | API de contenido de [Todos los beneficios](https://sitiospublicos.bancochile.cl/personas/beneficios/todos-los-beneficios) (`/api/content/spaces/personas/types/beneficios/entries`), vía el proxy `r.jina.ai` porque el sitio bloquea clientes automatizados (`JINA_API_KEY` opcional) |
 | Mercado Pago | Landing [Beneficios tarjeta Mercado Pago](https://www.mercadopago.cl/landing/beneficios-tarjeta-prepago), su landing por beneficio y los términos de cada campaña (`api.mercadopago.com/v2/discounts/campaign/<id>/terms/html`). No hay API JSON: se lee el estado que la página trae incrustado. Incluye tipo de tarjeta, tope y vigencia |
+| Entel | HTML de [Club Entel](https://www.entel.cl/beneficios) (Modyo, renderizado en el servidor; la página no usa ninguna API JSON) y la ficha de cada beneficio (`/beneficios/descuentos/<slug>`), de a 4 a la vez. De la lista: comercio, descuento, días, categorías y logo; de la ficha: condiciones, vigencia y tope |
 
 **Búsqueda:**
 - No distingue mayúsculas, tildes ni puntuación (`"el cafe rosa"` encuentra "El Café Rosa").
@@ -125,5 +126,6 @@ npm run fixtures:golden               # regenera las salidas de referencia (revi
 | Santander | `burger king` | Burger King |
 | Copec Pay | `Rappi`, `El Café Rosa` | Rappi, El Café Rosa |
 | Mercado Pago | `turbus` | Turbus (15% de cashback, tarjeta prepago física) |
+| Entel | `dunkin` | Dunkin (30% de descuento los jueves) |
 
 La carpeta `entregable/` contiene el diagnóstico de la corrección de Copec Pay y el contexto del proyecto para asistentes de IA.

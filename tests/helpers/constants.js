@@ -19,6 +19,7 @@ const ACCEPTANCE_CASES = [
   ['BCI', 'pedidos ya', /PedidosYa/],
   ['Santander', 'burger king', /^Burger King$/],
   ['Mercado Pago', 'turbus', /^Turbus$/],
+  ['Entel', 'dunkin', /^Dunkin$/],
   ['Copec Pay', 'Rappi', /^Rappi$/],
   ['Copec Pay', 'El Café Rosa', /^El Café Rosa$/],
 ];

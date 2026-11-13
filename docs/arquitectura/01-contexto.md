@@ -26,12 +26,13 @@ flowchart LR
     tapp{{"Tapp<br/>CMS Modyo"}}
     copec{{"Copec Pay<br/>WordPress REST"}}
     mp{{"Mercado Pago<br/>landing tarjeta"}}
+    entel{{"Entel<br/>HTML Modyo"}}
     bch{{"Banco de Chile<br/>CMS Modyo"}}
   end
 
   jina{{"r.jina.ai<br/>proxy de lectura"}}
 
-  sistema --> santander & bci & tenpo & tapp & copec & mp
+  sistema --> santander & bci & tenpo & tapp & copec & mp & entel
   sistema --> jina --> bch
 ```
 
@@ -43,4 +44,5 @@ flowchart LR
 **Notas**
 - **Banco de Chile** está detrás de Incapsula (responde 302/403 a clientes automatizados), por eso se lee a través de `r.jina.ai`. Ver [ADR 0012](../adr/0012-banco-de-chile-via-api-modyo-y-jina.md).
 - **Mercado Pago** se lee desde la landing de beneficios de la tarjeta, su landing por beneficio y los términos de cada campaña. No tiene API JSON: se usa el estado que la página trae incrustado. Ver [ADR 0018](../adr/0018-futuro-de-mercado-pago.md).
+- **Entel** (Club Entel) también es un sitio Modyo, pero su API de contenido no es pública y la página no pide datos por JSON: se lee el HTML de la lista y la ficha de cada beneficio (condiciones, vigencia y tope).
 - **Las URLs exactas** de cada fuente están en la constante `URL`, `BASE_URL` o `API_URL` de cada `src/providers/*.provider.js`.
