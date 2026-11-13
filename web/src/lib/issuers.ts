@@ -17,6 +17,7 @@ const KNOWN: Record<string, { name: string; token: string }> = {
   copec: { name: 'Copec Pay', token: '--issuer-copec' },
   bancochile: { name: 'Banco de Chile', token: '--issuer-bancochile' },
   mercadopago: { name: 'Mercado Pago', token: '--issuer-mercadopago' },
+  entel: { name: 'Entel', token: '--issuer-entel' },
 };
 
 const FALLBACK_TOKEN = '--text-secondary';

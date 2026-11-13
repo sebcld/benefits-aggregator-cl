@@ -6,7 +6,7 @@
 
 ## 1. Qué es
 
-Buscador de beneficios y descuentos de bancos, tarjetas y billeteras de **Chile**. Consulta en vivo las fuentes públicas de 7 emisores (Santander, BCI, Tenpo, Tapp, Copec Pay, Banco de Chile y Mercado Pago), normaliza cada beneficio a un `Entry` común y filtra por palabra clave. No hay base de datos.
+Buscador de beneficios y descuentos de bancos, tarjetas y billeteras de **Chile**. Consulta en vivo las fuentes públicas de 8 emisores (Santander, BCI, Tenpo, Tapp, Copec Pay, Banco de Chile, Mercado Pago y Entel), normaliza cada beneficio a un `Entry` común y filtra por palabra clave. No hay base de datos.
 
 - **CLI:** `node src/index.js "<texto>"`. Sin caché ni timeouts, con la misma salida que la 1.x.
 - **API HTTP:** `node src/server.js`. Ofrece `/v1/*` (contrato móvil en `docs/openapi.yaml`) y las rutas 1.x `/search` y `/health`. Tiene caché en memoria de 30 min y timeouts.
@@ -56,6 +56,7 @@ src/bootstrap.js  composition root: createApp({ env, fetchImpl, clock, sleep, ca
 | `copec` | `/wp-json/custom/v1/beneficios/` | 48 vigentes / 313 | Filtra por vigencia en hora de Chile |
 | `bancochile` | API Modyo `/api/content/spaces/personas/types/beneficios/entries` vía `r.jina.ai` (texto) | 919 | Desde la 2.0.0; antes era scraping de 9 páginas |
 | `mercadopago` | Landing `mercadopago.cl/landing/beneficios-tarjeta-prepago` (estado incrustado) + landing por beneficio + términos de la campaña | — | 7 beneficios; incluye tipo de tarjeta, tope y vigencia |
+| `entel` | HTML de `entel.cl/beneficios` (Modyo, sin API JSON) + ficha de cada beneficio, de a 4 | 92 | Condiciones, vigencia y tope salen de la ficha |
 
 ## 5. Casos de aceptación (`tests/helpers/constants.js` → `ACCEPTANCE_CASES`)
 
@@ -67,6 +68,7 @@ src/bootstrap.js  composition root: createApp({ env, fetchImpl, clock, sleep, ca
 | Santander | `burger king` | Burger King |
 | Copec Pay | `Rappi`, `El Café Rosa` | Rappi, El Café Rosa |
 | Mercado Pago | `turbus` | Turbus |
+| Entel | `dunkin` | Dunkin |
 
 ## 6. Pruebas
 

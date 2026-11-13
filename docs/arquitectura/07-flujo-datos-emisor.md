@@ -55,4 +55,5 @@ Los demás emisores siguen uno de estos dos patrones:
 - **BCI** es una API paginada con llave.
 - **Copec Pay** es JSON en una sola llamada, como Santander, y además filtra por vigencia.
 - **Tenpo** es HTML con regex.
-- **Mercado Pago** lee 3 niveles: la lista, una landing por beneficio y los términos de cada campaña (estos dos, en paralelo). Es el único que entrega `cardType`, `discountCap` y `termsUrl`.
+- **Mercado Pago** lee 3 niveles: la lista, una landing por beneficio y los términos de cada campaña (estos dos, en paralelo). Es el único que entrega `cardType` y `termsUrl`.
+- **Entel** lee 2 niveles de HTML: la lista (una tarjeta por beneficio y sección, agrupadas por la ficha) y la ficha de cada beneficio, de a 4 a la vez (`mapWithLimit`), de donde salen las condiciones, la vigencia y `discountCap`.

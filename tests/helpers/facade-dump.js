@@ -12,6 +12,7 @@ async function main() {
     copec: await benefits.fetchCopec(),
     copecIncludeInactive: await benefits.fetchCopec({ includeInactive: true }),
     bancochile: await benefits.fetchBancoChile(),
+    entel: await benefits.fetchEntel(),
   };
 
   const search = {};

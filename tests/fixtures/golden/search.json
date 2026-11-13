@@ -98,6 +98,20 @@
     "validUntil": "2026-12-31",
     "keywords": "Restaurante Ruta Sabores presencial",
     "tagsText": "20% Martes Sábado Domingo Jueves Miércoles Lunes Viernes"
+   },
+   {
+    "bank": "Entel",
+    "title": "El Café Rosa",
+    "subtitle": "25% dcto en el total de tu boleta lunes, martes y jueves",
+    "description": "25% de dcto: cupón 25% de dscto en total de la cuenta lunes, martes y jueves. ambos no acumulable con otras promociones. solo para consumo o retiro en local. 15% de dcto: cupón 15% de dscto en total de la cuenta domingos. ambos no acumulable con otras promociones. solo para consumo o retiro en local.",
+    "url": "https://www.entel.cl/beneficios/descuentos/cafe-rosa",
+    "slug": "cafe-rosa",
+    "commerceName": "El Café Rosa",
+    "keywords": "25% de dcto 15% de dcto",
+    "tagsText": "",
+    "category": "Comida",
+    "validFrom": "",
+    "validUntil": ""
    }
   ],
   "errors": []
@@ -113,6 +127,20 @@
     "slug": "burger-king-3",
     "tagsText": "home-disfrutadores cat-sabores jueves cuarenta regiones maslucas santander-teens todas-las-tarjetas ml-joven-papas metropolitana destacado_home",
     "url": "https://banco.santander.cl/beneficios/promociones/burger-king-3"
+   },
+   {
+    "bank": "Entel",
+    "title": "Burger King",
+    "subtitle": "25% dcto los días miércoles",
+    "description": "Descuento válido en el total de tu compra todos los miércoles. Válido presentando el cupón de la app Entel directamente en locales Burger King y Auto King. Aplica en compra de productos desde $3.000. Tope máximo de descuento por transacción: $15.000. No aplica en compras con delivery. No aplia sobre otras promociones y/o descuentos. No aplica en compras en tótems y app.",
+    "url": "https://www.entel.cl/beneficios/descuentos/burger-king",
+    "slug": "burger-king",
+    "commerceName": "Burger King",
+    "keywords": "",
+    "tagsText": "miercoles",
+    "category": "Comida",
+    "validFrom": "",
+    "validUntil": ""
    }
   ],
   "errors": []
@@ -305,6 +333,20 @@
     "validUntil": "2026-12-31",
     "keywords": "Restaurante Ruta Sabores presencial",
     "tagsText": "20% Martes Sábado Domingo Jueves Miércoles Lunes Viernes"
+   },
+   {
+    "bank": "Entel",
+    "title": "El Café Rosa",
+    "subtitle": "25% dcto en el total de tu boleta lunes, martes y jueves",
+    "description": "25% de dcto: cupón 25% de dscto en total de la cuenta lunes, martes y jueves. ambos no acumulable con otras promociones. solo para consumo o retiro en local. 15% de dcto: cupón 15% de dscto en total de la cuenta domingos. ambos no acumulable con otras promociones. solo para consumo o retiro en local.",
+    "url": "https://www.entel.cl/beneficios/descuentos/cafe-rosa",
+    "slug": "cafe-rosa",
+    "commerceName": "El Café Rosa",
+    "keywords": "25% de dcto 15% de dcto",
+    "tagsText": "",
+    "category": "Comida",
+    "validFrom": "",
+    "validUntil": ""
    }
   ],
   "errors": []
@@ -408,6 +450,25 @@
     "category": "Viajes",
     "validFrom": "2025-09-25",
     "validUntil": "2027-03-31"
+   }
+  ],
+  "errors": []
+ },
+ "Entel: dunkin": {
+  "matches": [
+   {
+    "bank": "Entel",
+    "title": "Dunkin",
+    "subtitle": "30% descuento · Todos los jueves",
+    "description": "Descuento Jueves: 30% de descuento todos los jueves en el total de la boleta. Descuento válido para compras presenciales indicando código antes de pagar. No acumulable con otras promociones. No válido para promoción de caja 24 Donuts y 24 Donuts más bebida de 1,5 L. No aplica para productos de Merchandising como botellas, tazones, mugs y otros elementos retail; café en grano y bebidas enlatadas y/o embotelladas. Valido hasta el 31-12-2026.",
+    "url": "https://www.entel.cl/beneficios/descuentos/dunkin",
+    "slug": "dunkin",
+    "commerceName": "Dunkin",
+    "keywords": "Descuento Jueves",
+    "tagsText": "jueves",
+    "category": "Comida",
+    "validFrom": "",
+    "validUntil": "2026-12-31"
    }
   ],
   "errors": []

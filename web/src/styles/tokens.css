@@ -45,6 +45,7 @@
   --issuer-bancochile: #002464;
   --issuer-bci: #1B6BB3;
   --issuer-copec: #f97316;
+  --issuer-entel: #002eff;
   --issuer-mercadopago: #00b5ef;
   --issuer-santander: #ec0000;
   --issuer-tapp: #00719b;
@@ -80,6 +81,7 @@
     --issuer-bci: #1B6BB3;
     --issuer-bci-gradient: linear-gradient(135deg, #1b6bb3 0%, #ec2b2b 42%, #fad105 74%, #0a8a3e 100%);
     --issuer-copec: #f97316;
+    --issuer-entel: #4062ff;
     --issuer-mercadopago: #00b5ef;
     --issuer-santander: #ec0000;
     --issuer-tapp: #00719b;
@@ -115,6 +117,7 @@
   --issuer-bci: #1B6BB3;
   --issuer-bci-gradient: linear-gradient(135deg, #1b6bb3 0%, #ec2b2b 42%, #fad105 74%, #0a8a3e 100%);
   --issuer-copec: #f97316;
+  --issuer-entel: #4062ff;
   --issuer-mercadopago: #00b5ef;
   --issuer-santander: #ec0000;
   --issuer-tapp: #00719b;

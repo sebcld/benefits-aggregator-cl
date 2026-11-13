@@ -6,12 +6,12 @@
  },
  "El Café Rosa": {
   "code": 0,
-  "stdout": "Coincidencias para \"El Café Rosa\":\n\nBCI (1)\nCOMERCIO: El Café Rosa\n----------------------\n- El Café Rosa - En todas sus sucursales\n  Exclusivo con tus tarjetas de Crédito o Débito Bci. 20% de descuento con tope de $20.000 por cliente al día. Para hacer efectivo el descuento Bci, debes solicitarlo en el restau...\n  https://www.bci.cl/beneficios/beneficios-bci/detalle/en-todas-sus-sucursales-02bwzhl\n  slug: en-todas-sus-sucursales-02bwzhl\n\nCopec Pay (1)\nCOMERCIO: El Café Rosa\n----------------------\n- El Café Rosa - 20% de descuento pagando con tu Copec Pay de manera presencial.\n  20% de descuento pagando con tu Copec Pay de manera presencial todos los dias de la semana.\n  Vigencia: 2026-11-01 al 2026-12-31\n  https://copecpay.cl/beneficios/restaurante/el-cafe-rosa/\n",
+  "stdout": "Coincidencias para \"El Café Rosa\":\n\nBCI (1)\nCOMERCIO: El Café Rosa\n----------------------\n- El Café Rosa - En todas sus sucursales\n  Exclusivo con tus tarjetas de Crédito o Débito Bci. 20% de descuento con tope de $20.000 por cliente al día. Para hacer efectivo el descuento Bci, debes solicitarlo en el restau...\n  https://www.bci.cl/beneficios/beneficios-bci/detalle/en-todas-sus-sucursales-02bwzhl\n  slug: en-todas-sus-sucursales-02bwzhl\n\nCopec Pay (1)\nCOMERCIO: El Café Rosa\n----------------------\n- El Café Rosa - 20% de descuento pagando con tu Copec Pay de manera presencial.\n  20% de descuento pagando con tu Copec Pay de manera presencial todos los dias de la semana.\n  Vigencia: 2026-11-01 al 2026-12-31\n  https://copecpay.cl/beneficios/restaurante/el-cafe-rosa/\n\nEntel (1)\nCOMERCIO: El Café Rosa\n----------------------\n- El Café Rosa - 25% dcto en el total de tu boleta lunes, martes y jueves\n  25% de dcto: cupón 25% de dscto en total de la cuenta lunes, martes y jueves. ambos no acumulable con otras promociones. solo para consumo o retiro en local. 15% de dcto: cupón...\n  https://www.entel.cl/beneficios/descuentos/cafe-rosa\n",
   "stderr": ""
  },
  "burger king": {
   "code": 0,
-  "stdout": "Coincidencias para \"burger king\":\n\nSantander (1)\nCOMERCIO: Burger King\n---------------------\n- Burger King - 40% dcto. todos los jueves.\n  ¡Disfruta las mejores burger a la parrilla, desde 1954! Recuerda que: Exclusivo con tus Tarjetas de Crédito Santander y Débito Santander. Válido en Autoking y locales, exclusiva...\n  https://banco.santander.cl/beneficios/promociones/burger-king-3\n",
+  "stdout": "Coincidencias para \"burger king\":\n\nSantander (1)\nCOMERCIO: Burger King\n---------------------\n- Burger King - 40% dcto. todos los jueves.\n  ¡Disfruta las mejores burger a la parrilla, desde 1954! Recuerda que: Exclusivo con tus Tarjetas de Crédito Santander y Débito Santander. Válido en Autoking y locales, exclusiva...\n  https://banco.santander.cl/beneficios/promociones/burger-king-3\n\nEntel (1)\nCOMERCIO: Burger King\n---------------------\n- Burger King - 25% dcto los días miércoles\n  Descuento válido en el total de tu compra todos los miércoles. Válido presentando el cupón de la app Entel directamente en locales Burger King y Auto King. Aplica en compra de p...\n  https://www.entel.cl/beneficios/descuentos/burger-king\n",
   "stderr": ""
  },
  "kfc": {
@@ -36,7 +36,12 @@
  },
  "turbus": {
   "code": 0,
-  "stdout": "Coincidencias para \"turbus\":\n\nMercado Pago (1)\nCOMERCIO: Turbus\n----------------\n- Turbus - Disfruta 15% de cashback pagando por primera vez en tótems\n  Exclusivo para primera compra física en tótems de Turbus con la tarjeta Mercado Pago. Tope de descuento: $5.000.\n  Vigencia: 2025-09-25 al 2027-03-31\n  https://www.mercadopago.cl/landing/turbus-fisica\n",
+  "stdout": "Coincidencias para \"turbus\":\n\nMercado Pago (1)\nCOMERCIO: Turbus\n----------------\n- Turbus - Disfruta 15% de cashback pagando por primera vez en tótems\n  Exclusivo para primera compra física en tótems de Turbus con la tarjeta Mercado Pago. Tope de descuento: $5.000.\n  Vigencia: 2025-09-25 al 2027-03-31\n  https://www.mercadopago.cl/landing/turbus-fisica\n\nEntel (1)\nCOMERCIO: Turbus\n----------------\n- Turbus - 20% dcto. en compras online www.turbus.cl\n  Tope de descuento por transacción: $3.000. Descuento válido solo a través de la web www.turbus.cl. Descuento no acumulable con otras promociones y/o descuentos. Beneficio para v...\n  Vigencia: hasta 2026-12-31\n  https://www.entel.cl/beneficios/descuentos/turbus\n",
+  "stderr": ""
+ },
+ "dunkin": {
+  "code": 0,
+  "stdout": "Coincidencias para \"dunkin\":\n\nBanco de Chile (1)\nCOMERCIO: Dunkin’\n-----------------\n- Dunkin’ - 30% dto. - lunes y miércoles presencial y online\n  30% dto. lunes y miércoles presencial y online. Para compra presencial, solicita en caja tu descuento al momento de pagar con tu Tarjeta Banco de Chile. Para compra online ingre...\n  Vigencia: hasta 2026-12-31\n  https://sitiospublicos.bancochile.cl/personas/beneficios/detalle/dunkin-dto\n\nEntel (1)\nCOMERCIO: Dunkin\n----------------\n- Dunkin - 30% descuento · Todos los jueves\n  Descuento Jueves: 30% de descuento todos los jueves en el total de la boleta. Descuento válido para compras presenciales indicando código antes de pagar. No acumulable con otras...\n  Vigencia: hasta 2026-12-31\n  https://www.entel.cl/beneficios/descuentos/dunkin\n",
   "stderr": ""
  },
  "(sin argumentos)": {

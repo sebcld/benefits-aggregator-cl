@@ -262,7 +262,7 @@ export interface components {
              */
             cardType?: string | null;
             /**
-             * @description Tope del descuento o de la devolución, en pesos. Hoy solo Mercado Pago.
+             * @description Tope del descuento o de la devolución, en pesos. Hoy Mercado Pago y Entel.
              * @example $5.000
              */
             discountCap?: string | null;
@@ -663,6 +663,11 @@ export interface operations {
                      *         {
                      *           "key": "mercadopago",
                      *           "name": "Mercado Pago",
+                     *           "searchMode": "catalog"
+                     *         },
+                     *         {
+                     *           "key": "entel",
+                     *           "name": "Entel",
                      *           "searchMode": "catalog"
                      *         }
                      *       ]
