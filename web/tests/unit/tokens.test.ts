@@ -1,10 +1,12 @@
 // @vitest-environment node
-// Tokens: contraste AA de los pares de texto usados en la UI (ambos temas) y ningun color suelto
-// en los componentes.
+// Tokens (src/styles/tokens.css, editado a mano): los dos bloques de Dark coinciden, contraste AA de
+// los pares de texto usados en la UI (ambos temas) y ningun color suelto en los componentes.
 import { readdirSync, readFileSync, statSync } from 'node:fs';
 import path from 'node:path';
 import { describe, expect, it } from 'vitest';
-import { colorTokens, type ColorToken } from '@/styles/tokens';
+import { parseTokens, readTokens } from '@/styles/read-tokens';
+
+const tokens = readTokens();
 
 type RGBA = [number, number, number, number];
 
@@ -36,22 +38,45 @@ function contrast(fg: RGBA, bg: RGBA): number {
 }
 
 // [texto, fondo, fondo base si el fondo es translucido, donde se usa]
-const TEXT_PAIRS: Array<[ColorToken, ColorToken, ColorToken | null, string]> = [
-  ['text/primary', 'bg/page', null, 'texto general'],
-  ['text/primary', 'bg/surface', null, 'tarjetas'],
-  ['text/secondary', 'bg/page', null, 'bajadas, resumen'],
-  ['text/secondary', 'bg/surface', null, 'placeholder, emisor'],
-  ['text/secondary', 'bg/subtle', null, 'iniciales del logo'],
-  ['text/on-brand', 'brand/primary', null, 'chip activo, boton buscar'],
-  ['brand/soft-text', 'brand/soft', null, 'pildora hero, Ver beneficio'],
-  ['brand/primary', 'glass/bg', 'bg/page', '"Limpiar" en el panel de vidrio'],
-  ['state/warn-text', 'state/warn-bg', 'bg/page', 'aviso parcial'],
-  ['state/error', 'state/error-bg', 'bg/page', 'aviso de error'],
-  ['accent/on-amber', 'accent/amber-bg', 'bg/surface', 'vigencia y Beta'],
+const TEXT_PAIRS: Array<[string, string, string | null, string]> = [
+  ['--text-primary', '--bg-page', null, 'texto general'],
+  ['--text-primary', '--bg-surface', null, 'tarjetas'],
+  ['--text-secondary', '--bg-page', null, 'bajadas, resumen'],
+  ['--text-secondary', '--bg-surface', null, 'placeholder, emisor'],
+  ['--text-secondary', '--bg-subtle', null, 'iniciales del logo'],
+  ['--text-on-brand', '--brand-primary', null, 'chip activo, boton buscar'],
+  ['--brand-soft-text', '--brand-soft', null, 'pildora hero, Ver beneficio'],
+  ['--brand-primary', '--glass-bg', '--bg-page', '"Limpiar" en el panel de vidrio'],
+  ['--state-warn-text', '--state-warn-bg', '--bg-page', 'aviso parcial'],
+  ['--state-error', '--state-error-bg', '--bg-page', 'aviso de error'],
+  ['--accent-on-amber', '--accent-amber-bg', '--bg-surface', 'vigencia y Beta'],
 ];
 
+describe('tokens.css', () => {
+  it('Dark por sistema (@media) y Dark elegido ([data-theme="dark"]) tienen los mismos valores', () => {
+    expect(tokens.systemDark).toEqual(tokens.dark);
+  });
+
+  it('tiene los tokens de color que usa la UI, en ambos temas', () => {
+    for (const name of TEXT_PAIRS.flatMap(([fg, bg, base]) => [fg, bg, base]).filter(Boolean) as string[]) {
+      expect(tokens.light[name], name).toBeTruthy();
+      expect(tokens.dark[name], name).toBeTruthy();
+    }
+  });
+
+  it('parseTokens: comunes en ambos temas, Light por defecto y Dark encima', () => {
+    const t = parseTokens(`:root { --space-1: 4px; }
+      :root, [data-theme='light'] { --a: #fff; --b: #111; }
+      @media (prefers-color-scheme: dark) { :root:not([data-theme='light']) { --a: #000; } }
+      [data-theme='dark'] { --a: #000; }`);
+    expect(t.light).toEqual({ '--space-1': '4px', '--a': '#fff', '--b': '#111' });
+    expect(t.dark).toEqual({ '--space-1': '4px', '--a': '#000', '--b': '#111' });
+    expect(t.systemDark).toEqual(t.dark);
+  });
+});
+
 describe.each(['light', 'dark'] as const)('contraste AA (%s)', (mode) => {
-  const t = colorTokens[mode];
+  const t = tokens[mode];
   it.each(TEXT_PAIRS)('%s sobre %s (%s, %s)', (fg, bg, base) => {
     const background = base ? over(parse(t[bg]), parse(t[base])) : parse(t[bg]);
     const foreground = over(parse(t[fg]), background);
@@ -66,10 +91,10 @@ describe('sin colores sueltos', () => {
       const full = path.join(dir, name);
       return statSync(full).isDirectory() ? files(full) : /\.(tsx?|css)$/.test(name) ? [full] : [];
     });
-  // Los unicos lugares con valores de color son los generados desde el diseno.
-  const GENERATED = new Set(['tokens.css', 'tokens.ts']);
+  // El unico lugar con valores de color es tokens.css.
+  const COLOR_SOURCES = new Set(['tokens.css']);
 
-  it.each(files(ROOT).filter((f) => !GENERATED.has(path.basename(f))).map((f) => [path.relative(ROOT, f), f]))(
+  it.each(files(ROOT).filter((f) => !COLOR_SOURCES.has(path.basename(f))).map((f) => [path.relative(ROOT, f), f]))(
     '%s no usa hex, rgb() ni la paleta por defecto de Tailwind',
     (_name, file) => {
       const source = readFileSync(file, 'utf8');

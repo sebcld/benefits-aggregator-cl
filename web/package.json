@@ -16,10 +16,7 @@
     "test:watch": "vitest",
     "test:e2e": "playwright test",
     "check": "npm run lint && npm run typecheck && npm test",
-    "api:types": "openapi-typescript ../docs/openapi.yaml -o src/lib/api/schema.d.ts",
-    "design:tokens": "node scripts/design/export-tokens.mjs",
-    "design:render": "node scripts/design/render-design.mjs",
-    "design:compare": "node scripts/design/compare.mjs"
+    "api:types": "openapi-typescript ../docs/openapi.yaml -o src/lib/api/schema.d.ts"
   },
   "dependencies": {
     "next": "16.4.6",

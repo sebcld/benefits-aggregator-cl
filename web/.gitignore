@@ -43,9 +43,7 @@ next-env.d.ts
 # env de ejemplo (sin secretos)
 !.env.example
 
-# capturas generadas (design:render, playwright)
-/design-ref/
+# reportes de Playwright
 /playwright-report/
 /test-results/
 /blob-report/
-/e2e/__screenshots__/

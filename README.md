@@ -52,7 +52,7 @@ npm start                            # http://localhost:3000
 
 ### Web
 
-La web está en [`web/`](web/README.md): Next.js, TypeScript y Tailwind, siguiendo el diseño de [`design/beneficios_CL.figcraft`](design/beneficios_CL.figcraft). Consume esta API a través de sus Route Handlers `/api/*` (BFF), así que la URL y la API key nunca llegan al navegador ([ADR 0022](docs/adr/0022-web-nextjs-con-bff.md)).
+La web está en [`web/`](web/README.md): Next.js, TypeScript y Tailwind, con sus colores y medidas en [`web/src/styles/tokens.css`](web/src/styles/tokens.css). Consume esta API a través de sus Route Handlers `/api/*` (BFF), así que la URL y la API key nunca llegan al navegador ([ADR 0022](docs/adr/0022-web-nextjs-con-bff.md)).
 
 ```bash
 npm start                                   # API en :3000

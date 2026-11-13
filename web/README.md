@@ -36,19 +36,17 @@ npm run dev                     # http://localhost:3001
 | `npm run build` y `npm start` | Build de producción y servidor en el puerto 3001. |
 | `npm run test:e2e` | Playwright contra el build, con el BFF simulado (no necesita la API). En local usa Edge; en CI, Chromium. |
 | `npm run api:types` | Regenera `src/lib/api/schema.d.ts` desde `docs/openapi.yaml`. |
-| `npm run design:tokens` | Exporta las variables del diseño a `src/styles/tokens.css` y `tokens.ts`. |
-| `npm run design:render` | Renderiza los frames del diseño a PNG en `design-ref/`. |
-| `npm run design:compare` | Pone cada captura de la web junto a su frame del diseño, en `design-ref/compare/`. |
 
-## Diseño → código
+## Sistema de diseño (tokens)
 
-La fuente de verdad es [`design/beneficios_CL.figcraft`](../design/beneficios_CL.figcraft). En esta sesión no había conector de FigCraft, así que el archivo, que es un zip con `document.json`, se lee con scripts propios en `scripts/design/`:
+Los colores, medidas y sombras viven en un solo archivo, [`src/styles/tokens.css`](src/styles/tokens.css), que **se edita a mano**. Por ejemplo, para cambiar el color de un emisor se edita su `--issuer-<key>`.
 
-- **Tokens.** `export-tokens.mjs` lee las colecciones Color (modos Light y Dark), Espaciado y Radio y las escribe como variables CSS semánticas (`--bg-page`, `--brand-primary`…).
-  - Light es el tema por defecto. Dark se activa con `[data-theme="dark"]` o, si no hay preferencia guardada, con `prefers-color-scheme`.
-  - Los efectos que cambian por tema se toman de las pantallas y también quedan como tokens: la sombra de la tarjeta (`--shadow-card`) y el brillo del shimmer.
-- **Tailwind.** `globals.css` borra la paleta por defecto y mapea los tokens a utilidades (`bg-surface`, `text-fg-muted`, `rounded-lg`…). La escala de espaciado del diseño (`space/N` = N × 4 px) es la misma de Tailwind. El test `tokens.test.ts` falla si un componente usa un hex, `rgb()` o la paleta por defecto.
-- **Comparación visual.** `render-design.mjs` posiciona cada nodo con su `transform` ya resuelto y Playwright lo captura. Luego `e2e/screens.spec.ts` captura la web en 390 px y 1440 px, en Light y Dark, con datos iguales a los del diseño, y `compare.mjs` arma las imágenes lado a lado.
+- **Temas.** Light es el tema por defecto. Dark se activa con `[data-theme="dark"]` o, si no hay preferencia guardada, con `prefers-color-scheme`.
+  - Por eso cada color de Dark va en **dos bloques** que deben ser iguales: el de `@media (prefers-color-scheme: dark)` y el de `[data-theme='dark']`.
+  - El test `tokens.test.ts` falla si esos bloques difieren.
+- **Uso desde TypeScript.** [`read-tokens.ts`](src/styles/read-tokens.ts) lee `tokens.css` en el build para el `themeColor` del navegador, los swatches de `/sistema` y el test de contraste. No hay que copiar valores a otro archivo.
+- **Tailwind.** `globals.css` borra la paleta por defecto y mapea los tokens a utilidades (`bg-surface`, `text-fg-muted`, `rounded-lg`…). La escala de espaciado (`--space-N` = N × 4 px) es la misma de Tailwind.
+- **Controles.** El test `tokens.test.ts` también falla si un par de texto usado en la UI no cumple contraste AA en algún tema, o si un componente usa un hex, `rgb()` o la paleta por defecto de Tailwind.
 
 ## Arquitectura
 
@@ -65,7 +63,7 @@ src/
 │   ├── api/             Tipos (generados desde OpenAPI), cliente del navegador, errores
 │   ├── server/          Solo servidor ('server-only'): acceso a la API y casos de uso del BFF
 │   └── *.ts             Formato (fechas, iniciales, descuento), filtros, emisores, tema
-└── styles/              tokens.css y tokens.ts (generados)
+└── styles/              tokens.css (fuente de colores y medidas) y read-tokens.ts (lo lee en el build)
 ```
 
 - **El navegador solo habla con `/api/*`.** La URL de la API y `BENEFITS_API_KEY` viven en el servidor de Next (`lib/server`, marcado `server-only`), así que la API key del ADR 0014 nunca llega al bundle. La futura app en Expo usará el mismo BFF.
@@ -73,15 +71,13 @@ src/
 - **Estado en la URL.** `?q=&banks=` permite compartir una búsqueda y que el botón "atrás" funcione.
 - **Tema.** Un script inline en `<head>` aplica la preferencia guardada antes del primer pintado. `localStorage` siempre va dentro de un try/catch.
 
-## Decisiones respecto del diseño
+## Decisiones de la interfaz
 
 | Tema | Decisión | Motivo |
 |---|---|---|
-| Píldora "Tarjeta de crédito" (medio de pago) | No se muestra. | La API no entrega ese dato. |
 | Valor del descuento (píldora hero) | Se extrae del título y, si no trae valor, de la bajada. | Santander, Copec Pay y Banco de Chile ponen el descuento en la bajada ("Burger King" / "40% dcto. todos los jueves"). Sin ese respaldo, casi ninguna tarjeta tendría píldora. |
-| Texto de la vigencia y del badge Beta | Usan `accent/on-amber`; el ícono del calendario sigue en `accent/amber`. | `accent/amber` sobre `accent/amber-bg` da 2,8:1 y no cumple AA. |
-| Separación entre filas de la grilla | 20 px, igual que entre columnas. | Lo pide el brief. El diseño usa 10 px entre filas (el `cross_gap` por defecto de FigCraft). |
-| Sombra Dark de la tarjeta y del buscador | Borde y brillo superior. | Así lo muestran las pantallas Dark; la hoja de componentes Dark todavía tiene la sombra Light. |
-| Ícono del sol | Recentrado. | En el archivo estaba desplazado 0,8 × 1,5 px. |
-| Inicio en móvil | Muestra "Destacados de hoy" (de `/api/destacados`, con caché de 2 horas) en vez del Bento y las fuentes. | Así está en el diseño. |
-| Mercado Pago en los filtros | Aparece con conteo "–". | La API lo lista, pero hoy siempre falla ([RIESGOS #1](../docs/RIESGOS.md)). No tiene token de color, así que usa el color secundario. |
+| Píldora de tarjeta ("medio de pago") | Se muestra cuando la API trae `cardType` (hoy, Mercado Pago). | En el resto de los emisores la fuente no entrega el dato. |
+| Texto de la vigencia y del badge Beta | Usan `--accent-on-amber`; el ícono del calendario sigue en `--accent-amber`. | `--accent-amber` sobre `--accent-amber-bg` da 2,8:1 y no cumple AA. |
+| Sombra de la tarjeta y del buscador | Sombra suave en Light; en Dark, borde y brillo superior (`--shadow-card`). | Una sombra oscura casi no se ve sobre un fondo oscuro. |
+| Grilla de resultados | 2 columnas en escritorio (gap 20 px) y 1 en móvil (gap 14 px). | — |
+| Inicio en móvil | Muestra "Destacados de hoy" (de `/api/destacados`, con caché de 2 horas) en vez del Bento y las fuentes. | Pantalla más corta y con contenido real al abrir la app. |

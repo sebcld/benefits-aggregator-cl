@@ -2,8 +2,10 @@ import type { Metadata, Viewport } from 'next';
 import { Bricolage_Grotesque, DM_Sans } from 'next/font/google';
 import { SiteHeader } from '@/components/layout/SiteHeader';
 import { THEME_SCRIPT } from '@/lib/theme';
-import { colorTokens } from '@/styles/tokens';
+import { readTokens } from '@/styles/read-tokens';
 import './globals.css';
+
+const tokens = readTokens();
 
 // Google Fonts servidas por next/font (se descargan en el build y se sirven desde el propio
 // dominio), con font-display: swap.
@@ -18,8 +20,8 @@ export const metadata: Metadata = {
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: '(prefers-color-scheme: light)', color: colorTokens.light['bg/page'] },
-    { media: '(prefers-color-scheme: dark)', color: colorTokens.dark['bg/page'] },
+    { media: '(prefers-color-scheme: light)', color: tokens.light['--bg-page'] },
+    { media: '(prefers-color-scheme: dark)', color: tokens.dark['--bg-page'] },
   ],
 };
 

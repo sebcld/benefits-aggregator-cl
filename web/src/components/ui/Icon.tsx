@@ -1,4 +1,4 @@
-// Iconos del diseno (trazos extraidos de design/beneficios_CL.figcraft, trazo 1.5, color heredado).
+// Iconos de la interfaz (SVG de trazo 1.5, color heredado con currentColor).
 import type { SVGProps } from 'react';
 
 const ICONS = {

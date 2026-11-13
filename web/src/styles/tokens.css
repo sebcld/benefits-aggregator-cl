@@ -1,4 +1,6 @@
-/* GENERADO por scripts/design/export-tokens.mjs desde design/beneficios_CL.figcraft. No editar a mano.
+/* Tokens del sistema de diseno: la UNICA fuente de los colores, medidas y sombras de la web.
+ * Se editan a mano aqui (los componentes solo usan var(--token), nunca un color suelto).
+ *
  * Light es el tema por defecto. Dark aplica con [data-theme="dark"] o, si el usuario no eligio tema,
  * con prefers-color-scheme: dark. Los selectores [data-theme] tambien funcionan en un elemento
  * interior (por ejemplo, para mostrar ambos temas lado a lado en /sistema). */
