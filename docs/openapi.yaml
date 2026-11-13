@@ -17,6 +17,9 @@ info:
     - Insensible a mayusculas, tildes y puntuacion: `el cafe rosa` encuentra "El Café Rosa".
     - Una palabra de 4 letras o menos solo coincide como palabra completa (`kfc`, `cine`).
       Las marcas con mayuscula interna cuentan como dos palabras: `bus` encuentra "FlixBus".
+    - Categorias: si la consulta completa es `gas`, `bus` o `taxi` (o una variante: `buses`,
+      `taxis`, `gas licuado`), tambien coincide con los comercios de esa categoria en todos los
+      emisores (Lipigas, Gasconnect; Turbus, Kupos; Cabify, Uber...).
     - Se ignoran los espacios al comparar: `burgerking` encuentra "Burger King".
 
     ## Latencia y cache
