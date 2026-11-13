@@ -23,6 +23,14 @@ export function setChecked(selected: string[], key: string, checked: boolean, al
   return next.length === 0 ? [] : normalize(next, allKeys);
 }
 
+/**
+ * Boton "Solo" del panel de escritorio: deja seleccionado solo ese emisor y descarta los demas.
+ * Para elegir 2 o 3 emisores rapido: "Solo" en el primero y luego marcar los otros.
+ */
+export function onlyThis(key: string, allKeys: string[]): string[] {
+  return normalize([key], allKeys);
+}
+
 /** Chip movil: con "Todos", tocar un emisor filtra solo por el; si no, lo agrega o lo quita. */
 export function toggleChip(selected: string[], key: string, allKeys: string[]): string[] {
   if (selected.length === 0) return normalize([key], allKeys);

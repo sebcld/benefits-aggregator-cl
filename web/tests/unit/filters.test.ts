@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest';
-import { isSelected, parseBanksParam, resultsHref, setChecked, toggleChip } from '@/lib/filters';
+import { isSelected, onlyThis, parseBanksParam, resultsHref, setChecked, toggleChip } from '@/lib/filters';
 
 const ALL = ['santander', 'bci', 'tenpo'];
 
@@ -24,6 +24,14 @@ describe('seleccion de emisores ([] = todos)', () => {
 
   it('checkbox: desmarcar el ultimo vuelve a "todos" (nunca una busqueda vacia)', () => {
     expect(setChecked(['bci'], 'bci', false, ALL)).toEqual([]);
+  });
+
+  it('"Solo": deja ese emisor y descarta los demas, desde "todos" o desde otra seleccion', () => {
+    expect(onlyThis('bci', ALL)).toEqual(['bci']);
+    // Elegir 2 rapido: "Solo" en uno y marcar el otro.
+    expect(setChecked(onlyThis('bci', ALL), 'tenpo', true, ALL)).toEqual(['bci', 'tenpo']);
+    // Con un solo emisor disponible, "solo ese" es lo mismo que "todos".
+    expect(onlyThis('bci', ['bci'])).toEqual([]);
   });
 
   it('chip: desde "Todos", tocar un emisor filtra solo por el', () => {

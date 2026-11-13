@@ -174,6 +174,22 @@ describe('IssuerCheckbox', () => {
     expect(box).toBeDisabled();
     expect(box).not.toBeChecked();
   });
+
+  it('"Solo" llama a onOnly sin tocar el checkbox; sin onOnly no se muestra', () => {
+    const onChange = vi.fn();
+    const onOnly = vi.fn();
+    const { rerender } = render(<IssuerCheckbox issuerKey="bci" name="BCI" count={3} checked onChange={onChange} onOnly={onOnly} />);
+    fireEvent.click(screen.getByRole('button', { name: 'Solo BCI' }));
+    expect(onOnly).toHaveBeenCalledOnce();
+    expect(onChange).not.toHaveBeenCalled();
+    rerender(<IssuerCheckbox issuerKey="bci" name="BCI" count={3} checked onChange={onChange} />);
+    expect(screen.queryByRole('button', { name: 'Solo BCI' })).not.toBeInTheDocument();
+  });
+
+  it('"Solo" queda deshabilitado en un emisor sin coincidencias', () => {
+    render(<IssuerCheckbox issuerKey="tapp" name="Tapp" count={0} checked onChange={() => {}} onOnly={() => {}} />);
+    expect(screen.getByRole('button', { name: 'Solo Tapp' })).toBeDisabled();
+  });
 });
 
 describe('LoadingCard', () => {

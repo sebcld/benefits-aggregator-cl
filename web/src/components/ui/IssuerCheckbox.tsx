@@ -1,4 +1,5 @@
-// Fila del panel de filtros: checkbox nativo (accesible) con caja propia, circulo, nombre y conteo.
+// Fila del panel de filtros: checkbox nativo (accesible) con caja propia, circulo, nombre y conteo,
+// y un boton "Solo" que deja seleccionado solo este emisor.
 // Un emisor con 0 coincidencias queda deshabilitado y atenuado, como en el diseno.
 import { cn } from '@/lib/cn';
 import { Icon } from './Icon';
@@ -11,9 +12,11 @@ interface IssuerCheckboxProps {
   count: number | null;
   checked: boolean;
   onChange: (checked: boolean) => void;
+  /** "Solo": seleccionar este emisor y descartar los demas. Sin el, no se muestra el boton. */
+  onOnly?: () => void;
 }
 
-export function IssuerCheckbox({ issuerKey, name, count, checked, onChange }: IssuerCheckboxProps) {
+export function IssuerCheckbox({ issuerKey, name, count, checked, onChange, onOnly }: IssuerCheckboxProps) {
   const empty = count === 0;
   const id = `filtro-${issuerKey}`;
   const countLabel = count === null ? '' : `, ${count} ${count === 1 ? 'beneficio' : 'beneficios'}`;
@@ -53,6 +56,18 @@ export function IssuerCheckbox({ issuerKey, name, count, checked, onChange }: Is
           {count ?? '–'}
         </span>
       </label>
+      {onOnly && (
+        <button
+          type="button"
+          onClick={onOnly}
+          disabled={empty}
+          aria-label={`Solo ${name}`}
+          title={`Mostrar solo ${name}`}
+          className="shrink-0 rounded-sm px-1 text-12 font-semibold text-brand enabled:hover:underline disabled:invisible"
+        >
+          Solo
+        </button>
+      )}
     </div>
   );
 }

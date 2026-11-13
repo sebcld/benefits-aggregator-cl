@@ -4,7 +4,7 @@
 import { ChipButton } from '@/components/ui/Chip';
 import { IssuerCheckbox } from '@/components/ui/IssuerCheckbox';
 import type { Bank, Facet } from '@/lib/api/types';
-import { isSelected, setChecked, toggleChip } from '@/lib/filters';
+import { isSelected, onlyThis, setChecked, toggleChip } from '@/lib/filters';
 
 interface FiltersProps {
   banks: Bank[];
@@ -38,8 +38,10 @@ export function IssuerFilterPanel({ banks, facets, selected, onChange }: Filters
           count={countFor(facets, bank.key)}
           checked={isSelected(selected, bank.key)}
           onChange={(checked) => onChange(setChecked(selected, bank.key, checked, allKeys))}
+          onOnly={() => onChange(onlyThis(bank.key, allKeys))}
         />
       ))}
+      <p className="text-12 leading-4 text-fg-muted">Usa «Solo» para quedarte con un emisor y luego marca los que quieras sumar.</p>
     </fieldset>
   );
 }

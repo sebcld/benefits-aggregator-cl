@@ -138,6 +138,20 @@ test('filtros de escritorio: conteo por emisor, deshabilitado con 0 y filtro en 
   await expect(page).toHaveURL(/\/buscar\?q=rappi$/);
 });
 
+test('filtros de escritorio: "Solo" deja un emisor y luego se suman otros', async ({ page }, info) => {
+  desktopOnly(info.project.name);
+  await mockApi(page);
+  await page.goto('/buscar?q=rappi');
+  const panel = page.getByRole('group', { name: 'Emisores' });
+  await panel.getByRole('button', { name: 'Solo Copec Pay' }).click();
+  await expect(page).toHaveURL(/\/buscar\?q=rappi&banks=copec$/);
+  await expect(panel.getByRole('checkbox', { name: /^Copec Pay/ })).toBeChecked();
+  await expect(panel.getByRole('checkbox', { name: /^BCI/ })).not.toBeChecked();
+  // Sumar un segundo emisor: 2 clics en total, en vez de desmarcar los otros 4.
+  await panel.getByText('BCI').click();
+  await expect(page).toHaveURL(/banks=bci%2Ccopec$/);
+});
+
 test('filtros moviles: chips "Todos" y por emisor', async ({ page }, info) => {
   mobileOnly(info.project.name);
   await mockApi(page);
