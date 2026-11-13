@@ -84,6 +84,31 @@ describe('BenefitCard', () => {
     expect(screen.getByTestId('benefit-card-type')).toHaveTextContent('Tarjeta prepago física');
   });
 
+  it('BCI Starbucks: pildora del descuento (discount), dias y vigencia aunque el texto no traiga el %', () => {
+    render(
+      <BenefitCard
+        benefit={{
+          ...BENEFIT,
+          bank: 'BCI',
+          bankKey: 'bci',
+          title: 'Starbucks',
+          subtitle: 'Tu café favorito y el momento perfecto para recargar tu dia.',
+          discount: '30%',
+          schedule: 'Todos los lunes',
+          validUntil: '2026-12-31',
+        }}
+      />,
+    );
+    expect(screen.getByTestId('benefit-hero')).toHaveTextContent('30% DCTO');
+    expect(screen.getByTestId('benefit-schedule')).toHaveTextContent('Todos los lunes');
+    expect(screen.getByText('Vigente hasta 31 dic 2026')).toBeInTheDocument();
+  });
+
+  it('sin schedule no hay pastilla de dias', () => {
+    render(<BenefitCard benefit={BENEFIT} />);
+    expect(screen.queryByTestId('benefit-schedule')).not.toBeInTheDocument();
+  });
+
   it('un emisor sin token de color usa el secundario', () => {
     render(<BenefitCard benefit={{ ...BENEFIT, bankKey: 'emisor-nuevo', bank: 'Emisor Nuevo' }} />);
     expect(screen.getByTestId('benefit-card').style.getPropertyValue('--issuer')).toBe('var(--text-secondary)');

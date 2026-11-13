@@ -1,8 +1,9 @@
 // Tarjeta de beneficio (variante por emisor: el color sale de --issuer).
 // Mapeo de datos: bank/bankKey -> emisor y color; title/subtitle -> titulo y bajada;
-// description -> descripcion; logo -> logo o iniciales; validUntil -> pastilla de vigencia
-// (se oculta si es null); cardType -> pastilla de tarjeta (se oculta si es null); url -> "Ver
-// beneficio"; hero -> extraido del titulo o, si no, de la bajada (si no hay valor claro, no se muestra).
+// description -> descripcion; logo -> logo o iniciales; schedule -> pastilla de dias
+// ("Todos los lunes"); validUntil -> pastilla de vigencia; cardType -> pastilla de tarjeta (cada
+// pastilla se oculta si su dato es null); url -> "Ver beneficio"; hero -> del dato `discount` o,
+// si no viene, del titulo o la bajada (si no hay valor claro, no se muestra).
 import type { Benefit } from '@/lib/api/types';
 import { extractHero, formatValidUntil } from '@/lib/benefit-format';
 import { cn } from '@/lib/cn';
@@ -15,6 +16,10 @@ type CardBenefit = Pick<Benefit, 'bank' | 'bankKey' | 'title' | 'subtitle' | 'de
   commerceName?: string | null;
   /** Tarjeta con la que aplica (pildora "medio de pago" del diseno). Hoy solo Mercado Pago. */
   cardType?: string | null;
+  /** Descuento principal de un dato estructurado ("30%"). Tiene prioridad sobre el texto. Hoy solo BCI. */
+  discount?: string | null;
+  /** Dias en que aplica ("Todos los lunes"). Hoy solo BCI. */
+  schedule?: string | null;
 };
 
 interface BenefitCardProps {
@@ -25,8 +30,9 @@ interface BenefitCardProps {
 }
 
 export function BenefitCard({ benefit, headingLevel: Heading = 'h3', className }: BenefitCardProps) {
-  const hero = extractHero(benefit.title, benefit.subtitle);
+  const hero = extractHero(benefit.title, benefit.subtitle, benefit.discount);
   const validUntil = formatValidUntil(benefit.validUntil);
+  const hasPills = Boolean(benefit.schedule || validUntil || benefit.cardType);
 
   return (
     <article
@@ -54,8 +60,17 @@ export function BenefitCard({ benefit, headingLevel: Heading = 'h3', className }
 
       <div className="flex flex-col gap-3 px-4 pt-4 pb-3">
         {benefit.description && <p className="line-clamp-3 text-14 leading-5 text-fg">{benefit.description}</p>}
-        {(validUntil || benefit.cardType) && (
+        {hasPills && (
           <ul className="flex flex-wrap gap-2">
+            {benefit.schedule && (
+              <li
+                data-testid="benefit-schedule"
+                className="inline-flex items-center gap-1.5 rounded-pill bg-subtle py-1 pr-2.5 pl-2 text-12 font-semibold text-fg-muted"
+              >
+                <Icon name="clock" />
+                {benefit.schedule}
+              </li>
+            )}
             {validUntil && (
               <li className="inline-flex items-center gap-1.5 rounded-pill bg-amber-bg py-1 pr-2.5 pl-2 text-12 font-semibold text-on-amber">
                 <Icon name="calendar" className="text-amber" />

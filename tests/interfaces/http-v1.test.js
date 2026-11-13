@@ -62,6 +62,8 @@ describe('API v1', () => {
       'cardType',
       'discountCap',
       'termsUrl',
+      'discount',
+      'schedule',
     ]);
     const rappi = results.find((r) => r.title === 'Rappi');
     assert.equal(rappi.bankKey, 'copec');

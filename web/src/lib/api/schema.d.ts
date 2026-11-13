@@ -277,6 +277,20 @@ export interface components {
              * @description Términos y condiciones del beneficio. Hoy solo Mercado Pago.
              */
             termsUrl?: string | null;
+            /**
+             * @description Descuento principal, tomado de un dato estructurado de la fuente (no del texto): un
+             *     porcentaje ("30%") o un cashback ("7% cashback"). Hoy solo BCI. Si es null, el valor
+             *     puede estar en `title` o `subtitle`.
+             * @example 30%
+             */
+            discount?: string | null;
+            /**
+             * @description Días de la semana en que aplica, listo para mostrar ("Todos los lunes", "Martes,
+             *     miércoles y jueves"; "Todos los días" si la fuente marca los 7). null si la fuente no
+             *     informa días. Hoy solo BCI.
+             * @example Todos los lunes
+             */
+            schedule?: string | null;
         };
         Pagination: {
             page: number;
@@ -453,7 +467,9 @@ export interface components {
                  *           "logo": "https://copecpay.cl/wp-content/uploads/2025/06/rappid-2-1.png",
                  *           "cardType": null,
                  *           "discountCap": null,
-                 *           "termsUrl": null
+                 *           "termsUrl": null,
+                 *           "discount": null,
+                 *           "schedule": null
                  *         }
                  *       ],
                  *       "pagination": {

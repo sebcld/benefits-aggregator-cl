@@ -49,7 +49,7 @@ export async function getFeatured(): Promise<Benefit[]> {
   for (const { status, body } of responses) {
     if (status !== 200 || !('results' in body)) continue;
     const candidates = body.results.filter((b) => !usedBanks.has(b.bankKey));
-    const best = candidates.find((b) => extractHero(b.title, b.subtitle)) ?? candidates[0];
+    const best = candidates.find((b) => extractHero(b.title, b.subtitle, b.discount)) ?? candidates[0];
     if (best) {
       picked.push(best);
       usedBanks.add(best.bankKey);

@@ -78,7 +78,7 @@ const { matches, errors } = await searchBenefits('rappi', { banks: ['Copec Pay']
 | Emisor | Fuente |
 |---|---|
 | Santander | JSON público `banco.santander.cl/beneficios/promociones.json` |
-| BCI | API `api.bciplus.cl/bff-loyalty-beneficios/v1/offers`, paginada (header `ocp-apim-subscription-key` = `BCI_SUBSCRIPTION_KEY`). Título = comercio (`comercio.nombre`), bajada = título de la oferta; link a la ficha `bci.cl/beneficios/beneficios-bci/detalle/<slug>` |
+| BCI | API `api.bciplus.cl/bff-loyalty-beneficios/v1/offers`, paginada (header `ocp-apim-subscription-key` = `BCI_SUBSCRIPTION_KEY`). Título = comercio (`comercio.nombre`), bajada = título de la oferta; link a la ficha `bci.cl/beneficios/beneficios-bci/detalle/<slug>`. Descuento (`deal`: porcentaje o cashback con tope), vigencia (`fechaInicio`/`fechaTermino`, en hora de Chile) y días (`scheduling.dayRecurrence`) salen de los datos estructurados, no del texto |
 | Tenpo | HTML de `www.tenpo.cl/beneficios` y su paginación (regex). Logo: `<img class="brand-partner">` de cada tarjeta, si la tiene |
 | Tapp | CMS `web.cajalosandes.cl/api/content/spaces/wp-tapp-beneficios-copia/...` (el mismo de `www.tapp.cl/beneficios`). Solo las categorías vigentes (`meta.category=beneficios` y `convenios`); las finalizadas no se descargan |
 | Copec Pay | REST del tema WordPress `copecpay.cl/wp-json/custom/v1/beneficios/`. Solo vigentes hoy (hora de Chile); `fetchCopec({ includeInactive: true })` trae todos |

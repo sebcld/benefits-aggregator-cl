@@ -3161,7 +3161,9 @@
    "slug": "cupones-100.000-clp-descuento-en-viajes-bci-zkcy7vq",
    "commerceName": "ViajesBci.cl",
    "keywords": "",
-   "tagsText": "Online Viajes Vuelos Cupones"
+   "tagsText": "Online Viajes Vuelos Cupones",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3172,7 +3174,9 @@
    "slug": "agencia-de-viajes-con-el-mejor-servicio-y-precios-baratos-con-todo-lo-que-necesitas.-92qbtg5",
    "commerceName": "ViajesBci.cl",
    "keywords": "",
-   "tagsText": "Online Descuentos Vuelos"
+   "tagsText": "Online Descuentos Vuelos",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3183,7 +3187,9 @@
    "slug": "con-avis-y-bci-arrendar-un-auto-es-mas-barato-vorwqrt",
    "commerceName": "Avis Budget",
    "keywords": "",
-   "tagsText": "Descuentos Arriendo Rent a car Transportes Viajes"
+   "tagsText": "Descuentos Arriendo Rent a car Transportes Viajes",
+   "validFrom": "2026-01-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3194,7 +3200,9 @@
    "slug": "bienestar-y-cuidado-personal-para-ti-y-tu-familia.-todo-lo-que-necesitas-en-un-lugar.-sard7kh",
    "commerceName": "Salcobrand",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Bienestar"
+   "tagsText": "Presencial Descuentos Bienestar",
+   "validFrom": "2026-04-30",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3205,7 +3213,9 @@
    "slug": "un-anio-gratis-de-pedidosya-plus-99gys0m",
    "commerceName": "PedidosYa",
    "keywords": "",
-   "tagsText": "Supermercados Descuentos"
+   "tagsText": "Supermercados Descuentos",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3216,7 +3226,9 @@
    "slug": "akun-bar-las-condes-desde-las-16.00-hrs-xcn7fog",
    "commerceName": "Marriott",
    "keywords": "",
-   "tagsText": "Presencial Viernes Descuentos Restaurantes R. Metropolitana Las Condes"
+   "tagsText": "Presencial Viernes Descuentos Restaurantes R. Metropolitana Las Condes",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3227,7 +3239,9 @@
    "slug": "las-condes-y-vitacura-mnqaxi",
    "commerceName": "Antonella Bar",
    "keywords": "",
-   "tagsText": "Restaurantes"
+   "tagsText": "Restaurantes",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3238,7 +3252,9 @@
    "slug": "jueves-vitacura-n4k7c4r",
    "commerceName": "Caoba Bar",
    "keywords": "",
-   "tagsText": "Descuentos Presencial"
+   "tagsText": "Descuentos Presencial",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3249,7 +3265,9 @@
    "slug": "30-por-ciento-de-desc.-con-tus-tdc-bci-en-los-packs-light-smart-full-flex-k8nfiof",
    "commerceName": "JetSmart",
    "keywords": "",
-   "tagsText": "Vuelos Viajes Descuentos"
+   "tagsText": "Vuelos Viajes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3260,7 +3278,9 @@
    "slug": "paga-en-3-a-24-cuotas-sin-interes-xqja11",
    "commerceName": "UC CHRISTUS",
    "keywords": "",
-   "tagsText": "Online Pago en cuotas Hogar"
+   "tagsText": "Online Pago en cuotas Hogar",
+   "validFrom": "2026-10-02",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3271,7 +3291,9 @@
    "slug": "paga-en-3-o-6-cuotas-con-tus-tarjetas-de-credito-bci.-xkx1qqj",
    "commerceName": "En el 2026 compra TODO",
    "keywords": "",
-   "tagsText": "Online Presencial Pago en cuotas 3 cuotas sin interes"
+   "tagsText": "Online Presencial Pago en cuotas 3 cuotas sin interes",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3282,7 +3304,9 @@
    "slug": "10-a-12-cuotas-6qkzh7g",
    "commerceName": "Tasa preferencial en Salud",
    "keywords": "",
-   "tagsText": "Pago en cuotas Presencial Online Tasa preferencial"
+   "tagsText": "Pago en cuotas Presencial Online Tasa preferencial",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3293,7 +3317,9 @@
    "slug": "4-estadias-gratis-en-estacionamiento-mallplaza-1qftd04",
    "commerceName": "MallPlaza",
    "keywords": "",
-   "tagsText": "Presencial"
+   "tagsText": "Presencial",
+   "validFrom": "2026-10-21",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3304,7 +3330,9 @@
    "slug": "todos-los-lunes-multiplica-x4-el-cashback-en-tus-compras-por-jumbo.cl-u1yjwe9",
    "commerceName": "Jumbo.cl",
    "keywords": "",
-   "tagsText": "Lunes Cashback"
+   "tagsText": "Lunes Cashback",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3315,7 +3343,9 @@
    "slug": "tus-bebidas-favoritas-de-la-familia-micoca-cola.cl-directo-a-la-casa-lh5opo",
    "commerceName": "miCoca-Cola.cl",
    "keywords": "(region): Todo Chile;(comuna): Todas las comunas con cobertura de despacho;(canal): Online;(dia semana): Todos los dias;(tipo oferta): Descuento;(medio de pago): Tarjeta de Crédito Bci;(tipo restaurante): ;(info extra): Bebidas, Gaseosas, Jugos, Agua, Licores;",
-   "tagsText": "Descuentos Cerveza Alcohol Online"
+   "tagsText": "Descuentos Cerveza Alcohol Online",
+   "validFrom": "2026-11-09",
+   "validUntil": "2026-11-15"
   },
   {
    "bank": "BCI",
@@ -3326,7 +3356,9 @@
    "slug": "multiplica-x5-tu-cashback-en-pedidosya-market-ksgbwla",
    "commerceName": "PedidosYa",
    "keywords": "",
-   "tagsText": "Supermercados Cashback"
+   "tagsText": "Supermercados Cashback",
+   "validFrom": "2026-11-11",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3337,7 +3369,9 @@
    "slug": "2-cupones-por-50.000-clp-de-descuento-en-viajes-bci-z1rdot",
    "commerceName": "ViajesBci.cl",
    "keywords": "",
-   "tagsText": "Online Vuelos Viajes Cupones"
+   "tagsText": "Online Vuelos Viajes Cupones",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3348,7 +3382,9 @@
    "slug": "agencia-de-viajes-con-el-mejor-servicio-y-precios-baratos-con-todo-lo-que-necesitas-xayb2lb",
    "commerceName": "ViajesBci.cl",
    "keywords": "",
-   "tagsText": "Online Descuentos Vuelos"
+   "tagsText": "Online Descuentos Vuelos",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3359,7 +3395,9 @@
    "slug": "maleta-adicional-tarjetas-de-credito-visa-infinite-e8szg4i",
    "commerceName": "ViajesBci.cl",
    "keywords": "",
-   "tagsText": "Online Descuentos Viajes"
+   "tagsText": "Online Descuentos Viajes",
+   "validFrom": "2026-03-20",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3370,7 +3408,9 @@
    "slug": "maleta-adicional-tarjetas-de-credito-black-o-signature-qqsosa",
    "commerceName": "ViajesBci.cl",
    "keywords": "",
-   "tagsText": "Online Descuentos Viajes"
+   "tagsText": "Online Descuentos Viajes",
+   "validFrom": "2026-03-20",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3381,7 +3421,9 @@
    "slug": "las-condes-desde-las-18.00-hrs-44nbkxb",
    "commerceName": "Marriott",
    "keywords": "",
-   "tagsText": "R. Metropolitana Providencia Descuentos"
+   "tagsText": "R. Metropolitana Providencia Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3392,7 +3434,9 @@
    "slug": "10-por-ciento-de-cb-en-unimarc-en-tu-primera-compra-del-mes-y97xpdm",
    "commerceName": "Unimarc",
    "keywords": "",
-   "tagsText": "Presencial Cashback"
+   "tagsText": "Presencial Cashback",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3403,7 +3447,9 @@
    "slug": "mas-kilometros-y-mas-lucas-en-tu-bolsillo-desde-app-copec.-sx48lyr",
    "commerceName": "Copec",
    "keywords": "(region): Todo Chile;(comuna): Todas las comunas con cobertura;(canal): Solo por app Copec;(dia semana): Jueves;(tipo oferta): Cashback;(tipo restaurante): ;(info extra): Estación de servicio, Combustible, Bencinera, Gasolinera, Servicios para automóviles.;",
-   "tagsText": "Presencial Jueves Cashback Transporte Movilidad Servicios"
+   "tagsText": "Presencial Jueves Cashback Transporte Movilidad Servicios",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3414,7 +3460,9 @@
    "slug": "tienda-en-linea-para-tecnologia-y-articulos-para-el-hogar-oqwmy9j",
    "commerceName": "Total Home",
    "keywords": "",
-   "tagsText": "Descuentos"
+   "tagsText": "Descuentos",
+   "validFrom": "2026-06-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3425,7 +3473,9 @@
    "slug": "20-por-ciento-de-descuento-con-tus-tdd-en-los-packs-light-smart-full-flex-qss4atf",
    "commerceName": "JetSmart",
    "keywords": "",
-   "tagsText": "Vuelos Viajes Descuentos"
+   "tagsText": "Vuelos Viajes Descuentos",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3436,7 +3486,9 @@
    "slug": "hasta-20-por-ciento-de-desc.-en-tarifas-de-vuelos-nac.-e-intern.-desdehacia-chile-ky2ni8c",
    "commerceName": "JetSmart",
    "keywords": "",
-   "tagsText": "Vuelos Viajes Descuentos"
+   "tagsText": "Vuelos Viajes Descuentos",
+   "validFrom": "2026-07-15",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3447,7 +3499,9 @@
    "slug": "hasta-30-por-ciento-de-desc.-en-tarifas-de-vuelos-nac.-e-intern.-desdehacia-chile-10gr5y",
    "commerceName": "JetSmart",
    "keywords": "",
-   "tagsText": "Vuelos Viajes Descuentos"
+   "tagsText": "Vuelos Viajes Descuentos",
+   "validFrom": "2026-07-15",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3458,7 +3512,9 @@
    "slug": "40-por-ciento-de-descuento-en-bebidas-preparadas-en-barra-5h1tty",
    "commerceName": "Juan Valdéz",
    "keywords": "",
-   "tagsText": "Descuentos"
+   "tagsText": "Descuentos",
+   "validFrom": "2026-08-11",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3469,7 +3525,9 @@
    "slug": "13-a-36-cuotas-0t41zkn",
    "commerceName": "Tasa Preferencial en Automotriz",
    "keywords": "",
-   "tagsText": "Pago en cuotas Presencial Online Tasa preferencial"
+   "tagsText": "Pago en cuotas Presencial Online Tasa preferencial",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3480,7 +3538,9 @@
    "slug": "10-por-ciento-de-cb-en-alvi-en-tu-primera-compra-del-mes-wzkp5z",
    "commerceName": "Alvi",
    "keywords": "",
-   "tagsText": "Presencial Cashback"
+   "tagsText": "Presencial Cashback",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3491,7 +3551,9 @@
    "slug": "10-por-ciento-de-cb-en-mayorista-10-en-tu-primera-compra-del-mes-shitwt",
    "commerceName": "Super 10",
    "keywords": "",
-   "tagsText": "Presencial Cashback"
+   "tagsText": "Presencial Cashback",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3502,7 +3564,9 @@
    "slug": "50-por-ciento-mgcj0mn",
    "commerceName": "Starbucks",
    "keywords": "(region): Todo Chile excepto Arica y Parinacota, Tarapacá, Atacama, Aysén, Magallanes y de la Antártica Chilena;(comuna): Todas las comunas con sucursales;(canal): Presencial;(dia semana): Miércoles, Martes, Jueves;(tipo oferta): Descuento;(medio de pago): Exclusivo con tus de Crédito Bci Platinium,Signature, iInfinite y Black.;(tipo restaurante): ;(info extra): Cafetería, Café, Pastelería, Snacks, Bebidas, Salón de café;",
-   "tagsText": "Presencial Descuentos Café"
+   "tagsText": "Presencial Descuentos Café",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3513,7 +3577,9 @@
    "slug": "todos-los-dias-3rmlz1",
    "commerceName": "Teatro Zoco Santiago",
    "keywords": "",
-   "tagsText": "Online Jueves Viernes Sábado Domingo Entretenimiento"
+   "tagsText": "Online Jueves Viernes Sábado Domingo Entretenimiento",
+   "validFrom": "2026-05-22",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3524,7 +3590,9 @@
    "slug": "aprovecha-este-descuento-todos-los-viernes-y-sabados-en-compras-presenciales-0ms8b0e",
    "commerceName": "Andesland",
    "keywords": "",
-   "tagsText": "Presencial Viernes Sábado Descuentos Moda"
+   "tagsText": "Presencial Viernes Sábado Descuentos Moda",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3535,7 +3603,9 @@
    "slug": "lunes-online-gapgbdrc",
    "commerceName": "Varsovienne",
    "keywords": "",
-   "tagsText": "Descuentos Online Lunes"
+   "tagsText": "Descuentos Online Lunes",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3546,7 +3616,9 @@
    "slug": "lunes-presencial-ustisqr",
    "commerceName": "Varsovienne",
    "keywords": "",
-   "tagsText": "Presencial Lunes Descuentos"
+   "tagsText": "Presencial Lunes Descuentos",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3557,7 +3629,9 @@
    "slug": "tu-tesla-a-una-super-tasa-5r567c",
    "commerceName": "Tesla",
    "keywords": "",
-   "tagsText": "Pago en cuotas"
+   "tagsText": "Pago en cuotas",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3568,7 +3642,9 @@
    "slug": "todos-los-dias-online-reqq2tr",
    "commerceName": "UnionX",
    "keywords": "",
-   "tagsText": "Online Descuentos"
+   "tagsText": "Online Descuentos",
+   "validFrom": "2026-09-16",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3579,7 +3655,9 @@
    "slug": "disfruta-del-teatro-municipal-de-las-condes-con-bci-gjdc4tg",
    "commerceName": "Teatro Municipal Las Condes",
    "keywords": "Cashback",
-   "tagsText": "Cashback Presencial"
+   "tagsText": "Cashback Presencial",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3590,7 +3668,9 @@
    "slug": "copia-disfruta-del-teatro-municipal-de-las-condes-con-bci-e6prreu",
    "commerceName": "Teatro Municipal Las Condes",
    "keywords": "Cashback",
-   "tagsText": "Online Cashback"
+   "tagsText": "Online Cashback",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3601,7 +3681,9 @@
    "slug": "tortas-y-barritas-para-disfrutar-en-celebraciones-o-antojos.-7wckxt4",
    "commerceName": "Paula Benitez",
    "keywords": "REGION METROPOLITANA; MARTES; ;",
-   "tagsText": "Presencial Online Descuentos Chocolate"
+   "tagsText": "Presencial Online Descuentos Chocolate",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3612,7 +3694,9 @@
    "slug": "todos-los-martes-en-tu-app-de-mcdonalds-nf4vg4m",
    "commerceName": "App McDonalds",
    "keywords": "TODO CHILE; MARTES; ;",
-   "tagsText": "Online Descuentos Restaurantes Martes"
+   "tagsText": "Online Descuentos Restaurantes Martes",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3623,7 +3707,9 @@
    "slug": "tienda-presencial-juguetes-y-articulos-de-regalo-para-el-hogar.-ba5pkwj",
    "commerceName": "Ansaldo",
    "keywords": "",
-   "tagsText": "Presencial Juguetería Infantil"
+   "tagsText": "Presencial Juguetería Infantil",
+   "validFrom": "",
+   "validUntil": ""
   },
   {
    "bank": "BCI",
@@ -3634,7 +3720,9 @@
    "slug": "juguetes-y-articulos-de-regalo-para-el-hogar.-caelmb",
    "commerceName": "Ansaldo",
    "keywords": "",
-   "tagsText": "Online Juguetería Infantil"
+   "tagsText": "Online Juguetería Infantil",
+   "validFrom": "",
+   "validUntil": ""
   },
   {
    "bank": "BCI",
@@ -3645,7 +3733,9 @@
    "slug": "estilo-y-calidad-para-destacar-en-cada-uno-de-tus-pasos.-ra07th",
    "commerceName": "Giani Dafirenze",
    "keywords": "",
-   "tagsText": "Miércoles Descuentos Moda"
+   "tagsText": "Miércoles Descuentos Moda",
+   "validFrom": "2026-04-28",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3656,7 +3746,9 @@
    "slug": "el-brindis-perfecto-esta-en-bci.-descubre-la-mejor-seleccion-de-vinos-en-casa.-usz2tr",
    "commerceName": "Descorcha.com",
    "keywords": "",
-   "tagsText": "Online Descuentos Alcohol Bebestibles"
+   "tagsText": "Online Descuentos Alcohol Bebestibles",
+   "validFrom": "2026-04-28",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3667,7 +3759,9 @@
    "slug": "20-por-ciento-de-descuento-en-compra-de-entradas-8mfgxne",
    "commerceName": "Bocas Moradas",
    "keywords": "",
-   "tagsText": "Descuentos Entretenimiento"
+   "tagsText": "Descuentos Entretenimiento",
+   "validFrom": "",
+   "validUntil": ""
   },
   {
    "bank": "BCI",
@@ -3678,7 +3772,9 @@
    "slug": "el-mejor-mix-entre-sushi-y-hamburguesas-en-vina-del-mar-y-renaca-mls6vq8",
    "commerceName": "Sushi & Burger Home",
    "keywords": "",
-   "tagsText": "Presencial Jueves Descuentos Restaurantes Viña del mar"
+   "tagsText": "Presencial Jueves Descuentos Restaurantes Viña del mar",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3689,7 +3785,9 @@
    "slug": "en-todas-sus-sucursales-02bwzhl",
    "commerceName": "El Café Rosa",
    "keywords": "",
-   "tagsText": "Presencial Descuentos"
+   "tagsText": "Presencial Descuentos",
+   "validFrom": "2026-09-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3700,7 +3798,9 @@
    "slug": "disfruta-el-domingo-xwh6yec",
    "commerceName": "Guayaquil Fusión",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Las Condes Domingo"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Las Condes Domingo",
+   "validFrom": "2026-09-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3711,7 +3811,9 @@
    "slug": "todos-los-miercoles-r4xdtgl5",
    "commerceName": "La Papelaria",
    "keywords": "",
-   "tagsText": "Miércoles Entretenimiento Descuentos"
+   "tagsText": "Miércoles Entretenimiento Descuentos",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3722,7 +3824,9 @@
    "slug": "pasteleria-boutique-m68bqst",
    "commerceName": "Dulce Karina",
    "keywords": "",
-   "tagsText": "Presencial Martes Descuentos"
+   "tagsText": "Presencial Martes Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3733,7 +3837,9 @@
    "slug": "tu-boost-de-hidratacion-sejccg",
    "commerceName": "Extra life",
    "keywords": "",
-   "tagsText": "Online Descuentos"
+   "tagsText": "Online Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3744,7 +3850,9 @@
    "slug": "en-tienda-online-y-tours-u0kc5v",
    "commerceName": "Viña Ventisquero",
    "keywords": "",
-   "tagsText": "Online Martes Descuentos"
+   "tagsText": "Online Martes Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3755,7 +3863,9 @@
    "slug": "kombucha-online-d375198",
    "commerceName": "Kombuchu",
    "keywords": "",
-   "tagsText": "Online Descuentos"
+   "tagsText": "Online Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3766,7 +3876,9 @@
    "slug": "paga-en-13-a-36-cuotas-sin-interes-3ajufh",
    "commerceName": "CopecFlux",
    "keywords": "",
-   "tagsText": "Pago en cuotas Presencial Hogar"
+   "tagsText": "Pago en cuotas Presencial Hogar",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3777,7 +3889,9 @@
    "slug": "viernes-maitencillo-8fks8lm",
    "commerceName": "Jeró Bistró",
    "keywords": "MAITENCILLO; VIERNES; ;",
-   "tagsText": "Descuentos Presencial Restaurantes Maitencillo"
+   "tagsText": "Descuentos Presencial Restaurantes Maitencillo",
+   "validFrom": "2026-10-07",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3788,7 +3902,9 @@
    "slug": "miercoles-chicureo-ttxf4db",
    "commerceName": "Al Pesto Restaurante",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Miércoles"
+   "tagsText": "Presencial Descuentos Miércoles",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3799,7 +3915,9 @@
    "slug": "cilindros-de-gas-natural-para-la-calefaccion-y-funcionamiento-de-tu-hogar.-4liu5c",
    "commerceName": "Lipigas",
    "keywords": "",
-   "tagsText": "Descuentos"
+   "tagsText": "Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3810,7 +3928,9 @@
    "slug": "chocolateria-mut-0oza1be",
    "commerceName": "Ponte Chiasso",
    "keywords": "",
-   "tagsText": "Presencial Jueves Descuentos"
+   "tagsText": "Presencial Jueves Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3821,7 +3941,9 @@
    "slug": "miercoles-calama-vn2pysf",
    "commerceName": "Casa Bau Restaurant",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos"
+   "tagsText": "Presencial Miércoles Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3832,7 +3954,9 @@
    "slug": "sabados-en-buin-lu9mrjq",
    "commerceName": "Espacio Camposano",
    "keywords": "",
-   "tagsText": "R. Metropolitana Presencial Sábado Descuentos"
+   "tagsText": "R. Metropolitana Presencial Sábado Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3843,7 +3967,9 @@
    "slug": "viernes-antofagasta-omoc6ja",
    "commerceName": "Hotel Antofagasta",
    "keywords": "",
-   "tagsText": "R. Antofagasta Presencial Viernes Descuentos"
+   "tagsText": "R. Antofagasta Presencial Viernes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3854,7 +3980,9 @@
    "slug": "lunes-las-condes-7ehrdgf",
    "commerceName": "Je Suis Raclette",
    "keywords": "",
-   "tagsText": "R. Metropolitana Las Condes Presencial Lunes"
+   "tagsText": "R. Metropolitana Las Condes Presencial Lunes",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3865,7 +3993,9 @@
    "slug": "las-condes-qlsd06m",
    "commerceName": "Provincia",
    "keywords": "",
-   "tagsText": "R. Metropolitana Las Condes Presencial Lunes Viernes"
+   "tagsText": "R. Metropolitana Las Condes Presencial Lunes Viernes",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3876,7 +4006,9 @@
    "slug": "disfruta-de-una-experiencia-unica-liaozpb",
    "commerceName": "SPA & Wellness Dr. Roy Sothers",
    "keywords": "",
-   "tagsText": "Presencial Martes Miércoles Jueves Viernes Descuentos"
+   "tagsText": "Presencial Martes Miércoles Jueves Viernes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3887,7 +4019,9 @@
    "slug": "cafeteria-entre-libros-93hwhq1",
    "commerceName": "Sueños de Papel",
    "keywords": "",
-   "tagsText": "Sábado Presencial Descuentos"
+   "tagsText": "Sábado Presencial Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3898,7 +4032,9 @@
    "slug": "lunes-de-brunch-en-las-condes-18toyi8",
    "commerceName": "Living Café",
    "keywords": "",
-   "tagsText": "Presencial R. Metropolitana Las Condes Lunes Descuentos"
+   "tagsText": "Presencial R. Metropolitana Las Condes Lunes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3909,7 +4045,9 @@
    "slug": "miercoles-presencial-63x5yr",
    "commerceName": "Rapsodia",
    "keywords": "ropa, mujer, moda, vestuario ; MIÉRCOLES; ;",
-   "tagsText": "Descuentos Moda mujer Miércoles Presencial"
+   "tagsText": "Descuentos Moda mujer Miércoles Presencial",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3920,7 +4058,9 @@
    "slug": "lunes-llanquihue-leho6ec",
    "commerceName": "Cascadas Hotel",
    "keywords": "",
-   "tagsText": "R. Los Lagos Presencial Lunes Descuentos"
+   "tagsText": "R. Los Lagos Presencial Lunes Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3931,7 +4071,9 @@
    "slug": "todos-los-miercoles-w0ilsy",
    "commerceName": "Carnes Premium",
    "keywords": "",
-   "tagsText": "Online Presencial Descuentos Supermercados"
+   "tagsText": "Online Presencial Descuentos Supermercados",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3942,7 +4084,9 @@
    "slug": "todos-los-lunes-en-combo-chicken-share-alitas-us5tjzf",
    "commerceName": "KFC",
    "keywords": "",
-   "tagsText": "Presencial Lunes Descuentos Restaurantes"
+   "tagsText": "Presencial Lunes Descuentos Restaurantes",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3953,7 +4097,9 @@
    "slug": "todos-los-miercoles-en-combo-wok-1-pollo-tereyaki-kr43pym",
    "commerceName": "China Wok",
    "keywords": "",
-   "tagsText": "Miércoles Descuentos Restaurantes"
+   "tagsText": "Miércoles Descuentos Restaurantes",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3964,7 +4110,9 @@
    "slug": "todos-los-miercoles-en-combo-boconator-doble-zqw9icg",
    "commerceName": "Wendys",
    "keywords": "",
-   "tagsText": "Miércoles Descuentos Restaurantes"
+   "tagsText": "Miércoles Descuentos Restaurantes",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3975,7 +4123,9 @@
    "slug": "lunes-y-jueves-arica-xqpmh7",
    "commerceName": "Restaurante República de Arica",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Restaurantes R. Arica y Parinacota"
+   "tagsText": "Presencial Descuentos Restaurantes R. Arica y Parinacota",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -3986,7 +4136,9 @@
    "slug": "tu-cafe-favorito-y-el-momento-perfecto-para-recargar-tu-dia.-8nywci7",
    "commerceName": "Starbucks",
    "keywords": "",
-   "tagsText": "Lunes Descuentos cafe"
+   "tagsText": "Lunes Descuentos cafe",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -3997,7 +4149,9 @@
    "slug": "todos-los-dias-x2fax8",
    "commerceName": "Zig Zag",
    "keywords": "",
-   "tagsText": "Descuentos Escolares"
+   "tagsText": "Descuentos Escolares",
+   "validFrom": "2026-04-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4008,7 +4162,9 @@
    "slug": "todos-los-dias-en-todo-horario-ra6ex3l",
    "commerceName": "Más Padel",
    "keywords": "",
-   "tagsText": "Online Descuentos Deportes"
+   "tagsText": "Online Descuentos Deportes",
+   "validFrom": "2026-04-30",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4019,7 +4175,9 @@
    "slug": "miercoles-las-condes-0e21ts",
    "commerceName": "Danubio Azul",
    "keywords": "LAS CONDES;",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Las Condes"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Las Condes",
+   "validFrom": "2026-06-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4030,7 +4188,9 @@
    "slug": "celebra-a-tu-papa-con-un-regalo-especial-jpltsojw",
    "commerceName": "La Ermita",
    "keywords": "",
-   "tagsText": "Descuentos R. Metropolitana Lo Barnechea Vitacura"
+   "tagsText": "Descuentos R. Metropolitana Lo Barnechea Vitacura",
+   "validFrom": "2026-06-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4041,7 +4201,9 @@
    "slug": "aprovecha-todos-los-dias-en-temuco-e3hr37l",
    "commerceName": "Allegro Café & Gelato",
    "keywords": "",
-   "tagsText": "Descuentos"
+   "tagsText": "Descuentos",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4052,7 +4214,9 @@
    "slug": "aprovecha-los-martes-y-miercoles-en-calama-vtspos",
    "commerceName": "Blind Bar",
    "keywords": "",
-   "tagsText": "Presencial Martes Miércoles Descuentos Restaurantes R. Calama"
+   "tagsText": "Presencial Martes Miércoles Descuentos Restaurantes R. Calama",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4063,7 +4227,9 @@
    "slug": "lunes-miercoles-jueves-y-viernes-6uyqhar",
    "commerceName": "China 365",
    "keywords": "",
-   "tagsText": "Presencial Lunes Martes Miércoles Jueves Viernes Descuentos Restaurantes R. Metropolitana Lo Barnechea"
+   "tagsText": "Presencial Lunes Martes Miércoles Jueves Viernes Descuentos Restaurantes R. Metropolitana Lo Barnechea",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4074,7 +4240,9 @@
    "slug": "una-experiencia-oriental-en-las-condes-0mk5lde",
    "commerceName": "Danubio Azul",
    "keywords": "LAS CONDES;",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Las Condes"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Las Condes",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4085,7 +4253,9 @@
    "slug": "disfruta-los-miercoles-en-iquique-otlqgo",
    "commerceName": "La Isla Restobar",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos"
+   "tagsText": "Presencial Miércoles Descuentos",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4096,7 +4266,9 @@
    "slug": "miercoles-concepcion-rs1qwfe",
    "commerceName": "Qnto restaurante",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos Restaurantes"
+   "tagsText": "Presencial Miércoles Descuentos Restaurantes",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4107,7 +4279,9 @@
    "slug": "miercoles-iquique-rziahz",
    "commerceName": "Restaurante La Fuente Peruana",
    "keywords": "IQUIQUE; MIERCOLES; ;",
-   "tagsText": "Presencial Descuentos Restaurantes R. Iquique"
+   "tagsText": "Presencial Descuentos Restaurantes R. Iquique",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4118,7 +4292,9 @@
    "slug": "disfruta-los-lunes-y-los-martes-ncif6oh",
    "commerceName": "Sanguchería Gorilas",
    "keywords": "CURAUMA, VIÑA DEL MAR, QUILPUE , CONCON, QUILLOTA; MIERCOLES; ;",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Las Condes Viña del mar Valparaíso"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Las Condes Viña del mar Valparaíso",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4129,7 +4305,9 @@
    "slug": "lunes-martes-y-miercoles-lo-barnechea-dziabg",
    "commerceName": "Zía Bistró & Café",
    "keywords": "",
-   "tagsText": "Presencial Lunes Martes Miércoles Descuentos"
+   "tagsText": "Presencial Lunes Martes Miércoles Descuentos",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4140,7 +4318,9 @@
    "slug": "disfruta-de-este-beneficio-de-lunes-a-viernes-en-el-molle-b0syh4h",
    "commerceName": "Los Hornitos del Molle Restaurante",
    "keywords": "",
-   "tagsText": "Presencial Viernes Jueves Miércoles Lunes Martes Descuentos"
+   "tagsText": "Presencial Viernes Jueves Miércoles Lunes Martes Descuentos",
+   "validFrom": "2026-07-07",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4151,7 +4331,9 @@
    "slug": "miercoles-arica-gzp7w89",
    "commerceName": "Amalfi Trattoria Bar",
    "keywords": "Arica ; Miercoles",
-   "tagsText": "Presencial Descuentos Restaurantes R. Arica y Parinacota"
+   "tagsText": "Presencial Descuentos Restaurantes R. Arica y Parinacota",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4162,7 +4344,9 @@
    "slug": "para-disfrutar-tu-escapada-en-pichilemu-5fhzh1",
    "commerceName": "Bocas del Mar",
    "keywords": "PICHILEMU; VIERNES; ;",
-   "tagsText": "Descuentos Presencial Restaurantes R. O'higgins "
+   "tagsText": "Descuentos Presencial Restaurantes R. O'higgins ",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4173,7 +4357,9 @@
    "slug": "viernes-vitacura-vcbh2s",
    "commerceName": "Cuerovaca",
    "keywords": "VITACURA; VIERNES; ;",
-   "tagsText": "Descuentos Presencial Restaurantes R. Metropolitana Vitacura"
+   "tagsText": "Descuentos Presencial Restaurantes R. Metropolitana Vitacura",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4184,7 +4370,9 @@
    "slug": "variedad-de-sabores-en-las-condes-jpj9xzn",
    "commerceName": "Danés",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Las Condes Lunes"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Las Condes Lunes",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4195,7 +4383,9 @@
    "slug": "en-barrio-italia-90b5ws9",
    "commerceName": "De Barrio",
    "keywords": "",
-   "tagsText": "Presencial Lunes Martes Miércoles Jueves Descuentos Restaurantes R. Metropolitana Providencia"
+   "tagsText": "Presencial Lunes Martes Miércoles Jueves Descuentos Restaurantes R. Metropolitana Providencia",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4206,7 +4396,9 @@
    "slug": "valdivia-73pse8t",
    "commerceName": "Dominga Bistró",
    "keywords": "VALDIVIA, IQUIQUE; MIERCOLES; ;",
-   "tagsText": "Descuentos Presencial Restaurantes Lunes R. Los Ríos"
+   "tagsText": "Descuentos Presencial Restaurantes Lunes R. Los Ríos",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4217,7 +4409,9 @@
    "slug": "de-martes-a-sabado-en-providencia-3o4lh9",
    "commerceName": "Expendio",
    "keywords": "",
-   "tagsText": "Providencia R. Metropolitana Presencial Descuentos"
+   "tagsText": "Providencia R. Metropolitana Presencial Descuentos",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4228,7 +4422,9 @@
    "slug": "de-martes-a-sabado-en-providencia-xj8u07j",
    "commerceName": "Bar Porfirio",
    "keywords": "",
-   "tagsText": "R. Metropolitana Presencial Descuentos"
+   "tagsText": "R. Metropolitana Presencial Descuentos",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4239,7 +4435,9 @@
    "slug": "autentica-cocina-mexicana-para-disfrutar-30hr9m",
    "commerceName": "Güeros",
    "keywords": "",
-   "tagsText": "Presencial Jueves Descuentos Restaurantes R. Metropolitana Providencia"
+   "tagsText": "Presencial Jueves Descuentos Restaurantes R. Metropolitana Providencia",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4250,7 +4448,9 @@
    "slug": "jueves-en-la-reina-y-providencia-3dkodv",
    "commerceName": "Hijo del Inca",
    "keywords": "La Reina ; Jueves",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana La Reina"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana La Reina",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4261,7 +4461,9 @@
    "slug": "miercoles-y-viernes-en-providencia-sl3au9a",
    "commerceName": "Impasto Restobar",
    "keywords": "",
-   "tagsText": "Presencial Lunes Descuentos Restaurantes R. Metropolitana Providencia"
+   "tagsText": "Presencial Lunes Descuentos Restaurantes R. Metropolitana Providencia",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4272,7 +4474,9 @@
    "slug": "la-mejor-cocina-fusion-peruana-en-iquique-z9gzp3u",
    "commerceName": "La Mulata",
    "keywords": "IQUIQUE; JUEVES; ;",
-   "tagsText": "Presencial Descuentos Restaurantes R. Iquique"
+   "tagsText": "Presencial Descuentos Restaurantes R. Iquique",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4283,7 +4487,9 @@
    "slug": "restaurante-de-comida-italiana-en-providencia-mzi45gr",
    "commerceName": "La Santoría",
    "keywords": "PROVIDENCIA; LUNES; ;",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Providencia"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Providencia",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4294,7 +4500,9 @@
    "slug": "carnes-para-disfrutar-en-temuco-ue5qshp",
    "commerceName": "Las Tranqueras",
    "keywords": "TEMUCO; MIERCOLES; ;",
-   "tagsText": "Presencial Descuentos Restaurantes"
+   "tagsText": "Presencial Descuentos Restaurantes",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4305,7 +4513,9 @@
    "slug": "viernes-concepcion-10k1w7",
    "commerceName": "Lebol",
    "keywords": "",
-   "tagsText": "Viernes Descuentos Restaurantes"
+   "tagsText": "Viernes Descuentos Restaurantes",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4316,7 +4526,9 @@
    "slug": "disfruta-todos-los-sabados-en-isidora-goyenechea-zqjlz5x",
    "commerceName": "Oporto salvaje",
    "keywords": "",
-   "tagsText": "Presencial Sábado Descuentos Restaurantes R. Metropolitana Las Condes"
+   "tagsText": "Presencial Sábado Descuentos Restaurantes R. Metropolitana Las Condes",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4327,7 +4539,9 @@
    "slug": "disfruta-los-miercoles-en-vina-del-mar-bxb009j",
    "commerceName": "Restaurant Travesía",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos Restaurantes Viña del mar"
+   "tagsText": "Presencial Miércoles Descuentos Restaurantes Viña del mar",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4338,7 +4552,9 @@
    "slug": "de-lunes-a-viernes-en-lo-barnechea-39wtmpu",
    "commerceName": "Sabor y Aroma",
    "keywords": "",
-   "tagsText": "Descuentos Presencial"
+   "tagsText": "Descuentos Presencial",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4349,7 +4565,9 @@
    "slug": "perfecto-para-salir-con-amigos-en-renaca-d2nt6kp",
    "commerceName": "Sushi Home",
    "keywords": "REÑACA; VIERNES; ;",
-   "tagsText": "Descuentos Presencial Restaurantes Viña del mar"
+   "tagsText": "Descuentos Presencial Restaurantes Viña del mar",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4360,7 +4578,9 @@
    "slug": "descubre-este-espacio-gastronomico-en-maipu-qjrzfu",
    "commerceName": "Tigre Bravo",
    "keywords": "",
-   "tagsText": "Presencial Jueves Martes Descuentos Restaurantes R. Metropolitana Maipú"
+   "tagsText": "Presencial Jueves Martes Descuentos Restaurantes R. Metropolitana Maipú",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4371,7 +4591,9 @@
    "slug": "disfruta-de-este-beneficio-los-lunes-y-viernes-en-talca-amk2hfi",
    "commerceName": "Ventura Restaurant",
    "keywords": "",
-   "tagsText": "Lunes Viernes Descuentos"
+   "tagsText": "Lunes Viernes Descuentos",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4382,7 +4604,9 @@
    "slug": "hasta-30-por-ciento-de-desc.-los-viernes-en-tours-y-vinos-dxxj3gq",
    "commerceName": "Viña Encierra",
    "keywords": "",
-   "tagsText": "Descuentos Entretenimiento"
+   "tagsText": "Descuentos Entretenimiento",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4393,7 +4617,9 @@
    "slug": "viernes-en-vitacura-providencia-y-nunoa-c6wq4pq",
    "commerceName": "Kechua",
    "keywords": "; JUEVES; ;",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Vitacura"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Vitacura",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4404,7 +4630,9 @@
    "slug": "disfruta-de-este-descuento-de-jueves-a-sabado-en-vitacura-ji2i3m",
    "commerceName": "OIA",
    "keywords": "",
-   "tagsText": "Presencial Descuentos"
+   "tagsText": "Presencial Descuentos",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4415,7 +4643,9 @@
    "slug": "en-concepcion-o5p6bib",
    "commerceName": "Augusta Bar",
    "keywords": "; JUEVES; ;",
-   "tagsText": "Presencial Descuentos Restaurantes R. Biobío"
+   "tagsText": "Presencial Descuentos Restaurantes R. Biobío",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4426,7 +4656,9 @@
    "slug": "restaurante-japones-ht9d9l",
    "commerceName": "Momiji Ramen",
    "keywords": "",
-   "tagsText": "Presencial Martes Descuentos"
+   "tagsText": "Presencial Martes Descuentos",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4437,7 +4669,9 @@
    "slug": "para-cuidar-tu-cuerpo-a6dkquo",
    "commerceName": "Rudy Profumi",
    "keywords": "",
-   "tagsText": "Sábado Salud Descuentos"
+   "tagsText": "Sábado Salud Descuentos",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4448,7 +4682,9 @@
    "slug": "en-todas-las-sucursales-hot5ge",
    "commerceName": "The Greens",
    "keywords": "",
-   "tagsText": "Presencial Viernes Descuentos"
+   "tagsText": "Presencial Viernes Descuentos",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4459,7 +4695,9 @@
    "slug": "vina-del-mar-3j7rrng",
    "commerceName": "Angélica",
    "keywords": "",
-   "tagsText": "Viña del mar Presencial Descuentos"
+   "tagsText": "Viña del mar Presencial Descuentos",
+   "validFrom": "2026-09-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4470,7 +4708,9 @@
    "slug": "50-bertsbars-1e75t1w",
    "commerceName": "Siete Negronis",
    "keywords": "",
-   "tagsText": "Descuentos"
+   "tagsText": "Descuentos",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4481,7 +4721,9 @@
    "slug": "vina-del-mar-kaqd4nk",
    "commerceName": "Idílico",
    "keywords": "",
-   "tagsText": "Presencial Descuentos"
+   "tagsText": "Presencial Descuentos",
+   "validFrom": "2026-09-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4492,7 +4734,9 @@
    "slug": "miercoles-arica-v4vdzc",
    "commerceName": "Hey, Latte",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos"
+   "tagsText": "Presencial Miércoles Descuentos",
+   "validFrom": "2026-09-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4503,7 +4747,9 @@
    "slug": "en-todas-las-sucursales-yuz5i3h",
    "commerceName": "Roof Burger",
    "keywords": "",
-   "tagsText": "Presencial Descuentos"
+   "tagsText": "Presencial Descuentos",
+   "validFrom": "2026-09-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4514,7 +4760,9 @@
    "slug": "todos-los-martes-2qtobsd",
    "commerceName": "Lin Lan",
    "keywords": "",
-   "tagsText": "Presencial Martes Descuentos"
+   "tagsText": "Presencial Martes Descuentos",
+   "validFrom": "2026-09-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4525,7 +4773,9 @@
    "slug": "todos-los-martes-9q1pfq",
    "commerceName": "La casa Vieja",
    "keywords": "",
-   "tagsText": "Presencial Martes Descuentos"
+   "tagsText": "Presencial Martes Descuentos",
+   "validFrom": "2026-09-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4536,7 +4786,9 @@
    "slug": "todos-los-martes-6av3lcz",
    "commerceName": "Pan Paula",
    "keywords": "",
-   "tagsText": "Presencial Martes Descuentos"
+   "tagsText": "Presencial Martes Descuentos",
+   "validFrom": "2026-09-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4547,7 +4799,9 @@
    "slug": "en-las-condes-y-huechuraba-asqdnsb",
    "commerceName": "Da Radda",
    "keywords": "",
-   "tagsText": "Presencial Descuentos"
+   "tagsText": "Presencial Descuentos",
+   "validFrom": "2026-09-03",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4558,7 +4812,9 @@
    "slug": "en-providencia-yxq2uyc",
    "commerceName": "Moscowa Restobar",
    "keywords": "",
-   "tagsText": "Presencial Descuentos"
+   "tagsText": "Presencial Descuentos",
+   "validFrom": "2026-09-03",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4569,7 +4825,9 @@
    "slug": "miercoles-en-vina-del-mar-ggthq3",
    "commerceName": "Sushi Rolls",
    "keywords": "",
-   "tagsText": "Viña del mar Miércoles Presencial Descuentos"
+   "tagsText": "Viña del mar Miércoles Presencial Descuentos",
+   "validFrom": "2026-09-03",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4580,7 +4838,9 @@
    "slug": "nunoa-6ln4spe",
    "commerceName": "Barra de Pickles",
    "keywords": "",
-   "tagsText": "Ñuñoa R. Metropolitana Martes Descuentos"
+   "tagsText": "Ñuñoa R. Metropolitana Martes Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4591,7 +4851,9 @@
    "slug": "vina-del-mar-y-placilla-y651pqs",
    "commerceName": "Burger House",
    "keywords": "",
-   "tagsText": "Viña del mar Presencial Martes Descuentos"
+   "tagsText": "Viña del mar Presencial Martes Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4602,7 +4864,9 @@
    "slug": "vina-del-mar-5fgqx8",
    "commerceName": "Burgery",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Viña del mar"
+   "tagsText": "Presencial Descuentos Viña del mar",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4613,7 +4877,9 @@
    "slug": "providencia-ixvok9",
    "commerceName": "Calle y Barrio",
    "keywords": "",
-   "tagsText": "R. Metropolitana Providencia Martes Descuentos"
+   "tagsText": "R. Metropolitana Providencia Martes Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4624,7 +4890,9 @@
    "slug": "vina-del-mar-y-renaca-8azbafa",
    "commerceName": "Central55",
    "keywords": "",
-   "tagsText": "Presencial Descuentos"
+   "tagsText": "Presencial Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4635,7 +4903,9 @@
    "slug": "los-angeles-4vs8kx",
    "commerceName": "Puente del Inca",
    "keywords": "",
-   "tagsText": "Presencial Martes Descuentos"
+   "tagsText": "Presencial Martes Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4646,7 +4916,9 @@
    "slug": "vina-del-mar-jmku55e",
    "commerceName": "La Schopería 4 1/2",
    "keywords": "",
-   "tagsText": "Viña del mar Presencial Descuentos"
+   "tagsText": "Viña del mar Presencial Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4657,7 +4929,9 @@
    "slug": "chillan-moot9x",
    "commerceName": "Emporio Sozo",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos"
+   "tagsText": "Presencial Miércoles Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4668,7 +4942,9 @@
    "slug": "puerto-varas-xu2nf2",
    "commerceName": "Restaurante Mirador del Lago",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos"
+   "tagsText": "Presencial Miércoles Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4679,7 +4955,9 @@
    "slug": "vina-del-mar-lhgfaa",
    "commerceName": "Ristorante San Marcos",
    "keywords": "",
-   "tagsText": "Viña del mar Presencial Jueves Descuentos"
+   "tagsText": "Viña del mar Presencial Jueves Descuentos",
+   "validFrom": "2026-09-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4690,7 +4968,9 @@
    "slug": "inscribete-en-iphone-for-life-y-renueva-tu-celular-cada-24-meses-0mc9kj8",
    "commerceName": "MacOnline",
    "keywords": "",
-   "tagsText": "Descuentos Pago en cuotas Presencial Online"
+   "tagsText": "Descuentos Pago en cuotas Presencial Online",
+   "validFrom": "2026-09-14",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -4701,7 +4981,9 @@
    "slug": "cafe-med-las-condes-desde-las-12.00-a-las-16.00-hrs-y6co8b1c",
    "commerceName": "Marriott",
    "keywords": "",
-   "tagsText": "Presencial Sábado Descuentos Restaurantes R. Metropolitana Las Condes"
+   "tagsText": "Presencial Sábado Descuentos Restaurantes R. Metropolitana Las Condes",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4712,7 +4994,9 @@
    "slug": "para-disfrutar-en-talca-c6wca5",
    "commerceName": "Fuegos de Raidho",
    "keywords": "",
-   "tagsText": "Presencial Jueves Descuentos Restaurantes"
+   "tagsText": "Presencial Jueves Descuentos Restaurantes",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4723,7 +5007,9 @@
    "slug": "disfruta-los-jueves-en-talca-2ubk0e",
    "commerceName": "Gaetano",
    "keywords": "",
-   "tagsText": "Presencial Jueves Restaurantes R. Maule"
+   "tagsText": "Presencial Jueves Restaurantes R. Maule",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4734,7 +5020,9 @@
    "slug": "sushi-en-san-miguel-5ncth8e",
    "commerceName": "Inari Sushi",
    "keywords": "",
-   "tagsText": "Presencial Martes Descuentos R. Metropolitana"
+   "tagsText": "Presencial Martes Descuentos R. Metropolitana",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4745,7 +5033,9 @@
    "slug": "disfruta-tu-beneficio-en-talca-9xk7dq9",
    "commerceName": "Hestia",
    "keywords": "",
-   "tagsText": "Miércoles Presencial Descuentos"
+   "tagsText": "Miércoles Presencial Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4756,7 +5046,9 @@
    "slug": "sushi-en-calama-ifw5jau",
    "commerceName": "Hikari Sushi",
    "keywords": "",
-   "tagsText": "Viernes Descuentos Restaurantes R. Calama"
+   "tagsText": "Viernes Descuentos Restaurantes R. Calama",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4767,7 +5059,9 @@
    "slug": "aprovecha-los-miercoles-en-talca-6li5yjd",
    "commerceName": "La Hacienda Talca",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos Restaurantes R. Maule"
+   "tagsText": "Presencial Miércoles Descuentos Restaurantes R. Maule",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4778,7 +5072,9 @@
    "slug": "pasteleria-en-san-miguel-25kfh0d",
    "commerceName": "La Josefa Pastelería",
    "keywords": "",
-   "tagsText": "R. Metropolitana Presencial Martes"
+   "tagsText": "R. Metropolitana Presencial Martes",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4789,7 +5085,9 @@
    "slug": "en-el-corazon-de-la-ciudad.-uw74jal",
    "commerceName": "Coya",
    "keywords": "ARICA; VIERNES; ;",
-   "tagsText": "Presencial Descuentos Restaurantes R. Arica y Parinacota"
+   "tagsText": "Presencial Descuentos Restaurantes R. Arica y Parinacota",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4800,7 +5098,9 @@
    "slug": "pizzeria-argentina-en-talca-ia5vjr",
    "commerceName": "La Redonda Pizzería",
    "keywords": "",
-   "tagsText": "Descuentos Presencial"
+   "tagsText": "Descuentos Presencial",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4811,7 +5111,9 @@
    "slug": "lunes-las-condes-d6hlv4j",
    "commerceName": "Lumiére Bistró Restaurante",
    "keywords": "",
-   "tagsText": "Sábado Descuentos Restaurantes R. Metropolitana Las Condes"
+   "tagsText": "Sábado Descuentos Restaurantes R. Metropolitana Las Condes",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4822,7 +5124,9 @@
    "slug": "lunes-y-martes-7v57tal",
    "commerceName": "Misoya",
    "keywords": "",
-   "tagsText": "Presencial Lunes Martes Descuentos"
+   "tagsText": "Presencial Lunes Martes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4833,7 +5137,9 @@
    "slug": "taqueria-y-tequileria-ow0yjup",
    "commerceName": "María Clarita",
    "keywords": "",
-   "tagsText": "Presencial Lunes Miércoles Descuentos"
+   "tagsText": "Presencial Lunes Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4844,7 +5150,9 @@
    "slug": "miercoles-providencia-f03tos",
    "commerceName": "Bar Italia",
    "keywords": "",
-   "tagsText": "Providencia R. Metropolitana Presencial Miércoles Descuentos"
+   "tagsText": "Providencia R. Metropolitana Presencial Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4855,7 +5163,9 @@
    "slug": "disfruta-los-domingos-en-talca-b1uae",
    "commerceName": "Raidho",
    "keywords": "",
-   "tagsText": "Descuentos Presencial Restaurantes"
+   "tagsText": "Descuentos Presencial Restaurantes",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4866,7 +5176,9 @@
    "slug": "martes-en-temuco-y4sm2sr",
    "commerceName": "Reqle Café Bar",
    "keywords": "",
-   "tagsText": "Presencial Lunes Martes Descuentos"
+   "tagsText": "Presencial Lunes Martes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4877,7 +5189,9 @@
    "slug": "miercoles-la-reina-j99wmvc",
    "commerceName": "Restaurant Misky Mikuy",
    "keywords": "",
-   "tagsText": "La Reina R. Metropolitana Presencial Miércoles Descuentos"
+   "tagsText": "La Reina R. Metropolitana Presencial Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4888,7 +5202,9 @@
    "slug": "jueves-penalolen-gsmt1rc",
    "commerceName": "Restobar Bravos",
    "keywords": "",
-   "tagsText": "R. Metropolitana Presencial Jueves Descuentos"
+   "tagsText": "R. Metropolitana Presencial Jueves Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4899,7 +5215,9 @@
    "slug": "providencia-1zglu1g",
    "commerceName": "Club Gordos",
    "keywords": "",
-   "tagsText": "Providencia R. Metropolitana Presencial Lunes Miércoles Descuentos"
+   "tagsText": "Providencia R. Metropolitana Presencial Lunes Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4910,7 +5228,9 @@
    "slug": "lunes-y-miercoles-bykiarb",
    "commerceName": "GRDS",
    "keywords": "",
-   "tagsText": "Presencial Lunes Miércoles Descuentos"
+   "tagsText": "Presencial Lunes Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4921,7 +5241,9 @@
    "slug": "lunes-lo-barnechea-snwcoa",
    "commerceName": "Kiara Nikei",
    "keywords": "",
-   "tagsText": "Lo Barnechea R. Metropolitana Presencial Lunes Descuentos"
+   "tagsText": "Lo Barnechea R. Metropolitana Presencial Lunes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4932,7 +5254,9 @@
    "slug": "martes-nunoa-qhnc7db",
    "commerceName": "Kleine Kneipe",
    "keywords": "",
-   "tagsText": "R. Metropolitana Ñuñoa Presencial Martes Descuentos"
+   "tagsText": "R. Metropolitana Ñuñoa Presencial Martes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4943,7 +5267,9 @@
    "slug": "las-condes-856azvo",
    "commerceName": "Soho Thai",
    "keywords": "",
-   "tagsText": "R. Metropolitana Las Condes Presencial Sábado Descuentos"
+   "tagsText": "R. Metropolitana Las Condes Presencial Sábado Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4954,7 +5280,9 @@
    "slug": "una-carta-destacada-en-talca-cicocfq",
    "commerceName": "Toro Bayo",
    "keywords": "TALCA; VIERNES; ;",
-   "tagsText": "Descuentos Presencial Restaurantes"
+   "tagsText": "Descuentos Presencial Restaurantes",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4965,7 +5293,9 @@
    "slug": "viernes-en-la-florida-l2k95mc",
    "commerceName": "Wayna",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana La Florida Viernes"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana La Florida Viernes",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4976,7 +5306,9 @@
    "slug": "martes-rancagua-ap54s4c",
    "commerceName": "Yako Sushi",
    "keywords": "",
-   "tagsText": "Presencial Martes Descuentos"
+   "tagsText": "Presencial Martes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4987,7 +5319,9 @@
    "slug": "machali-acwuzc",
    "commerceName": "Aroma Limeño",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos"
+   "tagsText": "Presencial Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -4998,7 +5332,9 @@
    "slug": "concepcion-52ybqx7",
    "commerceName": "Bandura Restobar",
    "keywords": "",
-   "tagsText": "R. Biobío Presencial Jueves Descuentos"
+   "tagsText": "R. Biobío Presencial Jueves Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5009,7 +5345,9 @@
    "slug": "todos-los-dias-santiago-sdgph5",
    "commerceName": "Bar La Trova",
    "keywords": "",
-   "tagsText": "R. Metropolitana Santiago Presencial Descuentos"
+   "tagsText": "R. Metropolitana Santiago Presencial Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5020,7 +5358,9 @@
    "slug": "constitucion-gjaoepq",
    "commerceName": "Cafettino Cafetería",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos"
+   "tagsText": "Presencial Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5031,7 +5371,9 @@
    "slug": "martes-vitacura-3cgqoom",
    "commerceName": "Capogrossi",
    "keywords": "",
-   "tagsText": "R. Metropolitana Vitacura Presencial Martes Descuentos"
+   "tagsText": "R. Metropolitana Vitacura Presencial Martes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5042,7 +5384,9 @@
    "slug": "lunes-en-linares-nwi5zd",
    "commerceName": "Casa Do Acaí",
    "keywords": "",
-   "tagsText": "Presencial Lunes Descuentos"
+   "tagsText": "Presencial Lunes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5053,7 +5397,9 @@
    "slug": "todos-los-dias-santiago-op2bys",
    "commerceName": "Cava & Barrica",
    "keywords": "",
-   "tagsText": "R. Metropolitana Santiago Presencial Descuentos"
+   "tagsText": "R. Metropolitana Santiago Presencial Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5064,7 +5410,9 @@
    "slug": "penalolen-gwdh35",
    "commerceName": "Diksabaa Shawarmas",
    "keywords": "",
-   "tagsText": "R. Metropolitana Presencial Miércoles Descuentos"
+   "tagsText": "R. Metropolitana Presencial Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5075,7 +5423,9 @@
    "slug": "vina-del-mar-iu1aqqjda",
    "commerceName": "Fast Not Junk",
    "keywords": "",
-   "tagsText": "Viña del mar Presencial Lunes Miércoles Descuentos"
+   "tagsText": "Viña del mar Presencial Lunes Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5086,7 +5436,9 @@
    "slug": "vina-del-mar-srnyze",
    "commerceName": "Fud Market",
    "keywords": "",
-   "tagsText": "Viña del mar Presencial Lunes Miércoles Descuentos"
+   "tagsText": "Viña del mar Presencial Lunes Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5097,7 +5449,9 @@
    "slug": "coleccion-exclusiva-33eeccr",
    "commerceName": "Totoy Zamudio",
    "keywords": "",
-   "tagsText": "Online Descuentos"
+   "tagsText": "Online Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5108,7 +5462,9 @@
    "slug": "providencia-z1h4cn7",
    "commerceName": "Lao Lao Foods",
    "keywords": "",
-   "tagsText": "R. Metropolitana Providencia Presencial Miércoles Descuentos"
+   "tagsText": "R. Metropolitana Providencia Presencial Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5119,7 +5475,9 @@
    "slug": "valparaiso-y-vina-del-mar-6q2uu9",
    "commerceName": "Koala Sushi",
    "keywords": "",
-   "tagsText": "Valparaíso Viña del mar Presencial Lunes Martes Miércoles Jueves Descuentos"
+   "tagsText": "Valparaíso Viña del mar Presencial Lunes Martes Miércoles Jueves Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5130,7 +5488,9 @@
    "slug": "todos-los-dias-santiago-3dm1o9m",
    "commerceName": "Trattoria al Dente",
    "keywords": "",
-   "tagsText": "Santiago Presencial Descuentos"
+   "tagsText": "Santiago Presencial Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5141,7 +5501,9 @@
    "slug": "santiago-icrw8ock",
    "commerceName": "Tres Valles Restaurant",
    "keywords": "",
-   "tagsText": "Santiago Presencial Miércoles Descuentos"
+   "tagsText": "Santiago Presencial Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5152,7 +5514,9 @@
    "slug": "providencia-sk274z",
    "commerceName": "La Chimba",
    "keywords": "",
-   "tagsText": "Providencia R. Metropolitana Miércoles Descuentos Presencial"
+   "tagsText": "Providencia R. Metropolitana Miércoles Descuentos Presencial",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5163,7 +5527,9 @@
    "slug": "las-condes-u9mi7db",
    "commerceName": "Rugendas Restaurant",
    "keywords": "",
-   "tagsText": "R. Metropolitana Las Condes Presencial Sábado Descuentos"
+   "tagsText": "R. Metropolitana Las Condes Presencial Sábado Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5174,7 +5540,9 @@
    "slug": "providencia-iqcfk7a",
    "commerceName": "Santa Hamburguesa",
    "keywords": "",
-   "tagsText": "Providencia R. Metropolitana Presencial Martes Descuentos"
+   "tagsText": "Providencia R. Metropolitana Presencial Martes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5185,7 +5553,9 @@
    "slug": "restobar-penaflor-iw5n97o",
    "commerceName": "Terraza Ibiza",
    "keywords": "",
-   "tagsText": "R. Metropolitana Presencial Martes Miércoles Descuentos"
+   "tagsText": "R. Metropolitana Presencial Martes Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5196,7 +5566,9 @@
    "slug": "de-12.30-a-23.00-horas-af8r6rh",
    "commerceName": "The Bistró",
    "keywords": "",
-   "tagsText": "Presencial Sábado Descuentos"
+   "tagsText": "Presencial Sábado Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5207,7 +5579,9 @@
    "slug": "hotel-courtyard-by-marriott-pzs4vl",
    "commerceName": "The Courtner",
    "keywords": "",
-   "tagsText": "Presencial Lunes Descuentos"
+   "tagsText": "Presencial Lunes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5218,7 +5592,9 @@
    "slug": "vitacura-tnbkz4g",
    "commerceName": "Marliz Café Restaurant",
    "keywords": "",
-   "tagsText": "Vitacura R. Metropolitana Presencial Lunes Martes Miércoles Descuentos"
+   "tagsText": "Vitacura R. Metropolitana Presencial Lunes Martes Miércoles Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5229,7 +5605,9 @@
    "slug": "las-condes-y-lo-barnechea-j55gpam",
    "commerceName": "Ari Nikkei",
    "keywords": "",
-   "tagsText": "Presencial R. Metropolitana Las Condes"
+   "tagsText": "Presencial R. Metropolitana Las Condes",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5240,7 +5618,9 @@
    "slug": "miercoles-renaca-bjyluer",
    "commerceName": "Casa Reñaca",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos Restaurantes Viña del mar"
+   "tagsText": "Presencial Miércoles Descuentos Restaurantes Viña del mar",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5251,7 +5631,9 @@
    "slug": "viernes-araucania-56yqn62w",
    "commerceName": "DC Araucanía",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Martes"
+   "tagsText": "Presencial Descuentos Martes",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5262,7 +5644,9 @@
    "slug": "todos-los-martes-zpcq6c",
    "commerceName": "La Campiña Francesa",
    "keywords": "",
-   "tagsText": "Presencial Martes Descuentos"
+   "tagsText": "Presencial Martes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5273,7 +5657,9 @@
    "slug": "descuento-2d-43kx8sd",
    "commerceName": "Cinepolis",
    "keywords": "",
-   "tagsText": "Descuentos Entretenimiento"
+   "tagsText": "Descuentos Entretenimiento",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5284,7 +5670,9 @@
    "slug": "entradas-2d-3d-y-pluus-ovj8pzh",
    "commerceName": "Cinepolis",
    "keywords": "",
-   "tagsText": "Descuentos Entretención Cine"
+   "tagsText": "Descuentos Entretención Cine",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5295,7 +5683,9 @@
    "slug": "combo-bci-xae6vxt",
    "commerceName": "Cinepolis",
    "keywords": "",
-   "tagsText": "Descuentos Entretenimiento"
+   "tagsText": "Descuentos Entretenimiento",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5306,7 +5696,9 @@
    "slug": "hasta-10-por-ciento-de-dto-exclusivo-en-salidas-seleccionadas-de-2027-a6h3x4q",
    "commerceName": "Interexpress",
    "keywords": "",
-   "tagsText": "Viajes"
+   "tagsText": "Viajes",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5317,7 +5709,9 @@
    "slug": "jueves-en-valparaiso-z9bwres",
    "commerceName": "La Caperucita y el Lobo",
    "keywords": "",
-   "tagsText": "Presencial Jueves Descuentos Restaurantes"
+   "tagsText": "Presencial Jueves Descuentos Restaurantes",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5328,7 +5722,9 @@
    "slug": "disfruta-los-viernes-6h3hbyw",
    "commerceName": "La Hacienda de Machalí",
    "keywords": "Machalí ; Viernes",
-   "tagsText": "Descuentos Presencial Restaurantes"
+   "tagsText": "Descuentos Presencial Restaurantes",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5339,7 +5735,9 @@
    "slug": "viernes-vitacura-ijlz0yf",
    "commerceName": "Piegari",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Restaurantes Viernes R. Metropolitana Vitacura"
+   "tagsText": "Presencial Descuentos Restaurantes Viernes R. Metropolitana Vitacura",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5350,7 +5748,9 @@
    "slug": "martes-valparaiso-wnbl0o",
    "commerceName": "Portofino",
    "keywords": "",
-   "tagsText": "Valparaíso Martes Presencial Descuentos"
+   "tagsText": "Valparaíso Martes Presencial Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5361,7 +5761,9 @@
    "slug": "sabado-de-brunch-en-vitacura-mt0792i",
    "commerceName": "Portokali",
    "keywords": "",
-   "tagsText": "Presencial Sábado Descuentos"
+   "tagsText": "Presencial Sábado Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5372,7 +5774,9 @@
    "slug": "viernes-de-comida-india-3s1zpfb",
    "commerceName": "Rishtedar",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Jueves"
+   "tagsText": "Presencial Descuentos Jueves",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5383,7 +5787,9 @@
    "slug": "domingo-de-brunch-en-lo-barnechea-271kwc8",
    "commerceName": "Zía Bistró & Café",
    "keywords": "",
-   "tagsText": "Presencial Lunes Martes Miércoles Descuentos"
+   "tagsText": "Presencial Lunes Martes Miércoles Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5394,7 +5800,9 @@
    "slug": "domingo-de-brunch-en-las-condes-zhh46xm",
    "commerceName": "Bassotto Café",
    "keywords": "",
-   "tagsText": "Las Condes R. Metropolitana Presencial Domingo"
+   "tagsText": "Las Condes R. Metropolitana Presencial Domingo",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5405,7 +5813,9 @@
    "slug": "viernes-presencial-v5scbgu",
    "commerceName": "Mamut",
    "keywords": "",
-   "tagsText": "Presencial Jueves Descuentos"
+   "tagsText": "Presencial Jueves Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5416,7 +5826,9 @@
    "slug": "martes-y-jueves-presencial-0040hcd",
    "commerceName": "Happy Days Waffles",
    "keywords": "",
-   "tagsText": "Presencial Jueves Martes Descuentos"
+   "tagsText": "Presencial Jueves Martes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5427,7 +5839,9 @@
    "slug": "jueves-valparaiso-vnibje",
    "commerceName": "MaliZioso Pizzería",
    "keywords": "",
-   "tagsText": "Presencial Jueves Descuentos Restaurantes"
+   "tagsText": "Presencial Jueves Descuentos Restaurantes",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5438,7 +5852,9 @@
    "slug": "sabado-antofagasta-1axii1pa",
    "commerceName": "Piso 28",
    "keywords": "ANTOFAGASTA; SÁBADO; ;",
-   "tagsText": "Presencial Descuentos Restaurantes Sábado R. Antofagasta"
+   "tagsText": "Presencial Descuentos Restaurantes Sábado R. Antofagasta",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5449,7 +5865,9 @@
    "slug": "miercoles-vitacura-2amhe6c",
    "commerceName": "Romaría Pizzería",
    "keywords": "",
-   "tagsText": "Vitacura R. Metropolitana Miércoles Presencial Descuentos"
+   "tagsText": "Vitacura R. Metropolitana Miércoles Presencial Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5460,7 +5878,9 @@
    "slug": "sabado-de-brunch-en-vitacura-regudy",
    "commerceName": "Entre Sabores Café",
    "keywords": "",
-   "tagsText": "R. Metropolitana Vitacura Presencial Sábado Descuentos"
+   "tagsText": "R. Metropolitana Vitacura Presencial Sábado Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5471,7 +5891,9 @@
    "slug": "lunes-de-brunch-en-providencia-a583dj9",
    "commerceName": "La Foresta Coffee & Cakes",
    "keywords": "",
-   "tagsText": "R. Metropolitana Providencia Presencial Lunes Descuentos"
+   "tagsText": "R. Metropolitana Providencia Presencial Lunes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5482,7 +5904,9 @@
    "slug": "martes-de-brunch-en-providencia-ui97vf",
    "commerceName": "Tencha Matcheria",
    "keywords": "",
-   "tagsText": "R. Metropolitana Providencia Martes Descuentos"
+   "tagsText": "R. Metropolitana Providencia Martes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5493,7 +5917,9 @@
    "slug": "martes-de-brunch-en-viitacura-99tjb2x",
    "commerceName": "Casa Mo",
    "keywords": "",
-   "tagsText": "R. Metropolitana Vitacura Martes Descuentos"
+   "tagsText": "R. Metropolitana Vitacura Martes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5504,7 +5930,9 @@
    "slug": "miercoles-de-brunch-en-vitacura-0abaw2",
    "commerceName": "Libertario Coffee",
    "keywords": "",
-   "tagsText": "R. Metropolitana Vitacura Presencial Miércoles Descuentos"
+   "tagsText": "R. Metropolitana Vitacura Presencial Miércoles Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5515,7 +5943,9 @@
    "slug": "miercoles-de-brunch-en-providencia-zf1059k",
    "commerceName": "Batard",
    "keywords": "",
-   "tagsText": "R. Metropolitana Providencia Presencial Miércoles Descuentos"
+   "tagsText": "R. Metropolitana Providencia Presencial Miércoles Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5526,7 +5956,9 @@
    "slug": "jueves-de-brunch-en-las-condes-3r6ng8",
    "commerceName": "Viasanto",
    "keywords": "",
-   "tagsText": "R. Metropolitana Las Condes Presencial Jueves Descuentos"
+   "tagsText": "R. Metropolitana Las Condes Presencial Jueves Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5537,7 +5969,9 @@
    "slug": "jueves-de-brunch-en-providencia-pf00hpm",
    "commerceName": "Norai",
    "keywords": "",
-   "tagsText": "R. Metropolitana Providencia Presencial Jueves Descuentos"
+   "tagsText": "R. Metropolitana Providencia Presencial Jueves Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5548,7 +5982,9 @@
    "slug": "viernes-de-brunch-en-las-condes-phvpjnk",
    "commerceName": "Nana's Fruit",
    "keywords": "",
-   "tagsText": "R. Metropolitana Las Condes Presencial Viernes Descuentos"
+   "tagsText": "R. Metropolitana Las Condes Presencial Viernes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5559,7 +5995,9 @@
    "slug": "viernes-de-brunch-en-providencia-aeo26rc",
    "commerceName": "Pascucci",
    "keywords": "",
-   "tagsText": "R. Metropolitana Providencia Presencial Viernes Descuentos"
+   "tagsText": "R. Metropolitana Providencia Presencial Viernes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5570,7 +6008,9 @@
    "slug": "lunes-las-condes-fh90k5",
    "commerceName": "Parigó",
    "keywords": "",
-   "tagsText": "Las Condes R. Metropolitana Presencial Lunes Descuentos"
+   "tagsText": "Las Condes R. Metropolitana Presencial Lunes Descuentos",
+   "validFrom": "2026-11-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5581,7 +6021,9 @@
    "slug": "lunes-temuco-htkws0m",
    "commerceName": "Martina Lounge Bar",
    "keywords": "TEMUCO; LUNES; ;",
-   "tagsText": "Presencial Descuentos Restaurantes"
+   "tagsText": "Presencial Descuentos Restaurantes",
+   "validFrom": "2026-11-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5592,7 +6034,9 @@
    "slug": "lunes-rancagua-c5ichak",
    "commerceName": "Berezi",
    "keywords": "",
-   "tagsText": "R. Metropolitana Presencial Lunes Descuentos"
+   "tagsText": "R. Metropolitana Presencial Lunes Descuentos",
+   "validFrom": "2026-11-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5603,7 +6047,9 @@
    "slug": "miercoles-valdivia-0l8f1i3",
    "commerceName": "Dejavu Cocina y Bar",
    "keywords": "",
-   "tagsText": "R. Los Ríos Presencial Miércoles Descuentos"
+   "tagsText": "R. Los Ríos Presencial Miércoles Descuentos",
+   "validFrom": "2026-11-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5614,7 +6060,9 @@
    "slug": "isidora-goyenechea-hsofw38",
    "commerceName": "Kató Tasty Caos",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos Restaurantes R. Metropolitana Las Condes"
+   "tagsText": "Presencial Miércoles Descuentos Restaurantes R. Metropolitana Las Condes",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5625,7 +6073,9 @@
    "slug": "martes-vitacura-rpkh4cp",
    "commerceName": "Naoki",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Vitacura Martes"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Vitacura Martes",
+   "validFrom": "2026-11-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5636,7 +6086,9 @@
    "slug": "sabado-vitacura-i10uln4",
    "commerceName": "El Taringa",
    "keywords": "",
-   "tagsText": "R. Metropolitana Vitacura Presencial Sábado"
+   "tagsText": "R. Metropolitana Vitacura Presencial Sábado",
+   "validFrom": "2026-11-03",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5647,7 +6099,9 @@
    "slug": "sabado-vitacura-u1rume9",
    "commerceName": "La Cocina de Javier",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Vitacura Sábado"
+   "tagsText": "Presencial Descuentos Restaurantes R. Metropolitana Vitacura Sábado",
+   "validFrom": "2026-11-03",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5658,7 +6112,9 @@
    "slug": "jueves-nunoa-r6r4nlq",
    "commerceName": "Mr. Sabroso",
    "keywords": "",
-   "tagsText": "Presencial Jueves Descuentos"
+   "tagsText": "Presencial Jueves Descuentos",
+   "validFrom": "2026-11-05",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5669,7 +6125,9 @@
    "slug": "santiago-las-condes-eo22z88",
    "commerceName": "Cívico",
    "keywords": "",
-   "tagsText": "R. Metropolitana Las Condes Santiago Presencial Viernes Descuentos"
+   "tagsText": "R. Metropolitana Las Condes Santiago Presencial Viernes Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5680,7 +6138,9 @@
    "slug": "miercoles-vitacura-23qzno",
    "commerceName": "Tropicalia Beer Garden",
    "keywords": "",
-   "tagsText": "Vitacura R. Metropolitana Presencial Miércoles Descuentos"
+   "tagsText": "Vitacura R. Metropolitana Presencial Miércoles Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5691,7 +6151,9 @@
    "slug": "sabado-providencia-22p0esh",
    "commerceName": "Ruca Bar",
    "keywords": "",
-   "tagsText": "R. Metropolitana Providencia Presencial Sábado Descuentos"
+   "tagsText": "R. Metropolitana Providencia Presencial Sábado Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5702,7 +6164,9 @@
    "slug": "la-reina-d1jsqxp",
    "commerceName": "Brontos",
    "keywords": "",
-   "tagsText": "R. Metropolitana La Reina Presencial Lunes Martes Miércoles Jueves Descuentos"
+   "tagsText": "R. Metropolitana La Reina Presencial Lunes Martes Miércoles Jueves Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5713,7 +6177,9 @@
    "slug": "san-antonio-auo47g",
    "commerceName": "La Cuina Restaurant",
    "keywords": "",
-   "tagsText": "San Antonio Presencial Jueves Martes Descuentos"
+   "tagsText": "San Antonio Presencial Jueves Martes Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5724,7 +6190,9 @@
    "slug": "miercoles-talca-dalioau",
    "commerceName": "Lo de Julio",
    "keywords": "",
-   "tagsText": "R. Maule Presencial Miércoles Descuentos"
+   "tagsText": "R. Maule Presencial Miércoles Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5735,7 +6203,9 @@
    "slug": "miercoles-chiguayante-3nuv4th",
    "commerceName": "Místico Restaurant",
    "keywords": "",
-   "tagsText": "R. Biobío Presencial Miércoles Descuentos"
+   "tagsText": "R. Biobío Presencial Miércoles Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5746,7 +6216,9 @@
    "slug": "viernes-santiago-cwcnpu3",
    "commerceName": "Quñi Chile",
    "keywords": "",
-   "tagsText": "Presencial R. Metropolitana Santiago Viernes Descuentos"
+   "tagsText": "Presencial R. Metropolitana Santiago Viernes Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5757,7 +6229,9 @@
    "slug": "las-condes-f96eq94",
    "commerceName": "Raffaella",
    "keywords": "",
-   "tagsText": "Las Condes R. Metropolitana Presencial Miércoles Descuentos"
+   "tagsText": "Las Condes R. Metropolitana Presencial Miércoles Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5768,7 +6242,9 @@
    "slug": "accede-gratis-a-todos-los-salones-primeclass-del-aeropuerto-uich17k",
    "commerceName": "Salones Vip - Primeclass",
    "keywords": "TODO CHILE; TODOS LOS DIAS; ;",
-   "tagsText": "Viajes Experiencias"
+   "tagsText": "Viajes Experiencias",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5779,7 +6255,9 @@
    "slug": "accede-gratis-a-todos-los-salones-pacific-del-aeropuerto-0tbqc2",
    "commerceName": "SALONES VIP - Pacific Club",
    "keywords": "TODO CHILE; TODOS LOS DIAS; ;",
-   "tagsText": "Viajes Experiencias"
+   "tagsText": "Viajes Experiencias",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5790,7 +6268,9 @@
    "slug": "accede-gratis-al-salon-harmony-lounge-de-calama-en-el-aeropuerto-ybnbp3j",
    "commerceName": "Salones Vip - Harmony Lounge",
    "keywords": "CALAMA; TODOS LOS DIAS; ;",
-   "tagsText": "Servicios Vuelos Viajes Experiencias"
+   "tagsText": "Servicios Vuelos Viajes Experiencias",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5801,7 +6281,9 @@
    "slug": "carreras-virtuales-para-grandes-y-chicos.-conviertete-en-un-piloto-de-carreras.-kmeiqop",
    "commerceName": "VR Racing - Mall Sport",
    "keywords": "LAS CONDES; MIÉRCOLES; ;",
-   "tagsText": "Presencial Descuentos Entretención"
+   "tagsText": "Presencial Descuentos Entretención",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5812,7 +6294,9 @@
    "slug": "disfruta-del-muro-de-escalada-perfecto-para-entrenar-en-un-lugar-ambientado-y-comodo.-lw1btdf",
    "commerceName": "MURO - Mall Sport",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Entretención"
+   "tagsText": "Presencial Descuentos Entretención",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5823,7 +6307,9 @@
    "slug": "diviertete-manejando-y-vive-una-experiencia-de-velocidad-en-familia-o-con-amigos.-p5nsqbn",
    "commerceName": "RALLY KARTING - Mall Sport",
    "keywords": "LAS CONDES; MIÉRCOLES; ;",
-   "tagsText": "Presencial Descuentos Entretención"
+   "tagsText": "Presencial Descuentos Entretención",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5834,7 +6320,9 @@
    "slug": "todos-los-miercoles-87aaen",
    "commerceName": "SAFARIA - Mall Sport",
    "keywords": "LAS CONDES; MIÉRCOLES; ;",
-   "tagsText": "Presencial Descuentos Entretención"
+   "tagsText": "Presencial Descuentos Entretención",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5845,7 +6333,9 @@
    "slug": "atrevete-a-un-desafio-en-las-alturas.-diversion-y-adrenalina-para-toda-la-familia.-hxowu0r",
    "commerceName": "AIR TRAIL - Mall Sport",
    "keywords": "LAS CONDES; MIÉRCOLES; ;",
-   "tagsText": "Presencial Descuentos Entretención"
+   "tagsText": "Presencial Descuentos Entretención",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5856,7 +6346,9 @@
    "slug": "centro-de-escalada-y-boulder-para-todos-los-niveles.-izmmn9p",
    "commerceName": "GRAVITY - Mall Sport",
    "keywords": "LAS CONDES; MIÉRCOLES; ;",
-   "tagsText": "Presencial Descuentos Entretención"
+   "tagsText": "Presencial Descuentos Entretención",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5867,7 +6359,9 @@
    "slug": "actividad-entretenida-que-cruza-el-interior-del-mall-a-mas-de-15-metros-de-altura.-1gnbn6q",
    "commerceName": "TIROLESA - Mall Sport",
    "keywords": "LAS CONDES; MIÉRCOLES; ;",
-   "tagsText": "Presencial Descuentos Entretención"
+   "tagsText": "Presencial Descuentos Entretención",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5878,7 +6372,9 @@
    "slug": "todos-los-miercoles-xqd6dxs",
    "commerceName": "AUTOPISTA 84 - Mall Sport",
    "keywords": "LAS CONDES; MIÉRCOLES; ;",
-   "tagsText": "Presencial Descuentos Entretención"
+   "tagsText": "Presencial Descuentos Entretención",
+   "validFrom": "2026-01-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5889,7 +6385,9 @@
    "slug": "accede-gratis-con-tus-t.-de-credito-bci-visa-signature-visa-infinite-y-mastercard-black.-006otek",
    "commerceName": "Salones VIP en el Extranjero",
    "keywords": "",
-   "tagsText": "Servicios Presencial Vuelos Viajes"
+   "tagsText": "Servicios Presencial Vuelos Viajes",
+   "validFrom": "2026-02-12",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5900,7 +6398,9 @@
    "slug": "un-espacio-para-el-arte-y-el-buen-cafe.-el-panorama-cultural-que-buscabas.-9vwp3jj",
    "commerceName": "Teatro San Ginés",
    "keywords": "san ginés, teatro, café, bar",
-   "tagsText": "Descuentos cafe Cerveza Presencial"
+   "tagsText": "Descuentos cafe Cerveza Presencial",
+   "validFrom": "2026-04-10",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5911,7 +6411,9 @@
    "slug": "hasta-50-por-ciento-de-cashback-en-las-nuevas-membresias-travel-up-de-jetsmart-con-tdc-bci-sb4cj09",
    "commerceName": "JetSmart",
    "keywords": "",
-   "tagsText": "Vuelos Viajes Cashback Experiencias"
+   "tagsText": "Vuelos Viajes Cashback Experiencias",
+   "validFrom": "2026-04-23",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5922,7 +6424,9 @@
    "slug": "revisa-el-dia-de-tu-descuento-73n82ln",
    "commerceName": "Flores",
    "keywords": "",
-   "tagsText": "Presencial Moda Descuentos"
+   "tagsText": "Presencial Moda Descuentos",
+   "validFrom": "2026-04-28",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5933,7 +6437,9 @@
    "slug": "todos-los-dias-online-presencial-u5npjq",
    "commerceName": "Totto",
    "keywords": "",
-   "tagsText": "Mochilas Descuentos Moda hombre Moda mujer"
+   "tagsText": "Mochilas Descuentos Moda hombre Moda mujer",
+   "validFrom": "2026-04-28",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5944,7 +6450,9 @@
    "slug": "todos-los-dias-cqhi2qe",
    "commerceName": "Kafi Body",
    "keywords": "",
-   "tagsText": "Online Salud Belleza Bienestar Descuentos"
+   "tagsText": "Online Salud Belleza Bienestar Descuentos",
+   "validFrom": "2026-04-29",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5955,7 +6463,9 @@
    "slug": "vasos-reciclados-con-tematicas-divertidas-para-tu-hogar-o-empresas.-94cyu4p",
    "commerceName": "Green Glass",
    "keywords": "sostenibilidad, vida sustentable, sostenible, vasos, TODO CHILE; TODOS LOS DIAS; ;",
-   "tagsText": "Online Descuentos Hogar"
+   "tagsText": "Online Descuentos Hogar",
+   "validFrom": "2026-03-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5966,7 +6476,9 @@
    "slug": "todos-los-dias-cmj58wp",
    "commerceName": "Karün",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Moda hombre Moda mujer"
+   "tagsText": "Presencial Descuentos Moda hombre Moda mujer",
+   "validFrom": "2026-04-29",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5977,7 +6489,9 @@
    "slug": "estacionamiento-en-el-aeropuerto-de-santiago-de-chile-lsj2fwh",
    "commerceName": "Ok Parking",
    "keywords": "REGION METROPOLITANA; TODOS LOS DÍAS ; ;",
-   "tagsText": "Online Descuentos"
+   "tagsText": "Online Descuentos",
+   "validFrom": "2026-04-30",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -5988,7 +6502,9 @@
    "slug": "todos-los-dias-vgo8nm",
    "commerceName": "Mizos",
    "keywords": "",
-   "tagsText": "Online Descuentos"
+   "tagsText": "Online Descuentos",
+   "validFrom": "2026-05-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -5999,7 +6515,9 @@
    "slug": "descuentos-para-disfrutar-con-los-ninos-99mdr6",
    "commerceName": "Coney Park",
    "keywords": "",
-   "tagsText": "Presencial Niños Entretención Juegos"
+   "tagsText": "Presencial Niños Entretención Juegos",
+   "validFrom": "2026-05-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6010,7 +6528,9 @@
    "slug": "descuentos-para-disfrutar-con-los-ninos-kilz87i",
    "commerceName": "Yukids",
    "keywords": "parque, niños",
-   "tagsText": "Entretención Presencial Descuentos Juegos"
+   "tagsText": "Entretención Presencial Descuentos Juegos",
+   "validFrom": "2026-05-11",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6021,7 +6541,9 @@
    "slug": "descuentos-para-disfrutar-con-los-ninos-mc1mfo",
    "commerceName": "Coney Jump",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Juegos Entretención"
+   "tagsText": "Presencial Descuentos Juegos Entretención",
+   "validFrom": "2026-05-11",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6032,7 +6554,9 @@
    "slug": "aprovecha-todos-los-miercoles-en-compras-presenciales-y-online-eng0sbq",
    "commerceName": "Original Penguin",
    "keywords": "ropa, mujer, moda, vestuario",
-   "tagsText": "Presencial Online Descuentos Moda hombre Moda mujer Miércoles"
+   "tagsText": "Presencial Online Descuentos Moda hombre Moda mujer Miércoles",
+   "validFrom": "2026-05-15",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6043,7 +6567,9 @@
    "slug": "aprovecha-todos-los-miercoles-en-compras-presenciales-y-online-x414rlj",
    "commerceName": "Perry Ellis",
    "keywords": "",
-   "tagsText": "Presencial Online Miércoles Descuentos Moda"
+   "tagsText": "Presencial Online Miércoles Descuentos Moda",
+   "validFrom": "2026-05-15",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6054,7 +6580,9 @@
    "slug": "aprovecha-todos-los-miercoles-en-compras-presenciales-y-online-9zkvo88",
    "commerceName": "Florsheim",
    "keywords": "",
-   "tagsText": "Miércoles Descuentos Moda"
+   "tagsText": "Miércoles Descuentos Moda",
+   "validFrom": "2026-05-15",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6065,7 +6593,9 @@
    "slug": "aprovecha-todos-los-miercoles-en-compras-presenciales-y-online-skn03b",
    "commerceName": "Trial",
    "keywords": "",
-   "tagsText": "Presencial Online Miércoles Moda Descuentos"
+   "tagsText": "Presencial Online Miércoles Moda Descuentos",
+   "validFrom": "2026-05-15",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6076,7 +6606,9 @@
    "slug": "3-6-y-12-cuotas-sin-interes-kqgqkt7",
    "commerceName": "JetSmart",
    "keywords": "",
-   "tagsText": "Vuelos Viajes Pago en cuotas Online Martes Miércoles Jueves Viernes Sábado Domingo Lunes"
+   "tagsText": "Vuelos Viajes Pago en cuotas Online Martes Miércoles Jueves Viernes Sábado Domingo Lunes",
+   "validFrom": "2026-05-15",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6087,7 +6619,9 @@
    "slug": "aprovecha-este-increible-beneficio-todos-los-dias-wydngj",
    "commerceName": "Blackdrop Coffee",
    "keywords": "",
-   "tagsText": "Café Descuentos Online Presencial"
+   "tagsText": "Café Descuentos Online Presencial",
+   "validFrom": "2026-06-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6098,7 +6632,9 @@
    "slug": "todos-los-dias-dr0v8j3",
    "commerceName": "Caracol Natural",
    "keywords": "",
-   "tagsText": "Online Salud Bienestar"
+   "tagsText": "Online Salud Bienestar",
+   "validFrom": "2026-05-20",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6109,7 +6645,9 @@
    "slug": "moda-que-rompe-con-todas-las-reglas-xee1b0k",
    "commerceName": "Scalpers",
    "keywords": "",
-   "tagsText": "Miércoles Descuentos Moda"
+   "tagsText": "Miércoles Descuentos Moda",
+   "validFrom": "2026-05-22",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6120,7 +6658,9 @@
    "slug": "todos-los-dias-smnkn7dh",
    "commerceName": "Teatro San Ginés",
    "keywords": "san ginés, teatro",
-   "tagsText": "Descuentos"
+   "tagsText": "Descuentos",
+   "validFrom": "2026-05-22",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6131,7 +6671,9 @@
    "slug": "regalate-un-momento-natura-4t010xl",
    "commerceName": "Natura",
    "keywords": "",
-   "tagsText": "Descuentos Salud Bienestar Online"
+   "tagsText": "Descuentos Salud Bienestar Online",
+   "validFrom": "2026-06-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6142,7 +6684,9 @@
    "slug": "obten-tu-cupon-de-descuento-para-tur.com-sdtuqr",
    "commerceName": "Tur.com",
    "keywords": "",
-   "tagsText": "Descuentos"
+   "tagsText": "Descuentos",
+   "validFrom": "2026-02-03",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6153,7 +6697,9 @@
    "slug": "disfruta-los-jueves-y-sabados-en-antofagasta-pcm133",
    "commerceName": "Enkai Asian Food",
    "keywords": "",
-   "tagsText": "Sábado Jueves Descuentos Restaurantes R. Antofagasta"
+   "tagsText": "Sábado Jueves Descuentos Restaurantes R. Antofagasta",
+   "validFrom": "2026-06-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6164,7 +6710,9 @@
    "slug": "aprovecha-este-beneficio-deportivo-vbrwxhj",
    "commerceName": "Pura Vida Boxing Club",
    "keywords": "",
-   "tagsText": "Descuentos Deportes Salud Bienestar"
+   "tagsText": "Descuentos Deportes Salud Bienestar",
+   "validFrom": "2026-06-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6175,7 +6723,9 @@
    "slug": "aprovecha-este-increible-descuento-todos-los-dias-0qzd63e",
    "commerceName": "Figurella",
    "keywords": "",
-   "tagsText": "Presencial Salud Descuentos Belleza Deportes"
+   "tagsText": "Presencial Salud Descuentos Belleza Deportes",
+   "validFrom": "2026-06-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6186,7 +6736,9 @@
    "slug": "todos-los-dias-online-8dck187",
    "commerceName": "Cava Morandé",
    "keywords": "",
-   "tagsText": "Online Descuentos"
+   "tagsText": "Online Descuentos",
+   "validFrom": "2026-06-04",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6197,7 +6749,9 @@
    "slug": "transforma-tu-rutina-en-un-ritual-con-tessa-8uieuw7",
    "commerceName": "Tessa",
    "keywords": "",
-   "tagsText": "Miércoles Descuentos Salud Bienestar"
+   "tagsText": "Miércoles Descuentos Salud Bienestar",
+   "validFrom": "2026-06-10",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6208,7 +6762,9 @@
    "slug": "miercoles-para-disfrutar-con-amigos-um3jwdg",
    "commerceName": "Casa Vitalis",
    "keywords": "",
-   "tagsText": "Presencial Jueves Descuentos Restaurantes"
+   "tagsText": "Presencial Jueves Descuentos Restaurantes",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6219,7 +6775,9 @@
    "slug": "disfruta-de-los-mejores-helados-6vep39l",
    "commerceName": "Heladería Lärrs",
    "keywords": "",
-   "tagsText": "Miércoles Descuentos"
+   "tagsText": "Miércoles Descuentos",
+   "validFrom": "2026-07-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6230,7 +6788,9 @@
    "slug": "vitacura-providencia-lo-barnechea-vina-del-mar-ketyfc",
    "commerceName": "La Vinoteca",
    "keywords": "",
-   "tagsText": "Presencial Miércoles Descuentos Restaurantes R. Metropolitana Lo Barnechea Vitacura Providencia"
+   "tagsText": "Presencial Miércoles Descuentos Restaurantes R. Metropolitana Lo Barnechea Vitacura Providencia",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6241,7 +6801,9 @@
    "slug": "disfruta-del-muro-de-escalada-perfecto-para-entrenar-en-un-lugar-ambientado-y-comodo.-0m3rt2",
    "commerceName": "My Hero´s Café",
    "keywords": "",
-   "tagsText": "Descuentos"
+   "tagsText": "Descuentos",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6252,7 +6814,9 @@
    "slug": "aprovecha-este-increible-descuentos-en-plantas-y-articulos-de-decoracion-kxe3be9",
    "commerceName": "PlantMe",
    "keywords": "",
-   "tagsText": "Descuentos"
+   "tagsText": "Descuentos",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6263,7 +6827,9 @@
    "slug": "aprovecha-este-descuento-en-plantas-y-plantas-con-macetero-mfo6xuq",
    "commerceName": "Garden Room",
    "keywords": "",
-   "tagsText": "Descuentos Online"
+   "tagsText": "Descuentos Online",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6274,7 +6840,9 @@
    "slug": "aprovecha-este-descuento-para-decorar-tu-hogar-3ztgo1j",
    "commerceName": "Tribus Home",
    "keywords": "",
-   "tagsText": "Online Descuentos"
+   "tagsText": "Online Descuentos",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6285,7 +6853,9 @@
    "slug": "aprovecha-este-descuento-para-decorar-tu-hogar-xgsa1fo",
    "commerceName": "Tribus Rugs",
    "keywords": "",
-   "tagsText": "Descuentos Online"
+   "tagsText": "Descuentos Online",
+   "validFrom": "2026-08-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6296,7 +6866,9 @@
    "slug": "aprovecha-este-descuento-todos-los-miercoles-en-compras-online-fhgge34",
    "commerceName": "Canadienne",
    "keywords": "",
-   "tagsText": "Miércoles Descuentos Moda Online"
+   "tagsText": "Miércoles Descuentos Moda Online",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6307,7 +6879,9 @@
    "slug": "lunes-martes-miercoles-9gvh0q8",
    "commerceName": "Hands & Company",
    "keywords": "; LUNES, MARTES, MIÉRCOLES; ;",
-   "tagsText": "Presencial Servicios Descuentos Belleza Mama Belleza"
+   "tagsText": "Presencial Servicios Descuentos Belleza Mama Belleza",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6318,7 +6892,9 @@
    "slug": "todos-los-dias-qv2th5q",
    "commerceName": "Lit Fitness",
    "keywords": "",
-   "tagsText": "Descuentos Deportes"
+   "tagsText": "Descuentos Deportes",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6329,7 +6905,9 @@
    "slug": "todos-los-dias-g26egye",
    "commerceName": "Lit Studio",
    "keywords": "",
-   "tagsText": "Descuentos Deportes"
+   "tagsText": "Descuentos Deportes",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6340,7 +6918,9 @@
    "slug": "martes-hwpe6qv",
    "commerceName": "Puppies & Kittens",
    "keywords": "",
-   "tagsText": "Presencial Online Pet Mascotas Descuentos"
+   "tagsText": "Presencial Online Pet Mascotas Descuentos",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6351,7 +6931,9 @@
    "slug": "clinica-boutique-mb896wk",
    "commerceName": "OSVEY Wellness & Dental Clinic",
    "keywords": "",
-   "tagsText": "Miércoles Presencial Descuentos Salud"
+   "tagsText": "Miércoles Presencial Descuentos Salud",
+   "validFrom": "2026-09-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6362,7 +6944,9 @@
    "slug": "terapia-ocupacional-x5mskq6m",
    "commerceName": "Centro de Terapia del Comportamiento",
    "keywords": "",
-   "tagsText": "Descuentos Salud Bienestar"
+   "tagsText": "Descuentos Salud Bienestar",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6373,7 +6957,9 @@
    "slug": "todos-los-dias-d4p9qn3",
    "commerceName": "Pilgrim",
    "keywords": "",
-   "tagsText": "Presencial Online Viajes Hoteles Deportes Outdoor"
+   "tagsText": "Presencial Online Viajes Hoteles Deportes Outdoor",
+   "validFrom": "2026-09-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6384,7 +6970,9 @@
    "slug": "10-a-12-cuotas-kgv0omn",
    "commerceName": "Tasa preferencial en Educación",
    "keywords": "",
-   "tagsText": "Pago en cuotas Presencial Online Tasa preferencial"
+   "tagsText": "Pago en cuotas Presencial Online Tasa preferencial",
+   "validFrom": "2026-09-14",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6395,7 +6983,9 @@
    "slug": "martes-valdivia-sebv3gq",
    "commerceName": "Bar Bundor",
    "keywords": "",
-   "tagsText": "Presencial Descuentos Restaurantes Martes"
+   "tagsText": "Presencial Descuentos Restaurantes Martes",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6406,7 +6996,9 @@
    "slug": "boulevard-central-linares-9fisbc",
    "commerceName": "Play KIDS Linares",
    "keywords": "",
-   "tagsText": "Presencial Lunes Descuentos Entretenimiento"
+   "tagsText": "Presencial Lunes Descuentos Entretenimiento",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6417,7 +7009,9 @@
    "slug": "providencia-3qwqhe5",
    "commerceName": "Café Meche",
    "keywords": "",
-   "tagsText": "Providencia R. Metropolitana Presencial Martes Miércoles Jueves Viernes Descuentos"
+   "tagsText": "Providencia R. Metropolitana Presencial Martes Miércoles Jueves Viernes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6428,7 +7022,9 @@
    "slug": "cafeteria-de-especialidad-v3vvp6",
    "commerceName": "Dulchi",
    "keywords": "",
-   "tagsText": "Presencial Martes Descuentos"
+   "tagsText": "Presencial Martes Descuentos",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6439,7 +7035,9 @@
    "slug": "electromovilidad-liviana-i3iyikg",
    "commerceName": "E Mobility",
    "keywords": "",
-   "tagsText": "Descuentos Online"
+   "tagsText": "Descuentos Online",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6450,7 +7048,9 @@
    "slug": "24-a-36-cuotas-bkuxyjr",
    "commerceName": "Tasa preferencial en Inmobiliarias",
    "keywords": "",
-   "tagsText": "Pago en cuotas Presencial Online Tasa preferencial"
+   "tagsText": "Pago en cuotas Presencial Online Tasa preferencial",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6461,7 +7061,9 @@
    "slug": "paga-en-13-a-24-cuotas-sin-interes-en-clinica-davila-recoleta-c7xazbh",
    "commerceName": "Clínica Dávila",
    "keywords": "",
-   "tagsText": "Pago en cuotas Presencial"
+   "tagsText": "Pago en cuotas Presencial",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6472,7 +7074,9 @@
    "slug": "paga-en-13-a-24-cuotas-sin-interes-f0vasy",
    "commerceName": "Movistar",
    "keywords": "",
-   "tagsText": "Pago en cuotas Tecnología"
+   "tagsText": "Pago en cuotas Tecnología",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6483,7 +7087,9 @@
    "slug": "paga-en-3-a-24-cuotas-sin-interes-24v8ex",
    "commerceName": "Samsung",
    "keywords": "",
-   "tagsText": "Online 3 cuotas sin interes Pago en cuotas"
+   "tagsText": "Online 3 cuotas sin interes Pago en cuotas",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6494,7 +7100,9 @@
    "slug": "paga-en-3-a-12-cuotas-sin-interes-f4p05jm",
    "commerceName": "PreUCV",
    "keywords": "",
-   "tagsText": "Pago en cuotas Online 3 cuotas sin interes"
+   "tagsText": "Pago en cuotas Online 3 cuotas sin interes",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6505,7 +7113,9 @@
    "slug": "paga-en-3-a-12-cuotas-sin-interes-t3i8wxd",
    "commerceName": "Bestwork",
    "keywords": "",
-   "tagsText": "Online Pago en cuotas 3 cuotas sin interes"
+   "tagsText": "Online Pago en cuotas 3 cuotas sin interes",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6516,7 +7126,9 @@
    "slug": "paga-en-13-a-36-cuotas-sin-interes-iny6e19",
    "commerceName": "Piscinería",
    "keywords": "",
-   "tagsText": "Pago en cuotas Online 3 cuotas sin interes"
+   "tagsText": "Pago en cuotas Online 3 cuotas sin interes",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6527,7 +7139,9 @@
    "slug": "tu-pedido-en-tu-casa-ya-no-tienes-que-ir-al-supermercado-con-pedidosya-hjjwl2",
    "commerceName": "PedidosYa",
    "keywords": "",
-   "tagsText": "Descuentos Supermercados"
+   "tagsText": "Descuentos Supermercados",
+   "validFrom": "2026-10-07",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6538,7 +7152,9 @@
    "slug": "tratamientos-dentales-z51vvpi",
    "commerceName": "Portal de Ortodoncia",
    "keywords": "",
-   "tagsText": "Descuentos Salud Bienestar"
+   "tagsText": "Descuentos Salud Bienestar",
+   "validFrom": "2026-10-09",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6549,7 +7165,9 @@
    "slug": "tratamientos-esteticos-yf9g9me",
    "commerceName": "Portal de Ortodoncia",
    "keywords": "",
-   "tagsText": "Descuentos Salud Bienestar"
+   "tagsText": "Descuentos Salud Bienestar",
+   "validFrom": "2026-10-09",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6560,7 +7178,9 @@
    "slug": "lunes-y-martes-xmltlhe",
    "commerceName": "Trauko",
    "keywords": "",
-   "tagsText": "Lunes Martes Descuentos"
+   "tagsText": "Lunes Martes Descuentos",
+   "validFrom": "2026-11-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6571,7 +7191,9 @@
    "slug": "descuento-del-10-por-ciento-en-hoteles-seleccionados-r6msw83g",
    "commerceName": "ALL ACCOR",
    "keywords": "",
-   "tagsText": "Descuentos Viajes Hoteles"
+   "tagsText": "Descuentos Viajes Hoteles",
+   "validFrom": "2026-11-02",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6582,7 +7204,9 @@
    "slug": "zapallar-p95vrhr",
    "commerceName": "La Fábrica De Helados",
    "keywords": "",
-   "tagsText": "Valparaíso Presencial Martes Descuentos"
+   "tagsText": "Valparaíso Presencial Martes Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6593,7 +7217,9 @@
    "slug": "todos-los-dias-r7cneh",
    "commerceName": "Centro Odontológico Padre Mariano",
    "keywords": "",
-   "tagsText": "Presencial Servicios Descuentos"
+   "tagsText": "Presencial Servicios Descuentos",
+   "validFrom": "2025-04-08",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6604,7 +7230,9 @@
    "slug": "todos-los-dias-6qbby38",
    "commerceName": "By Turquia",
    "keywords": "",
-   "tagsText": "Online Descuentos Moda"
+   "tagsText": "Online Descuentos Moda",
+   "validFrom": "2026-05-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6615,7 +7243,9 @@
    "slug": "paga-en-13-a-24-cuotas-sin-interes-uy04of",
    "commerceName": "Gaes",
    "keywords": "",
-   "tagsText": "Pago en cuotas"
+   "tagsText": "Pago en cuotas",
+   "validFrom": "2026-06-01",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6626,7 +7256,9 @@
    "slug": "todos-los-miercoles-ubat57",
    "commerceName": "La Ola - Mall Sport",
    "keywords": "LAS CONDES; MIÉRCOLES; ;",
-   "tagsText": "Presencial Descuentos Entretención"
+   "tagsText": "Presencial Descuentos Entretención",
+   "validFrom": "2026-06-15",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6637,7 +7269,9 @@
    "slug": "todos-los-dias-online-4fgllpb",
    "commerceName": "Lhotse",
    "keywords": "",
-   "tagsText": "Online Descuentos Electrónica Outdoor"
+   "tagsText": "Online Descuentos Electrónica Outdoor",
+   "validFrom": "2026-09-08",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6648,7 +7282,9 @@
    "slug": "todos-los-dias-online-lkj4xmc",
    "commerceName": "Simplit",
    "keywords": "hogar, casa, linea blanca,",
-   "tagsText": "Online Descuentos Línea Blanca Hogar Electrónica"
+   "tagsText": "Online Descuentos Línea Blanca Hogar Electrónica",
+   "validFrom": "2026-09-08",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6659,7 +7295,9 @@
    "slug": "lunes-y-jueves-gnr6ptg",
    "commerceName": "Clínica ROF",
    "keywords": "",
-   "tagsText": "Descuentos Salud Bienestar"
+   "tagsText": "Descuentos Salud Bienestar",
+   "validFrom": "2026-10-01",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6670,7 +7308,9 @@
    "slug": "renueva-tu-hogar-con-homein-y-paga-en-13-a-24-cuotas-sin-interes-gsv2f6w",
    "commerceName": "Homein",
    "keywords": "",
-   "tagsText": "Pago en cuotas 3 cuotas sin interes"
+   "tagsText": "Pago en cuotas 3 cuotas sin interes",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6681,7 +7321,9 @@
    "slug": "paga-en-13-a-24-cuotas-sin-interes-x4zyl7b",
    "commerceName": "Aufbau",
    "keywords": "",
-   "tagsText": "Presencial Online Pago en cuotas"
+   "tagsText": "Presencial Online Pago en cuotas",
+   "validFrom": "2026-10-05",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6692,7 +7334,9 @@
    "slug": "todos-los-dias-online-l8d6sxu",
    "commerceName": "Green Dolphin",
    "keywords": "entretención, niños, juegos, diversion",
-   "tagsText": "Online Bebé Descuentos Infantil"
+   "tagsText": "Online Bebé Descuentos Infantil",
+   "validFrom": "2025-09-09",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6703,7 +7347,9 @@
    "slug": "disfruta-10-por-ciento-de-desc.-adicional-todos-los-dias-di0y1o5",
    "commerceName": "Bebesit",
    "keywords": "niños, infantil, bebes, guaguas",
-   "tagsText": "Online Descuentos Belleza Niños"
+   "tagsText": "Online Descuentos Belleza Niños",
+   "validFrom": "2026-07-13",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6714,7 +7360,9 @@
    "slug": "paga-en-10-cuotas-sin-interes-con-tus-tarjetas-de-credito-bci.-5v5ijwn",
    "commerceName": "Educación, cuotas sin Interes",
    "keywords": "",
-   "tagsText": "Pago en cuotas"
+   "tagsText": "Pago en cuotas",
+   "validFrom": "2026-09-10",
+   "validUntil": "2026-12-31"
   },
   {
    "bank": "BCI",
@@ -6725,7 +7373,9 @@
    "slug": "presencial-y-online-vksduqn",
    "commerceName": "Taller Harris",
    "keywords": "",
-   "tagsText": "Martes Descuentos"
+   "tagsText": "Martes Descuentos",
+   "validFrom": "2026-11-05",
+   "validUntil": "2026-11-30"
   },
   {
    "bank": "BCI",
@@ -6736,7 +7386,9 @@
    "slug": "domingo-providencia-lofsplb",
    "commerceName": "Moha Restaurant",
    "keywords": "",
-   "tagsText": "R. Metropolitana Providencia Presencial Domingo Descuentos"
+   "tagsText": "R. Metropolitana Providencia Presencial Domingo Descuentos",
+   "validFrom": "2026-11-06",
+   "validUntil": "2026-11-30"
   }
  ],
  "tenpo": [

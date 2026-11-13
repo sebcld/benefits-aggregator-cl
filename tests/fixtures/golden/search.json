@@ -83,7 +83,9 @@
     "slug": "en-todas-sus-sucursales-02bwzhl",
     "commerceName": "El Café Rosa",
     "keywords": "",
-    "tagsText": "Presencial Descuentos"
+    "tagsText": "Presencial Descuentos",
+    "validFrom": "2026-09-02",
+    "validUntil": "2026-11-30"
    },
    {
     "bank": "Copec Pay",
@@ -156,7 +158,9 @@
     "slug": "todos-los-lunes-en-combo-chicken-share-alitas-us5tjzf",
     "commerceName": "KFC",
     "keywords": "",
-    "tagsText": "Presencial Lunes Descuentos Restaurantes"
+    "tagsText": "Presencial Lunes Descuentos Restaurantes",
+    "validFrom": "2026-01-01",
+    "validUntil": "2026-12-31"
    },
    {
     "bank": "Banco de Chile",
@@ -318,7 +322,9 @@
     "slug": "en-todas-sus-sucursales-02bwzhl",
     "commerceName": "El Café Rosa",
     "keywords": "",
-    "tagsText": "Presencial Descuentos"
+    "tagsText": "Presencial Descuentos",
+    "validFrom": "2026-09-02",
+    "validUntil": "2026-11-30"
    },
    {
     "bank": "Copec Pay",
@@ -393,7 +399,9 @@
     "slug": "un-anio-gratis-de-pedidosya-plus-99gys0m",
     "commerceName": "PedidosYa",
     "keywords": "",
-    "tagsText": "Supermercados Descuentos"
+    "tagsText": "Supermercados Descuentos",
+    "validFrom": "2026-09-01",
+    "validUntil": "2026-12-31"
    },
    {
     "bank": "BCI",
@@ -404,7 +412,9 @@
     "slug": "multiplica-x5-tu-cashback-en-pedidosya-market-ksgbwla",
     "commerceName": "PedidosYa",
     "keywords": "",
-    "tagsText": "Supermercados Cashback"
+    "tagsText": "Supermercados Cashback",
+    "validFrom": "2026-11-11",
+    "validUntil": "2026-12-31"
    },
    {
     "bank": "BCI",
@@ -415,7 +425,9 @@
     "slug": "tu-pedido-en-tu-casa-ya-no-tienes-que-ir-al-supermercado-con-pedidosya-hjjwl2",
     "commerceName": "PedidosYa",
     "keywords": "",
-    "tagsText": "Descuentos Supermercados"
+    "tagsText": "Descuentos Supermercados",
+    "validFrom": "2026-10-07",
+    "validUntil": "2026-12-31"
    }
   ],
   "errors": []

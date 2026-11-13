@@ -18,6 +18,9 @@ const crypto = require('crypto');
  * @property {string} [cardType]    Tarjeta con la que aplica ("Tarjeta prepago virtual")
  * @property {string} [discountCap] Tope del descuento ("$5.000")
  * @property {string} [termsUrl]    Terminos y condiciones
+ * @property {string} [discount]    Descuento principal, de un dato estructurado de la fuente ("30%",
+ *                                  "7% cashback"). Hoy solo BCI
+ * @property {string} [schedule]    Dias en que aplica ("Todos los lunes"). Hoy solo BCI
  * @property {string} id            Identificador estable (derivado del id de la fuente)
  * @property {string} [logo]        URL de logo o imagen, si la fuente la entrega
  */
@@ -38,11 +41,13 @@ const TEXT_FIELDS = [
   'cardType',
   'discountCap',
   'termsUrl',
+  'discount',
+  'schedule',
 ];
 
 // Campos agregados despues de la 1.x. La forma historica (API legada, CLI, fachada) no los expone:
 // solo los entrega la API v1.
-const INTERNAL_FIELDS = ['id', 'logo', 'cardType', 'discountCap', 'termsUrl'];
+const INTERNAL_FIELDS = ['id', 'logo', 'cardType', 'discountCap', 'termsUrl', 'discount', 'schedule'];
 
 const slugify = (text) =>
   text

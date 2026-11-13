@@ -52,7 +52,7 @@ flowchart LR
 
 Los demás emisores siguen uno de estos dos patrones:
 - **Tapp** es CMS Modyo paginado, igual que Banco de Chile, pero sin proxy.
-- **BCI** es una API paginada con llave.
+- **BCI** es una API paginada con llave. Además del texto, lee datos estructurados: el descuento (`deal` → `discount`, o un cashback con su tope), la vigencia (`fechaInicio`/`fechaTermino` en UTC, convertidas a fecha de Chile) y los días (`scheduling.dayRecurrence` → `schedule`).
 - **Copec Pay** es JSON en una sola llamada, como Santander, y además filtra por vigencia.
 - **Tenpo** es HTML con regex.
 - **Mercado Pago** lee 3 niveles: la lista, una landing por beneficio y los términos de cada campaña (estos dos, en paralelo). Es el único que entrega `cardType` y `termsUrl`.

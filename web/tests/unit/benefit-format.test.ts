@@ -64,4 +64,16 @@ describe('extractHero', () => {
   it('el titulo tiene prioridad sobre la bajada', () => {
     expect(extractHero('2x1 en cines', '50% en confites')).toBe('2x1');
   });
+
+  it('el dato estructurado (discount) tiene prioridad sobre el texto (BCI: "Starbucks" / "Tu café favorito...")', () => {
+    expect(extractHero('Starbucks', 'Tu café favorito y el momento perfecto para recargar tu dia.', '30%')).toBe('30% DCTO');
+    expect(extractHero('2x1 en cines', null, '40%')).toBe('40% DCTO');
+    // Sin discount, se sigue buscando en el texto.
+    expect(extractHero('Burger King', '40% dcto. todos los jueves.', null)).toBe('40% DCTO');
+  });
+
+  it('un cashback se muestra como cashback, no como descuento', () => {
+    expect(extractHero('Copec', null, '7% cashback')).toBe('7% CASHBACK');
+    expect(extractHero('Turbus', 'Disfruta 15% de cashback pagando por primera vez')).toBe('15% CASHBACK');
+  });
 });

@@ -43,20 +43,24 @@ const FREE_MONTHS = /\b(\d{1,2})\s+mes(?:es)?\s+gratis\b/i;
 
 /**
  * Valor principal del descuento para la pildora "hero" de la tarjeta.
- * Se busca en el titulo y, si no tiene, en la bajada: Santander, Copec Pay y Banco de Chile
- * ponen el valor en la bajada ("Burger King" / "40% dcto. todos los jueves").
+ * Primero el dato estructurado de la API (`discount`, por ejemplo "30%" en BCI, donde el texto no
+ * siempre lo dice). Si no viene, se busca en el titulo y luego en la bajada: Santander, Copec Pay y
+ * Banco de Chile ponen el valor en la bajada ("Burger King" / "40% dcto. todos los jueves").
  * Devuelve null si no hay un valor claro: en ese caso la tarjeta no muestra la pildora.
  */
-export function extractHero(title: string | null | undefined, subtitle?: string | null): string | null {
-  return heroFrom(title) ?? heroFrom(subtitle);
+export function extractHero(title: string | null | undefined, subtitle?: string | null, discount?: string | null): string | null {
+  return heroFrom(discount) ?? heroFrom(title) ?? heroFrom(subtitle);
 }
+
+const CASHBACK = /\bcashback\b/i;
 
 /** Orden: porcentaje (el mayor) > NxM > monto en pesos > envio gratis > meses gratis. */
 function heroFrom(title: string | null | undefined): string | null {
   if (!title) return null;
 
   const percents = [...title.matchAll(PERCENT)].map((m) => Number(m[1])).filter((n) => n > 0 && n <= 100);
-  if (percents.length) return `${Math.max(...percents)}% DCTO`;
+  // "7% cashback" no es un descuento en el precio: se muestra como lo que es.
+  if (percents.length) return `${Math.max(...percents)}% ${CASHBACK.test(title) ? 'CASHBACK' : 'DCTO'}`;
 
   const nxm = N_FOR_M.exec(title);
   if (nxm && Number(nxm[1]) > Number(nxm[2])) return `${nxm[1]}x${nxm[2]}`;

@@ -97,7 +97,9 @@
      "slug": "todos-los-lunes-en-combo-chicken-share-alitas-us5tjzf",
      "commerceName": "KFC",
      "keywords": "",
-     "tagsText": "Presencial Lunes Descuentos Restaurantes"
+     "tagsText": "Presencial Lunes Descuentos Restaurantes",
+     "validFrom": "2026-01-01",
+     "validUntil": "2026-12-31"
     },
     {
      "bank": "Banco de Chile",

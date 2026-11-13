@@ -75,7 +75,8 @@ src/
 
 | Tema | Decisión | Motivo |
 |---|---|---|
-| Valor del descuento (píldora hero) | Se extrae del título y, si no trae valor, de la bajada. | Santander, Copec Pay y Banco de Chile ponen el descuento en la bajada ("Burger King" / "40% dcto. todos los jueves"). Sin ese respaldo, casi ninguna tarjeta tendría píldora. |
+| Valor del descuento (píldora hero) | Primero el dato estructurado `discount` de la API; si no viene, se extrae del título y luego de la bajada. Un cashback se muestra como "CASHBACK", no como "DCTO". | En BCI el % no está en el texto (el título es el comercio), pero sí en un campo de la fuente. Santander, Copec Pay y Banco de Chile ponen el descuento en la bajada ("Burger King" / "40% dcto. todos los jueves"). |
+| Días en que aplica | Pastilla con reloj ("Todos los lunes", "Martes, miércoles y jueves") cuando la API trae `schedule` (hoy, BCI). | Muchos descuentos valen solo ciertos días: verlo en la tarjeta evita abrir la ficha. |
 | Píldora de tarjeta ("medio de pago") | Se muestra cuando la API trae `cardType` (hoy, Mercado Pago). | En el resto de los emisores la fuente no entrega el dato. |
 | Texto de la vigencia y del badge Beta | Usan `--accent-on-amber`; el ícono del calendario sigue en `--accent-amber`. | `--accent-amber` sobre `--accent-amber-bg` da 2,8:1 y no cumple AA. |
 | Sombra de la tarjeta y del buscador | Sombra suave en Light; en Dark, borde y brillo superior (`--shadow-card`). | Una sombra oscura casi no se ve sobre un fondo oscuro. |
