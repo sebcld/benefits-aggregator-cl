@@ -15,6 +15,7 @@ CLI y API HTTP en Node que consultan en vivo las fuentes públicas de emisores c
 | [docs/AGREGAR_EMISOR.md](docs/AGREGAR_EMISOR.md) | Guía paso a paso para sumar un emisor |
 | [docs/CHANGELOG_REFACTOR.md](docs/CHANGELOG_REFACTOR.md) | Qué cambió en la 2.0.0 y dónde quedó cada pieza |
 | [docs/RIESGOS.md](docs/RIESGOS.md) | Riesgos y deuda pendiente |
+| [docs/DESPLIEGUE.md](docs/DESPLIEGUE.md) | Publicar la web y la API (Vercel, Render o servidor propio) |
 
 ## Requisitos e instalación
 
