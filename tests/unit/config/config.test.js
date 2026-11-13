@@ -56,6 +56,16 @@ test('valores invalidos lanzan ConfigError con todos los problemas', () => {
   );
 });
 
+test('los tests fijan cada variable de .env.example: el .env local no los afecta', () => {
+  const { TEST_ENV, ROOT } = require('../../helpers/constants');
+  const example = parseEnvContent(fs.readFileSync(path.join(ROOT, '.env.example'), 'utf8'));
+  for (const name of Object.keys(example)) assert.ok(name in TEST_ENV, name);
+  // Un API_KEYS en el .env local no debe activar la autenticacion en el servidor de los tests.
+  assert.equal(TEST_ENV.API_KEYS, '');
+  const fromLocalEnv = { API_KEYS: 'web:una-llave-local-de-mas-de-32-caracteres' };
+  assert.deepEqual(loadConfig({ env: { ...fromLocalEnv, ...TEST_ENV }, envFilePath: null }).apiKeys, []);
+});
+
 test('parseEnvContent soporta comentarios, export y comillas', () => {
   const vars = parseEnvContent('# comentario\nexport A=1\nB="dos # no es comentario"\nC=3 # si\n\nD=');
   assert.deepEqual(vars, { A: '1', B: 'dos # no es comentario', C: '3', D: '' });

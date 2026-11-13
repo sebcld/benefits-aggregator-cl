@@ -1,4 +1,6 @@
+const fs = require('fs');
 const path = require('path');
+const { parseEnvContent } = require('../../src/config/env-file');
 
 const ROOT = path.resolve(__dirname, '..', '..');
 const FIXTURES_DIR = path.join(ROOT, 'tests', 'fixtures');
@@ -27,8 +29,14 @@ const ACCEPTANCE_CASES = [
 // Todas las consultas de los golden (las de caracterizacion mas las de aceptacion).
 const ALL_QUERIES = [...new Set([...QUERIES, ...ACCEPTANCE_CASES.map(([, q]) => q)])];
 
-// Variables de entorno de los tests: no dependen del .env local.
+// Variables de entorno de los tests: NO dependen del .env local. Los procesos hijo (CLI y
+// servidor) leen el .env de la raiz, y las variables del entorno tienen prioridad sobre el, asi
+// que se fija CADA variable de .env.example a su valor documentado (o vacio = por defecto). Sin
+// esto, un API_KEYS en el .env local hacia que el servidor de los tests respondiera 401. Una
+// variable nueva queda cubierta sola al agregarla a .env.example.
+const EXAMPLE_ENV = parseEnvContent(fs.readFileSync(path.join(ROOT, '.env.example'), 'utf8'));
 const TEST_ENV = {
+  ...EXAMPLE_ENV,
   BCI_SUBSCRIPTION_KEY: 'test-key',
   LOG_LEVEL: 'silent',
 };
