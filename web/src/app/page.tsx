@@ -1,5 +1,5 @@
-// Inicio. Escritorio: hero + "Cómo funciona" (Bento) + "Fuentes que consultamos".
-// Movil: hero + "Destacados de hoy", como en el diseno.
+// Inicio. Movil: hero + "Destacados de hoy", como en el diseno.
+// Escritorio: hero + "Destacados de hoy" (grilla de 3) + "Cómo funciona" (Bento) + "Fuentes que consultamos".
 import { Featured } from '@/components/home/Featured';
 import { Hero } from '@/components/home/Hero';
 import { HowItWorks } from '@/components/home/HowItWorks';

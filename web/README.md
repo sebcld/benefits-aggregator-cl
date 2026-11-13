@@ -4,7 +4,7 @@ Web de Beneficios CL. Usa **Next.js 16** (App Router), **TypeScript** y **Tailwi
 
 | Ruta | Pantalla |
 |---|---|
-| `/` | **Inicio.** Hero con buscador y sugerencias. En escritorio, "Cómo funciona" (Bento) y "Fuentes que consultamos"; en móvil, "Destacados de hoy". |
+| `/` | **Inicio.** Hero con buscador y sugerencias, y "Destacados de hoy" (lista en móvil, grilla de 3 en escritorio). En escritorio, además, "Cómo funciona" (Bento) y "Fuentes que consultamos". |
 | `/buscar?q=&banks=` | **Resultados.** Filtros por emisor con conteo, aviso de resultado parcial, grilla y "Cargar más". |
 | `/sistema` | Tokens y biblioteca de componentes, en Light y Dark lado a lado. |
 | `/api/search`, `/api/banks`, `/api/destacados` | **BFF.** Lo usan el navegador y, más adelante, la app en Expo. |
@@ -81,3 +81,4 @@ src/
 | Sombra de la tarjeta y del buscador | Sombra suave en Light; en Dark, borde y brillo superior (`--shadow-card`). | Una sombra oscura casi no se ve sobre un fondo oscuro. |
 | Grilla de resultados | 2 columnas en escritorio (gap 20 px) y 1 en móvil (gap 14 px). | — |
 | Inicio en móvil | Muestra "Destacados de hoy" (de `/api/destacados`, con caché de 2 horas) en vez del Bento y las fuentes. | Pantalla más corta y con contenido real al abrir la app. |
+| Destacados en escritorio | Grilla de 3 columnas entre el hero y "Cómo funciona"; solo filas completas (con 10 destacados se ven 9). En tablet, 2 columnas. | Contenido real también en escritorio, sin quitar el Bento ni las fuentes. La caché del servidor evita consultas extra a las fuentes. |

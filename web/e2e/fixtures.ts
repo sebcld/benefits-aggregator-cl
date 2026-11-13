@@ -64,9 +64,12 @@ export function searchResponse(results: Benefit[], page: number, overrides: Part
   };
 }
 
+// 4 destacados: en escritorio (3 columnas) se ve una fila completa de 3; en movil, los 4.
 export const FEATURED: Benefit[] = [
   b('santander-bk', 'santander', 'Santander', 'Burger King', '2x1 en combos y ofertas', 'Descuento en locales seleccionados pagando con tu tarjeta. Revisa los días y condiciones.'),
   b('copec-rappi', 'copec', 'Copec Pay', 'Rappi', '20% dcto en tus pedidos', 'Obtén descuento en tus pedidos pagando con tu tarjeta. Aplica desde el monto mínimo.'),
+  b('bci-dunkin', 'bci', 'BCI', 'Dunkin', '30% dcto los jueves', 'Descuento en el total de la boleta pagando con tus tarjetas BCI.'),
+  b('tenpo-temu', 'tenpo', 'Tenpo', 'Temu', 'Hasta 50% dcto', 'Descuento para nuevos usuarios de la App Temu.'),
 ];
 
 const json = (route: Route, body: unknown, status = 200) =>

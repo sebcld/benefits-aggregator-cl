@@ -19,6 +19,40 @@ test('buscar desde el inicio lleva a los resultados', async ({ page }) => {
   await expect(results(page).getByTestId('benefit-card')).toHaveCount(6);
 });
 
+test('inicio en movil: "Destacados de hoy" en lista, sin Bento ni fuentes', async ({ page }, info) => {
+  mobileOnly(info.project.name);
+  await mockApi(page);
+  await page.goto('/');
+  const featured = page.getByRole('region', { name: 'Destacados de hoy' });
+  await expect(featured.getByTestId('benefit-card')).toHaveCount(4);
+  await expect(page.getByRole('heading', { name: 'Cómo funciona' })).toBeHidden();
+});
+
+test('inicio en escritorio: "Destacados de hoy" en grilla de 3, mas "Cómo funciona" y las fuentes', async ({ page }, info) => {
+  desktopOnly(info.project.name);
+  await mockApi(page);
+  await page.goto('/');
+  const featured = page.getByRole('region', { name: 'Destacados de hoy' });
+  // 4 destacados: se ve la fila completa de 3 y el cuarto queda oculto en escritorio.
+  const cards = featured.getByTestId('benefit-card');
+  await expect(cards).toHaveCount(4);
+  await expect(cards.nth(2)).toBeVisible();
+  await expect(cards.nth(3)).toBeHidden();
+  const tops = await Promise.all([0, 1, 2].map(async (i) => (await cards.nth(i).boundingBox())?.y));
+  expect(new Set(tops).size).toBe(1); // los 3 en la misma fila
+  // Lo que ya estaba en el inicio de escritorio sigue ahi, despues de los destacados.
+  await expect(page.getByRole('heading', { name: 'Cómo funciona' })).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Fuentes que consultamos' })).toBeVisible();
+});
+
+test('si /api/destacados falla, el inicio se muestra sin la seccion', async ({ page }) => {
+  await mockApi(page);
+  await page.route('**/api/destacados', (route) => route.fulfill({ status: 502, contentType: 'application/json', body: '{"error":{"code":"UPSTREAM_UNAVAILABLE","message":"x"}}' }));
+  await page.goto('/');
+  await expect(page.getByLabel('Busca un comercio o marca')).toBeVisible();
+  await expect(page.getByRole('heading', { name: 'Destacados de hoy' })).toHaveCount(0);
+});
+
 test('un chip de sugerencia busca ese comercio', async ({ page }) => {
   await mockApi(page);
   await page.goto('/');
