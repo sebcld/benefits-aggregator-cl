@@ -84,7 +84,7 @@ describe('BenefitCard', () => {
   });
 
   it('un emisor sin token de color usa el secundario', () => {
-    render(<BenefitCard benefit={{ ...BENEFIT, bankKey: 'mercadopago', bank: 'Mercado Pago' }} />);
+    render(<BenefitCard benefit={{ ...BENEFIT, bankKey: 'emisor-nuevo', bank: 'Emisor Nuevo' }} />);
     expect(screen.getByTestId('benefit-card').style.getPropertyValue('--issuer')).toBe('var(--text-secondary)');
   });
 });

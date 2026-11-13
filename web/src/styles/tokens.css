@@ -2,8 +2,12 @@
  * Se editan a mano aqui (los componentes solo usan var(--token), nunca un color suelto).
  *
  * Light es el tema por defecto. Dark aplica con [data-theme="dark"] o, si el usuario no eligio tema,
- * con prefers-color-scheme: dark. Los selectores [data-theme] tambien funcionan en un elemento
- * interior (por ejemplo, para mostrar ambos temas lado a lado en /sistema). */
+ * con prefers-color-scheme: dark. Por eso cada color de Dark va en DOS bloques, que deben ser
+ * iguales: el de @media (prefers-color-scheme) y el de [data-theme='dark']. Los selectores
+ * [data-theme] tambien funcionan en un elemento interior (para ver ambos temas en /sistema).
+ *
+ * src/styles/read-tokens.ts lee este archivo (themeColor del layout, swatches de /sistema y el test
+ * de contraste AA): no hace falta copiar los valores a ningun otro lado. */
 
 :root {
   --space-1: 4px;
@@ -39,11 +43,12 @@
   --brand-soft-text: #0a5c36;
   --glass-bg: rgb(247 247 245 / 0.82);
   --issuer-bancochile: #002464;
-  --issuer-bci: #007a33;
+  --issuer-bci: #1B6BB3;
   --issuer-copec: #f97316;
+  --issuer-mercadopago: #00b5ef;
   --issuer-santander: #ec0000;
-  --issuer-tapp: #7c3aed;
-  --issuer-tenpo: #00d1b2;
+  --issuer-tapp: #00719b;
+  --issuer-tenpo: #03ff94;
   --state-error: #b91c1c;
   --state-error-bg: #fee2e2;
   --state-warn-bg: #fef3c7;
@@ -71,12 +76,14 @@
     --brand-soft-border: #1e462e;
     --brand-soft-text: #6ee7b7;
     --glass-bg: rgb(11 14 12 / 0.82);
-    --issuer-bancochile: #3b82f6;
-    --issuer-bci: #007a33;
+    --issuer-bancochile: #142787;
+    --issuer-bci: #1B6BB3;
+    --issuer-bci-gradient: linear-gradient(135deg, #1b6bb3 0%, #ec2b2b 42%, #fad105 74%, #0a8a3e 100%);
     --issuer-copec: #f97316;
+    --issuer-mercadopago: #00b5ef;
     --issuer-santander: #ec0000;
-    --issuer-tapp: #7c3aed;
-    --issuer-tenpo: #00d1b2;
+    --issuer-tapp: #00719b;
+    --issuer-tenpo: #03ff94;
     --state-error: #f87171;
     --state-error-bg: rgb(239 68 68 / 0.149);
     --state-warn-bg: rgb(245 158 11 / 0.149);
@@ -104,12 +111,14 @@
   --brand-soft-border: #1e462e;
   --brand-soft-text: #6ee7b7;
   --glass-bg: rgb(11 14 12 / 0.82);
-  --issuer-bancochile: #3b82f6;
-  --issuer-bci: #007a33;
+  --issuer-bancochile: #142787;
+  --issuer-bci: #1B6BB3;
+  --issuer-bci-gradient: linear-gradient(135deg, #1b6bb3 0%, #ec2b2b 42%, #fad105 74%, #0a8a3e 100%);
   --issuer-copec: #f97316;
+  --issuer-mercadopago: #00b5ef;
   --issuer-santander: #ec0000;
-  --issuer-tapp: #7c3aed;
-  --issuer-tenpo: #00d1b2;
+  --issuer-tapp: #00719b;
+  --issuer-tenpo: #03ff94;
   --state-error: #f87171;
   --state-error-bg: rgb(239 68 68 / 0.149);
   --state-warn-bg: rgb(245 158 11 / 0.149);
