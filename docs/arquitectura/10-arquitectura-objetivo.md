@@ -10,7 +10,7 @@ flowchart LR
   api1["API Node<br/>src/server.js"]
   apiN["Mas instancias<br/>de la API"]
   redis[("Redis<br/>CacheStore compartido")]
-  job["Job de warm-up<br/>searchService.warmUp"]
+  job["Job central de actualizacion<br/>searchService.refreshAll"]
   alertas["Alertas<br/>logs provider_empty y provider_error"]
   fuentes{{"Fuentes de los 7 emisores"}}
   jina{{"r.jina.ai"}}
@@ -44,7 +44,7 @@ flowchart LR
 | API gateway | Rotar llaves sin reiniciar, con cuotas y métricas por cliente | La API key ya está en el código (`API_KEYS`, `Authorization: Bearer`, nombre del cliente en el log) | [0014](../adr/0014-autenticacion-con-api-key.md) |
 | Rate limiting | Cada fallo de caché dispara unas 25 peticiones a fuentes externas | — | [0015](../adr/0015-rate-limiting.md) |
 | Varias instancias + Redis | Con caché solo en memoria, cada instancia descarga todo por su cuenta | El contrato `CacheStore` asíncrono e inyectable en `createApp({ cache })` | [0016](../adr/0016-cachestore-compartido-en-redis.md) |
-| Job de warm-up y stale-while-revalidate | Que ningún usuario espere 10-20 s con la caché fría | `searchService.warmUp()`, `CACHE_WARMUP` y `/v1/health?probe=true` | [0017](../adr/0017-warm-up-programado-y-stale-while-revalidate.md) |
+| Job central de actualización | Con varias instancias y Redis, que la actualización diaria la haga una sola, y no cada instancia la suya | La actualización diaria ya existe por instancia (`REFRESH_TIME`, `searchService.refreshAll()`), con carga inicial al arrancar (`CACHE_WARMUP`) | [0016](../adr/0016-cachestore-compartido-en-redis.md), [0024](../adr/0024-actualizacion-diaria-programada.md) |
 | Alertas sobre los logs | Detectar a tiempo un parser roto o una llave vencida | Logs JSON con `provider_empty` y `provider_error` | — |
 
 La dependencia de `r.jina.ai` también tiene una decisión abierta: [ADR 0021](../adr/0021-acceso-a-banco-de-chile-sin-proxy-gratuito.md). La fuente de Mercado Pago ya se resolvió ([ADR 0018](../adr/0018-futuro-de-mercado-pago.md)).

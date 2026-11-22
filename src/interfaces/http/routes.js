@@ -10,9 +10,17 @@ const { createBanksController } = require('./controllers/banks.controller');
  * @returns {import('./router').Route[]}
  */
 function createRoutes({ app, version }) {
-  const { searchService, registry, statusTracker, config, clock } = app;
+  const { searchService, registry, statusTracker, config, clock, refreshScheduler, cacheTtlSecondsNow } = app;
   const search = createSearchController({ searchService, registry, clock });
-  const health = createHealthController({ registry, statusTracker, searchService, config, version });
+  const health = createHealthController({
+    registry,
+    statusTracker,
+    searchService,
+    config,
+    version,
+    refreshScheduler,
+    cacheTtlSecondsNow,
+  });
   const banks = createBanksController({ registry });
 
   // Todas las rutas exigen API key (si API_KEYS esta configurada), salvo las "public": solo

@@ -40,6 +40,31 @@ test('CACHE_REFRESH_MIN_AGE_SECONDS acepta 0 (sin minimo) y rechaza valores no e
   assert.throws(() => loadConfig({ env: { CACHE_REFRESH_MIN_AGE_SECONDS: '5m' }, envFilePath: null }), ConfigError);
 });
 
+test('REFRESH_TIME: 09:00 por defecto, "off" la desactiva y un formato invalido es un error', () => {
+  const load = (env) => loadConfig({ env, envFilePath: null });
+  assert.equal(load({}).refreshTime, '09:00');
+  assert.equal(load({ REFRESH_TIME: '07:30' }).refreshTime, '07:30');
+  assert.equal(load({ REFRESH_TIME: 'off' }).refreshTime, null);
+  for (const bad of ['9:00', '25:00', 'manana']) {
+    assert.throws(() => load({ REFRESH_TIME: bad }), ConfigError, bad);
+  }
+});
+
+test('CACHE_WARMUP es true por defecto (la cache en memoria arranca vacia)', () => {
+  assert.equal(loadConfig({ env: {}, envFilePath: null }).cacheWarmup, true);
+  assert.equal(loadConfig({ env: { CACHE_WARMUP: 'false' }, envFilePath: null }).cacheWarmup, false);
+});
+
+test('CACHE_TTL_SECONDS explicita y mayor que 0 deja un aviso; 0 desactiva la cache sin aviso', () => {
+  assert.deepEqual(loadConfig({ env: {}, envFilePath: null }).warnings, []);
+  const legacy = loadConfig({ env: { CACHE_TTL_SECONDS: '7200' }, envFilePath: null });
+  assert.equal(legacy.warnings.length, 1);
+  assert.match(legacy.warnings[0], /REFRESH_TIME/);
+  const off = loadConfig({ env: { CACHE_TTL_SECONDS: '0' }, envFilePath: null });
+  assert.equal(off.cacheTtlSeconds, 0);
+  assert.deepEqual(off.warnings, []);
+});
+
 test('CORS_ORIGINS se separa por comas', () => {
   const config = loadConfig({ env: { CORS_ORIGINS: ' https://a.cl, * ,' }, envFilePath: null });
   assert.deepEqual(config.corsOrigins, ['https://a.cl', '*']);

@@ -6,7 +6,7 @@ Buscador de beneficios de bancos, tarjetas y billeteras de Chile. Consulta en vi
 - Contrato HTTP: [`openapi.yaml`](openapi.yaml). Agregar un emisor: [`AGREGAR_EMISOR.md`](AGREGAR_EMISOR.md).
 - Qué cambió respecto de la 1.x: [`CHANGELOG_REFACTOR.md`](CHANGELOG_REFACTOR.md). Riesgos y deuda: [`RIESGOS.md`](RIESGOS.md).
 - **Diagramas** (contexto, capas, secuencias, dominio, errores, arquitectura objetivo): [`arquitectura/`](arquitectura/README.md).
-- **Decisiones registradas** (18 aceptadas y 5 propuestas): [`adr/`](adr/README.md).
+- **Decisiones registradas** (19 aceptadas, 4 propuestas y 1 reemplazada): [`adr/`](adr/README.md).
 - **Web** (Next.js, consume `/v1` a través de su propio BFF `/api/*`): [`web/README.md`](../web/README.md) y [ADR 0022](adr/0022-web-nextjs-con-bff.md).
 
 ## Capas
@@ -47,6 +47,7 @@ Resumen de una línea por decisión. El contexto, las alternativas y las consecu
 | **Errores con `code` estable y respuestas parciales** | La app decide por `code`, y un emisor caído no rompe la búsqueda. | [0005](adr/0005-errores-con-codigo-estable.md) |
 | **Dos formatos de API**: legado y `/v1` | La 1.x no se rompe, y `/v1` tiene un contrato pensado para móvil. | [0006](adr/0006-api-versionada-v1-con-rutas-legadas.md) |
 | **`CacheStore` asíncrono**, con implementación en memoria | Latencia de milisegundos, y reemplazable por Redis. | [0007](adr/0007-cache-en-memoria-detras-de-cachestore.md) |
+| **Actualización diaria programada** (`REFRESH_TIME`, timer nativo) | La descarga completa ocurre una vez al día a una hora fija, no cuando un usuario busca; la caché dura hasta la siguiente ejecución. | [0024](adr/0024-actualizacion-diaria-programada.md) |
 | **El CLI y la fachada sin caché ni timeouts** | Conservan exactamente la semántica 1.x. | [0008](adr/0008-cli-y-fachada-sin-cache-ni-timeouts.md) |
 | **CommonJS y sin dependencias** | Lo pide el proyecto; la fachada debe seguir siendo `require`-able. | [0002](adr/0002-node-nativo-sin-dependencias-y-commonjs.md) |
 | **Node 26 LTS y CI** | Runtime con soporte hasta 2029-04-30, y ningún PR entra con tests rotos. | [0020](adr/0020-actualizacion-a-node-26-y-ci.md) |
@@ -66,7 +67,7 @@ Resumen de una línea por decisión. El contexto, las alternativas y las consecu
 | Validación | `q` de 1 a 100 caracteres; hasta 20 `banks`, por key o nombre (si hay desconocidos, responde 400 `UNKNOWN_BANK` con la lista válida); `page` ≥ 1; `pageSize` entre 1 y 100. |
 | Payload | `Benefit` con `id`, `bank`, `bankKey`, `title`, `subtitle`, `description` (hasta 300 caracteres), `commerceName`, `category`, `validFrom`, `validUntil`, `url` y `logo`, más los opcionales `cardType`, `discountCap`, `termsUrl`, `discount` (descuento de un dato estructurado) y `schedule` (días en que aplica). Los campos vacíos van como `null`. No se envían los campos internos de búsqueda. |
 | Paginación | `page` y `pageSize`; la respuesta trae `pagination { page, pageSize, total, totalPages, hasMore }`. |
-| Caché | En memoria, con TTL por emisor (`CACHE_TTL_SECONDS`, por defecto 1800). Las búsquedas siguientes pasan de unos 12-20 s a milisegundos. `CACHE_WARMUP=true` precarga los catálogos al iniciar. Cada catálogo guarda su fecha de descarga (`sources[].fetchedAt`); `refresh=true` lo vuelve a descargar si tiene al menos `CACHE_REFRESH_MIN_AGE_SECONDS` (300) y, si falla, se mantiene el anterior. |
+| Caché | En memoria, por emisor. Se renueva completa una vez al día a la hora `REFRESH_TIME` de Chile (por defecto 09:00) y cada catálogo dura hasta esa ejecución más 1 h de margen. Las búsquedas pasan de unos 12-20 s a milisegundos. `CACHE_WARMUP` (por defecto `true`) la carga al iniciar. `/v1/health` informa `cache.schedule` (próxima ejecución y resultado de la última). Cada catálogo guarda su fecha de descarga (`sources[].fetchedAt`); `refresh=true` lo vuelve a descargar si tiene al menos `CACHE_REFRESH_MIN_AGE_SECONDS` (300) y, si falla, se mantiene el anterior. |
 | Resiliencia | Timeout por petición (`HTTP_TIMEOUT_MS`) y por emisor (`PROVIDER_TIMEOUT_MS`). Si un emisor falla, la respuesta es parcial (`meta.partial`, `errors`, `sources`). Un catálogo con 0 registros queda como `empty`, genera una alerta `provider_empty` en el log y se guarda en caché solo 1 minuto. |
 | Observabilidad | Logger JSON por línea en stderr (`LOG_LEVEL`), con `x-request-id` por petición y log de acceso. `/v1/health` muestra el estado de cada emisor; `?probe=true` los consulta en el momento. |
 | CORS | `CORS_ORIGINS` (lista o `*`). Vacío = desactivado, porque las apps nativas no lo necesitan. |
@@ -81,7 +82,6 @@ Ver el [diagrama 10: arquitectura objetivo](arquitectura/10-arquitectura-objetiv
 |---|---|
 | Rate limiting | [0015](adr/0015-rate-limiting.md) |
 | `CacheStore` compartido en Redis para varias instancias | [0016](adr/0016-cachestore-compartido-en-redis.md) |
-| Warm-up programado y stale-while-revalidate | [0017](adr/0017-warm-up-programado-y-stale-while-revalidate.md) |
 | Acceso a Banco de Chile sin un proxy gratuito | [0021](adr/0021-acceso-a-banco-de-chile-sin-proxy-gratuito.md) |
 
 Las métricas por emisor (`durationMs` y `status` en los logs `provider_*`) ya están disponibles para conectarlas a un sistema de alertas.

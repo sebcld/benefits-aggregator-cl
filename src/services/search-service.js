@@ -67,14 +67,22 @@ function createSearchService({ registry, runner }) {
     return { matches: interleave(reports.map((r) => r.entries)), errors, sources };
   }
 
-  // Descarga (o renueva en cache) los catalogos completos. Util al iniciar el servidor y en
-  // /v1/health?probe=true.
+  // Descarga los catalogos que no estan en cache (los que estan se reutilizan). Util al iniciar el
+  // servidor (carga inicial) y en /v1/health?probe=true.
   async function warmUp() {
     const reports = await Promise.all(registry.list().map((provider) => runner.run(provider)));
     return reports.map(({ entries, ...summary }) => summary);
   }
 
-  return { search, listAll, warmUp };
+  // Actualizacion programada (ADR 0024): vuelve a descargar TODOS los catalogos, aunque esten en
+  // cache y sean recientes (force: sin la antiguedad minima del refresh manual). Si un emisor
+  // falla, conserva su catalogo anterior.
+  async function refreshAll() {
+    const reports = await Promise.all(registry.list().map((provider) => runner.run(provider, { refresh: true, force: true })));
+    return reports.map(({ entries, ...summary }) => summary);
+  }
+
+  return { search, listAll, warmUp, refreshAll };
 }
 
 module.exports = { createSearchService, interleave };

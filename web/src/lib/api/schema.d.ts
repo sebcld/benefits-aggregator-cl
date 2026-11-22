@@ -434,11 +434,53 @@ export interface components {
             uptimeSeconds: number;
             cache: {
                 enabled?: boolean;
+                /**
+                 * @description Cuantos segundos duraria un catalogo descargado en este momento: hasta la proxima
+                 *     actualizacion programada mas 1 h de margen (86400 si no hay actualizacion
+                 *     programada; 0 si la cache esta desactivada). Ya no es un valor fijo.
+                 */
                 ttlSeconds?: number;
                 /** @description Antiguedad minima de un catalogo para que `refresh=true` lo vuelva a descargar. */
                 refreshMinAgeSeconds?: number;
+                schedule?: components["schemas"]["RefreshSchedule"];
             };
             sources: components["schemas"]["SourceStatus"][];
+        };
+        /**
+         * @description Actualizacion diaria programada: a la hora `time` de `timeZone` se vuelven a descargar
+         *     todos los catalogos. Con `enabled: false` (desactivada o sin cache), los demas campos van
+         *     en null.
+         */
+        RefreshSchedule: {
+            enabled: boolean;
+            /**
+             * @description Hora del dia (HH:MM).
+             * @example 09:00
+             */
+            time: string | null;
+            /** @example America/Santiago */
+            timeZone: string | null;
+            /**
+             * Format: date-time
+             * @description Proxima ejecucion (UTC). null si el scheduler no esta corriendo.
+             */
+            nextRunAt: string | null;
+            /** @description Ultima ejecucion desde que inicio el proceso. null si aun no hubo ninguna. */
+            lastRun: {
+                /** @example scheduled */
+                trigger: string;
+                /** Format: date-time */
+                startedAt: string;
+                /** Format: date-time */
+                finishedAt: string;
+                /**
+                 * @description `partial`: fallaron algunos emisores (siguen con su catalogo anterior).
+                 * @enum {string}
+                 */
+                status: "ok" | "partial" | "error";
+                /** @description Keys de los emisores que fallaron. */
+                failed: string[];
+            } | null;
         };
         ErrorResponse: {
             error: {
@@ -831,8 +873,23 @@ export interface operations {
                      *       "uptimeSeconds": 3600,
                      *       "cache": {
                      *         "enabled": true,
-                     *         "ttlSeconds": 1800,
-                     *         "refreshMinAgeSeconds": 300
+                     *         "ttlSeconds": 79200,
+                     *         "refreshMinAgeSeconds": 300,
+                     *         "schedule": {
+                     *           "enabled": true,
+                     *           "time": "09:00",
+                     *           "timeZone": "America/Santiago",
+                     *           "nextRunAt": "2026-11-13T12:00:00.000Z",
+                     *           "lastRun": {
+                     *             "trigger": "scheduled",
+                     *             "startedAt": "2026-11-12T12:00:00.000Z",
+                     *             "finishedAt": "2026-11-12T12:00:18.000Z",
+                     *             "status": "partial",
+                     *             "failed": [
+                     *               "bancochile"
+                     *             ]
+                     *           }
+                     *         }
                      *       },
                      *       "sources": [
                      *         {

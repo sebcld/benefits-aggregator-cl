@@ -39,6 +39,11 @@ const TEST_ENV = {
   ...EXAMPLE_ENV,
   BCI_SUBSCRIPTION_KEY: 'test-key',
   LOG_LEVEL: 'silent',
+  // Sin actualizacion programada ni carga inicial en los tests: preload.js congela el reloj y
+  // vuelve inmediatos los timers de 100 ms o mas, asi que un scheduler en un proceso hijo se
+  // reprogramaria sin fin. Los tests del scheduler usan timers y reloj inyectados.
+  REFRESH_TIME: 'off',
+  CACHE_WARMUP: 'false',
 };
 
 module.exports = {

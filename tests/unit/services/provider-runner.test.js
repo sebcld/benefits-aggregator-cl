@@ -182,6 +182,33 @@ test('varios refresh simultaneos comparten una sola descarga', async () => {
   assert.equal(fake.calls(), 2);
 });
 
+test('TTL como funcion (actualizacion programada): se calcula con el reloj en cada descarga', async () => {
+  const clock = manualClock();
+  const cache = mapCache();
+  const nextRun = clock.now() + 3 * 60 * MIN; // la proxima ejecucion, en 3 h
+  const runner = refreshRunner(clock, { cache, cacheTtlMs: (nowMs) => nextRun - nowMs });
+  await runner.run(fakeProvider({}).provider);
+  assert.equal(cache.ttls.get('provider:fake'), 3 * 60 * MIN);
+
+  clock.advance(60 * MIN);
+  await runner.run(fakeProvider({}).provider, { refresh: true });
+  assert.equal(cache.ttls.get('provider:fake'), 2 * 60 * MIN);
+  // Un catalogo vacio sigue durando como maximo 1 minuto.
+  await runner.run(fakeProvider({ titles: [] }).provider, { force: true });
+  assert.equal(cache.ttls.get('provider:fake'), MIN);
+});
+
+test('force (actualizacion programada) vuelve a descargar aunque no cumpla la antiguedad minima', async () => {
+  const clock = manualClock();
+  const fake = fakeProvider({});
+  const runner = refreshRunner(clock);
+  await runner.run(fake.provider);
+  clock.advance(MIN);
+  const report = await runner.run(fake.provider, { refresh: true, force: true });
+  assert.equal(fake.calls(), 2);
+  assert.equal(report.cached, false);
+});
+
 test('el tracker guarda el ultimo estado sin las entradas', async () => {
   const tracker = createSourceStatusTracker({ clock: () => new Date('2026-11-12T15:00:00Z') });
   const fake = fakeProvider({});
