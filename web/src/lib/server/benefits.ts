@@ -37,9 +37,10 @@ const FEATURED_LIMIT = 10;
 
 export async function getFeatured(): Promise<Benefit[]> {
   'use cache';
-  // Se recalcula cada 2 horas, igual que la cache de catalogos de la API (CACHE_TTL_SECONDS=7200).
-  // Si nadie la pide en 4 horas, se descarta.
-  cacheLife({ stale: 300, revalidate: 7200, expire: 14_400 });
+  // Se recalcula cada hora: la API sirve sus catalogos desde cache (se renuevan una vez al dia,
+  // REFRESH_TIME), asi que es barato, y los destacados reflejan la actualizacion diaria o una
+  // manual a lo mas 1 h despues. Si nadie la pide en 4 horas, se descarta.
+  cacheLife({ stale: 300, revalidate: 3600, expire: 14_400 });
 
   const responses = await Promise.all(
     FEATURED_QUERIES.map((q) => upstreamGet<SearchResponse>(`/v1/search?${new URLSearchParams({ q, pageSize: '10' })}`)),
