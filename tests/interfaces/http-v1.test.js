@@ -6,15 +6,15 @@ const { createReplayFetch } = require('../helpers/replay-fetch');
 const { createFixtureApp } = require('../helpers/fakes');
 const { request } = require('../helpers/processes');
 
-async function startInProcess(env = {}) {
+async function startInProcess(env = {}, options = {}) {
   const fetchImpl = createReplayFetch();
-  const app = createFixtureApp({ env, fetchImpl });
+  const app = createFixtureApp({ env, fetchImpl, ...options });
   const server = createHttpServer({ app, version: '9.9.9' });
   await new Promise((resolve) => server.listen(0, '127.0.0.1', resolve));
   const { port } = server.address();
   const call = (req) => request(port, typeof req === 'string' ? { path: req } : req);
   const close = () => new Promise((resolve) => server.close(resolve));
-  return { call, close, fetchImpl };
+  return { call, close, fetchImpl, app };
 }
 
 const post = (path, body, headers = {}) => ({
@@ -195,7 +195,13 @@ describe('API v1', () => {
     const mp = res.body.sources.find((s) => s.key === 'mercadopago');
     assert.equal(mp.status, 'ok');
     assert.equal(mp.count, 7);
-    assert.deepEqual(res.body.cache, { enabled: true, ttlSeconds: 1800, refreshMinAgeSeconds: 300 });
+    // En los tests REFRESH_TIME=off: sin actualizacion programada, un catalogo dura 24 h.
+    assert.deepEqual(res.body.cache, {
+      enabled: true,
+      ttlSeconds: 86400,
+      refreshMinAgeSeconds: 300,
+      schedule: { enabled: false, time: null, timeZone: null, nextRunAt: null, lastRun: null },
+    });
     assert.equal(mp.fetchedAt, '2026-11-12T15:00:00.000Z');
   });
 
@@ -307,6 +313,45 @@ describe('API v1 con actualizacion manual sin antiguedad minima', () => {
     const res = await api.call('/v1/search?q=rappi&banks=tenpo&refresh=1');
     assert.equal(api.fetchImpl.calls.length, before);
     assert.equal(res.body.sources[0].cached, true);
+  });
+});
+
+describe('API v1 con actualizacion diaria programada (REFRESH_TIME=09:00)', () => {
+  let api;
+  before(async () => {
+    // Timers falsos: el scheduler queda programado, pero nada se dispara solo durante el test.
+    const timers = { setTimer: () => ({}), clearTimer: () => {} };
+    api = await startInProcess({ REFRESH_TIME: '09:00' }, { timers });
+    api.app.refreshScheduler.start();
+  });
+  after(() => {
+    api.app.refreshScheduler.stop();
+    return api.close();
+  });
+
+  test('/v1/health informa la proxima ejecucion y cuanto dura hoy un catalogo', async () => {
+    const res = await api.call('/v1/health');
+    // FIXED_NOW = 12:00 en Chile: la proxima ejecucion es manana a las 09:00 (UTC-3), en 21 h + 1 h.
+    assert.equal(res.body.cache.ttlSeconds, 22 * 3600);
+    assert.deepEqual(res.body.cache.schedule, {
+      enabled: true,
+      time: '09:00',
+      timeZone: 'America/Santiago',
+      nextRunAt: '2026-11-13T12:00:00.000Z',
+      lastRun: null,
+    });
+  });
+
+  test('una ejecucion descarga todos los emisores y queda en lastRun', async () => {
+    await api.call('/v1/search?q=rappi&banks=copec');
+    const before = api.fetchImpl.calls.length;
+    await api.app.refreshScheduler.runNow('scheduled');
+    assert.ok(api.fetchImpl.calls.length > before); // aunque el catalogo de Copec sea reciente
+
+    const { lastRun } = (await api.call('/v1/health')).body.cache.schedule;
+    assert.equal(lastRun.trigger, 'scheduled');
+    assert.equal(lastRun.finishedAt, '2026-11-12T15:00:00.000Z');
+    assert.ok(['ok', 'partial'].includes(lastRun.status));
   });
 });
 

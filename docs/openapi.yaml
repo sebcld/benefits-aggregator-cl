@@ -23,11 +23,13 @@ info:
     - Se ignoran los espacios al comparar: `burgerking` encuentra "Burger King".
 
     ## Latencia y cache
-    Los catalogos de cada emisor se guardan en cache en el servidor (por defecto 30 minutos).
-    La primera busqueda tras iniciar o vencer la cache puede tardar 10-20 s (Banco de Chile es
-    el mas lento); las siguientes responden en milisegundos. `sources[].cached` indica si el
-    emisor salio de cache. Recomendado: timeout del cliente de 30 s y mostrar un indicador de
-    carga en la primera busqueda.
+    Los catalogos de cada emisor se guardan en cache en el servidor y se vuelven a descargar
+    todos una vez al dia, a una hora fija de Chile (por defecto 09:00; ver
+    `/v1/health` -> `cache.schedule`). Entre una ejecucion y la siguiente, las busquedas
+    responden en milisegundos. El servidor carga la cache al iniciar; si se consulta antes de
+    que termine, o si un emisor fallo y su catalogo vencio, esa busqueda puede tardar 10-20 s
+    (Banco de Chile es el mas lento). `sources[].cached` indica si el emisor salio de cache.
+    Recomendado: timeout del cliente de 30 s y un indicador de carga.
 
     **Antiguedad y actualizacion manual.** `sources[].fetchedAt` es cuando se descargo el
     catalogo de cada emisor (no cuando se consulto). Con `refresh=true` se vuelven a descargar
@@ -207,7 +209,21 @@ paths:
                 status: degraded
                 version: 2.0.0
                 uptimeSeconds: 3600
-                cache: { enabled: true, ttlSeconds: 1800, refreshMinAgeSeconds: 300 }
+                cache:
+                  enabled: true
+                  ttlSeconds: 79200
+                  refreshMinAgeSeconds: 300
+                  schedule:
+                    enabled: true
+                    time: '09:00'
+                    timeZone: America/Santiago
+                    nextRunAt: '2026-11-13T12:00:00.000Z'
+                    lastRun:
+                      trigger: scheduled
+                      startedAt: '2026-11-12T12:00:00.000Z'
+                      finishedAt: '2026-11-12T12:00:18.000Z'
+                      status: partial
+                      failed: [bancochile]
                 sources:
                   - key: copec
                     bank: Copec Pay
@@ -676,13 +692,53 @@ components:
           type: object
           properties:
             enabled: { type: boolean }
-            ttlSeconds: { type: integer }
+            ttlSeconds:
+              type: integer
+              description: |
+                Cuantos segundos duraria un catalogo descargado en este momento: hasta la proxima
+                actualizacion programada mas 1 h de margen (86400 si no hay actualizacion
+                programada; 0 si la cache esta desactivada). Ya no es un valor fijo.
             refreshMinAgeSeconds:
               type: integer
               description: Antiguedad minima de un catalogo para que `refresh=true` lo vuelva a descargar.
+            schedule:
+              $ref: '#/components/schemas/RefreshSchedule'
         sources:
           type: array
           items: { $ref: '#/components/schemas/SourceStatus' }
+    RefreshSchedule:
+      type: object
+      description: |
+        Actualizacion diaria programada: a la hora `time` de `timeZone` se vuelven a descargar
+        todos los catalogos. Con `enabled: false` (desactivada o sin cache), los demas campos van
+        en null.
+      required: [enabled, time, timeZone, nextRunAt, lastRun]
+      properties:
+        enabled: { type: boolean }
+        time: { type: string, nullable: true, example: '09:00', description: Hora del dia (HH:MM). }
+        timeZone: { type: string, nullable: true, example: America/Santiago }
+        nextRunAt:
+          type: string
+          format: date-time
+          nullable: true
+          description: Proxima ejecucion (UTC). null si el scheduler no esta corriendo.
+        lastRun:
+          type: object
+          nullable: true
+          description: Ultima ejecucion desde que inicio el proceso. null si aun no hubo ninguna.
+          required: [trigger, startedAt, finishedAt, status, failed]
+          properties:
+            trigger: { type: string, example: scheduled }
+            startedAt: { type: string, format: date-time }
+            finishedAt: { type: string, format: date-time }
+            status:
+              type: string
+              enum: [ok, partial, error]
+              description: '`partial`: fallaron algunos emisores (siguen con su catalogo anterior).'
+            failed:
+              type: array
+              items: { type: string }
+              description: Keys de los emisores que fallaron.
     ErrorResponse:
       type: object
       required: [error]

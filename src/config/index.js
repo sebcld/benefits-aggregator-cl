@@ -3,6 +3,7 @@
 const path = require('path');
 const { readEnvFile } = require('./env-file');
 const { parseApiKeys } = require('./api-keys');
+const { parseClockTime } = require('../shared/dates');
 const { ConfigError } = require('../domain/errors');
 const { LEVELS } = require('../shared/logger');
 
@@ -10,7 +11,10 @@ const DEFAULT_ENV_PATH = path.resolve(__dirname, '..', '..', '.env');
 
 const DEFAULTS = Object.freeze({
   PORT: 3000,
-  CACHE_TTL_SECONDS: 1800, // 30 min; 0 desactiva la cache
+  // Ya no define cuanto dura la cache (ADR 0024: hasta la actualizacion programada). Solo 0 tiene
+  // efecto: desactiva la cache. Se mantiene por compatibilidad con .env existentes.
+  CACHE_TTL_SECONDS: 1800,
+  REFRESH_TIME: '09:00', // hora diaria (Chile) de la actualizacion programada; "off" la desactiva
   CACHE_REFRESH_MIN_AGE_SECONDS: 300, // 5 min: antiguedad minima para forzar la actualizacion
   HTTP_TIMEOUT_MS: 20000, // por peticion HTTP a un emisor
   PROVIDER_TIMEOUT_MS: 60000, // por emisor completo (incluye paginacion y pausas)
@@ -76,14 +80,18 @@ function loadConfig({ env = process.env, envFilePath = DEFAULT_ENV_PATH } = {}) 
     bciSubscriptionKey: read.raw('BCI_SUBSCRIPTION_KEY'),
     // Opcional: sube el limite de uso de r.jina.ai (proxy usado para Banco de Chile).
     jinaApiKey: read.raw('JINA_API_KEY'),
+    // Solo para compatibilidad: 0 desactiva la cache; otro valor ya no cambia nada (ADR 0024).
     cacheTtlSeconds: read.integer('CACHE_TTL_SECONDS', DEFAULTS.CACHE_TTL_SECONDS),
+    // Hora diaria (Chile, "HH:MM") de la actualizacion programada; null = desactivada ("off").
+    refreshTime: readRefreshTime(read.raw('REFRESH_TIME') || DEFAULTS.REFRESH_TIME, problems),
     // /v1/search?refresh=true solo vuelve a descargar catalogos con al menos esta antiguedad.
     cacheRefreshMinAgeSeconds: read.integer(
       'CACHE_REFRESH_MIN_AGE_SECONDS',
       DEFAULTS.CACHE_REFRESH_MIN_AGE_SECONDS,
     ),
-    // true = el servidor descarga los catalogos al iniciar (la primera busqueda ya es rapida).
-    cacheWarmup: read.boolean('CACHE_WARMUP', false),
+    // true = el servidor descarga los catalogos al iniciar (carga inicial: la cache esta en
+    // memoria y arranca vacia). false solo tiene sentido en desarrollo.
+    cacheWarmup: read.boolean('CACHE_WARMUP', true),
     httpTimeoutMs: read.integer('HTTP_TIMEOUT_MS', DEFAULTS.HTTP_TIMEOUT_MS),
     providerTimeoutMs: read.integer('PROVIDER_TIMEOUT_MS', DEFAULTS.PROVIDER_TIMEOUT_MS),
     corsOrigins: read.list('CORS_ORIGINS'),
@@ -96,7 +104,24 @@ function loadConfig({ env = process.env, envFilePath = DEFAULT_ENV_PATH } = {}) 
     throw new ConfigError(`Configuracion invalida: ${problems.join('; ')}`, { details: problems });
   }
 
-  return Object.freeze(config);
+  // Avisos que no detienen el inicio: el servidor los deja en el log (config_warning).
+  const warnings = [];
+  if (read.raw('CACHE_TTL_SECONDS') && config.cacheTtlSeconds > 0) {
+    warnings.push(
+      'CACHE_TTL_SECONDS ya no define cuanto dura la cache: dura hasta la actualizacion ' +
+        'programada (REFRESH_TIME). Solo CACHE_TTL_SECONDS=0 tiene efecto (desactiva la cache).',
+    );
+  }
+
+  return Object.freeze({ ...config, warnings: Object.freeze(warnings) });
+}
+
+// "09:00" -> "09:00"; "off" -> null. Cualquier otra cosa es un error de configuracion.
+function readRefreshTime(value, problems) {
+  if (value.toLowerCase() === 'off') return null;
+  if (parseClockTime(value)) return value;
+  problems.push(`REFRESH_TIME debe ser una hora HH:MM (00:00 a 23:59) u "off" (recibido "${value}")`);
+  return null;
 }
 
 module.exports = { loadConfig, DEFAULTS, DEFAULT_ENV_PATH };

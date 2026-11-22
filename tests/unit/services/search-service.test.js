@@ -54,6 +54,39 @@ test('listAll: filtra por emisor y un emisor caido queda en errors', async () =>
   assert.equal(onlyOk.sources.length, 1);
 });
 
+test('refreshAll descarga de nuevo todos los emisores (sin antiguedad minima) y omite las entradas', async () => {
+  const a = fakeProvider({ key: 'a', name: 'A' });
+  const down = fakeProvider({ key: 'down', name: 'Down', fail: new Error('caido') });
+  const { searchService } = appWith([a.provider, down.provider]);
+  await searchService.search('rappi');
+  const sources = await searchService.refreshAll();
+  assert.equal(a.calls(), 2); // la busqueda y la actualizacion, aunque el catalogo sea reciente
+  assert.deepEqual(
+    sources.map((s) => [s.key, s.status, 'entries' in s]),
+    [
+      ['a', 'ok', false],
+      ['down', 'error', false],
+    ],
+  );
+});
+
+test('con REFRESH_TIME un catalogo dura hasta la proxima actualizacion mas 1 h de margen', () => {
+  // FIXED_NOW = 12:00 en Chile: la proxima ejecucion de las 09:00 es en 21 h, mas 1 h de margen.
+  const scheduled = createFixtureApp({ env: { REFRESH_TIME: '09:00' } });
+  assert.equal(scheduled.cacheTtlSecondsNow(), 22 * 3600);
+  assert.ok(scheduled.refreshScheduler);
+  assert.equal(scheduled.refreshScheduler.status().nextRunAt, null); // creado, pero no arrancado
+
+  const unscheduled = createFixtureApp(); // TEST_ENV: REFRESH_TIME=off
+  assert.equal(unscheduled.cacheTtlSecondsNow(), 24 * 3600);
+  assert.equal(unscheduled.refreshScheduler, null);
+
+  const noCache = createFixtureApp({ env: { REFRESH_TIME: '09:00', CACHE_TTL_SECONDS: '0' } });
+  assert.equal(noCache.cache, null);
+  assert.equal(noCache.refreshScheduler, null);
+  assert.equal(noCache.cacheTtlSecondsNow(), 0);
+});
+
 test('consulta vacia lanza ValidationError MISSING_QUERY', async () => {
   const { searchService } = appWith([fakeProvider({}).provider]);
   await assert.rejects(searchService.search(''), (err) => {
