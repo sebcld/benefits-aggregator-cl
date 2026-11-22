@@ -56,7 +56,7 @@ npm start                            # http://localhost:3000
   ```
 - **Errores de `/v1`:** `{ "error": { "code", "message", "details"? } }` con el status correcto (400, 401, 404, 405, 413).
 - **Resultado parcial:** si un emisor falla, la respuesta incluye `errors` y `meta.partial: true`.
-- **Caché:** los catálogos se guardan en memoria 30 min (`CACHE_TTL_SECONDS`). La primera búsqueda puede tardar 10-20 s; las siguientes, milisegundos. Con `CACHE_WARMUP=true` el servidor los precarga al iniciar.
+- **Caché y actualización diaria:** los catálogos se guardan en memoria y se vuelven a descargar todos una vez al día, a la hora `REFRESH_TIME` de Chile (por defecto `09:00`). Duran hasta esa ejecución más 1 h de margen, así que las búsquedas responden en milisegundos. Al iniciar (o reiniciar con PM2), el servidor carga la caché (`CACHE_WARMUP=true`, por defecto), lo que tarda 10-20 s. `/v1/health` informa la próxima ejecución y el resultado de la última en `cache.schedule` ([ADR 0024](docs/adr/0024-actualizacion-diaria-programada.md)).
 - **Antigüedad y actualización manual:** cada emisor informa en `sources[].fetchedAt` cuándo se descargó su catálogo. `refresh=true` (o `"refresh": true` en el POST) vuelve a descargar los catálogos con al menos 5 min de antigüedad (`CACHE_REFRESH_MIN_AGE_SECONDS`), y `meta.refreshableAt` indica desde cuándo tiene efecto. En la web es el botón "Actualizar" bajo los resultados.
 
 ### Web
@@ -104,7 +104,9 @@ Se definen en `.env` (plantilla con todas las opciones: [`.env.example`](.env.ex
 | `API_KEYS` | vacío (sin autenticación) | Llaves de los clientes, `web:<llave>,movil:<llave>` (mínimo 32 caracteres). **Obligatoria en producción** |
 | `PORT` | `3000` | Puerto de la API |
 | `LOG_LEVEL` | servidor `info`, CLI `silent` | `debug`, `info`, `warn`, `error` o `silent` (JSON en stderr) |
-| `CACHE_TTL_SECONDS` / `CACHE_WARMUP` | `1800` / `false` | Caché del servidor |
+| `REFRESH_TIME` | `09:00` | Hora de Chile (`HH:MM`) de la actualización diaria de todos los catálogos; `off` la desactiva (entonces un catálogo dura 24 h) |
+| `CACHE_WARMUP` | `true` | Carga la caché al iniciar |
+| `CACHE_TTL_SECONDS` | vacío | **Obsoleta:** ya no define cuánto dura la caché. Solo `0` tiene efecto (desactiva la caché y la actualización diaria) |
 | `CACHE_REFRESH_MIN_AGE_SECONDS` | `300` | Antigüedad mínima para que `refresh=true` vuelva a descargar un catálogo (`0` = sin mínimo) |
 | `HTTP_TIMEOUT_MS` / `PROVIDER_TIMEOUT_MS` | `20000` / `60000` | Timeouts del servidor |
 | `CORS_ORIGINS` | vacío (desactivado) | Orígenes permitidos o `*` |
@@ -114,7 +116,7 @@ Se definen en `.env` (plantilla con todas las opciones: [`.env.example`](.env.ex
 ## Desarrollo
 
 ```bash
-npm test                 # 241 tests con node:test, sin internet (fixtures reales grabados)
+npm test                 # 364 tests con node:test, sin internet (fixtures reales grabados)
 npm run lint             # sintaxis + reglas de arquitectura (sin dependencias)
 npm run check            # lint + test
 npm run smoke            # casos de aceptación EN VIVO contra las fuentes reales

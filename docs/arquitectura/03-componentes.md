@@ -5,7 +5,8 @@ Cómo se conectan en tiempo de ejecución las piezas que arma `createApp()` en `
 ```mermaid
 flowchart LR
   controller["search.controller<br/>health.controller"]
-  search["search-service<br/>search, warmUp"]
+  search["search-service<br/>search, listAll, warmUp, refreshAll"]
+  scheduler["refresh-scheduler<br/>diario a REFRESH_TIME"]
   registry["registry<br/>providers/index.js"]
   runner["provider-runner<br/>run, fetchEntries"]
   matcher["matcher<br/>matchesQuery"]
@@ -19,6 +20,8 @@ flowchart LR
 
   controller --> search
   controller -->|"/v1/health"| status
+  controller -->|"status()"| scheduler
+  scheduler -->|"refreshAll()"| search
   search -->|"select(banks)"| registry
   search -->|"run(provider)"| runner
   search -->|"filtra"| matcher
@@ -41,6 +44,7 @@ flowchart LR
 | Componente | Archivo | Hace | No hace |
 |---|---|---|---|
 | `search-service` | `src/services/search-service.js` | Elige emisores, los corre en paralelo (`Promise.all` sobre `runner.run`), filtra y arma `{ matches, errors, sources }` | Conocer emisores concretos |
+| `refresh-scheduler` | `src/services/refresh-scheduler.js` | Timer nativo hasta la próxima `REFRESH_TIME` de Chile; llama a `refreshAll` (sin solapar), guarda `lastRun` y reprograma ([ADR 0024](../adr/0024-actualizacion-diaria-programada.md)). Solo lo arranca `src/server.js` | Decidir cuánto dura la caché (eso lo define `bootstrap.js`) |
 | `provider-runner` | `src/services/provider-runner.js` | Caché, deduplicación de peticiones en curso, timeout por emisor, estados `ok`/`empty`/`error`, log | Parsear datos |
 | `registry` | `src/providers/index.js` | Lista ordenada de providers, `get`, `find` y `select` por nombre o `key` | Ejecutar providers |
 | `CacheStore` | `src/shared/cache/` | `get`, `set` (con TTL), `delete` y `clear`, asíncronos | Decidir qué se cachea |

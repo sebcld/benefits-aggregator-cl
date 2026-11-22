@@ -15,7 +15,7 @@ El navegador solo habla con la web. La web llama a la API desde su servidor, a t
 
 ## Tres reglas antes de elegir dónde
 
-1. **La API tiene que ser un proceso que siga vivo.** Guarda los catálogos en memoria (`CACHE_TTL_SECONDS`), y una descarga completa tarda unos 10-20 s y decenas de peticiones a las fuentes (más de 100 con Entel, que pide la ficha de cada beneficio). En un entorno serverless, como las funciones de Vercel, cada instancia nueva parte con la caché vacía y vuelve a descargar todo. Por eso la API va en un *web service* (Render, Railway, Fly.io) o en un servidor propio, **no en Vercel**. La web sí funciona bien en Vercel.
+1. **La API tiene que ser un proceso que siga vivo.** Guarda los catálogos en memoria y los vuelve a descargar una vez al día a la hora `REFRESH_TIME` ([ADR 0024](adr/0024-actualizacion-diaria-programada.md)), con un timer del propio proceso. Una descarga completa tarda unos 10-20 s y decenas de peticiones a las fuentes (más de 100 con Entel, que pide la ficha de cada beneficio). En un entorno serverless, como las funciones de Vercel, cada instancia nueva parte con la caché vacía y vuelve a descargar todo. Por eso la API va en un *web service* (Render, Railway, Fly.io) o en un servidor propio, **no en Vercel**. La web sí funciona bien en Vercel.
 2. **Configura siempre la API key** ([ADR 0014](adr/0014-autenticacion-con-api-key.md)). Con `API_KEYS` en la API y la misma llave en `BENEFITS_API_KEY` de la web, la API responde **401** a cualquiera que no sea la web, aunque su URL sea pública. Solo `GET /health` queda abierto, para el health check de la plataforma. Sin `API_KEYS`, la API responde a cualquiera (el log lo avisa al iniciar). Si además puedes dejar la API en una red privada (Render, Docker) o detrás de un firewall, mejor: son dos capas.
 3. **Node 26.** El repo lo fija en `.nvmrc` y en `engines`. Confírmalo en cada plataforma (abajo se indica dónde).
 
@@ -27,7 +27,9 @@ El navegador solo habla con la web. La web llama a la API desde su servidor, a t
 | **B** | Render | Render (private service) | Todo en un lugar, con la API sin URL pública | Dos servicios de pago |
 | **C** | Servidor propio | Servidor propio | Control total y costo fijo | Mantener tú el sistema operativo, HTTPS y actualizaciones |
 
-**El plan gratis de Render no sirve para la API.** El servicio se apaga tras 15 minutos sin tráfico y tarda alrededor de un minuto en volver. Además, al apagarse se pierde la caché, así que la primera búsqueda después espera ese minuto más los 10-20 s de descarga. Para probar sirve; para usarlo de verdad, un plan pago.
+**El plan gratis de Render no sirve para la API.** El servicio se apaga tras 15 minutos sin tráfico y tarda alrededor de un minuto en volver. Además, al apagarse se pierde la caché, así que la primera búsqueda después espera ese minuto más los 10-20 s de descarga, y la actualización de las 09:00 no corre si el servicio está dormido. Para probar sirve; para usarlo de verdad, un plan pago.
+
+**Una sola instancia de la API.** Cada instancia tiene su propia caché y su propia actualización diaria: con dos, las fuentes reciben el doble de descargas. Si usas PM2, déjalo en modo `fork` con una instancia (no `-i max` ni modo `cluster`).
 
 ## Variables de entorno
 
@@ -39,8 +41,9 @@ La lista completa está en [`.env.example`](../.env.example). Para producción:
 |---|---|---|
 | `API_KEYS` | `web:<llave>` | **Obligatoria en producción.** Sin llave válida, todo responde 401 salvo `GET /health`. Mínimo 32 caracteres. Es un secreto |
 | `BCI_SUBSCRIPTION_KEY` | la llave de BCI | **Obligatoria**; sin ella, BCI sale "no disponible". Es un secreto: va en la configuración de la plataforma, nunca en el repo |
-| `CACHE_TTL_SECONDS` | `7200` | 2 horas, igual que la caché de "Destacados de hoy" de la web |
-| `CACHE_WARMUP` | `true` | Descarga los catálogos al iniciar, así la primera búsqueda ya es rápida |
+| `REFRESH_TIME` | `09:00` (por defecto) | Hora de Chile a la que se vuelven a descargar todos los catálogos. La caché dura hasta esa hora del día siguiente (más 1 h de margen). `/v1/health` muestra la próxima ejecución y el resultado de la última (`cache.schedule`) |
+| `CACHE_WARMUP` | `true` (por defecto) | Descarga los catálogos al iniciar o reiniciar, así la primera búsqueda ya es rápida |
+| `CACHE_TTL_SECONDS` | vacía | **Obsoleta.** Si tu `.env` todavía tiene `7200`, bórrala: ya no tiene efecto y el log lo avisa (`config_warning`). Solo `0` hace algo: desactiva la caché |
 | `CACHE_REFRESH_MIN_AGE_SECONDS` | `300` (por defecto) | El botón "Actualizar" puede volver a descargar como mucho cada 5 min por emisor |
 | `LOG_LEVEL` | `info` (por defecto en el servidor) | Logs JSON en stderr |
 | `JINA_API_KEY` | opcional | Sube el límite de uso de `r.jina.ai` (Banco de Chile) |
@@ -87,7 +90,7 @@ La lista completa está en [`web/.env.example`](../web/.env.example).
    - **Start Command:** `npm start`.
    - **Health Check Path:** `/health`. Es la única ruta sin llave: `/v1/health` responde 401 sin ella y Render marcaría el servicio como caído.
    - **Instance type:** uno pago (ver la nota sobre el plan gratis).
-3. En **Environment**, agrega `NODE_VERSION=26` (así no depende de qué archivo lea Render), `API_KEYS=web:<llave>`, `BCI_SUBSCRIPTION_KEY`, `CACHE_TTL_SECONDS=7200` y `CACHE_WARMUP=true`. `PORT` lo pone Render.
+3. En **Environment**, agrega `NODE_VERSION=26` (así no depende de qué archivo lea Render), `API_KEYS=web:<llave>` y `BCI_SUBSCRIPTION_KEY`. `REFRESH_TIME` (09:00) y `CACHE_WARMUP` (`true`) ya vienen por defecto. `PORT` lo pone Render.
 4. Al terminar el deploy, anota la URL (`https://<nombre>.onrender.com`) y prueba:
 
    ```bash
@@ -151,7 +154,7 @@ cd web && sudo -u beneficios npm ci && sudo -u beneficios npm run build
 ```
 
 **2. Variables.** Créalas como el usuario `beneficios` y con permisos `600`, porque tienen secretos:
-- `/opt/beneficios/app/.env`: `API_KEYS=web:<llave>`, `BCI_SUBSCRIPTION_KEY=...`, `CACHE_TTL_SECONDS=7200` y `CACHE_WARMUP=true`. La API lo lee sola.
+- `/opt/beneficios/app/.env`: `API_KEYS=web:<llave>` y `BCI_SUBSCRIPTION_KEY=...` (`REFRESH_TIME=09:00` y `CACHE_WARMUP=true` vienen por defecto). La API lo lee sola.
 - `/opt/beneficios/app/web/.env.production.local`: `BENEFITS_API_URL=http://127.0.0.1:3000` y `BENEFITS_API_KEY=<llave>`. Next lo carga al iniciar. `NEXT_PUBLIC_CONTACT_URL` tiene que estar **antes** del build.
 
 **3. Servicios de systemd**
@@ -240,7 +243,7 @@ cd web && sudo -u beneficios npm ci && sudo -u beneficios npm run build
 sudo systemctl restart beneficios-api beneficios-web
 ```
 
-Al reiniciar, la API pierde la caché. Con `CACHE_WARMUP=true` la vuelve a llenar en unos 10-20 s.
+Al reiniciar (con systemd, PM2 o Docker), la API pierde la caché y la vuelve a llenar sola en unos 10-20 s (`CACHE_WARMUP=true`, por defecto). La actualización diaria se vuelve a programar al iniciar: el log lo confirma con `scheduled_refresh_planned`, y cada ejecución deja `scheduled_refresh_done` (con `status` y los emisores que fallaron) o `scheduled_refresh_failed`.
 
 ### C2. Docker Compose
 
@@ -296,7 +299,7 @@ node_modules
 services:
   api:
     build: .
-    env_file: .env            # API_KEYS=web:<llave>, BCI_SUBSCRIPTION_KEY, CACHE_TTL_SECONDS=7200, CACHE_WARMUP=true
+    env_file: .env            # API_KEYS=web:<llave>, BCI_SUBSCRIPTION_KEY (REFRESH_TIME=09:00 por defecto)
     restart: unless-stopped
     # Sin "ports": la API solo es visible para la web, dentro de la red de Compose.
     healthcheck:
@@ -355,7 +358,8 @@ Si el servidor está detrás del router de tu casa, puedes evitar abrir puertos 
 | La API no arranca: `API_KEYS: la llave de "web" debe tener al menos 32 caracteres` | Llave demasiado corta | Genera una con el comando de [Variables de entorno](#api-raíz-del-repo) |
 | La plataforma marca la API como caída | El health check apunta a una ruta con llave (`/v1/health`) | Usa `/health` |
 | "BCI no disponible" | Falta `BCI_SUBSCRIPTION_KEY` o la llave cambió ([riesgo #6](RIESGOS.md)) | Revisa la variable; si responde 401 o 403, consigue la llave nueva |
-| La primera búsqueda tarda 10-20 s o más | Caché vacía: recién iniciada o vencida | `CACHE_WARMUP=true`. En Render gratis, además, el servicio se durmió |
+| La primera búsqueda tarda 10-20 s o más | Caché vacía: recién iniciada, o un emisor falló en la actualización diaria y su catálogo venció | `CACHE_WARMUP=true` (por defecto). Revisa `cache.schedule.lastRun` en `/v1/health`. En Render gratis, además, el servicio se durmió |
+| Los datos no cambian desde ayer | La actualización diaria es a las `REFRESH_TIME` (09:00) | Botón "Actualizar" de la web, o revisa `cache.schedule.nextRunAt` en `/v1/health` |
 | Render no marca la web como lista | La web escucha en 3001 y Render espera `$PORT` | Start Command `npx next start -p $PORT` |
 | El build en Vercel no encuentra `package.json` | Root Directory sin configurar | Root Directory = `web` |
 | Las páginas cargan de golpe al final, en vez de por partes | El proxy está acumulando la respuesta (buffering) | Caddy: `flush_interval -1`; nginx: `proxy_buffering off;` |

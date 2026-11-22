@@ -2,9 +2,9 @@
 
 Cada ADR documenta **una** decisión: el contexto, las alternativas, lo que se decidió y sus consecuencias. Formato [MADR](https://adr.github.io/madr/), numeración correlativa y un archivo por decisión.
 
-- **Aceptado:** ya está en el código. El 0014, el 0018, el 0020, el 0022 y el 0023 se aceptaron al implementarse. Los ADR 0001 a 0013 son **retroactivos**: se redactaron después de implementar, a partir del código, el historial de git y `docs/CHANGELOG_REFACTOR.md`. Las alternativas descartadas salen de lo que se evaluó durante el trabajo. Las marcadas como *(reconstruida)* son alternativas razonables que no hay registro de que se evaluaran en su momento: se agregaron para que el ADR explique por qué la decisión tomada es mejor.
+- **Aceptado:** ya está en el código. El 0014, el 0018, el 0020, el 0022, el 0023 y el 0024 se aceptaron al implementarse. Los ADR 0001 a 0013 son **retroactivos**: se redactaron después de implementar, a partir del código, el historial de git y `docs/CHANGELOG_REFACTOR.md`. Las alternativas descartadas salen de lo que se evaluó durante el trabajo. Las marcadas como *(reconstruida)* son alternativas razonables que no hay registro de que se evaluaran en su momento: se agregaron para que el ADR explique por qué la decisión tomada es mejor.
 - **Propuesto:** todavía **no** está decidido ni implementado. Necesita aprobación antes de aplicarse.
-- **Reemplazado:** sustituido por otro ADR, que se enlaza. Hoy no hay ninguno.
+- **Reemplazado:** sustituido por otro ADR, que se enlaza. Hoy, el 0017 (por el 0024).
 
 ## Índice
 
@@ -26,13 +26,14 @@ Cada ADR documenta **una** decisión: el contexto, las alternativas, lo que se d
 | [0014](0014-autenticacion-con-api-key.md) | Autenticación de la API con API key | Aceptado | 2026-11-13 |
 | [0015](0015-rate-limiting.md) | Rate limiting | **Propuesto** | 2026-11-12 |
 | [0016](0016-cachestore-compartido-en-redis.md) | `CacheStore` compartido en Redis | **Propuesto** | 2026-11-12 |
-| [0017](0017-warm-up-programado-y-stale-while-revalidate.md) | Warm-up programado y stale-while-revalidate | **Propuesto** | 2026-11-12 |
+| [0017](0017-warm-up-programado-y-stale-while-revalidate.md) | Warm-up programado y stale-while-revalidate | Reemplazado por [0024](0024-actualizacion-diaria-programada.md) | 2026-11-12 |
 | [0018](0018-futuro-de-mercado-pago.md) | Futuro de Mercado Pago como emisor | Aceptado | 2026-11-12 |
 | [0019](0019-eslint-y-prettier.md) | ESLint y Prettier como devDependencies | **Propuesto** | 2026-11-12 |
 | [0020](0020-actualizacion-a-node-26-y-ci.md) | Actualización a Node 26 (LTS) e integración continua | Aceptado | 2026-11-12 |
 | [0021](0021-acceso-a-banco-de-chile-sin-proxy-gratuito.md) | Acceso a Banco de Chile sin depender de un proxy gratuito | **Propuesto** | 2026-11-12 |
 | [0022](0022-web-nextjs-con-bff.md) | Web en Next.js con Route Handlers como BFF | Aceptado | 2026-11-12 |
 | [0023](0023-listado-completo-en-endpoint-propio.md) | Listado completo de beneficios en un endpoint propio | Aceptado | 2026-11-13 |
+| [0024](0024-actualizacion-diaria-programada.md) | Actualización diaria programada de los catálogos | Aceptado | 2026-11-22 |
 
 ```mermaid
 flowchart LR
@@ -47,7 +48,8 @@ flowchart LR
   a0007 --> a0023
   a0007 --> a0008["0008 CLI sin cache"]
   a0007 -.-> p0016["0016 Redis"]
-  a0007 -.-> p0017["0017 Warm-up"]
+  a0007 --> a0024["0024 Actualizacion diaria"]
+  r0017["0017 Warm-up (reemplazado)"] -.->|reemplazado por| a0024
   a0006 --> a0014["0014 API key"]
   a0022 --> a0014
   a0014 -.-> p0015["0015 Rate limiting"]
@@ -55,14 +57,17 @@ flowchart LR
   a0013 -.-> p0019["0019 ESLint"]
 
   classDef propuesto fill:#f5f5f5,stroke:#9e9e9e,stroke-dasharray:5 5,color:#555555
-  class p0015,p0016,p0017,p0019,p0021 propuesto
+  classDef reemplazado fill:#fafafa,stroke:#bdbdbd,color:#9e9e9e
+  class p0015,p0016,p0019,p0021 propuesto
+  class r0017 reemplazado
 ```
 
 **Leyenda del grafo**
 - **Flecha continua:** un ADR aceptado se apoya en otro.
 - **Flecha punteada hacia una caja gris:** ADR propuesto que extiende o revisa uno aceptado.
 - 0004, 0009, 0010, 0011 y 0018 no aparecen porque no dependen de otros ADR.
-- 0020 reemplaza solo la versión mínima de Node de 0002.
+- 0020 reemplaza solo la versión mínima de Node de 0002, y 0024 solo la expiración por TTL fijo de 0007.
+- **Caja tenue:** ADR reemplazado (0017, por 0024).
 
 ## Cómo agregar un ADR
 

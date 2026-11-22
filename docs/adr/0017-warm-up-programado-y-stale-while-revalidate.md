@@ -1,6 +1,6 @@
 # 0017. Warm-up programado y stale-while-revalidate
 
-- **Estado:** **Propuesto** (no implementado)
+- **Estado:** Reemplazado por [0024](0024-actualizacion-diaria-programada.md) (actualización diaria a hora fija con un timer interno y carga inicial al arrancar). Stale-while-revalidate no se implementó: con la caché vigente hasta la próxima ejecución, deja de hacer falta.
 - **Fecha:** 2026-11-12
 - **Relación:** extiende [0007](0007-cache-en-memoria-detras-de-cachestore.md); se potencia con [0016](0016-cachestore-compartido-en-redis.md)
 

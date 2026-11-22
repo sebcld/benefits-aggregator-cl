@@ -1,8 +1,8 @@
 # 0007. Caché en memoria por emisor detrás de `CacheStore`
 
-- **Estado:** Aceptado
+- **Estado:** Aceptado. La expiración por TTL fijo (`CACHE_TTL_SECONDS`) quedó **reemplazada por [0024](0024-actualizacion-diaria-programada.md)** (la caché dura hasta la actualización diaria programada); el resto sigue vigente.
 - **Fecha:** 2026-11-12
-- **Relación:** depende de [0001](0001-arquitectura-por-capas-con-composition-root.md); acotado por [0008](0008-cli-y-fachada-sin-cache-ni-timeouts.md); lo extenderían [0016](0016-cachestore-compartido-en-redis.md) y [0017](0017-warm-up-programado-y-stale-while-revalidate.md)
+- **Relación:** depende de [0001](0001-arquitectura-por-capas-con-composition-root.md); acotado por [0008](0008-cli-y-fachada-sin-cache-ni-timeouts.md); extendido por [0024](0024-actualizacion-diaria-programada.md); lo extendería [0016](0016-cachestore-compartido-en-redis.md)
 
 ## Contexto
 
