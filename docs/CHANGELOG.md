@@ -2,6 +2,22 @@
 
 Lo que cambió después del refactor 2.0.0 (para el refactor, ver [CHANGELOG_REFACTOR.md](CHANGELOG_REFACTOR.md)). Lo más reciente va arriba. Cada entrada dice qué cambia para quien usa la web o la API y dónde está el detalle.
 
+## 2026-11-22: actualización diaria programada
+
+### Caché hasta la actualización diaria de las 09:00, en vez de un TTL de horas, `f5d0d60`
+
+- **Antes:** cada catálogo vencía a los 30 min (`CACHE_TTL_SECONDS`; 2 h en el despliegue recomendado). Al vencer, el siguiente usuario esperaba la descarga completa (10-20 s), varias veces al día.
+- **Ahora:**
+  - **Actualización diaria:** a la hora `REFRESH_TIME` de Chile (por defecto `09:00`) la API vuelve a descargar todos los emisores y renueva la caché. `off` la desactiva.
+  - **Persistencia:** un catálogo dura hasta la próxima ejecución, más 1 h de margen. Si la ejecución falla para un emisor, se sigue sirviendo su catálogo anterior; al vencer el margen, la siguiente búsqueda reintenta.
+  - **Arranque en frío:** `CACHE_WARMUP` pasa a `true` por defecto, así que tras un reinicio (PM2, systemd, un deploy) la caché se carga sola al iniciar.
+  - **Actualización manual:** sin cambios. El botón "Actualizar" (`refresh=true`) sigue con su mínimo de 5 min por emisor y sobrescribe la caché.
+- **API:** `/v1/health` agrega `cache.schedule` (`time`, `timeZone`, `nextRunAt` y `lastRun`, con `status` `ok`, `partial` o `error` y los emisores que fallaron). `cache.ttlSeconds` se mantiene, pero ya no es fijo: dice cuánto duraría un catálogo descargado en ese momento.
+- **Variables:** `CACHE_TTL_SECONDS` queda **obsoleta**. Solo `0` tiene efecto (desactiva la caché); otro valor deja un aviso `config_warning` en el log al iniciar. Si tu `.env` tiene `CACHE_TTL_SECONDS=7200`, bórrala.
+- **Logs nuevos:** `scheduled_refresh_planned`, `scheduled_refresh_done` y `scheduled_refresh_failed`.
+- **Web:** "Destacados de hoy" se recalcula cada hora (antes, cada 2 h), para reflejar pronto la actualización diaria (`93bb435`).
+- **Por qué un timer nativo** y no una biblioteca de cron o un cron externo: [ADR 0024](adr/0024-actualizacion-diaria-programada.md) (`e6ec7aa`). Reemplaza al ADR 0017 (propuesto) y a la expiración por TTL del 0007.
+
 ## 2026-11-13: búsqueda, filtros y tarjetas
 
 ### Filtro "Solo" en el panel de emisores (web, escritorio), `4f4c169`
